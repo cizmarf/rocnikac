@@ -23,62 +23,41 @@
 	<body>
 		<div id='map'></div>
 		<script>
+
+			/**
+			 * @param	file input file
+			 * @desc	read given file, reading local file needs to be allowed in browser
+			 */
+			function readTextFile(file) {
+				var request = new XMLHttpRequest();
+
+				request.onreadystatechange = function () {
+					if (this.readyState === 4) {
+						console.log('Time: ', )
+						console.log('Status: ', this.status);
+						console.log('Body: ', this.responseText);
+
+					}
+				};
+				request.open('GET', file, false);
+				request.send();
+				return request.responseText;
+
+			}
+
+
+
+
 			mapboxgl.accessToken = 'pk.eyJ1IjoiZmlsaXBjaXptYXIiLCJhIjoiY2sxaHp3eHlzMGlmODNkanl2c2tqdTZscSJ9.rujrBlG1rSLuHpFaxxYX9w';
 
 			function setGeojson(begin) {
-				var geojson = {
-					"type": "FeatureCollection",
-					"features": [
-					{
-					"type": "Feature",
-					"properties": {
-					"message": "Foo",
-					"iconSize": [60, 60]
-					},
-					"geometry": {
-					"type": "Point",
-					"coordinates": [
-					-66.324462890625,
-					begin
-					]
-					}
-					},
-					{
-					"type": "Feature",
-					"properties": {
-					"message": "Bar",
-					"iconSize": [50, 50]
-					},
-					"geometry": {
-					"type": "Point",
-					"coordinates": [
-					-61.2158203125,
-					-15.97189158092897
-					]
-					}
-					},
-					{
-					"type": "Feature",
-					"properties": {
-					"message": "Baz",
-					"iconSize": [40, 40]
-					},
-					"geometry": {
-					"type": "Point",
-					"coordinates": [
-					-63.29223632812499,
-					-18.28151823530889
-					]
-					}
-					}
-					]
-					};
+				var geojson = JSON.parse(readTextFile("last_positions"));
+
 				return geojson;
 			}
 
-			var begin = -16.024695711685304
 			var geojson = setGeojson(begin);
-			var elems = new Set();;
+			var elems = new Set();
 
 			var map = new mapboxgl.Map({
 				container: 'map', // container id
@@ -132,7 +111,7 @@
 				.addTo(map);
 				elems.add(elem);
 				});
-			}, 30);
+			}, 10000);
 
 		</script>
 
