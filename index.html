@@ -33,7 +33,7 @@
 
 				request.onreadystatechange = function () {
 					if (this.readyState === 4) {
-						console.log('Time: ', )
+						console.log('Time: ', );
 						console.log('Status: ', this.status);
 						console.log('Body: ', this.responseText);
 
@@ -45,19 +45,81 @@
 
 			}
 
+			function drawShape(geojson) {
+				map.addLayer({
+					"id": lineStringLayerID,
+					"type": "line",
+					"source": {
+						"type": "geojson",
+						"data": geojson
+					},
+					"layout": {
+						"line-join": "round",
+						"line-cap": "round"
+					},
+					"paint": {
+						"line-color": "#BF93E4",
+						"line-width": 5
+					}
+				});
+			}
+
+			function showBusesOnMap() {
+				veh_pos_geojson = JSON.parse(readTextFile("last_positions"));
+				elems.forEach(function(elem) {
+					elem.remove();
+					elems.delete(elem);
+				});
+				veh_pos_geojson.features.forEach(function(marker) {
+					// create a DOM element for the marker
+					var el = document.createElement('div');
+					el.className = 'marker';
+					el.style.backgroundImage = 'url(https://dummyimage.com/' + marker.properties.iconSize.join('x') + '/000c66/ffffff&text=+'+ marker.properties.message +'+)';
+					el.style.width = marker.properties.iconSize[0] + 'px';
+					el.style.height = marker.properties.iconSize[1] + 'px';
+
+					el.addEventListener('click', function() {
+						var shape_geojson = "";
+						console.log("before change");
+						console.log(map.getSource(lineStringLayerID));
+						switch (lineStringLayerID) {
+							case "":
+								shape_geojson = JSON.parse(readTextFile("trips/" + marker.properties.gtfs_trip_id + ".shape"));
+								lineStringLayerID = marker.properties.gtfs_trip_id;
+								drawShape(shape_geojson);
+								break;
+
+							case marker.properties.gtfs_trip_id:
+								map.removeLayer(lineStringLayerID);
+								map.removeSource(lineStringLayerID);
+								lineStringLayerID = "";
+								break;
+
+							default:
+								map.removeLayer(lineStringLayerID);
+								map.removeSource(lineStringLayerID);
+								shape_geojson = JSON.parse(readTextFile("trips/" + marker.properties.gtfs_trip_id + ".shape"));
+								lineStringLayerID = marker.properties.gtfs_trip_id;
+								drawShape(shape_geojson);
+						}
+						console.log("after change");
+						console.log(map.getLayer(lineStringLayerID));
+
+					});
+
+					// add marker to map
+					var elem = new mapboxgl.Marker(el)
+							.setLngLat(marker.geometry.coordinates)
+							.addTo(map);
+					elems.add(elem);
+				});
+			}
 
 
 
 			mapboxgl.accessToken = 'pk.eyJ1IjoiZmlsaXBjaXptYXIiLCJhIjoiY2sxaHp3eHlzMGlmODNkanl2c2tqdTZscSJ9.rujrBlG1rSLuHpFaxxYX9w';
 
-			function setGeojson(begin) {
-				var geojson = JSON.parse(readTextFile("last_positions"));
-
-				return geojson;
-			}
-
-			var geojson = setGeojson(begin);
-			var elems = new Set();
+			lineStringLayerID = "";
 
 			var map = new mapboxgl.Map({
 				container: 'map', // container id
@@ -66,51 +128,14 @@
 				zoom: 10 // starting zoom
 			});
 
-			// add markers to map
-			geojson.features.forEach(function(marker) {
-			// create a DOM element for the marker
-			var el = document.createElement('div');
-			el.className = 'marker';
-			el.style.backgroundImage = 'url(https://placekitten.com/g/' + marker.properties.iconSize.join('/') + '/)';
-			el.style.width = marker.properties.iconSize[0] + 'px';
-			el.style.height = marker.properties.iconSize[1] + 'px';
 
-			el.addEventListener('click', function() {
-			window.alert(marker.properties.message);
-			});
+			var elems = new Set();
 
-			// add marker to map
-			var elem = new mapboxgl.Marker(el)
-			.setLngLat(marker.geometry.coordinates)
-			.addTo(map);
-			elems.add(elem);
-			});
+			showBusesOnMap();
+
 
 			window.setInterval(function(){
-	  			begin = begin + 0.01;
-				geojson = setGeojson(begin);
-				elems.forEach(function(elem) {
-					elem.remove();
-					elems.delete(elem);
-				});
-				geojson.features.forEach(function(marker) {
-				// create a DOM element for the marker
-				var el = document.createElement('div');
-				el.className = 'marker';
-				el.style.backgroundImage = 'url(https://placekitten.com/g/' + marker.properties.iconSize.join('/') + '/)';
-				el.style.width = marker.properties.iconSize[0] + 'px';
-				el.style.height = marker.properties.iconSize[1] + 'px';
-
-				el.addEventListener('click', function() {
-				window.alert(marker.properties.message);
-				});
-
-				// add marker to map
-				var elem = new mapboxgl.Marker(el)
-				.setLngLat(marker.geometry.coordinates)
-				.addTo(map);
-				elems.add(elem);
-				});
+				showBusesOnMap()
 			}, 10000);
 
 		</script>

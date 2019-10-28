@@ -1,0 +1,293 @@
+2019-10-28 00:05:40,021 INFO: Program has started
+2019-10-28 00:05:40,513 INFO: Vehicle positions file updated
+2019-10-28 00:05:40,518 INFO: Shape of trip 226_106_190330 file removed
+2019-10-28 00:05:40,519 INFO: Shape of trip 228_128_180901 file removed
+2019-10-28 00:05:40,519 INFO: Shape of trip 300_523_190824 file removed
+2019-10-28 00:05:40,521 INFO: Shape of trip 353_133_190303 file removed
+2019-10-28 00:05:40,521 INFO: Shape of trip 163_355_180928 file removed
+2019-10-28 00:06:00,513 INFO: Vehicle positions file updated
+2019-10-28 00:06:00,513 INFO: Shape of trip 163_800_190311 file removed
+2019-10-28 00:06:20,044 ERROR: Network error: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+2019-10-28 00:06:40,676 INFO: Vehicle positions file updated
+2019-10-28 00:07:07,850 ERROR: Network error: <urlopen error [Errno 60] Operation timed out>
+2019-10-28 00:07:20,664 INFO: Vehicle positions file updated
+2019-10-28 00:07:20,665 INFO: Shape of trip 155_1563_191021 file removed
+2019-10-28 00:07:40,545 INFO: Vehicle positions file updated
+2019-10-28 00:08:00,529 INFO: Vehicle positions file updated
+2019-10-28 00:08:00,529 INFO: Shape of trip 348_429_190517 file removed
+2019-10-28 00:08:00,529 INFO: Shape of trip 371_231_190303 file removed
+2019-10-28 00:08:00,529 INFO: Shape of trip 339_296_190901 file removed
+2019-10-28 00:08:20,566 INFO: Vehicle positions file updated
+2019-10-28 00:08:40,547 INFO: Vehicle positions file updated
+2019-10-28 00:09:00,626 INFO: Vehicle positions file updated
+2019-10-28 00:09:00,626 INFO: Shape of trip 155_603_190901 file removed
+2019-10-28 00:09:00,626 INFO: Shape of trip 370_117_190727 file removed
+2019-10-28 00:09:00,627 INFO: Shape of trip 321_35_190824 file removed
+2019-10-28 00:09:20,540 INFO: Vehicle positions file updated
+2019-10-28 00:09:40,571 INFO: Vehicle positions file updated
+2019-10-28 00:10:00,531 INFO: Vehicle positions file updated
+2019-10-28 00:10:00,532 INFO: Shape of trip 221_188_190901 file removed
+2019-10-28 00:10:20,682 INFO: Vehicle positions file updated
+2019-10-28 00:10:40,550 INFO: Vehicle positions file updated
+2019-10-28 00:11:00,524 INFO: Vehicle positions file updated
+2019-10-28 00:11:20,581 INFO: Vehicle positions file updated
+2019-10-28 00:11:20,587 INFO: Shape of trip 348_61_190517 file removed
+2019-10-28 00:11:20,587 INFO: Shape of trip 211_27_190901 file removed
+2019-10-28 00:11:20,588 INFO: Shape of trip 461_171_190916 file removed
+2019-10-28 00:11:40,564 INFO: Vehicle positions file updated
+2019-10-28 00:12:00,446 INFO: Vehicle positions file updated
+2019-10-28 00:12:00,446 INFO: Shape of trip 164_634_190901 file removed
+2019-10-28 00:12:20,587 INFO: Vehicle positions file updated
+2019-10-28 00:12:40,556 INFO: Vehicle positions file updated
+2019-10-28 00:12:40,562 INFO: Shape of trip 326_162_190303 file removed
+2019-10-28 00:13:00,440 INFO: Vehicle positions file updated
+2019-10-28 00:13:00,441 INFO: Shape of trip 378_229_190928 file removed
+2019-10-28 00:13:00,441 INFO: Shape of trip 375_971_190929 file removed
+2019-10-28 00:13:00,441 INFO: Shape of trip 666_67_190408 file removed
+2019-10-28 00:13:20,700 INFO: Vehicle positions file updated
+2019-10-28 00:13:40,460 INFO: Vehicle positions file updated
+2019-10-28 00:14:00,534 INFO: Vehicle positions file updated
+2019-10-28 00:14:00,534 INFO: Shape of trip 240_331_191022 file removed
+2019-10-28 00:14:20,472 INFO: Vehicle positions file updated
+2019-10-28 00:14:40,657 INFO: Vehicle positions file updated
+2019-10-28 00:15:00,486 INFO: Vehicle positions file updated
+2019-10-28 00:15:00,487 INFO: Shape of trip 110_88_180501 file removed
+2019-10-28 00:15:21,025 INFO: Vehicle positions file updated
+2019-10-28 00:15:40,574 INFO: Vehicle positions file updated
+2019-10-28 00:16:00,646 INFO: Vehicle positions file updated
+2019-10-28 00:16:00,647 INFO: Shape of trip 333_649_190727 file removed
+2019-10-28 00:16:20,476 INFO: Vehicle positions file updated
+2019-10-28 00:16:40,545 INFO: Vehicle positions file updated
+2019-10-28 00:16:40,545 INFO: Shape of trip 321_10_190907 file removed
+2019-10-28 00:17:00,810 INFO: Vehicle positions file updated
+2019-10-28 00:17:00,811 INFO: Shape of trip 223_74_180731 file removed
+2019-10-28 00:17:00,812 INFO: Shape of trip 339_237_190831 file removed
+2019-10-28 00:17:00,812 INFO: Shape of trip 221_589_190901 file removed
+2019-10-28 00:17:00,812 INFO: Shape of trip 369_404_190916 file removed
+2019-10-28 00:17:00,813 INFO: Shape of trip 223_103_180430 file removed
+2019-10-28 00:17:00,813 INFO: Shape of trip 327_195_191026 file removed
+2019-10-28 00:17:20,719 INFO: Vehicle positions file updated
+2019-10-28 00:17:40,593 INFO: Vehicle positions file updated
+2019-10-28 00:18:00,479 INFO: Vehicle positions file updated
+2019-10-28 00:18:20,582 INFO: Vehicle positions file updated
+2019-10-28 00:18:40,460 INFO: Vehicle positions file updated
+2019-10-28 00:18:40,460 INFO: Shape of trip 390_61_190720 file removed
+2019-10-28 00:18:40,460 INFO: Shape of trip 117_229_190303 file removed
+2019-10-28 00:18:40,466 INFO: Shape of trip 316_18_191021 file removed
+2019-10-28 00:19:00,558 INFO: Vehicle positions file updated
+2019-10-28 00:19:20,482 INFO: Vehicle positions file updated
+2019-10-28 00:19:40,603 INFO: Vehicle positions file updated
+2019-10-28 00:20:00,881 INFO: Vehicle positions file updated
+2019-10-28 00:20:00,887 INFO: Shape of trip 356_76_180501 file removed
+2019-10-28 00:20:20,537 INFO: Vehicle positions file updated
+2019-10-28 00:20:40,503 INFO: Vehicle positions file updated
+2019-10-28 00:21:00,573 INFO: Vehicle positions file updated
+2019-10-28 00:21:20,578 INFO: Vehicle positions file updated
+2019-10-28 00:21:40,613 INFO: Vehicle positions file updated
+2019-10-28 00:22:00,581 INFO: Vehicle positions file updated
+2019-10-28 00:22:00,581 INFO: Shape of trip 627_145_190824 file removed
+2019-10-28 00:22:20,654 INFO: Vehicle positions file updated
+2019-10-28 00:22:40,554 INFO: Vehicle positions file updated
+2019-10-28 00:23:00,597 INFO: Vehicle positions file updated
+2019-10-28 00:23:00,598 INFO: Shape of trip 226_56_190325 file removed
+2019-10-28 00:23:20,534 INFO: Vehicle positions file updated
+2019-10-28 00:23:40,624 INFO: Vehicle positions file updated
+2019-10-28 00:24:00,694 INFO: Vehicle positions file updated
+2019-10-28 00:24:00,701 INFO: Shape of trip 313_281_191001 file removed
+2019-10-28 00:24:00,702 INFO: Shape of trip 302_393_190928 file removed
+2019-10-28 00:24:20,660 INFO: Vehicle positions file updated
+2019-10-28 00:24:40,578 INFO: Vehicle positions file updated
+2019-10-28 00:24:40,578 INFO: Shape of trip 361_91_190718 file removed
+2019-10-28 00:25:00,721 INFO: Vehicle positions file updated
+2019-10-28 00:25:00,721 INFO: Shape of trip 341_502_190901 file removed
+2019-10-28 00:25:20,777 INFO: Vehicle positions file updated
+2019-10-28 00:25:40,639 INFO: Vehicle positions file updated
+2019-10-28 00:25:40,639 INFO: Shape of trip 319_25_181027 file removed
+2019-10-28 00:26:00,713 INFO: Vehicle positions file updated
+2019-10-28 00:26:00,714 INFO: Shape of trip 367_403_190928 file removed
+2019-10-28 00:26:20,542 INFO: Vehicle positions file updated
+2019-10-28 00:26:40,643 INFO: Vehicle positions file updated
+2019-10-28 00:27:00,589 INFO: Vehicle positions file updated
+2019-10-28 00:27:00,594 INFO: Shape of trip 333_630_190727 file removed
+2019-10-28 00:27:20,579 INFO: Vehicle positions file updated
+2019-10-28 00:27:40,735 INFO: Vehicle positions file updated
+2019-10-28 00:28:00,822 INFO: Vehicle positions file updated
+2019-10-28 00:28:20,635 INFO: Vehicle positions file updated
+2019-10-28 00:28:20,635 INFO: Shape of trip 388_5_190824 file removed
+2019-10-28 00:28:40,683 INFO: Vehicle positions file updated
+2019-10-28 00:29:00,830 INFO: Vehicle positions file updated
+2019-10-28 00:29:20,843 INFO: Vehicle positions file updated
+2019-10-28 00:29:41,074 INFO: Vehicle positions file updated
+2019-10-28 00:30:00,732 INFO: Vehicle positions file updated
+2019-10-28 00:30:00,732 INFO: Shape of trip 322_782_190824 file removed
+2019-10-28 00:30:20,914 INFO: Vehicle positions file updated
+2019-10-28 00:30:20,915 INFO: Shape of trip 110_112_180430 file removed
+2019-10-28 00:30:40,770 INFO: Vehicle positions file updated
+2019-10-28 00:30:40,771 INFO: Shape of trip 350_92_191026 file removed
+2019-10-28 00:31:00,669 INFO: Vehicle positions file updated
+2019-10-28 00:31:20,642 INFO: Vehicle positions file updated
+2019-10-28 00:31:40,664 INFO: Vehicle positions file updated
+2019-10-28 00:32:00,744 INFO: Vehicle positions file updated
+2019-10-28 00:32:20,702 INFO: Vehicle positions file updated
+2019-10-28 00:32:40,637 INFO: Vehicle positions file updated
+2019-10-28 00:33:00,751 INFO: Vehicle positions file updated
+2019-10-28 00:33:20,730 INFO: Vehicle positions file updated
+2019-10-28 00:33:40,668 INFO: Vehicle positions file updated
+2019-10-28 00:33:40,668 INFO: Shape of trip 342_22_191024 file removed
+2019-10-28 00:34:00,658 INFO: Vehicle positions file updated
+2019-10-28 00:34:20,636 INFO: Vehicle positions file updated
+2019-10-28 00:34:20,637 INFO: Shape of trip 324_45_191024 file removed
+2019-10-28 00:34:20,637 INFO: Shape of trip 380_76_190929 file removed
+2019-10-28 00:34:40,677 INFO: Vehicle positions file updated
+2019-10-28 00:34:40,682 INFO: Shape of trip 395_72_190901 file removed
+2019-10-28 00:35:00,868 INFO: Vehicle positions file updated
+2019-10-28 00:35:20,718 INFO: Vehicle positions file updated
+2019-10-28 00:35:40,702 INFO: Vehicle positions file updated
+2019-10-28 00:36:00,668 INFO: Vehicle positions file updated
+2019-10-28 00:36:20,706 INFO: Vehicle positions file updated
+2019-10-28 00:36:40,624 INFO: Vehicle positions file updated
+2019-10-28 00:37:00,680 INFO: Vehicle positions file updated
+2019-10-28 00:37:20,645 INFO: Vehicle positions file updated
+2019-10-28 00:37:40,824 INFO: Vehicle positions file updated
+2019-10-28 00:38:00,783 INFO: Vehicle positions file updated
+2019-10-28 00:38:00,789 INFO: Shape of trip 959_2_190901 file removed
+2019-10-28 00:38:20,677 INFO: Vehicle positions file updated
+2019-10-28 00:38:40,722 INFO: Vehicle positions file updated
+2019-10-28 00:39:00,689 INFO: Vehicle positions file updated
+2019-10-28 00:39:20,816 INFO: Vehicle positions file updated
+2019-10-28 00:39:40,736 INFO: Vehicle positions file updated
+2019-10-28 00:40:01,105 INFO: Vehicle positions file updated
+2019-10-28 00:40:01,107 INFO: Shape of trip 240_1582_191022 file removed
+2019-10-28 00:40:20,773 INFO: Vehicle positions file updated
+2019-10-28 00:40:40,941 INFO: Vehicle positions file updated
+2019-10-28 00:41:01,010 INFO: Vehicle positions file updated
+2019-10-28 00:41:01,017 INFO: Shape of trip 383_199_191012 file removed
+2019-10-28 00:41:20,697 INFO: Vehicle positions file updated
+2019-10-28 00:41:40,741 INFO: Vehicle positions file updated
+2019-10-28 00:42:01,022 INFO: Vehicle positions file updated
+2019-10-28 00:42:21,016 INFO: Vehicle positions file updated
+2019-10-28 00:42:40,659 INFO: Vehicle positions file updated
+2019-10-28 00:43:00,730 INFO: Vehicle positions file updated
+2019-10-28 00:43:21,094 INFO: Vehicle positions file updated
+2019-10-28 00:43:40,747 INFO: Vehicle positions file updated
+2019-10-28 00:44:00,927 INFO: Vehicle positions file updated
+2019-10-28 00:44:20,752 INFO: Vehicle positions file updated
+2019-10-28 00:44:41,082 INFO: Vehicle positions file updated
+2019-10-28 00:45:00,936 INFO: Vehicle positions file updated
+2019-10-28 00:45:20,796 INFO: Vehicle positions file updated
+2019-10-28 00:45:40,871 INFO: Vehicle positions file updated
+2019-10-28 00:46:00,749 INFO: Vehicle positions file updated
+2019-10-28 00:46:21,115 INFO: Vehicle positions file updated
+2019-10-28 00:46:40,879 INFO: Vehicle positions file updated
+2019-10-28 00:46:40,879 INFO: Shape of trip 395_184_190901 file removed
+2019-10-28 00:47:00,847 INFO: Vehicle positions file updated
+2019-10-28 00:47:20,785 INFO: Vehicle positions file updated
+2019-10-28 00:47:40,732 INFO: Vehicle positions file updated
+2019-10-28 00:48:00,862 INFO: Vehicle positions file updated
+2019-10-28 00:48:20,792 INFO: Vehicle positions file updated
+2019-10-28 00:48:40,929 INFO: Vehicle positions file updated
+2019-10-28 00:49:00,860 INFO: Vehicle positions file updated
+2019-10-28 00:49:20,895 INFO: Vehicle positions file updated
+2019-10-28 00:49:41,005 INFO: Vehicle positions file updated
+2019-10-28 00:50:01,283 INFO: Vehicle positions file updated
+2019-10-28 00:50:20,968 INFO: Vehicle positions file updated
+2019-10-28 00:50:41,111 INFO: Vehicle positions file updated
+2019-10-28 00:51:00,976 INFO: Vehicle positions file updated
+2019-10-28 00:51:20,740 INFO: Vehicle positions file updated
+2019-10-28 00:51:41,322 INFO: Vehicle positions file updated
+2019-10-28 00:52:00,882 INFO: Vehicle positions file updated
+2019-10-28 00:52:21,056 INFO: Vehicle positions file updated
+2019-10-28 00:52:40,866 INFO: Vehicle positions file updated
+2019-10-28 00:53:00,993 INFO: Vehicle positions file updated
+2019-10-28 00:53:20,767 INFO: Vehicle positions file updated
+2019-10-28 00:53:40,929 INFO: Vehicle positions file updated
+2019-10-28 00:54:00,763 INFO: Vehicle positions file updated
+2019-10-28 00:54:20,864 INFO: Vehicle positions file updated
+2019-10-28 00:54:40,935 INFO: Vehicle positions file updated
+2019-10-28 00:55:01,107 INFO: Vehicle positions file updated
+2019-10-28 00:55:20,871 INFO: Vehicle positions file updated
+2019-10-28 00:55:40,842 INFO: Vehicle positions file updated
+2019-10-28 00:56:01,115 INFO: Vehicle positions file updated
+2019-10-28 00:56:20,875 INFO: Vehicle positions file updated
+2019-10-28 00:56:40,949 INFO: Vehicle positions file updated
+2019-10-28 00:57:01,174 INFO: Vehicle positions file updated
+2019-10-28 00:57:20,889 INFO: Vehicle positions file updated
+2019-10-28 00:57:40,881 INFO: Vehicle positions file updated
+2019-10-28 00:58:01,028 INFO: Vehicle positions file updated
+2019-10-28 00:58:20,790 INFO: Vehicle positions file updated
+2019-10-28 00:58:41,173 INFO: Vehicle positions file updated
+2019-10-28 00:59:00,782 INFO: Vehicle positions file updated
+2019-10-28 00:59:20,931 INFO: Vehicle positions file updated
+2019-10-28 00:59:41,073 INFO: Vehicle positions file updated
+2019-10-28 01:00:01,117 INFO: Vehicle positions file updated
+2019-10-28 01:00:20,897 INFO: Vehicle positions file updated
+2019-10-28 01:00:40,977 INFO: Vehicle positions file updated
+2019-10-28 01:01:01,049 INFO: Vehicle positions file updated
+2019-10-28 01:01:20,916 INFO: Vehicle positions file updated
+2019-10-28 01:01:40,856 INFO: Vehicle positions file updated
+2019-10-28 01:02:01,056 INFO: Vehicle positions file updated
+2019-10-28 01:02:20,955 INFO: Vehicle positions file updated
+2019-10-28 01:02:40,891 INFO: Vehicle positions file updated
+2019-10-28 01:03:00,868 INFO: Vehicle positions file updated
+2019-10-28 01:03:20,927 INFO: Vehicle positions file updated
+2019-10-28 01:03:41,204 INFO: Vehicle positions file updated
+2019-10-28 01:04:00,966 INFO: Vehicle positions file updated
+2019-10-28 01:04:20,849 INFO: Vehicle positions file updated
+2019-10-28 01:04:41,007 INFO: Vehicle positions file updated
+2019-10-28 01:05:00,982 INFO: Vehicle positions file updated
+2019-10-28 01:05:21,151 INFO: Vehicle positions file updated
+2019-10-28 01:05:41,012 INFO: Vehicle positions file updated
+2019-10-28 01:06:00,992 INFO: Vehicle positions file updated
+2019-10-28 01:06:20,948 INFO: Vehicle positions file updated
+2019-10-28 01:06:41,002 INFO: Vehicle positions file updated
+2019-10-28 01:07:01,092 INFO: Vehicle positions file updated
+2019-10-28 01:07:21,027 INFO: Vehicle positions file updated
+2019-10-28 01:07:40,835 INFO: Vehicle positions file updated
+2019-10-28 01:08:00,994 INFO: Vehicle positions file updated
+2019-10-28 01:08:21,170 INFO: Vehicle positions file updated
+2019-10-28 01:08:41,033 INFO: Vehicle positions file updated
+2019-10-28 01:09:01,009 INFO: Vehicle positions file updated
+2019-10-28 01:09:20,968 INFO: Vehicle positions file updated
+2019-10-28 01:09:41,167 INFO: Vehicle positions file updated
+2019-10-28 01:10:01,111 INFO: Vehicle positions file updated
+2019-10-28 01:10:21,078 INFO: Vehicle positions file updated
+2019-10-28 01:10:41,046 INFO: Vehicle positions file updated
+2019-10-28 01:11:01,021 INFO: Vehicle positions file updated
+2019-10-28 01:11:20,984 INFO: Vehicle positions file updated
+2019-10-28 01:11:40,842 INFO: Vehicle positions file updated
+2019-10-28 01:12:01,029 INFO: Vehicle positions file updated
+2019-10-28 01:12:21,157 INFO: Vehicle positions file updated
+2019-10-28 01:12:41,165 INFO: Vehicle positions file updated
+2019-10-28 01:12:41,168 INFO: Shape of trip 360_57_190718 file removed
+2019-10-28 01:13:01,234 INFO: Vehicle positions file updated
+2019-10-28 01:13:21,097 INFO: Vehicle positions file updated
+2019-10-28 01:13:40,965 INFO: Vehicle positions file updated
+2019-10-28 01:14:01,241 INFO: Vehicle positions file updated
+2019-10-28 01:14:21,171 INFO: Vehicle positions file updated
+2019-10-28 01:14:40,911 INFO: Vehicle positions file updated
+2019-10-28 01:15:00,937 INFO: Vehicle positions file updated
+2019-10-28 01:15:21,134 INFO: Vehicle positions file updated
+2019-10-28 01:15:40,925 INFO: Vehicle positions file updated
+2019-10-28 01:16:01,022 INFO: Vehicle positions file updated
+2019-10-28 01:16:20,937 INFO: Vehicle positions file updated
+2019-10-28 01:16:40,999 INFO: Vehicle positions file updated
+2019-10-28 01:17:01,067 INFO: Vehicle positions file updated
+2019-10-28 01:17:20,886 INFO: Vehicle positions file updated
+2019-10-28 01:17:40,996 INFO: Vehicle positions file updated
+2019-10-28 01:18:00,964 INFO: Vehicle positions file updated
+2019-10-28 01:18:20,931 INFO: Vehicle positions file updated
+2019-10-28 01:18:41,003 INFO: Vehicle positions file updated
+2019-10-28 01:19:01,035 INFO: Vehicle positions file updated
+2019-10-28 01:19:21,042 INFO: Vehicle positions file updated
+2019-10-28 01:19:40,921 INFO: Vehicle positions file updated
+2019-10-28 01:20:01,129 INFO: Vehicle positions file updated
+2019-10-28 01:20:22,584 INFO: Vehicle positions file updated
+2019-10-28 01:20:41,019 INFO: Vehicle positions file updated
+2019-10-28 01:21:00,983 INFO: Vehicle positions file updated
+2019-10-28 01:21:20,972 INFO: Vehicle positions file updated
+2019-10-28 01:21:41,026 INFO: Vehicle positions file updated
+2019-10-28 01:22:00,990 INFO: Vehicle positions file updated
+2019-10-28 01:22:21,069 INFO: Vehicle positions file updated
+2019-10-28 01:22:41,145 INFO: Vehicle positions file updated
+2019-10-28 01:23:01,097 INFO: Vehicle positions file updated
+2019-10-28 01:23:21,172 INFO: Vehicle positions file updated
