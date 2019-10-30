@@ -1,0 +1,50 @@
+b'{"features":[{"geometry":{"coordinates":[14.00053,49.67781],"type":"Point"},"properties":{"trip":{"cis_agency_name":"Martin Uher","cis_id":"100317","cis_number":65,"cis_order":11,"cis_parent_route_name":"317","cis_real_agency_name":"Martin Uher","cis_short_name":"317","cis_vehicle_registration_number":1178,"gtfs_route_id":"L317","gtfs_route_short_name":"317","gtfs_trip_id":"317_156_190902","id":"2019-10-29T14:30:00Z_100317_317_65","start_cis_stop_id":28004,"start_cis_stop_platform_code":"C","start_time":"15:30:00","start_timestamp":"2019-10-29T14:30:00.000Z","vehicle_type":4,"wheelchair_accessible":true},"last_position":{"bearing":144,"cis_last_stop_id":48108,"cis_last_stop_sequence":43,"delay":756,"delay_stop_arrival":null,"delay_stop_departure":751,"gtfs_last_stop_id":null,"gtfs_last_stop_sequence":null,"gtfs_next_stop_id":"U9751Z1","gtfs_next_stop_sequence":null,"gtfs_shape_dist_traveled":"63.4","is_canceled":false,"lat":"49.67781","lng":"14.00053","origin_time":"17:18:10","origin_timestamp":"2019-10-29T16:18:10.000Z","speed":37,"tracking":2,"trips_id":"2019-10-29T14:30:00Z_100317_317_65"}},"type":"Feature"}],"type":"FeatureCollection"}'
+
+
+{
+"type": "FeatureCollection",
+"features": [{
+"type": "Feature",
+"properties": {},
+"geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              14.50554,
+              50.1456
+            ]
+          ]
+        }
+      }
+    ]
+  }
+
+ {
+"type": "FeatureCollection",
+"features": [{
+"type": "Feature",
+"properties": {},
+"geometry": {
+"coordinates": [
+[-77.044211, 38.852924 ],
+[-77.045659, 38.860158 ],
+[-77.044232, 38.862326 ],
+[-77.040879, 38.865454 ],
+[-77.039936, 38.867698 ],
+[-77.040338, 38.86943 ],
+[-77.04264, 38.872528 ],
+[-77.03696, 38.878424 ],
+[-77.032309, 38.87937 ],
+[-77.030056, 38.880945 ],
+[-77.027645, 38.881779 ],
+[-77.026946, 38.882645 ],
+[-77.026942, 38.885502 ],
+[-77.028054, 38.887449 ],
+[-77.02806, 38.892088 ],
+[-77.03364, 38.892108 ],
+[-77.033643, 38.899926 ]
+],
+"type": "LineString"
+}
+}]
+};

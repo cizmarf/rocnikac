@@ -6,6 +6,7 @@
 		<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 		<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.4.0/mapbox-gl.js'></script>
 		<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.4.0/mapbox-gl.css' rel='stylesheet' />
+		<link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
 		<style>
 			body { margin:0; padding:0; }
 			#map { position:absolute; top:0; bottom:0; width:100%; }
@@ -13,11 +14,38 @@
 	</head>
 	<style>
 		.marker {
-		display: block;
-		border: none;
-		border-radius: 50%;
-		cursor: pointer;
-		padding: 0;
+			--size_of_marker: 24px;
+			width: 			var(--size_of_marker);
+			height:			var(--size_of_marker);
+			line-height:	var(--size_of_marker);
+
+			border: 1px solid #edf6ff;
+			border-radius: 50%;
+			cursor: pointer;
+			padding: 0;
+			text-align: center;
+			display: block;
+			vertical-align: middle;
+			background-color: #54a9ff;
+			font-family: 'Poppins', sans-serif;
+			color: #2c2c2c;
+
+			--transition_time: 0.1s;
+			transition:
+				line-height			var(--transition_time) ease,
+				height 				var(--transition_time) ease,
+				width 				var(--transition_time) ease,
+				background-color	var(--transition_time) ease,
+				border				var(--transition_time) ease;
+		}
+		.extra_marker {
+			--size_of_extra_marker: 30px;
+			width: 			var(--size_of_extra_marker);
+			height:			var(--size_of_extra_marker);
+			line-height:	var(--size_of_extra_marker);
+			border: 2px solid #edf6ff;
+			background-color: #e570ff;
+			z-index: 1;
 		}
 	</style>
 	<body>
@@ -33,11 +61,13 @@
 
 				request.onreadystatechange = function () {
 					if (this.readyState === 4) {
-						console.log('Time: ', );
+						console.log('Time: ',);
 						console.log('Status: ', this.status);
-						console.log('Body: ', this.responseText);
 
 					}
+				};
+				request.onerror = function(){
+					throw Error("FileNotFound")
 				};
 				request.open('GET', file, false);
 				request.send();
@@ -45,9 +75,41 @@
 
 			}
 
+			function drawLastFewMinutesShape(geojson) {
+				console.log(geojson);
+				map.addLayer({
+					type: 'line',
+					source: {
+						"type": 'geojson',
+						"lineMetrics": true,
+						"data": geojson
+					},
+					id: lineStringLayerID + ".lfms",
+					paint: {
+						'line-color': 'red',
+						'line-width': 14,
+						'line-gradient': [
+							'interpolate',
+							['linear'],
+							['line-progress'],
+							0, "blue",
+							0.1, "royalblue",
+							0.3, "cyan",
+							0.5, "lime",
+							0.7, "yellow",
+							1, "red"
+						]
+					},
+					layout: {
+						'line-cap': 'round',
+						'line-join': 'round'
+					}
+				});
+			}
+
 			function drawShape(geojson) {
 				map.addLayer({
-					"id": lineStringLayerID,
+					"id": lineStringLayerID + ".s",
 					"type": "line",
 					"source": {
 						"type": "geojson",
@@ -65,7 +127,12 @@
 			}
 
 			function showBusesOnMap() {
-				veh_pos_geojson = JSON.parse(readTextFile("last_positions"));
+				try {
+					veh_pos_geojson = JSON.parse(readTextFile("last_positions"));
+				}catch (e) {
+					console.log(e);
+					return;
+				}
 				elems.forEach(function(elem) {
 					elem.remove();
 					elems.delete(elem);
@@ -74,37 +141,58 @@
 					// create a DOM element for the marker
 					var el = document.createElement('div');
 					el.className = 'marker';
-					el.style.backgroundImage = 'url(https://dummyimage.com/' + marker.properties.iconSize.join('x') + '/000c66/ffffff&text=+'+ marker.properties.message +'+)';
-					el.style.width = marker.properties.iconSize[0] + 'px';
-					el.style.height = marker.properties.iconSize[1] + 'px';
+					if (lineStringLayerID === marker.properties.gtfs_trip_id)
+						el.classList.add('extra_marker');
+					el.innerText = marker.properties.gtfs_route_short_name;
 
 					el.addEventListener('click', function() {
 						var shape_geojson = "";
-						console.log("before change");
-						console.log(map.getSource(lineStringLayerID));
+						var last_few_minutes = "";
 						switch (lineStringLayerID) {
 							case "":
-								shape_geojson = JSON.parse(readTextFile("trips/" + marker.properties.gtfs_trip_id + ".shape"));
 								lineStringLayerID = marker.properties.gtfs_trip_id;
-								drawShape(shape_geojson);
+								try {
+									shape_geojson = JSON.parse(readTextFile("trips/" + lineStringLayerID + ".shape"));
+									last_few_minutes = JSON.parse(readTextFile("trips/" + lineStringLayerID + ".lfms"));
+									drawShape(shape_geojson);
+									drawLastFewMinutesShape(last_few_minutes);
+								}catch (e) {
+									console.log(e);
+									return;
+								}
+								el.classList.add('extra_marker');
 								break;
 
 							case marker.properties.gtfs_trip_id:
-								map.removeLayer(lineStringLayerID);
-								map.removeSource(lineStringLayerID);
+								if (map.getLayer(lineStringLayerID + '.s'))	map.removeLayer(lineStringLayerID + '.s');
+								if (map.getSource(lineStringLayerID + '.s')) map.removeSource(lineStringLayerID + '.s');
+								if (map.getLayer(lineStringLayerID + '.lfms'))	map.removeLayer(lineStringLayerID + '.lfms');
+								if (map.getSource(lineStringLayerID + '.lfms')) map.removeSource(lineStringLayerID + '.lfms');
 								lineStringLayerID = "";
+								el.classList.remove('extra_marker');
 								break;
 
 							default:
-								map.removeLayer(lineStringLayerID);
-								map.removeSource(lineStringLayerID);
-								shape_geojson = JSON.parse(readTextFile("trips/" + marker.properties.gtfs_trip_id + ".shape"));
+								if (map.getLayer(lineStringLayerID + '.s'))	map.removeLayer(lineStringLayerID + '.s');
+								if (map.getSource(lineStringLayerID + '.s')) map.removeSource(lineStringLayerID + '.s');
+								if (map.getLayer(lineStringLayerID + '.lfms'))	map.removeLayer(lineStringLayerID + '.lfms');
+								if (map.getSource(lineStringLayerID + '.lfms')) map.removeSource(lineStringLayerID + '.lfms');
 								lineStringLayerID = marker.properties.gtfs_trip_id;
-								drawShape(shape_geojson);
-						}
-						console.log("after change");
-						console.log(map.getLayer(lineStringLayerID));
+								try {
+									shape_geojson = JSON.parse(readTextFile("trips/" + lineStringLayerID + ".shape"));
+									last_few_minutes = JSON.parse(readTextFile("trips/" + lineStringLayerID + ".lfms"));
+									drawShape(shape_geojson);
+									drawLastFewMinutesShape(last_few_minutes);
+								}catch (e) {
+									console.log(e);
+									return;
+								}
 
+								var old_extra = document.getElementsByClassName("extra_marker")[0];
+								if (old_extra != null)
+									old_extra.classList.remove("extra_marker");
+								el.classList.add("extra_marker");
+						}
 					});
 
 					// add marker to map
@@ -113,9 +201,8 @@
 							.addTo(map);
 					elems.add(elem);
 				});
+
 			}
-
-
 
 			mapboxgl.accessToken = 'pk.eyJ1IjoiZmlsaXBjaXptYXIiLCJhIjoiY2sxaHp3eHlzMGlmODNkanl2c2tqdTZscSJ9.rujrBlG1rSLuHpFaxxYX9w';
 
@@ -128,14 +215,19 @@
 				zoom: 10 // starting zoom
 			});
 
-
 			var elems = new Set();
 
 			showBusesOnMap();
 
-
 			window.setInterval(function(){
-				showBusesOnMap()
+				showBusesOnMap();
+				if (map.getLayer(lineStringLayerID + '.lfms'))	map.removeLayer(lineStringLayerID + '.lfms');
+				if (map.getSource(lineStringLayerID + '.lfms')) map.removeSource(lineStringLayerID + '.lfms');
+				try {
+					last_few_minutes = JSON.parse(readTextFile("trips/" + lineStringLayerID + ".lfms"));
+					drawLastFewMinutesShape(last_few_minutes);
+				}catch (e) {
+					console.log(e);
 			}, 10000);
 
 		</script>

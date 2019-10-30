@@ -1,0 +1,10 @@
+from urllib.request import Request, urlopen
+
+headers = {
+  'Content-Type': 'application/json; charset=utf-8',
+  'x-access-token': 'YOUR_ACCESS_TOKEN'
+}
+request = Request('https://api.golemio.cz/v1/vehiclepositions', headers=headers)
+
+response_body = urlopen(request).read()
+print(response_body)

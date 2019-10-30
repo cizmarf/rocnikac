@@ -7,6 +7,7 @@ import logging
 import os
 import shutil
 from pathlib import Path
+from collections import deque
 
 
 def downloadURL(request):
@@ -26,10 +27,20 @@ def transform_shape_json_file(old_json_data):
 	new_json_data["features"][0]["geometry"]["type"] = "LineString"
 	new_json_data["features"][0]["geometry"]["properties"] = {}
 	new_json_data["features"][0]["geometry"]["coordinates"] = []
-	for feature in old_json_data["features"]:
+	for feature in old_json_data["shapes"]:
 		new_json_data["features"][0]["geometry"]["coordinates"].append(feature["geometry"]["coordinates"])
 	return new_json_data
 
+def is_old(coordinates):
+	from datetime import datetime
+	fmt = '%H:%M:%S'
+	coordinates_time = coordinates[1]
+	now = datetime.now().strftime(fmt)
+	tdelta = datetime.strptime(now, fmt) - datetime.strptime(coordinates_time, fmt)
+	seconds = tdelta.total_seconds()
+	if seconds > 10*60:
+		return True
+	return False
 
 """
 	Following header is necessary for requesting golemio api.
@@ -52,10 +63,11 @@ if __name__ == "__main__":
 	logging.basicConfig(format='%(asctime)s %(levelname)s: %(message)s', level=logging.INFO, filename=args.log, filemode='w')
 	logging.info("Program has started")
 
+	active_trips = {key[:-6]: deque() for key in os.listdir(args.trips_folder)}
+	active_trips_set = {key[:-6] for key in os.listdir(args.trips_folder)}
 
-	active_trips = {f[:-6] for f in os.listdir(args.trips_folder)}
 
-	# uncomment the following code for empty trips.shape folder after relaunch
+	# uncomment the following code for empty trips.shape folder after relaunch (deprecated)
 	# active_trips = set()
 	# shutil.rmtree(args.trips_folder)
 	# os.makedirs(args.trips_folder)
@@ -69,7 +81,7 @@ if __name__ == "__main__":
 
 		req_start = time.time()
 		try:
-			json_data = downloadURL(Request('https://api.golemio.cz/v1/vehiclepositions', headers=headers))
+			json_vehiclepositions = downloadURL(Request('https://api.golemio.cz/v1/vehiclepositions', headers=headers))
 		except URLError as e:
 			logging.error("Network error: " + str(e))
 			time.sleep(args.update_error - (time.time() - req_start))
@@ -78,53 +90,89 @@ if __name__ == "__main__":
 		"""
 			Process json data and generate simplify json file
 		"""
-		geojson = {}
-		geojson["type"] = "FeatureCollection"
-		geojson["timestamp"] = time.strftime("%Y-%m-%d-%H:%M:%S")
-		geojson["features"] = []
+		geojson_vehiclepositions = {}
+		geojson_vehiclepositions["type"] = "FeatureCollection"
+		geojson_vehiclepositions["timestamp"] = time.strftime("%Y-%m-%d-%H:%M:%S")
+		geojson_vehiclepositions["features"] = []
 
-		current_trips = set()
+		current_trips_set = set()
 
-		for bus_input_list in json_data["features"]:
+		for bus_input_list in json_vehiclepositions["features"]:
 			bus_properties = bus_input_list["properties"]["trip"]
+			current_trip_gtfs_id = bus_properties["gtfs_trip_id"]
 			bus_output_list = {}
 			bus_output_list["type"] = "Feature"
 			bus_output_list["properties"] = {}
-			bus_output_list["properties"]["gtfs_trip_id"] = bus_properties["gtfs_trip_id"]
-			bus_output_list["properties"]["message"] = bus_properties["cis_short_name"]
-			bus_output_list["properties"]["iconSize"] = [30, 30]
+			bus_output_list["properties"]["gtfs_trip_id"] = current_trip_gtfs_id
+			bus_output_list["properties"]["gtfs_route_short_name"] = bus_properties["gtfs_route_short_name"]
 			bus_output_list["geometry"] = {}
 			bus_output_list["geometry"]["coordinates"] = bus_input_list["geometry"]["coordinates"]
 			bus_output_list["geometry"]["type"] = "Point"
-			geojson["features"].append(bus_output_list)
+			geojson_vehiclepositions["features"].append(bus_output_list)
 
-			current_trips.add(bus_properties["gtfs_trip_id"])
+			current_trips_set.add(current_trip_gtfs_id)
+
+			"""
+				v promene se drzi polohy busu za poslednich 10 minut
+			"""
+			if current_trip_gtfs_id not in active_trips or len(active_trips[current_trip_gtfs_id]) == 0:
+				active_trips[current_trip_gtfs_id] = deque()
+				active_trips[current_trip_gtfs_id].append([bus_input_list["geometry"]["coordinates"], bus_input_list["properties"]["last_position"]["origin_time"]])
+			else:
+				active_trips[current_trip_gtfs_id].append([bus_input_list["geometry"]["coordinates"], bus_input_list["properties"]["last_position"]["origin_time"]])
+				while len(active_trips[current_trip_gtfs_id]) > 0 and is_old(active_trips[current_trip_gtfs_id][0]):
+					active_trips[current_trip_gtfs_id].popleft()
+
+			geojson_lfms = {}
+			geojson_lfms["type"] = "FeatureCollection"
+			geojson_lfms["features"] = [{}]
+			geojson_lfms["features"][0]["type"] = "Feature"
+			geojson_lfms["features"][0]["properties"] = {}
+			geojson_lfms["features"][0]["geometry"] = {}
+			geojson_lfms["features"][0]["geometry"]["type"] = "LineString"
+			geojson_lfms["features"][0]["geometry"]["coordinates"] = []
+
+			for pos in active_trips[current_trip_gtfs_id]:
+				geojson_lfms["features"][0]["geometry"]["coordinates"].append(pos[0])
+
+			with open(Path(args.trips_folder) / (current_trip_gtfs_id + '.lfms'), "w+") as f:
+				f.seek(0)
+				f.write(json.dumps(geojson_lfms))
+				f.close()
+				logging.info("Trip " + current_trip_gtfs_id + " positions file updated")
+
 
 		with open(args.file_name, "w+") as f:
 			f.seek(0)
-			f.write(json.dumps(geojson))
+			f.write(json.dumps(geojson_vehiclepositions))
 			f.close()
 			logging.info("Vehicle positions file updated")
 
-		for trip in active_trips - current_trips:
-			os.remove(Path(args.trips_folder) / (trip + ".shape"))
-			logging.info("Shape of trip " + trip + " file removed")
-
-		for trip in current_trips - active_trips:
+		for trip in active_trips_set - current_trips_set:
+			active_trips.pop(trip)
 			try:
-				json_data = downloadURL(Request('https://api.golemio.cz/v1/gtfs/trips/' + trip, headers=headers))
-				json_data = downloadURL(Request('https://api.golemio.cz/v1/gtfs/shapes/' + json_data["shape_id"], headers=headers))
-				json_data = transform_shape_json_file(json_data)
+				os.remove(Path(args.trips_folder) / (trip + ".shape"))
+				os.remove(Path(args.trips_folder) / (trip + ".lfms"))
+				logging.info("Shape of trip " + trip + " file removed")
+			except FileNotFoundError as e:
+				logging.warning("Some file for trip " + trip + "not found. " + str(e))
+
+		for trip in current_trips_set - active_trips_set:
+			try:
+				json_data_trip = downloadURL(Request('https://api.golemio.cz/v1/gtfs/trips/' + trip + '?includeShapes=true', headers=headers))
+				geojson_shape = transform_shape_json_file(json_data_trip)
+
 				with open(Path(args.trips_folder) / (trip + ".shape"), "w+") as f:
 					f.seek(0)
-					f.write(json.dumps(json_data))
+					f.write(json.dumps(geojson_shape))
 					f.close()
 					logging.info("New shape of trip " + trip + " file exported")
 			except URLError as e:
 				logging.error("Network error: " + str(e))
-				current_trips -= trip
+				current_trips_set -= trip
 				continue
-		active_trips = current_trips
+
+		active_trips_set = current_trips_set
 
 		try:
 			time.sleep(args.update_time - (time.time() - req_start))

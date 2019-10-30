@@ -1,293 +1,853 @@
-2019-10-28 00:05:40,021 INFO: Program has started
-2019-10-28 00:05:40,513 INFO: Vehicle positions file updated
-2019-10-28 00:05:40,518 INFO: Shape of trip 226_106_190330 file removed
-2019-10-28 00:05:40,519 INFO: Shape of trip 228_128_180901 file removed
-2019-10-28 00:05:40,519 INFO: Shape of trip 300_523_190824 file removed
-2019-10-28 00:05:40,521 INFO: Shape of trip 353_133_190303 file removed
-2019-10-28 00:05:40,521 INFO: Shape of trip 163_355_180928 file removed
-2019-10-28 00:06:00,513 INFO: Vehicle positions file updated
-2019-10-28 00:06:00,513 INFO: Shape of trip 163_800_190311 file removed
-2019-10-28 00:06:20,044 ERROR: Network error: <urlopen error [Errno 8] nodename nor servname provided, or not known>
-2019-10-28 00:06:40,676 INFO: Vehicle positions file updated
-2019-10-28 00:07:07,850 ERROR: Network error: <urlopen error [Errno 60] Operation timed out>
-2019-10-28 00:07:20,664 INFO: Vehicle positions file updated
-2019-10-28 00:07:20,665 INFO: Shape of trip 155_1563_191021 file removed
-2019-10-28 00:07:40,545 INFO: Vehicle positions file updated
-2019-10-28 00:08:00,529 INFO: Vehicle positions file updated
-2019-10-28 00:08:00,529 INFO: Shape of trip 348_429_190517 file removed
-2019-10-28 00:08:00,529 INFO: Shape of trip 371_231_190303 file removed
-2019-10-28 00:08:00,529 INFO: Shape of trip 339_296_190901 file removed
-2019-10-28 00:08:20,566 INFO: Vehicle positions file updated
-2019-10-28 00:08:40,547 INFO: Vehicle positions file updated
-2019-10-28 00:09:00,626 INFO: Vehicle positions file updated
-2019-10-28 00:09:00,626 INFO: Shape of trip 155_603_190901 file removed
-2019-10-28 00:09:00,626 INFO: Shape of trip 370_117_190727 file removed
-2019-10-28 00:09:00,627 INFO: Shape of trip 321_35_190824 file removed
-2019-10-28 00:09:20,540 INFO: Vehicle positions file updated
-2019-10-28 00:09:40,571 INFO: Vehicle positions file updated
-2019-10-28 00:10:00,531 INFO: Vehicle positions file updated
-2019-10-28 00:10:00,532 INFO: Shape of trip 221_188_190901 file removed
-2019-10-28 00:10:20,682 INFO: Vehicle positions file updated
-2019-10-28 00:10:40,550 INFO: Vehicle positions file updated
-2019-10-28 00:11:00,524 INFO: Vehicle positions file updated
-2019-10-28 00:11:20,581 INFO: Vehicle positions file updated
-2019-10-28 00:11:20,587 INFO: Shape of trip 348_61_190517 file removed
-2019-10-28 00:11:20,587 INFO: Shape of trip 211_27_190901 file removed
-2019-10-28 00:11:20,588 INFO: Shape of trip 461_171_190916 file removed
-2019-10-28 00:11:40,564 INFO: Vehicle positions file updated
-2019-10-28 00:12:00,446 INFO: Vehicle positions file updated
-2019-10-28 00:12:00,446 INFO: Shape of trip 164_634_190901 file removed
-2019-10-28 00:12:20,587 INFO: Vehicle positions file updated
-2019-10-28 00:12:40,556 INFO: Vehicle positions file updated
-2019-10-28 00:12:40,562 INFO: Shape of trip 326_162_190303 file removed
-2019-10-28 00:13:00,440 INFO: Vehicle positions file updated
-2019-10-28 00:13:00,441 INFO: Shape of trip 378_229_190928 file removed
-2019-10-28 00:13:00,441 INFO: Shape of trip 375_971_190929 file removed
-2019-10-28 00:13:00,441 INFO: Shape of trip 666_67_190408 file removed
-2019-10-28 00:13:20,700 INFO: Vehicle positions file updated
-2019-10-28 00:13:40,460 INFO: Vehicle positions file updated
-2019-10-28 00:14:00,534 INFO: Vehicle positions file updated
-2019-10-28 00:14:00,534 INFO: Shape of trip 240_331_191022 file removed
-2019-10-28 00:14:20,472 INFO: Vehicle positions file updated
-2019-10-28 00:14:40,657 INFO: Vehicle positions file updated
-2019-10-28 00:15:00,486 INFO: Vehicle positions file updated
-2019-10-28 00:15:00,487 INFO: Shape of trip 110_88_180501 file removed
-2019-10-28 00:15:21,025 INFO: Vehicle positions file updated
-2019-10-28 00:15:40,574 INFO: Vehicle positions file updated
-2019-10-28 00:16:00,646 INFO: Vehicle positions file updated
-2019-10-28 00:16:00,647 INFO: Shape of trip 333_649_190727 file removed
-2019-10-28 00:16:20,476 INFO: Vehicle positions file updated
-2019-10-28 00:16:40,545 INFO: Vehicle positions file updated
-2019-10-28 00:16:40,545 INFO: Shape of trip 321_10_190907 file removed
-2019-10-28 00:17:00,810 INFO: Vehicle positions file updated
-2019-10-28 00:17:00,811 INFO: Shape of trip 223_74_180731 file removed
-2019-10-28 00:17:00,812 INFO: Shape of trip 339_237_190831 file removed
-2019-10-28 00:17:00,812 INFO: Shape of trip 221_589_190901 file removed
-2019-10-28 00:17:00,812 INFO: Shape of trip 369_404_190916 file removed
-2019-10-28 00:17:00,813 INFO: Shape of trip 223_103_180430 file removed
-2019-10-28 00:17:00,813 INFO: Shape of trip 327_195_191026 file removed
-2019-10-28 00:17:20,719 INFO: Vehicle positions file updated
-2019-10-28 00:17:40,593 INFO: Vehicle positions file updated
-2019-10-28 00:18:00,479 INFO: Vehicle positions file updated
-2019-10-28 00:18:20,582 INFO: Vehicle positions file updated
-2019-10-28 00:18:40,460 INFO: Vehicle positions file updated
-2019-10-28 00:18:40,460 INFO: Shape of trip 390_61_190720 file removed
-2019-10-28 00:18:40,460 INFO: Shape of trip 117_229_190303 file removed
-2019-10-28 00:18:40,466 INFO: Shape of trip 316_18_191021 file removed
-2019-10-28 00:19:00,558 INFO: Vehicle positions file updated
-2019-10-28 00:19:20,482 INFO: Vehicle positions file updated
-2019-10-28 00:19:40,603 INFO: Vehicle positions file updated
-2019-10-28 00:20:00,881 INFO: Vehicle positions file updated
-2019-10-28 00:20:00,887 INFO: Shape of trip 356_76_180501 file removed
-2019-10-28 00:20:20,537 INFO: Vehicle positions file updated
-2019-10-28 00:20:40,503 INFO: Vehicle positions file updated
-2019-10-28 00:21:00,573 INFO: Vehicle positions file updated
-2019-10-28 00:21:20,578 INFO: Vehicle positions file updated
-2019-10-28 00:21:40,613 INFO: Vehicle positions file updated
-2019-10-28 00:22:00,581 INFO: Vehicle positions file updated
-2019-10-28 00:22:00,581 INFO: Shape of trip 627_145_190824 file removed
-2019-10-28 00:22:20,654 INFO: Vehicle positions file updated
-2019-10-28 00:22:40,554 INFO: Vehicle positions file updated
-2019-10-28 00:23:00,597 INFO: Vehicle positions file updated
-2019-10-28 00:23:00,598 INFO: Shape of trip 226_56_190325 file removed
-2019-10-28 00:23:20,534 INFO: Vehicle positions file updated
-2019-10-28 00:23:40,624 INFO: Vehicle positions file updated
-2019-10-28 00:24:00,694 INFO: Vehicle positions file updated
-2019-10-28 00:24:00,701 INFO: Shape of trip 313_281_191001 file removed
-2019-10-28 00:24:00,702 INFO: Shape of trip 302_393_190928 file removed
-2019-10-28 00:24:20,660 INFO: Vehicle positions file updated
-2019-10-28 00:24:40,578 INFO: Vehicle positions file updated
-2019-10-28 00:24:40,578 INFO: Shape of trip 361_91_190718 file removed
-2019-10-28 00:25:00,721 INFO: Vehicle positions file updated
-2019-10-28 00:25:00,721 INFO: Shape of trip 341_502_190901 file removed
-2019-10-28 00:25:20,777 INFO: Vehicle positions file updated
-2019-10-28 00:25:40,639 INFO: Vehicle positions file updated
-2019-10-28 00:25:40,639 INFO: Shape of trip 319_25_181027 file removed
-2019-10-28 00:26:00,713 INFO: Vehicle positions file updated
-2019-10-28 00:26:00,714 INFO: Shape of trip 367_403_190928 file removed
-2019-10-28 00:26:20,542 INFO: Vehicle positions file updated
-2019-10-28 00:26:40,643 INFO: Vehicle positions file updated
-2019-10-28 00:27:00,589 INFO: Vehicle positions file updated
-2019-10-28 00:27:00,594 INFO: Shape of trip 333_630_190727 file removed
-2019-10-28 00:27:20,579 INFO: Vehicle positions file updated
-2019-10-28 00:27:40,735 INFO: Vehicle positions file updated
-2019-10-28 00:28:00,822 INFO: Vehicle positions file updated
-2019-10-28 00:28:20,635 INFO: Vehicle positions file updated
-2019-10-28 00:28:20,635 INFO: Shape of trip 388_5_190824 file removed
-2019-10-28 00:28:40,683 INFO: Vehicle positions file updated
-2019-10-28 00:29:00,830 INFO: Vehicle positions file updated
-2019-10-28 00:29:20,843 INFO: Vehicle positions file updated
-2019-10-28 00:29:41,074 INFO: Vehicle positions file updated
-2019-10-28 00:30:00,732 INFO: Vehicle positions file updated
-2019-10-28 00:30:00,732 INFO: Shape of trip 322_782_190824 file removed
-2019-10-28 00:30:20,914 INFO: Vehicle positions file updated
-2019-10-28 00:30:20,915 INFO: Shape of trip 110_112_180430 file removed
-2019-10-28 00:30:40,770 INFO: Vehicle positions file updated
-2019-10-28 00:30:40,771 INFO: Shape of trip 350_92_191026 file removed
-2019-10-28 00:31:00,669 INFO: Vehicle positions file updated
-2019-10-28 00:31:20,642 INFO: Vehicle positions file updated
-2019-10-28 00:31:40,664 INFO: Vehicle positions file updated
-2019-10-28 00:32:00,744 INFO: Vehicle positions file updated
-2019-10-28 00:32:20,702 INFO: Vehicle positions file updated
-2019-10-28 00:32:40,637 INFO: Vehicle positions file updated
-2019-10-28 00:33:00,751 INFO: Vehicle positions file updated
-2019-10-28 00:33:20,730 INFO: Vehicle positions file updated
-2019-10-28 00:33:40,668 INFO: Vehicle positions file updated
-2019-10-28 00:33:40,668 INFO: Shape of trip 342_22_191024 file removed
-2019-10-28 00:34:00,658 INFO: Vehicle positions file updated
-2019-10-28 00:34:20,636 INFO: Vehicle positions file updated
-2019-10-28 00:34:20,637 INFO: Shape of trip 324_45_191024 file removed
-2019-10-28 00:34:20,637 INFO: Shape of trip 380_76_190929 file removed
-2019-10-28 00:34:40,677 INFO: Vehicle positions file updated
-2019-10-28 00:34:40,682 INFO: Shape of trip 395_72_190901 file removed
-2019-10-28 00:35:00,868 INFO: Vehicle positions file updated
-2019-10-28 00:35:20,718 INFO: Vehicle positions file updated
-2019-10-28 00:35:40,702 INFO: Vehicle positions file updated
-2019-10-28 00:36:00,668 INFO: Vehicle positions file updated
-2019-10-28 00:36:20,706 INFO: Vehicle positions file updated
-2019-10-28 00:36:40,624 INFO: Vehicle positions file updated
-2019-10-28 00:37:00,680 INFO: Vehicle positions file updated
-2019-10-28 00:37:20,645 INFO: Vehicle positions file updated
-2019-10-28 00:37:40,824 INFO: Vehicle positions file updated
-2019-10-28 00:38:00,783 INFO: Vehicle positions file updated
-2019-10-28 00:38:00,789 INFO: Shape of trip 959_2_190901 file removed
-2019-10-28 00:38:20,677 INFO: Vehicle positions file updated
-2019-10-28 00:38:40,722 INFO: Vehicle positions file updated
-2019-10-28 00:39:00,689 INFO: Vehicle positions file updated
-2019-10-28 00:39:20,816 INFO: Vehicle positions file updated
-2019-10-28 00:39:40,736 INFO: Vehicle positions file updated
-2019-10-28 00:40:01,105 INFO: Vehicle positions file updated
-2019-10-28 00:40:01,107 INFO: Shape of trip 240_1582_191022 file removed
-2019-10-28 00:40:20,773 INFO: Vehicle positions file updated
-2019-10-28 00:40:40,941 INFO: Vehicle positions file updated
-2019-10-28 00:41:01,010 INFO: Vehicle positions file updated
-2019-10-28 00:41:01,017 INFO: Shape of trip 383_199_191012 file removed
-2019-10-28 00:41:20,697 INFO: Vehicle positions file updated
-2019-10-28 00:41:40,741 INFO: Vehicle positions file updated
-2019-10-28 00:42:01,022 INFO: Vehicle positions file updated
-2019-10-28 00:42:21,016 INFO: Vehicle positions file updated
-2019-10-28 00:42:40,659 INFO: Vehicle positions file updated
-2019-10-28 00:43:00,730 INFO: Vehicle positions file updated
-2019-10-28 00:43:21,094 INFO: Vehicle positions file updated
-2019-10-28 00:43:40,747 INFO: Vehicle positions file updated
-2019-10-28 00:44:00,927 INFO: Vehicle positions file updated
-2019-10-28 00:44:20,752 INFO: Vehicle positions file updated
-2019-10-28 00:44:41,082 INFO: Vehicle positions file updated
-2019-10-28 00:45:00,936 INFO: Vehicle positions file updated
-2019-10-28 00:45:20,796 INFO: Vehicle positions file updated
-2019-10-28 00:45:40,871 INFO: Vehicle positions file updated
-2019-10-28 00:46:00,749 INFO: Vehicle positions file updated
-2019-10-28 00:46:21,115 INFO: Vehicle positions file updated
-2019-10-28 00:46:40,879 INFO: Vehicle positions file updated
-2019-10-28 00:46:40,879 INFO: Shape of trip 395_184_190901 file removed
-2019-10-28 00:47:00,847 INFO: Vehicle positions file updated
-2019-10-28 00:47:20,785 INFO: Vehicle positions file updated
-2019-10-28 00:47:40,732 INFO: Vehicle positions file updated
-2019-10-28 00:48:00,862 INFO: Vehicle positions file updated
-2019-10-28 00:48:20,792 INFO: Vehicle positions file updated
-2019-10-28 00:48:40,929 INFO: Vehicle positions file updated
-2019-10-28 00:49:00,860 INFO: Vehicle positions file updated
-2019-10-28 00:49:20,895 INFO: Vehicle positions file updated
-2019-10-28 00:49:41,005 INFO: Vehicle positions file updated
-2019-10-28 00:50:01,283 INFO: Vehicle positions file updated
-2019-10-28 00:50:20,968 INFO: Vehicle positions file updated
-2019-10-28 00:50:41,111 INFO: Vehicle positions file updated
-2019-10-28 00:51:00,976 INFO: Vehicle positions file updated
-2019-10-28 00:51:20,740 INFO: Vehicle positions file updated
-2019-10-28 00:51:41,322 INFO: Vehicle positions file updated
-2019-10-28 00:52:00,882 INFO: Vehicle positions file updated
-2019-10-28 00:52:21,056 INFO: Vehicle positions file updated
-2019-10-28 00:52:40,866 INFO: Vehicle positions file updated
-2019-10-28 00:53:00,993 INFO: Vehicle positions file updated
-2019-10-28 00:53:20,767 INFO: Vehicle positions file updated
-2019-10-28 00:53:40,929 INFO: Vehicle positions file updated
-2019-10-28 00:54:00,763 INFO: Vehicle positions file updated
-2019-10-28 00:54:20,864 INFO: Vehicle positions file updated
-2019-10-28 00:54:40,935 INFO: Vehicle positions file updated
-2019-10-28 00:55:01,107 INFO: Vehicle positions file updated
-2019-10-28 00:55:20,871 INFO: Vehicle positions file updated
-2019-10-28 00:55:40,842 INFO: Vehicle positions file updated
-2019-10-28 00:56:01,115 INFO: Vehicle positions file updated
-2019-10-28 00:56:20,875 INFO: Vehicle positions file updated
-2019-10-28 00:56:40,949 INFO: Vehicle positions file updated
-2019-10-28 00:57:01,174 INFO: Vehicle positions file updated
-2019-10-28 00:57:20,889 INFO: Vehicle positions file updated
-2019-10-28 00:57:40,881 INFO: Vehicle positions file updated
-2019-10-28 00:58:01,028 INFO: Vehicle positions file updated
-2019-10-28 00:58:20,790 INFO: Vehicle positions file updated
-2019-10-28 00:58:41,173 INFO: Vehicle positions file updated
-2019-10-28 00:59:00,782 INFO: Vehicle positions file updated
-2019-10-28 00:59:20,931 INFO: Vehicle positions file updated
-2019-10-28 00:59:41,073 INFO: Vehicle positions file updated
-2019-10-28 01:00:01,117 INFO: Vehicle positions file updated
-2019-10-28 01:00:20,897 INFO: Vehicle positions file updated
-2019-10-28 01:00:40,977 INFO: Vehicle positions file updated
-2019-10-28 01:01:01,049 INFO: Vehicle positions file updated
-2019-10-28 01:01:20,916 INFO: Vehicle positions file updated
-2019-10-28 01:01:40,856 INFO: Vehicle positions file updated
-2019-10-28 01:02:01,056 INFO: Vehicle positions file updated
-2019-10-28 01:02:20,955 INFO: Vehicle positions file updated
-2019-10-28 01:02:40,891 INFO: Vehicle positions file updated
-2019-10-28 01:03:00,868 INFO: Vehicle positions file updated
-2019-10-28 01:03:20,927 INFO: Vehicle positions file updated
-2019-10-28 01:03:41,204 INFO: Vehicle positions file updated
-2019-10-28 01:04:00,966 INFO: Vehicle positions file updated
-2019-10-28 01:04:20,849 INFO: Vehicle positions file updated
-2019-10-28 01:04:41,007 INFO: Vehicle positions file updated
-2019-10-28 01:05:00,982 INFO: Vehicle positions file updated
-2019-10-28 01:05:21,151 INFO: Vehicle positions file updated
-2019-10-28 01:05:41,012 INFO: Vehicle positions file updated
-2019-10-28 01:06:00,992 INFO: Vehicle positions file updated
-2019-10-28 01:06:20,948 INFO: Vehicle positions file updated
-2019-10-28 01:06:41,002 INFO: Vehicle positions file updated
-2019-10-28 01:07:01,092 INFO: Vehicle positions file updated
-2019-10-28 01:07:21,027 INFO: Vehicle positions file updated
-2019-10-28 01:07:40,835 INFO: Vehicle positions file updated
-2019-10-28 01:08:00,994 INFO: Vehicle positions file updated
-2019-10-28 01:08:21,170 INFO: Vehicle positions file updated
-2019-10-28 01:08:41,033 INFO: Vehicle positions file updated
-2019-10-28 01:09:01,009 INFO: Vehicle positions file updated
-2019-10-28 01:09:20,968 INFO: Vehicle positions file updated
-2019-10-28 01:09:41,167 INFO: Vehicle positions file updated
-2019-10-28 01:10:01,111 INFO: Vehicle positions file updated
-2019-10-28 01:10:21,078 INFO: Vehicle positions file updated
-2019-10-28 01:10:41,046 INFO: Vehicle positions file updated
-2019-10-28 01:11:01,021 INFO: Vehicle positions file updated
-2019-10-28 01:11:20,984 INFO: Vehicle positions file updated
-2019-10-28 01:11:40,842 INFO: Vehicle positions file updated
-2019-10-28 01:12:01,029 INFO: Vehicle positions file updated
-2019-10-28 01:12:21,157 INFO: Vehicle positions file updated
-2019-10-28 01:12:41,165 INFO: Vehicle positions file updated
-2019-10-28 01:12:41,168 INFO: Shape of trip 360_57_190718 file removed
-2019-10-28 01:13:01,234 INFO: Vehicle positions file updated
-2019-10-28 01:13:21,097 INFO: Vehicle positions file updated
-2019-10-28 01:13:40,965 INFO: Vehicle positions file updated
-2019-10-28 01:14:01,241 INFO: Vehicle positions file updated
-2019-10-28 01:14:21,171 INFO: Vehicle positions file updated
-2019-10-28 01:14:40,911 INFO: Vehicle positions file updated
-2019-10-28 01:15:00,937 INFO: Vehicle positions file updated
-2019-10-28 01:15:21,134 INFO: Vehicle positions file updated
-2019-10-28 01:15:40,925 INFO: Vehicle positions file updated
-2019-10-28 01:16:01,022 INFO: Vehicle positions file updated
-2019-10-28 01:16:20,937 INFO: Vehicle positions file updated
-2019-10-28 01:16:40,999 INFO: Vehicle positions file updated
-2019-10-28 01:17:01,067 INFO: Vehicle positions file updated
-2019-10-28 01:17:20,886 INFO: Vehicle positions file updated
-2019-10-28 01:17:40,996 INFO: Vehicle positions file updated
-2019-10-28 01:18:00,964 INFO: Vehicle positions file updated
-2019-10-28 01:18:20,931 INFO: Vehicle positions file updated
-2019-10-28 01:18:41,003 INFO: Vehicle positions file updated
-2019-10-28 01:19:01,035 INFO: Vehicle positions file updated
-2019-10-28 01:19:21,042 INFO: Vehicle positions file updated
-2019-10-28 01:19:40,921 INFO: Vehicle positions file updated
-2019-10-28 01:20:01,129 INFO: Vehicle positions file updated
-2019-10-28 01:20:22,584 INFO: Vehicle positions file updated
-2019-10-28 01:20:41,019 INFO: Vehicle positions file updated
-2019-10-28 01:21:00,983 INFO: Vehicle positions file updated
-2019-10-28 01:21:20,972 INFO: Vehicle positions file updated
-2019-10-28 01:21:41,026 INFO: Vehicle positions file updated
-2019-10-28 01:22:00,990 INFO: Vehicle positions file updated
-2019-10-28 01:22:21,069 INFO: Vehicle positions file updated
-2019-10-28 01:22:41,145 INFO: Vehicle positions file updated
-2019-10-28 01:23:01,097 INFO: Vehicle positions file updated
-2019-10-28 01:23:21,172 INFO: Vehicle positions file updated
+2019-10-30 21:59:13,348 INFO: Program has started
+2019-10-30 21:59:14,173 INFO: Trip 381_282_190701 positions file updated
+2019-10-30 21:59:14,173 INFO: Trip 389_14_190824 positions file updated
+2019-10-30 21:59:14,174 INFO: Trip 224_234_190902 positions file updated
+2019-10-30 21:59:14,175 INFO: Trip 224_208_190901 positions file updated
+2019-10-30 21:59:14,175 INFO: Trip 389_46_190826 positions file updated
+2019-10-30 21:59:14,175 INFO: Trip 322_509_191023 positions file updated
+2019-10-30 21:59:14,176 INFO: Trip 337_322_191015 positions file updated
+2019-10-30 21:59:14,176 INFO: Trip 335_384_191023 positions file updated
+2019-10-30 21:59:14,177 INFO: Trip 395_34_190901 positions file updated
+2019-10-30 21:59:14,177 INFO: Trip 317_166_190902 positions file updated
+2019-10-30 21:59:14,177 INFO: Trip 590_63_190826 positions file updated
+2019-10-30 21:59:14,178 INFO: Trip 209_13_181209 positions file updated
+2019-10-30 21:59:14,178 INFO: Trip 395_220_190902 positions file updated
+2019-10-30 21:59:14,179 INFO: Trip 209_638_190930 positions file updated
+2019-10-30 21:59:14,180 INFO: Trip 166_292_190902 positions file updated
+2019-10-30 21:59:14,180 INFO: Trip 375_497_191023 positions file updated
+2019-10-30 21:59:14,181 INFO: Trip 224_244_190902 positions file updated
+2019-10-30 21:59:14,181 INFO: Trip 228_191_181209 positions file updated
+2019-10-30 21:59:14,182 INFO: Trip 314_145_190718 positions file updated
+2019-10-30 21:59:14,182 INFO: Trip 203_452_190831 positions file updated
+2019-10-30 21:59:14,183 INFO: Trip 300_563_190826 positions file updated
+2019-10-30 21:59:14,183 INFO: Trip 307_175_191029 positions file updated
+2019-10-30 21:59:14,184 INFO: Trip 348_46_190517 positions file updated
+2019-10-30 21:59:14,185 INFO: Trip 361_87_190718 positions file updated
+2019-10-30 21:59:14,185 INFO: Trip 531_27_190701 positions file updated
+2019-10-30 21:59:14,186 INFO: Trip 240_1597_191022 positions file updated
+2019-10-30 21:59:14,186 INFO: Trip 240_1552_191022 positions file updated
+2019-10-30 21:59:14,188 INFO: Trip 321_131_190819 positions file updated
+2019-10-30 21:59:14,188 INFO: Trip 377_342_190629 positions file updated
+2019-10-30 21:59:14,189 INFO: Trip 620_228_191029 positions file updated
+2019-10-30 21:59:14,189 INFO: Trip 309_119_191029 positions file updated
+2019-10-30 21:59:14,190 INFO: Trip 612_374_190826 positions file updated
+2019-10-30 21:59:14,191 INFO: Trip 117_216_190303 positions file updated
+2019-10-30 21:59:14,193 INFO: Trip 342_7_191024 positions file updated
+2019-10-30 21:59:14,193 INFO: Trip 380_62_190819 positions file updated
+2019-10-30 21:59:14,194 INFO: Trip 399_356_190826 positions file updated
+2019-10-30 21:59:14,195 INFO: Trip 458_65_190522 positions file updated
+2019-10-30 21:59:14,196 INFO: Trip 609_560_190824 positions file updated
+2019-10-30 21:59:14,197 INFO: Trip 221_575_190901 positions file updated
+2019-10-30 21:59:14,198 INFO: Trip 375_970_190929 positions file updated
+2019-10-30 21:59:14,198 INFO: Trip 471_287_190902 positions file updated
+2019-10-30 21:59:14,199 INFO: Trip 163_326_180928 positions file updated
+2019-10-30 21:59:14,199 INFO: Trip 317_124_190902 positions file updated
+2019-10-30 21:59:14,199 INFO: Trip 339_300_190831 positions file updated
+2019-10-30 21:59:14,200 INFO: Trip 369_9_190902 positions file updated
+2019-10-30 21:59:14,200 INFO: Trip 370_22_180702 positions file updated
+2019-10-30 21:59:14,201 INFO: Trip 383_114_190910 positions file updated
+2019-10-30 21:59:14,201 INFO: Trip 395_98_190902 positions file updated
+2019-10-30 21:59:14,201 INFO: Trip 375_437_191023 positions file updated
+2019-10-30 21:59:14,201 INFO: Trip 348_16_190601 positions file updated
+2019-10-30 21:59:14,202 INFO: Trip 667_17_190930 positions file updated
+2019-10-30 21:59:14,202 INFO: Trip 163_811_190311 positions file updated
+2019-10-30 21:59:14,203 INFO: Trip 323_259_191014 positions file updated
+2019-10-30 21:59:14,203 INFO: Trip 155_600_181116 positions file updated
+2019-10-30 21:59:14,203 INFO: Trip 324_28_191024 positions file updated
+2019-10-30 21:59:14,203 INFO: Trip 344_390_190403 positions file updated
+2019-10-30 21:59:14,204 INFO: Trip 395_210_190901 positions file updated
+2019-10-30 21:59:14,204 INFO: Trip 333_521_190722 positions file updated
+2019-10-30 21:59:14,205 INFO: Trip 398_81_191007 positions file updated
+2019-10-30 21:59:14,205 INFO: Trip 336_86_190103 positions file updated
+2019-10-30 21:59:14,205 INFO: Trip 391_86_190902 positions file updated
+2019-10-30 21:59:14,205 INFO: Trip 624_330_190826 positions file updated
+2019-10-30 21:59:14,206 INFO: Trip 609_464_190826 positions file updated
+2019-10-30 21:59:14,206 INFO: Trip 341_500_190902 positions file updated
+2019-10-30 21:59:14,206 INFO: Trip 590_70_191001 positions file updated
+2019-10-30 21:59:14,207 INFO: Trip 110_99_180430 positions file updated
+2019-10-30 21:59:14,207 INFO: Trip 221_200_190902 positions file updated
+2019-10-30 21:59:14,207 INFO: Trip 333_591_190722 positions file updated
+2019-10-30 21:59:14,208 INFO: Trip 341_555_190902 positions file updated
+2019-10-30 21:59:14,208 INFO: Trip 317_136_190701 positions file updated
+2019-10-30 21:59:14,208 INFO: Trip 327_133_191021 positions file updated
+2019-10-30 21:59:14,209 INFO: Trip 371_255_190304 positions file updated
+2019-10-30 21:59:14,209 INFO: Trip 601_63_190824 positions file updated
+2019-10-30 21:59:14,209 INFO: Trip 606_682_190826 positions file updated
+2019-10-30 21:59:14,210 INFO: Trip 226_29_190325 positions file updated
+2019-10-30 21:59:14,210 INFO: Trip 353_32_180702 positions file updated
+2019-10-30 21:59:14,210 INFO: Trip 612_415_190824 positions file updated
+2019-10-30 21:59:14,211 INFO: Trip 380_199_190819 positions file updated
+2019-10-30 21:59:14,211 INFO: Trip 606_739_190826 positions file updated
+2019-10-30 21:59:14,212 INFO: Trip 223_133_180430 positions file updated
+2019-10-30 21:59:14,212 INFO: Trip 223_32_180731 positions file updated
+2019-10-30 21:59:14,212 INFO: Trip 303_488_190916 positions file updated
+2019-10-30 21:59:14,213 INFO: Trip 117_227_190303 positions file updated
+2019-10-30 21:59:14,213 INFO: Trip 155_1397_191028 positions file updated
+2019-10-30 21:59:14,213 INFO: Trip 316_16_191021 positions file updated
+2019-10-30 21:59:14,214 INFO: Trip 348_31_190601 positions file updated
+2019-10-30 21:59:14,214 INFO: Trip 360_58_190718 positions file updated
+2019-10-30 21:59:14,215 INFO: Trip 385_181_190527 positions file updated
+2019-10-30 21:59:14,215 INFO: Trip 330_772_190826 positions file updated
+2019-10-30 21:59:14,215 INFO: Trip 240_1537_191022 positions file updated
+2019-10-30 21:59:14,216 INFO: Trip 306_52_190824 positions file updated
+2019-10-30 21:59:14,216 INFO: Trip 313_280_191001 positions file updated
+2019-10-30 21:59:14,216 INFO: Trip 448_176_190801 positions file updated
+2019-10-30 21:59:14,217 INFO: Trip 338_14_190718 positions file updated
+2019-10-30 21:59:14,217 INFO: Trip 398_80_191007 positions file updated
+2019-10-30 21:59:14,218 INFO: Trip 223_71_180702 positions file updated
+2019-10-30 21:59:14,218 INFO: Trip 226_54_190325 positions file updated
+2019-10-30 21:59:14,218 INFO: Trip 627_197_191029 positions file updated
+2019-10-30 21:59:14,219 INFO: Trip 324_423_181209 positions file updated
+2019-10-30 21:59:14,219 INFO: Trip 664_136_181210 positions file updated
+2019-10-30 21:59:14,219 INFO: Trip 224_221_190901 positions file updated
+2019-10-30 21:59:14,220 INFO: Trip 369_75_190902 positions file updated
+2019-10-30 21:59:14,220 INFO: Trip 374_38_190701 positions file updated
+2019-10-30 21:59:14,220 INFO: Trip 378_227_190928 positions file updated
+2019-10-30 21:59:14,221 INFO: Trip 164_630_190901 positions file updated
+2019-10-30 21:59:14,221 INFO: Trip 212_172_190902 positions file updated
+2019-10-30 21:59:14,221 INFO: Trip 383_142_190910 positions file updated
+2019-10-30 21:59:14,222 INFO: Trip 665_280_190902 positions file updated
+2019-10-30 21:59:14,222 INFO: Trip 322_571_191023 positions file updated
+2019-10-30 21:59:14,222 INFO: Trip 326_98_181210 positions file updated
+2019-10-30 21:59:14,223 INFO: Trip 361_90_190718 positions file updated
+2019-10-30 21:59:14,223 INFO: Trip 367_362_190930 positions file updated
+2019-10-30 21:59:14,223 INFO: Trip 110_110_180702 positions file updated
+2019-10-30 21:59:14,224 INFO: Trip 488_26_180430 positions file updated
+2019-10-30 21:59:14,224 INFO: Trip 208_37_180430 positions file updated
+2019-10-30 21:59:14,224 INFO: Trip 211_59_190901 positions file updated
+2019-10-30 21:59:14,224 INFO: Trip 601_366_190826 positions file updated
+2019-10-30 21:59:14,225 INFO: Trip 155_1451_190901 positions file updated
+2019-10-30 21:59:14,225 INFO: Trip 221_600_190902 positions file updated
+2019-10-30 21:59:14,225 INFO: Trip 375_965_190930 positions file updated
+2019-10-30 21:59:14,226 INFO: Trip 110_86_180702 positions file updated
+2019-10-30 21:59:14,226 INFO: Trip 302_391_190928 positions file updated
+2019-10-30 21:59:14,226 INFO: Trip 306_279_190826 positions file updated
+2019-10-30 21:59:14,227 INFO: Trip 326_78_190304 positions file updated
+2019-10-30 21:59:14,228 INFO: Vehicle positions file updated
+2019-10-30 21:59:14,228 WARNING: Some file for trip 314_145_19071not found. [Errno 2] No such file or directory: 'trips/314_145_19071.shape'
+2019-10-30 21:59:14,229 INFO: Shape of trip 203_498_190902 file removed
+2019-10-30 21:59:14,229 INFO: Shape of trip 443_13_191007 file removed
+2019-10-30 21:59:14,230 INFO: Shape of trip 490_91_190827 file removed
+2019-10-30 21:59:14,230 INFO: Shape of trip 322_597_191023 file removed
+2019-10-30 21:59:14,231 INFO: Shape of trip 326_77_181210 file removed
+2019-10-30 21:59:14,231 WARNING: Some file for trip 374_15_19070not found. [Errno 2] No such file or directory: 'trips/374_15_19070.shape'
+2019-10-30 21:59:14,232 INFO: Shape of trip 604_751_190826 file removed
+2019-10-30 21:59:14,232 WARNING: Some file for trip 163_787_19031not found. [Errno 2] No such file or directory: 'trips/163_787_19031.shape'
+2019-10-30 21:59:14,232 WARNING: Some file for trip 374_226_19030not found. [Errno 2] No such file or directory: 'trips/374_226_19030.shape'
+2019-10-30 21:59:14,233 INFO: Shape of trip 650_28_190826 file removed
+2019-10-30 21:59:14,233 WARNING: Some file for trip 316_36_19102not found. [Errno 2] No such file or directory: 'trips/316_36_19102.shape'
+2019-10-30 21:59:14,234 WARNING: Some file for trip 203_452_19083not found. [Errno 2] No such file or directory: 'trips/203_452_19083.shape'
+2019-10-30 21:59:14,234 WARNING: Some file for trip 595_13_19082not found. [Errno 2] No such file or directory: 'trips/595_13_19082.shape'
+2019-10-30 21:59:14,235 INFO: Shape of trip 303_496_190916 file removed
+2019-10-30 21:59:14,235 WARNING: Some file for trip 317_163_19090not found. [Errno 2] No such file or directory: 'trips/317_163_19090.shape'
+2019-10-30 21:59:14,235 WARNING: Some file for trip 360_21_19071not found. [Errno 2] No such file or directory: 'trips/360_21_19071.shape'
+2019-10-30 21:59:14,235 WARNING: Some file for trip 375_481_19102not found. [Errno 2] No such file or directory: 'trips/375_481_19102.shape'
+2019-10-30 21:59:14,235 WARNING: Some file for trip 223_100_18073not found. [Errno 2] No such file or directory: 'trips/223_100_18073.shape'
+2019-10-30 21:59:14,236 WARNING: Some file for trip 319_22_18090not found. [Errno 2] No such file or directory: 'trips/319_22_18090.shape'
+2019-10-30 21:59:14,236 WARNING: Some file for trip 531_27_19070not found. [Errno 2] No such file or directory: 'trips/531_27_19070.shape'
+2019-10-30 21:59:14,236 INFO: Shape of trip 601_31_190824 file removed
+2019-10-30 21:59:14,236 INFO: Shape of trip 368_21_190920 file removed
+2019-10-30 21:59:14,237 WARNING: Some file for trip 166_329_19090not found. [Errno 2] No such file or directory: 'trips/166_329_19090.shape'
+2019-10-30 21:59:14,237 WARNING: Some file for trip 369_20_19041not found. [Errno 2] No such file or directory: 'trips/369_20_19041.shape'
+2019-10-30 21:59:14,237 WARNING: Some file for trip 348_46_19051not found. [Errno 2] No such file or directory: 'trips/348_46_19051.shape'
+2019-10-30 21:59:14,237 WARNING: Some file for trip 228_209_19102not found. [Errno 2] No such file or directory: 'trips/228_209_19102.shape'
+2019-10-30 21:59:14,237 INFO: Shape of trip 318_87_190701 file removed
+2019-10-30 21:59:14,237 WARNING: Some file for trip 321_117_19090not found. [Errno 2] No such file or directory: 'trips/321_117_19090.shape'
+2019-10-30 21:59:14,238 INFO: Shape of trip 382_40_191021 file removed
+2019-10-30 21:59:14,238 INFO: Shape of trip 440_32_190603 file removed
+2019-10-30 21:59:14,239 INFO: Shape of trip 221_174_190902 file removed
+2019-10-30 21:59:14,239 WARNING: Some file for trip 300_563_19082not found. [Errno 2] No such file or directory: 'trips/300_563_19082.shape'
+2019-10-30 21:59:14,240 INFO: Shape of trip 606_738_190826 file removed
+2019-10-30 21:59:14,240 WARNING: Some file for trip 606_681_19082not found. [Errno 2] No such file or directory: 'trips/606_681_19082.shape'
+2019-10-30 21:59:14,241 WARNING: Some file for trip 651_111_19071not found. [Errno 2] No such file or directory: 'trips/651_111_19071.shape'
+2019-10-30 21:59:14,241 WARNING: Some file for trip 353_31_18070not found. [Errno 2] No such file or directory: 'trips/353_31_18070.shape'
+2019-10-30 21:59:14,241 INFO: Shape of trip 395_143_190902 file removed
+2019-10-30 21:59:14,241 WARNING: Some file for trip 115_62_18043not found. [Errno 2] No such file or directory: 'trips/115_62_18043.shape'
+2019-10-30 21:59:14,241 WARNING: Some file for trip 461_143_18121not found. [Errno 2] No such file or directory: 'trips/461_143_18121.shape'
+2019-10-30 21:59:14,242 INFO: Shape of trip 348_15_190601 file removed
+2019-10-30 21:59:14,242 WARNING: Some file for trip 223_31_18043not found. [Errno 2] No such file or directory: 'trips/223_31_18043.shape'
+2019-10-30 21:59:14,242 INFO: Shape of trip 620_217_191024 file removed
+2019-10-30 21:59:14,243 INFO: Shape of trip 627_183_191029 file removed
+2019-10-30 21:59:14,243 INFO: Shape of trip 353_31_180702 file removed
+2019-10-30 21:59:14,244 INFO: Shape of trip 381_260_190701 file removed
+2019-10-30 21:59:14,244 WARNING: Some file for trip 602_585_19082not found. [Errno 2] No such file or directory: 'trips/602_585_19082.shape'
+2019-10-30 21:59:14,245 INFO: Shape of trip 378_107_190902 file removed
+2019-10-30 21:59:14,245 WARNING: Some file for trip 620_217_19102not found. [Errno 2] No such file or directory: 'trips/620_217_19102.shape'
+2019-10-30 21:59:14,245 WARNING: Some file for trip 440_44_19060not found. [Errno 2] No such file or directory: 'trips/440_44_19060.shape'
+2019-10-30 21:59:14,246 WARNING: Some file for trip 387_17_18072not found. [Errno 2] No such file or directory: 'trips/387_17_18072.shape'
+2019-10-30 21:59:14,246 INFO: Shape of trip 155_1415_191028 file removed
+2019-10-30 21:59:14,246 WARNING: Some file for trip 389_46_19082not found. [Errno 2] No such file or directory: 'trips/389_46_19082.shape'
+2019-10-30 21:59:14,246 WARNING: Some file for trip 620_228_19102not found. [Errno 2] No such file or directory: 'trips/620_228_19102.shape'
+2019-10-30 21:59:14,246 WARNING: Some file for trip 372_4_18070not found. [Errno 2] No such file or directory: 'trips/372_4_18070.shape'
+2019-10-30 21:59:14,246 WARNING: Some file for trip 601_31_19082not found. [Errno 2] No such file or directory: 'trips/601_31_19082.shape'
+2019-10-30 21:59:14,247 INFO: Shape of trip 369_418_190916 file removed
+2019-10-30 21:59:14,247 INFO: Shape of trip 166_329_190902 file removed
+2019-10-30 21:59:14,249 WARNING: Some file for trip 309_119_19102not found. [Errno 2] No such file or directory: 'trips/309_119_19102.shape'
+2019-10-30 21:59:14,249 WARNING: Some file for trip 203_498_19090not found. [Errno 2] No such file or directory: 'trips/203_498_19090.shape'
+2019-10-30 21:59:14,250 WARNING: Some file for trip 348_59_19051not found. [Errno 2] No such file or directory: 'trips/348_59_19051.shape'
+2019-10-30 21:59:14,250 WARNING: Some file for trip 590_63_19082not found. [Errno 2] No such file or directory: 'trips/590_63_19082.shape'
+2019-10-30 21:59:14,251 INFO: Shape of trip 371_167_190701 file removed
+2019-10-30 21:59:14,252 INFO: Shape of trip 223_100_180731 file removed
+2019-10-30 21:59:14,252 INFO: Shape of trip 208_684_181227 file removed
+2019-10-30 21:59:14,252 INFO: Shape of trip 223_31_180430 file removed
+2019-10-30 21:59:14,252 WARNING: Some file for trip 484_174_19081not found. [Errno 2] No such file or directory: 'trips/484_174_19081.shape'
+2019-10-30 21:59:14,253 WARNING: Some file for trip 221_174_19090not found. [Errno 2] No such file or directory: 'trips/221_174_19090.shape'
+2019-10-30 21:59:14,253 WARNING: Some file for trip 307_175_19102not found. [Errno 2] No such file or directory: 'trips/307_175_19102.shape'
+2019-10-30 21:59:14,255 INFO: Shape of trip 317_163_190902 file removed
+2019-10-30 21:59:14,255 INFO: Shape of trip 348_59_190517 file removed
+2019-10-30 21:59:14,255 WARNING: Some file for trip 317_10_19090not found. [Errno 2] No such file or directory: 'trips/317_10_19090.shape'
+2019-10-30 21:59:14,255 WARNING: Some file for trip 395_246_19090not found. [Errno 2] No such file or directory: 'trips/395_246_19090.shape'
+2019-10-30 21:59:14,256 WARNING: Some file for trip 208_684_18122not found. [Errno 2] No such file or directory: 'trips/208_684_18122.shape'
+2019-10-30 21:59:14,256 WARNING: Some file for trip 318_26_19063not found. [Errno 2] No such file or directory: 'trips/318_26_19063.shape'
+2019-10-30 21:59:14,256 WARNING: Some file for trip 209_13_18120not found. [Errno 2] No such file or directory: 'trips/209_13_18120.shape'
+2019-10-30 21:59:14,256 WARNING: Some file for trip 666_71_19102not found. [Errno 2] No such file or directory: 'trips/666_71_19102.shape'
+2019-10-30 21:59:14,257 INFO: Shape of trip 318_26_190630 file removed
+2019-10-30 21:59:14,257 INFO: Shape of trip 461_143_181210 file removed
+2019-10-30 21:59:14,257 WARNING: Some file for trip 370_4_19070not found. [Errno 2] No such file or directory: 'trips/370_4_19070.shape'
+2019-10-30 21:59:14,257 WARNING: Some file for trip 443_13_19100not found. [Errno 2] No such file or directory: 'trips/443_13_19100.shape'
+2019-10-30 21:59:14,258 INFO: Shape of trip 211_21_190902 file removed
+2019-10-30 21:59:14,259 INFO: Shape of trip 370_4_190701 file removed
+2019-10-30 21:59:14,259 WARNING: Some file for trip 240_1536_19102not found. [Errno 2] No such file or directory: 'trips/240_1536_19102.shape'
+2019-10-30 21:59:14,259 WARNING: Some file for trip 337_322_19101not found. [Errno 2] No such file or directory: 'trips/337_322_19101.shape'
+2019-10-30 21:59:14,260 INFO: Shape of trip 330_661_190826 file removed
+2019-10-30 21:59:14,260 WARNING: Some file for trip 367_405_19092not found. [Errno 2] No such file or directory: 'trips/367_405_19092.shape'
+2019-10-30 21:59:14,260 INFO: Shape of trip 321_117_190902 file removed
+2019-10-30 21:59:14,260 WARNING: Some file for trip 209_638_19093not found. [Errno 2] No such file or directory: 'trips/209_638_19093.shape'
+2019-10-30 21:59:14,261 INFO: Shape of trip 228_209_191028 file removed
+2019-10-30 21:59:14,261 WARNING: Some file for trip 603_447_19082not found. [Errno 2] No such file or directory: 'trips/603_447_19082.shape'
+2019-10-30 21:59:14,261 INFO: Shape of trip 223_69_180702 file removed
+2019-10-30 21:59:14,261 WARNING: Some file for trip 326_77_18121not found. [Errno 2] No such file or directory: 'trips/326_77_18121.shape'
+2019-10-30 21:59:14,262 INFO: Shape of trip 375_481_191023 file removed
+2019-10-30 21:59:14,262 INFO: Shape of trip 666_71_191023 file removed
+2019-10-30 21:59:14,262 WARNING: Some file for trip 335_384_19102not found. [Errno 2] No such file or directory: 'trips/335_384_19102.shape'
+2019-10-30 21:59:14,262 WARNING: Some file for trip 389_14_19082not found. [Errno 2] No such file or directory: 'trips/389_14_19082.shape'
+2019-10-30 21:59:14,262 WARNING: Some file for trip 601_346_19082not found. [Errno 2] No such file or directory: 'trips/601_346_19082.shape'
+2019-10-30 21:59:14,263 INFO: Shape of trip 620_242_191029 file removed
+2019-10-30 21:59:14,263 WARNING: Some file for trip 342_7_19102not found. [Errno 2] No such file or directory: 'trips/342_7_19102.shape'
+2019-10-30 21:59:14,263 INFO: Shape of trip 651_111_190715 file removed
+2019-10-30 21:59:14,263 INFO: Shape of trip 332_49_190831 file removed
+2019-10-30 21:59:14,263 INFO: Shape of trip 319_22_180902 file removed
+2019-10-30 21:59:14,264 WARNING: Some file for trip 612_374_19082not found. [Errno 2] No such file or directory: 'trips/612_374_19082.shape'
+2019-10-30 21:59:14,264 INFO: Shape of trip 221_587_190902 file removed
+2019-10-30 21:59:14,264 WARNING: Some file for trip 381_282_19070not found. [Errno 2] No such file or directory: 'trips/381_282_19070.shape'
+2019-10-30 21:59:14,264 INFO: Shape of trip 314_136_190718 file removed
+2019-10-30 21:59:14,265 INFO: Shape of trip 374_15_190701 file removed
+2019-10-30 21:59:14,265 WARNING: Some file for trip 381_260_19070not found. [Errno 2] No such file or directory: 'trips/381_260_19070.shape'
+2019-10-30 21:59:14,265 WARNING: Some file for trip 665_279_19090not found. [Errno 2] No such file or directory: 'trips/665_279_19090.shape'
+2019-10-30 21:59:14,265 INFO: Shape of trip 369_20_190411 file removed
+2019-10-30 21:59:14,265 INFO: Shape of trip 303_487_190916 file removed
+2019-10-30 21:59:14,265 WARNING: Some file for trip 395_220_19090not found. [Errno 2] No such file or directory: 'trips/395_220_19090.shape'
+2019-10-30 21:59:14,266 INFO: Shape of trip 110_109_180702 file removed
+2019-10-30 21:59:14,266 WARNING: Some file for trip 378_107_19090not found. [Errno 2] No such file or directory: 'trips/378_107_19090.shape'
+2019-10-30 21:59:14,266 INFO: Shape of trip 382_27_191021 file removed
+2019-10-30 21:59:14,266 WARNING: Some file for trip 458_65_19052not found. [Errno 2] No such file or directory: 'trips/458_65_19052.shape'
+2019-10-30 21:59:14,267 INFO: Shape of trip 203_443_190831 file removed
+2019-10-30 21:59:14,267 INFO: Shape of trip 395_246_190902 file removed
+2019-10-30 21:59:14,267 INFO: Shape of trip 356_72_180702 file removed
+2019-10-30 21:59:14,267 WARNING: Some file for trip 166_292_19090not found. [Errno 2] No such file or directory: 'trips/166_292_19090.shape'
+2019-10-30 21:59:14,268 INFO: Shape of trip 440_44_190603 file removed
+2019-10-30 21:59:14,268 WARNING: Some file for trip 306_77_19082not found. [Errno 2] No such file or directory: 'trips/306_77_19082.shape'
+2019-10-30 21:59:14,268 WARNING: Some file for trip 332_49_19083not found. [Errno 2] No such file or directory: 'trips/332_49_19083.shape'
+2019-10-30 21:59:14,268 WARNING: Some file for trip 382_27_19102not found. [Errno 2] No such file or directory: 'trips/382_27_19102.shape'
+2019-10-30 21:59:14,269 INFO: Shape of trip 601_346_190826 file removed
+2019-10-30 21:59:14,269 WARNING: Some file for trip 203_443_19083not found. [Errno 2] No such file or directory: 'trips/203_443_19083.shape'
+2019-10-30 21:59:14,269 INFO: Shape of trip 614_303_190824 file removed
+2019-10-30 21:59:14,269 WARNING: Some file for trip 322_509_19102not found. [Errno 2] No such file or directory: 'trips/322_509_19102.shape'
+2019-10-30 21:59:14,270 INFO: Shape of trip 324_77_191024 file removed
+2019-10-30 21:59:14,270 WARNING: Some file for trip 316_54_19102not found. [Errno 2] No such file or directory: 'trips/316_54_19102.shape'
+2019-10-30 21:59:14,270 WARNING: Some file for trip 221_575_19090not found. [Errno 2] No such file or directory: 'trips/221_575_19090.shape'
+2019-10-30 21:59:14,270 WARNING: Some file for trip 155_1450_19090not found. [Errno 2] No such file or directory: 'trips/155_1450_19090.shape'
+2019-10-30 21:59:14,270 INFO: Shape of trip 316_54_191021 file removed
+2019-10-30 21:59:14,271 INFO: Shape of trip 240_1536_191022 file removed
+2019-10-30 21:59:14,271 INFO: Shape of trip 387_17_180729 file removed
+2019-10-30 21:59:14,271 WARNING: Some file for trip 303_487_19091not found. [Errno 2] No such file or directory: 'trips/303_487_19091.shape'
+2019-10-30 21:59:14,271 WARNING: Some file for trip 489_174_19091not found. [Errno 2] No such file or directory: 'trips/489_174_19091.shape'
+2019-10-30 21:59:14,271 INFO: Shape of trip 372_4_180702 file removed
+2019-10-30 21:59:14,272 WARNING: Some file for trip 620_242_19102not found. [Errno 2] No such file or directory: 'trips/620_242_19102.shape'
+2019-10-30 21:59:14,272 WARNING: Some file for trip 356_72_18070not found. [Errno 2] No such file or directory: 'trips/356_72_18070.shape'
+2019-10-30 21:59:14,272 INFO: Shape of trip 367_405_190929 file removed
+2019-10-30 21:59:14,272 WARNING: Some file for trip 240_1597_19102not found. [Errno 2] No such file or directory: 'trips/240_1597_19102.shape'
+2019-10-30 21:59:14,272 WARNING: Some file for trip 228_191_18120not found. [Errno 2] No such file or directory: 'trips/228_191_18120.shape'
+2019-10-30 21:59:14,273 INFO: Shape of trip 327_14_190304 file removed
+2019-10-30 21:59:14,273 WARNING: Some file for trip 380_219_19081not found. [Errno 2] No such file or directory: 'trips/380_219_19081.shape'
+2019-10-30 21:59:14,273 INFO: Shape of trip 166_274_190902 file removed
+2019-10-30 21:59:14,273 INFO: Shape of trip 367_361_190930 file removed
+2019-10-30 21:59:14,273 WARNING: Some file for trip 606_738_19082not found. [Errno 2] No such file or directory: 'trips/606_738_19082.shape'
+2019-10-30 21:59:14,274 INFO: Shape of trip 380_219_190819 file removed
+2019-10-30 21:59:14,274 INFO: Shape of trip 484_174_190819 file removed
+2019-10-30 21:59:14,274 INFO: Shape of trip 155_563_181116 file removed
+2019-10-30 21:59:14,274 WARNING: Some file for trip 440_32_19060not found. [Errno 2] No such file or directory: 'trips/440_32_19060.shape'
+2019-10-30 21:59:14,275 WARNING: Some file for trip 368_21_19092not found. [Errno 2] No such file or directory: 'trips/368_21_19092.shape'
+2019-10-30 21:59:14,275 WARNING: Some file for trip 377_342_19062not found. [Errno 2] No such file or directory: 'trips/377_342_19062.shape'
+2019-10-30 21:59:14,275 WARNING: Some file for trip 223_70_19090not found. [Errno 2] No such file or directory: 'trips/223_70_19090.shape'
+2019-10-30 21:59:14,275 WARNING: Some file for trip 344_399_19030not found. [Errno 2] No such file or directory: 'trips/344_399_19030.shape'
+2019-10-30 21:59:14,275 WARNING: Some file for trip 322_597_19102not found. [Errno 2] No such file or directory: 'trips/322_597_19102.shape'
+2019-10-30 21:59:14,275 WARNING: Some file for trip 330_661_19082not found. [Errno 2] No such file or directory: 'trips/330_661_19082.shape'
+2019-10-30 21:59:14,275 INFO: Shape of trip 341_545_190902 file removed
+2019-10-30 21:59:14,275 WARNING: Some file for trip 303_496_19091not found. [Errno 2] No such file or directory: 'trips/303_496_19091.shape'
+2019-10-30 21:59:14,276 WARNING: Some file for trip 369_74_19090not found. [Errno 2] No such file or directory: 'trips/369_74_19090.shape'
+2019-10-30 21:59:14,276 WARNING: Some file for trip 395_34_19090not found. [Errno 2] No such file or directory: 'trips/395_34_19090.shape'
+2019-10-30 21:59:14,276 WARNING: Some file for trip 318_87_19070not found. [Errno 2] No such file or directory: 'trips/318_87_19070.shape'
+2019-10-30 21:59:14,276 WARNING: Some file for trip 211_21_19090not found. [Errno 2] No such file or directory: 'trips/211_21_19090.shape'
+2019-10-30 21:59:14,276 WARNING: Some file for trip 224_208_19090not found. [Errno 2] No such file or directory: 'trips/224_208_19090.shape'
+2019-10-30 21:59:14,276 WARNING: Some file for trip 380_62_19081not found. [Errno 2] No such file or directory: 'trips/380_62_19081.shape'
+2019-10-30 21:59:14,276 WARNING: Some file for trip 341_545_19090not found. [Errno 2] No such file or directory: 'trips/341_545_19090.shape'
+2019-10-30 21:59:14,276 WARNING: Some file for trip 609_560_19082not found. [Errno 2] No such file or directory: 'trips/609_560_19082.shape'
+2019-10-30 21:59:14,276 INFO: Shape of trip 606_681_190826 file removed
+2019-10-30 21:59:14,277 INFO: Shape of trip 385_87_190527 file removed
+2019-10-30 21:59:14,277 WARNING: Some file for trip 324_77_19102not found. [Errno 2] No such file or directory: 'trips/324_77_19102.shape'
+2019-10-30 21:59:14,277 WARNING: Some file for trip 385_87_19052not found. [Errno 2] No such file or directory: 'trips/385_87_19052.shape'
+2019-10-30 21:59:14,277 INFO: Shape of trip 317_10_190902 file removed
+2019-10-30 21:59:14,278 WARNING: Some file for trip 369_418_19091not found. [Errno 2] No such file or directory: 'trips/369_418_19091.shape'
+2019-10-30 21:59:14,278 WARNING: Some file for trip 110_85_18070not found. [Errno 2] No such file or directory: 'trips/110_85_18070.shape'
+2019-10-30 21:59:14,278 WARNING: Some file for trip 604_751_19082not found. [Errno 2] No such file or directory: 'trips/604_751_19082.shape'
+2019-10-30 21:59:14,278 WARNING: Some file for trip 650_28_19082not found. [Errno 2] No such file or directory: 'trips/650_28_19082.shape'
+2019-10-30 21:59:14,278 INFO: Shape of trip 223_70_190902 file removed
+2019-10-30 21:59:14,278 WARNING: Some file for trip 467_6_19041not found. [Errno 2] No such file or directory: 'trips/467_6_19041.shape'
+2019-10-30 21:59:14,278 INFO: Shape of trip 324_418_181209 file removed
+2019-10-30 21:59:14,279 WARNING: Some file for trip 489_175_19091not found. [Errno 2] No such file or directory: 'trips/489_175_19091.shape'
+2019-10-30 21:59:14,279 INFO: Shape of trip 307_148_191029 file removed
+2019-10-30 21:59:14,279 WARNING: Some file for trip 321_131_19081not found. [Errno 2] No such file or directory: 'trips/321_131_19081.shape'
+2019-10-30 21:59:14,280 INFO: Shape of trip 489_175_190910 file removed
+2019-10-30 21:59:14,280 WARNING: Some file for trip 609_583_19082not found. [Errno 2] No such file or directory: 'trips/609_583_19082.shape'
+2019-10-30 21:59:14,280 INFO: Shape of trip 164_629_190901 file removed
+2019-10-30 21:59:14,280 WARNING: Some file for trip 614_303_19082not found. [Errno 2] No such file or directory: 'trips/614_303_19082.shape'
+2019-10-30 21:59:14,280 WARNING: Some file for trip 328_52_19030not found. [Errno 2] No such file or directory: 'trips/328_52_19030.shape'
+2019-10-30 21:59:14,281 WARNING: Some file for trip 317_166_19090not found. [Errno 2] No such file or directory: 'trips/317_166_19090.shape'
+2019-10-30 21:59:14,281 INFO: Shape of trip 580_24_190826 file removed
+2019-10-30 21:59:14,281 WARNING: Some file for trip 310_11_19102not found. [Errno 2] No such file or directory: 'trips/310_11_19102.shape'
+2019-10-30 21:59:14,282 INFO: Shape of trip 374_226_190304 file removed
+2019-10-30 21:59:14,282 WARNING: Some file for trip 377_276_18090not found. [Errno 2] No such file or directory: 'trips/377_276_18090.shape'
+2019-10-30 21:59:14,282 WARNING: Some file for trip 375_497_19102not found. [Errno 2] No such file or directory: 'trips/375_497_19102.shape'
+2019-10-30 21:59:14,283 INFO: Shape of trip 337_357_190930 file removed
+2019-10-30 21:59:14,283 WARNING: Some file for trip 348_15_19060not found. [Errno 2] No such file or directory: 'trips/348_15_19060.shape'
+2019-10-30 21:59:14,283 INFO: Shape of trip 595_13_190826 file removed
+2019-10-30 21:59:14,284 INFO: Shape of trip 467_6_190411 file removed
+2019-10-30 21:59:14,284 WARNING: Some file for trip 361_87_19071not found. [Errno 2] No such file or directory: 'trips/361_87_19071.shape'
+2019-10-30 21:59:14,284 WARNING: Some file for trip 338_88_19071not found. [Errno 2] No such file or directory: 'trips/338_88_19071.shape'
+2019-10-30 21:59:14,284 WARNING: Some file for trip 399_356_19082not found. [Errno 2] No such file or directory: 'trips/399_356_19082.shape'
+2019-10-30 21:59:14,284 WARNING: Some file for trip 117_216_19030not found. [Errno 2] No such file or directory: 'trips/117_216_19030.shape'
+2019-10-30 21:59:14,285 INFO: Shape of trip 603_447_190826 file removed
+2019-10-30 21:59:14,287 WARNING: Some file for trip 314_136_19071not found. [Errno 2] No such file or directory: 'trips/314_136_19071.shape'
+2019-10-30 21:59:14,288 WARNING: Some file for trip 212_171_19090not found. [Errno 2] No such file or directory: 'trips/212_171_19090.shape'
+2019-10-30 21:59:14,288 INFO: Shape of trip 338_88_190718 file removed
+2019-10-30 21:59:14,288 WARNING: Some file for trip 307_148_19102not found. [Errno 2] No such file or directory: 'trips/307_148_19102.shape'
+2019-10-30 21:59:14,289 INFO: Shape of trip 489_174_190910 file removed
+2019-10-30 21:59:14,289 WARNING: Some file for trip 337_357_19093not found. [Errno 2] No such file or directory: 'trips/337_357_19093.shape'
+2019-10-30 21:59:14,289 WARNING: Some file for trip 471_287_19090not found. [Errno 2] No such file or directory: 'trips/471_287_19090.shape'
+2019-10-30 21:59:14,290 INFO: Shape of trip 212_171_190902 file removed
+2019-10-30 21:59:14,290 INFO: Shape of trip 306_77_190824 file removed
+2019-10-30 21:59:14,290 INFO: Shape of trip 354_1_180430 file removed
+2019-10-30 21:59:14,291 INFO: Shape of trip 155_1450_190901 file removed
+2019-10-30 21:59:14,292 INFO: Shape of trip 602_585_190826 file removed
+2019-10-30 21:59:14,292 WARNING: Some file for trip 367_361_19093not found. [Errno 2] No such file or directory: 'trips/367_361_19093.shape'
+2019-10-30 21:59:14,292 INFO: Shape of trip 316_36_191021 file removed
+2019-10-30 21:59:14,292 WARNING: Some file for trip 155_1415_19102not found. [Errno 2] No such file or directory: 'trips/155_1415_19102.shape'
+2019-10-30 21:59:14,293 INFO: Shape of trip 360_21_190718 file removed
+2019-10-30 21:59:14,294 WARNING: Some file for trip 375_970_19092not found. [Errno 2] No such file or directory: 'trips/375_970_19092.shape'
+2019-10-30 21:59:14,294 INFO: Shape of trip 115_62_180430 file removed
+2019-10-30 21:59:14,294 INFO: Shape of trip 344_399_190304 file removed
+2019-10-30 21:59:14,295 INFO: Shape of trip 110_85_180702 file removed
+2019-10-30 21:59:14,295 WARNING: Some file for trip 580_24_19082not found. [Errno 2] No such file or directory: 'trips/580_24_19082.shape'
+2019-10-30 21:59:14,295 INFO: Shape of trip 369_74_190902 file removed
+2019-10-30 21:59:14,295 WARNING: Some file for trip 300_528_19082not found. [Errno 2] No such file or directory: 'trips/300_528_19082.shape'
+2019-10-30 21:59:14,296 INFO: Shape of trip 163_787_190311 file removed
+2019-10-30 21:59:14,296 INFO: Shape of trip 328_52_190304 file removed
+2019-10-30 21:59:14,296 WARNING: Some file for trip 395_143_19090not found. [Errno 2] No such file or directory: 'trips/395_143_19090.shape'
+2019-10-30 21:59:14,297 INFO: Shape of trip 310_11_191029 file removed
+2019-10-30 21:59:14,297 INFO: Shape of trip 220_23_191024 file removed
+2019-10-30 21:59:14,297 WARNING: Some file for trip 627_183_19102not found. [Errno 2] No such file or directory: 'trips/627_183_19102.shape'
+2019-10-30 21:59:14,297 INFO: Shape of trip 377_276_180901 file removed
+2019-10-30 21:59:14,297 INFO: Shape of trip 300_528_190824 file removed
+2019-10-30 21:59:14,298 WARNING: Some file for trip 382_40_19102not found. [Errno 2] No such file or directory: 'trips/382_40_19102.shape'
+2019-10-30 21:59:14,298 WARNING: Some file for trip 166_274_19090not found. [Errno 2] No such file or directory: 'trips/166_274_19090.shape'
+2019-10-30 21:59:14,298 WARNING: Some file for trip 164_629_19090not found. [Errno 2] No such file or directory: 'trips/164_629_19090.shape'
+2019-10-30 21:59:14,298 WARNING: Some file for trip 224_244_19090not found. [Errno 2] No such file or directory: 'trips/224_244_19090.shape'
+2019-10-30 21:59:14,298 WARNING: Some file for trip 324_418_18120not found. [Errno 2] No such file or directory: 'trips/324_418_18120.shape'
+2019-10-30 21:59:14,298 WARNING: Some file for trip 490_91_19082not found. [Errno 2] No such file or directory: 'trips/490_91_19082.shape'
+2019-10-30 21:59:14,298 WARNING: Some file for trip 371_167_19070not found. [Errno 2] No such file or directory: 'trips/371_167_19070.shape'
+2019-10-30 21:59:14,299 INFO: Shape of trip 609_583_190826 file removed
+2019-10-30 21:59:14,299 WARNING: Some file for trip 220_23_19102not found. [Errno 2] No such file or directory: 'trips/220_23_19102.shape'
+2019-10-30 21:59:14,299 WARNING: Some file for trip 221_587_19090not found. [Errno 2] No such file or directory: 'trips/221_587_19090.shape'
+2019-10-30 21:59:14,299 WARNING: Some file for trip 354_1_18043not found. [Errno 2] No such file or directory: 'trips/354_1_18043.shape'
+2019-10-30 21:59:14,299 WARNING: Some file for trip 155_563_18111not found. [Errno 2] No such file or directory: 'trips/155_563_18111.shape'
+2019-10-30 21:59:14,299 WARNING: Some file for trip 327_14_19030not found. [Errno 2] No such file or directory: 'trips/327_14_19030.shape'
+2019-10-30 21:59:14,299 WARNING: Some file for trip 223_69_18070not found. [Errno 2] No such file or directory: 'trips/223_69_18070.shape'
+2019-10-30 21:59:14,300 INFO: Shape of trip 665_279_190902 file removed
+2019-10-30 21:59:14,300 WARNING: Some file for trip 240_1552_19102not found. [Errno 2] No such file or directory: 'trips/240_1552_19102.shape'
+2019-10-30 21:59:14,300 WARNING: Some file for trip 110_109_18070not found. [Errno 2] No such file or directory: 'trips/110_109_18070.shape'
+2019-10-30 21:59:14,406 INFO: New shape of trip 163_811_190311 file exported
+2019-10-30 21:59:14,515 INFO: New shape of trip 302_391_190928 file exported
+2019-10-30 21:59:14,637 INFO: New shape of trip 385_181_190527 file exported
+2019-10-30 21:59:14,758 INFO: New shape of trip 330_772_190826 file exported
+2019-10-30 21:59:14,892 INFO: New shape of trip 627_197_191029 file exported
+2019-10-30 21:59:15,007 INFO: New shape of trip 208_37_180430 file exported
+2019-10-30 21:59:15,121 INFO: New shape of trip 336_86_190103 file exported
+2019-10-30 21:59:15,235 INFO: New shape of trip 601_366_190826 file exported
+2019-10-30 21:59:15,351 INFO: New shape of trip 221_200_190902 file exported
+2019-10-30 21:59:15,467 INFO: New shape of trip 155_600_181116 file exported
+2019-10-30 21:59:15,587 INFO: New shape of trip 110_110_180702 file exported
+2019-10-30 21:59:15,717 INFO: New shape of trip 374_38_190701 file exported
+2019-10-30 21:59:15,846 INFO: New shape of trip 341_500_190902 file exported
+2019-10-30 21:59:16,023 INFO: New shape of trip 395_210_190901 file exported
+2019-10-30 21:59:16,124 INFO: New shape of trip 612_415_190824 file exported
+2019-10-30 21:59:16,328 INFO: New shape of trip 391_86_190902 file exported
+2019-10-30 21:59:16,440 INFO: New shape of trip 164_630_190901 file exported
+2019-10-30 21:59:16,569 INFO: New shape of trip 398_80_191007 file exported
+2019-10-30 21:59:16,723 INFO: New shape of trip 369_9_190902 file exported
+2019-10-30 21:59:16,875 INFO: New shape of trip 383_114_190910 file exported
+2019-10-30 21:59:16,963 INFO: New shape of trip 223_71_180702 file exported
+2019-10-30 21:59:17,105 INFO: New shape of trip 224_234_190902 file exported
+2019-10-30 21:59:17,212 INFO: New shape of trip 110_99_180430 file exported
+2019-10-30 21:59:17,317 INFO: New shape of trip 223_133_180430 file exported
+2019-10-30 21:59:17,404 INFO: New shape of trip 664_136_181210 file exported
+2019-10-30 21:59:17,525 INFO: New shape of trip 313_280_191001 file exported
+2019-10-30 21:59:17,629 INFO: New shape of trip 665_280_190902 file exported
+2019-10-30 21:59:17,723 INFO: New shape of trip 326_98_181210 file exported
+2019-10-30 21:59:17,846 INFO: New shape of trip 338_14_190718 file exported
+2019-10-30 21:59:17,962 INFO: New shape of trip 375_437_191023 file exported
+2019-10-30 21:59:18,078 INFO: New shape of trip 303_488_190916 file exported
+2019-10-30 21:59:18,179 INFO: New shape of trip 606_682_190826 file exported
+2019-10-30 21:59:18,317 INFO: New shape of trip 398_81_191007 file exported
+2019-10-30 21:59:18,729 INFO: New shape of trip 333_521_190722 file exported
+2019-10-30 21:59:18,856 INFO: New shape of trip 223_32_180731 file exported
+2019-10-30 21:59:18,978 INFO: New shape of trip 667_17_190930 file exported
+2019-10-30 21:59:19,077 INFO: New shape of trip 326_78_190304 file exported
+2019-10-30 21:59:19,222 INFO: New shape of trip 155_1451_190901 file exported
+2019-10-30 21:59:19,499 INFO: New shape of trip 609_464_190826 file exported
+2019-10-30 21:59:19,605 INFO: New shape of trip 163_326_180928 file exported
+2019-10-30 21:59:19,700 INFO: New shape of trip 211_59_190901 file exported
+2019-10-30 21:59:19,857 INFO: New shape of trip 361_90_190718 file exported
+2019-10-30 21:59:19,988 INFO: New shape of trip 110_86_180702 file exported
+2019-10-30 21:59:20,081 INFO: New shape of trip 155_1397_191028 file exported
+2019-10-30 21:59:20,509 INFO: New shape of trip 448_176_190801 file exported
+2019-10-30 21:59:20,606 INFO: New shape of trip 624_330_190826 file exported
+2019-10-30 21:59:20,788 INFO: New shape of trip 395_98_190902 file exported
+2019-10-30 21:59:20,882 INFO: New shape of trip 601_63_190824 file exported
+2019-10-30 21:59:20,985 INFO: New shape of trip 327_133_191021 file exported
+2019-10-30 21:59:21,080 INFO: New shape of trip 378_227_190928 file exported
+2019-10-30 21:59:21,165 INFO: New shape of trip 212_172_190902 file exported
+2019-10-30 21:59:21,300 INFO: New shape of trip 323_259_191014 file exported
+2019-10-30 21:59:21,439 INFO: New shape of trip 324_423_181209 file exported
+2019-10-30 21:59:21,677 INFO: New shape of trip 360_58_190718 file exported
+2019-10-30 21:59:21,815 INFO: New shape of trip 369_75_190902 file exported
+2019-10-30 21:59:21,931 INFO: New shape of trip 371_255_190304 file exported
+2019-10-30 21:59:22,057 INFO: New shape of trip 316_16_191021 file exported
+2019-10-30 21:59:22,168 INFO: New shape of trip 353_32_180702 file exported
+2019-10-30 21:59:22,276 INFO: New shape of trip 344_390_190403 file exported
+2019-10-30 21:59:22,415 INFO: New shape of trip 339_300_190831 file exported
+2019-10-30 21:59:22,539 INFO: New shape of trip 383_142_190910 file exported
+2019-10-30 21:59:22,712 INFO: New shape of trip 380_199_190819 file exported
+2019-10-30 21:59:22,805 INFO: New shape of trip 606_739_190826 file exported
+2019-10-30 21:59:22,934 INFO: New shape of trip 317_136_190701 file exported
+2019-10-30 21:59:23,058 INFO: New shape of trip 317_124_190902 file exported
+2019-10-30 21:59:23,184 INFO: New shape of trip 306_279_190826 file exported
+2019-10-30 21:59:23,295 INFO: New shape of trip 221_600_190902 file exported
+2019-10-30 21:59:23,438 INFO: New shape of trip 240_1537_191022 file exported
+2019-10-30 21:59:23,605 INFO: New shape of trip 590_70_191001 file exported
+2019-10-30 21:59:23,793 INFO: New shape of trip 333_591_190722 file exported
+2019-10-30 21:59:23,923 INFO: New shape of trip 348_31_190601 file exported
+2019-10-30 21:59:24,041 INFO: New shape of trip 341_555_190902 file exported
+2019-10-30 21:59:24,163 INFO: New shape of trip 375_965_190930 file exported
+2019-10-30 21:59:24,260 INFO: New shape of trip 226_29_190325 file exported
+2019-10-30 21:59:24,384 INFO: New shape of trip 348_16_190601 file exported
+2019-10-30 21:59:24,525 INFO: New shape of trip 224_221_190901 file exported
+2019-10-30 21:59:24,640 INFO: New shape of trip 367_362_190930 file exported
+2019-10-30 21:59:24,752 INFO: New shape of trip 370_22_180702 file exported
+2019-10-30 21:59:24,893 INFO: New shape of trip 324_28_191024 file exported
+2019-10-30 21:59:24,990 INFO: New shape of trip 306_52_190824 file exported
+2019-10-30 21:59:25,110 INFO: New shape of trip 226_54_190325 file exported
+2019-10-30 21:59:25,241 INFO: New shape of trip 322_571_191023 file exported
+2019-10-30 21:59:25,332 INFO: New shape of trip 488_26_180430 file exported
+2019-10-30 21:59:25,423 INFO: New shape of trip 117_227_190303 file exported
+2019-10-30 21:59:34,049 INFO: Trip 381_282_190701 positions file updated
+2019-10-30 21:59:34,050 INFO: Trip 389_14_190824 positions file updated
+2019-10-30 21:59:34,051 INFO: Trip 224_234_190902 positions file updated
+2019-10-30 21:59:34,052 INFO: Trip 224_208_190901 positions file updated
+2019-10-30 21:59:34,053 INFO: Trip 389_46_190826 positions file updated
+2019-10-30 21:59:34,054 INFO: Trip 322_509_191023 positions file updated
+2019-10-30 21:59:34,055 INFO: Trip 337_322_191015 positions file updated
+2019-10-30 21:59:34,056 INFO: Trip 335_384_191023 positions file updated
+2019-10-30 21:59:34,057 INFO: Trip 395_34_190901 positions file updated
+2019-10-30 21:59:34,058 INFO: Trip 317_166_190902 positions file updated
+2019-10-30 21:59:34,058 INFO: Trip 590_63_190826 positions file updated
+2019-10-30 21:59:34,059 INFO: Trip 209_13_181209 positions file updated
+2019-10-30 21:59:34,060 INFO: Trip 395_220_190902 positions file updated
+2019-10-30 21:59:34,060 INFO: Trip 209_638_190930 positions file updated
+2019-10-30 21:59:34,061 INFO: Trip 166_292_190902 positions file updated
+2019-10-30 21:59:34,062 INFO: Trip 375_497_191023 positions file updated
+2019-10-30 21:59:34,062 INFO: Trip 224_244_190902 positions file updated
+2019-10-30 21:59:34,063 INFO: Trip 228_191_181209 positions file updated
+2019-10-30 21:59:34,063 INFO: Trip 314_145_190718 positions file updated
+2019-10-30 21:59:34,064 INFO: Trip 203_452_190831 positions file updated
+2019-10-30 21:59:34,064 INFO: Trip 300_563_190826 positions file updated
+2019-10-30 21:59:34,065 INFO: Trip 307_175_191029 positions file updated
+2019-10-30 21:59:34,066 INFO: Trip 348_46_190517 positions file updated
+2019-10-30 21:59:34,066 INFO: Trip 361_87_190718 positions file updated
+2019-10-30 21:59:34,067 INFO: Trip 531_27_190701 positions file updated
+2019-10-30 21:59:34,068 INFO: Trip 240_1597_191022 positions file updated
+2019-10-30 21:59:34,069 INFO: Trip 240_1552_191022 positions file updated
+2019-10-30 21:59:34,070 INFO: Trip 321_131_190819 positions file updated
+2019-10-30 21:59:34,071 INFO: Trip 377_342_190629 positions file updated
+2019-10-30 21:59:34,071 INFO: Trip 620_228_191029 positions file updated
+2019-10-30 21:59:34,072 INFO: Trip 309_119_191029 positions file updated
+2019-10-30 21:59:34,073 INFO: Trip 612_374_190826 positions file updated
+2019-10-30 21:59:34,073 INFO: Trip 117_216_190303 positions file updated
+2019-10-30 21:59:34,074 INFO: Trip 342_7_191024 positions file updated
+2019-10-30 21:59:34,075 INFO: Trip 380_62_190819 positions file updated
+2019-10-30 21:59:34,076 INFO: Trip 399_356_190826 positions file updated
+2019-10-30 21:59:34,076 INFO: Trip 609_560_190824 positions file updated
+2019-10-30 21:59:34,077 INFO: Trip 221_575_190901 positions file updated
+2019-10-30 21:59:34,078 INFO: Trip 375_970_190929 positions file updated
+2019-10-30 21:59:34,079 INFO: Trip 471_287_190902 positions file updated
+2019-10-30 21:59:34,080 INFO: Trip 163_326_180928 positions file updated
+2019-10-30 21:59:34,080 INFO: Trip 317_124_190902 positions file updated
+2019-10-30 21:59:34,081 INFO: Trip 339_300_190831 positions file updated
+2019-10-30 21:59:34,082 INFO: Trip 369_9_190902 positions file updated
+2019-10-30 21:59:34,083 INFO: Trip 370_22_180702 positions file updated
+2019-10-30 21:59:34,084 INFO: Trip 383_114_190910 positions file updated
+2019-10-30 21:59:34,085 INFO: Trip 395_98_190902 positions file updated
+2019-10-30 21:59:34,086 INFO: Trip 375_437_191023 positions file updated
+2019-10-30 21:59:34,087 INFO: Trip 348_16_190601 positions file updated
+2019-10-30 21:59:34,088 INFO: Trip 667_17_190930 positions file updated
+2019-10-30 21:59:34,089 INFO: Trip 163_811_190311 positions file updated
+2019-10-30 21:59:34,090 INFO: Trip 323_259_191014 positions file updated
+2019-10-30 21:59:34,091 INFO: Trip 155_600_181116 positions file updated
+2019-10-30 21:59:34,092 INFO: Trip 324_28_191024 positions file updated
+2019-10-30 21:59:34,093 INFO: Trip 344_390_190403 positions file updated
+2019-10-30 21:59:34,093 INFO: Trip 395_210_190901 positions file updated
+2019-10-30 21:59:34,094 INFO: Trip 333_521_190722 positions file updated
+2019-10-30 21:59:34,095 INFO: Trip 398_81_191007 positions file updated
+2019-10-30 21:59:34,096 INFO: Trip 336_86_190103 positions file updated
+2019-10-30 21:59:34,097 INFO: Trip 391_86_190902 positions file updated
+2019-10-30 21:59:34,098 INFO: Trip 624_330_190826 positions file updated
+2019-10-30 21:59:34,099 INFO: Trip 609_464_190826 positions file updated
+2019-10-30 21:59:34,099 INFO: Trip 341_500_190902 positions file updated
+2019-10-30 21:59:34,100 INFO: Trip 590_70_191001 positions file updated
+2019-10-30 21:59:34,101 INFO: Trip 110_99_180430 positions file updated
+2019-10-30 21:59:34,102 INFO: Trip 221_200_190902 positions file updated
+2019-10-30 21:59:34,103 INFO: Trip 333_591_190722 positions file updated
+2019-10-30 21:59:34,104 INFO: Trip 341_555_190902 positions file updated
+2019-10-30 21:59:34,105 INFO: Trip 317_136_190701 positions file updated
+2019-10-30 21:59:34,106 INFO: Trip 327_133_191021 positions file updated
+2019-10-30 21:59:34,106 INFO: Trip 371_255_190304 positions file updated
+2019-10-30 21:59:34,107 INFO: Trip 601_63_190824 positions file updated
+2019-10-30 21:59:34,108 INFO: Trip 606_682_190826 positions file updated
+2019-10-30 21:59:34,109 INFO: Trip 226_29_190325 positions file updated
+2019-10-30 21:59:34,110 INFO: Trip 353_32_180702 positions file updated
+2019-10-30 21:59:34,110 INFO: Trip 612_415_190824 positions file updated
+2019-10-30 21:59:34,111 INFO: Trip 380_199_190819 positions file updated
+2019-10-30 21:59:34,113 INFO: Trip 606_739_190826 positions file updated
+2019-10-30 21:59:34,113 INFO: Trip 223_133_180430 positions file updated
+2019-10-30 21:59:34,114 INFO: Trip 223_32_180731 positions file updated
+2019-10-30 21:59:34,115 INFO: Trip 303_488_190916 positions file updated
+2019-10-30 21:59:34,117 INFO: Trip 117_227_190303 positions file updated
+2019-10-30 21:59:34,118 INFO: Trip 155_1397_191028 positions file updated
+2019-10-30 21:59:34,119 INFO: Trip 316_16_191021 positions file updated
+2019-10-30 21:59:34,119 INFO: Trip 348_31_190601 positions file updated
+2019-10-30 21:59:34,120 INFO: Trip 360_58_190718 positions file updated
+2019-10-30 21:59:34,121 INFO: Trip 385_181_190527 positions file updated
+2019-10-30 21:59:34,122 INFO: Trip 330_772_190826 positions file updated
+2019-10-30 21:59:34,122 INFO: Trip 240_1537_191022 positions file updated
+2019-10-30 21:59:34,123 INFO: Trip 306_52_190824 positions file updated
+2019-10-30 21:59:34,124 INFO: Trip 313_280_191001 positions file updated
+2019-10-30 21:59:34,125 INFO: Trip 448_176_190801 positions file updated
+2019-10-30 21:59:34,126 INFO: Trip 338_14_190718 positions file updated
+2019-10-30 21:59:34,126 INFO: Trip 398_80_191007 positions file updated
+2019-10-30 21:59:34,127 INFO: Trip 223_71_180702 positions file updated
+2019-10-30 21:59:34,128 INFO: Trip 226_54_190325 positions file updated
+2019-10-30 21:59:34,129 INFO: Trip 627_197_191029 positions file updated
+2019-10-30 21:59:34,130 INFO: Trip 324_423_181209 positions file updated
+2019-10-30 21:59:34,130 INFO: Trip 664_136_181210 positions file updated
+2019-10-30 21:59:34,131 INFO: Trip 224_221_190901 positions file updated
+2019-10-30 21:59:34,132 INFO: Trip 369_75_190902 positions file updated
+2019-10-30 21:59:34,133 INFO: Trip 374_38_190701 positions file updated
+2019-10-30 21:59:34,134 INFO: Trip 378_227_190928 positions file updated
+2019-10-30 21:59:34,135 INFO: Trip 164_630_190901 positions file updated
+2019-10-30 21:59:34,135 INFO: Trip 212_172_190902 positions file updated
+2019-10-30 21:59:34,136 INFO: Trip 383_142_190910 positions file updated
+2019-10-30 21:59:34,137 INFO: Trip 665_280_190902 positions file updated
+2019-10-30 21:59:34,138 INFO: Trip 322_571_191023 positions file updated
+2019-10-30 21:59:34,140 INFO: Trip 326_98_181210 positions file updated
+2019-10-30 21:59:34,140 INFO: Trip 361_90_190718 positions file updated
+2019-10-30 21:59:34,141 INFO: Trip 367_362_190930 positions file updated
+2019-10-30 21:59:34,142 INFO: Trip 110_110_180702 positions file updated
+2019-10-30 21:59:34,143 INFO: Trip 488_26_180430 positions file updated
+2019-10-30 21:59:34,144 INFO: Trip 208_37_180430 positions file updated
+2019-10-30 21:59:34,144 INFO: Trip 211_59_190901 positions file updated
+2019-10-30 21:59:34,145 INFO: Trip 601_366_190826 positions file updated
+2019-10-30 21:59:34,146 INFO: Trip 155_1451_190901 positions file updated
+2019-10-30 21:59:34,147 INFO: Trip 221_600_190902 positions file updated
+2019-10-30 21:59:34,148 INFO: Trip 375_965_190930 positions file updated
+2019-10-30 21:59:34,149 INFO: Trip 110_86_180702 positions file updated
+2019-10-30 21:59:34,149 INFO: Trip 302_391_190928 positions file updated
+2019-10-30 21:59:34,151 INFO: Trip 306_279_190826 positions file updated
+2019-10-30 21:59:34,152 INFO: Trip 326_78_190304 positions file updated
+2019-10-30 21:59:34,153 INFO: Vehicle positions file updated
+2019-10-30 21:59:34,154 INFO: Shape of trip 458_65_190522 file removed
+2019-10-30 21:59:53,999 INFO: Trip 381_282_190701 positions file updated
+2019-10-30 21:59:54,000 INFO: Trip 389_14_190824 positions file updated
+2019-10-30 21:59:54,001 INFO: Trip 224_234_190902 positions file updated
+2019-10-30 21:59:54,001 INFO: Trip 224_208_190901 positions file updated
+2019-10-30 21:59:54,002 INFO: Trip 389_46_190826 positions file updated
+2019-10-30 21:59:54,002 INFO: Trip 337_322_191015 positions file updated
+2019-10-30 21:59:54,003 INFO: Trip 335_384_191023 positions file updated
+2019-10-30 21:59:54,004 INFO: Trip 395_34_190901 positions file updated
+2019-10-30 21:59:54,005 INFO: Trip 317_166_190902 positions file updated
+2019-10-30 21:59:54,005 INFO: Trip 590_63_190826 positions file updated
+2019-10-30 21:59:54,006 INFO: Trip 209_13_181209 positions file updated
+2019-10-30 21:59:54,006 INFO: Trip 395_220_190902 positions file updated
+2019-10-30 21:59:54,007 INFO: Trip 209_638_190930 positions file updated
+2019-10-30 21:59:54,007 INFO: Trip 166_292_190902 positions file updated
+2019-10-30 21:59:54,008 INFO: Trip 224_244_190902 positions file updated
+2019-10-30 21:59:54,009 INFO: Trip 314_145_190718 positions file updated
+2019-10-30 21:59:54,009 INFO: Trip 203_452_190831 positions file updated
+2019-10-30 21:59:54,010 INFO: Trip 300_563_190826 positions file updated
+2019-10-30 21:59:54,010 INFO: Trip 307_175_191029 positions file updated
+2019-10-30 21:59:54,011 INFO: Trip 348_46_190517 positions file updated
+2019-10-30 21:59:54,012 INFO: Trip 361_87_190718 positions file updated
+2019-10-30 21:59:54,012 INFO: Trip 531_27_190701 positions file updated
+2019-10-30 21:59:54,013 INFO: Trip 240_1597_191022 positions file updated
+2019-10-30 21:59:54,014 INFO: Trip 240_1552_191022 positions file updated
+2019-10-30 21:59:54,014 INFO: Trip 321_131_190819 positions file updated
+2019-10-30 21:59:54,015 INFO: Trip 377_342_190629 positions file updated
+2019-10-30 21:59:54,016 INFO: Trip 620_228_191029 positions file updated
+2019-10-30 21:59:54,016 INFO: Trip 309_119_191029 positions file updated
+2019-10-30 21:59:54,017 INFO: Trip 612_374_190826 positions file updated
+2019-10-30 21:59:54,017 INFO: Trip 117_216_190303 positions file updated
+2019-10-30 21:59:54,018 INFO: Trip 342_7_191024 positions file updated
+2019-10-30 21:59:54,019 INFO: Trip 380_62_190819 positions file updated
+2019-10-30 21:59:54,019 INFO: Trip 399_356_190826 positions file updated
+2019-10-30 21:59:54,020 INFO: Trip 609_560_190824 positions file updated
+2019-10-30 21:59:54,020 INFO: Trip 221_575_190901 positions file updated
+2019-10-30 21:59:54,021 INFO: Trip 375_970_190929 positions file updated
+2019-10-30 21:59:54,022 INFO: Trip 471_287_190902 positions file updated
+2019-10-30 21:59:54,022 INFO: Trip 163_326_180928 positions file updated
+2019-10-30 21:59:54,023 INFO: Trip 317_124_190902 positions file updated
+2019-10-30 21:59:54,024 INFO: Trip 339_300_190831 positions file updated
+2019-10-30 21:59:54,024 INFO: Trip 369_9_190902 positions file updated
+2019-10-30 21:59:54,025 INFO: Trip 370_22_180702 positions file updated
+2019-10-30 21:59:54,026 INFO: Trip 383_114_190910 positions file updated
+2019-10-30 21:59:54,026 INFO: Trip 395_98_190902 positions file updated
+2019-10-30 21:59:54,027 INFO: Trip 375_437_191023 positions file updated
+2019-10-30 21:59:54,027 INFO: Trip 348_16_190601 positions file updated
+2019-10-30 21:59:54,028 INFO: Trip 667_17_190930 positions file updated
+2019-10-30 21:59:54,029 INFO: Trip 163_811_190311 positions file updated
+2019-10-30 21:59:54,029 INFO: Trip 323_259_191014 positions file updated
+2019-10-30 21:59:54,030 INFO: Trip 324_28_191024 positions file updated
+2019-10-30 21:59:54,031 INFO: Trip 344_390_190403 positions file updated
+2019-10-30 21:59:54,031 INFO: Trip 395_210_190901 positions file updated
+2019-10-30 21:59:54,032 INFO: Trip 333_521_190722 positions file updated
+2019-10-30 21:59:54,033 INFO: Trip 398_81_191007 positions file updated
+2019-10-30 21:59:54,033 INFO: Trip 336_86_190103 positions file updated
+2019-10-30 21:59:54,034 INFO: Trip 391_86_190902 positions file updated
+2019-10-30 21:59:54,035 INFO: Trip 624_330_190826 positions file updated
+2019-10-30 21:59:54,036 INFO: Trip 609_464_190826 positions file updated
+2019-10-30 21:59:54,036 INFO: Trip 341_500_190902 positions file updated
+2019-10-30 21:59:54,037 INFO: Trip 590_70_191001 positions file updated
+2019-10-30 21:59:54,038 INFO: Trip 110_99_180430 positions file updated
+2019-10-30 21:59:54,039 INFO: Trip 221_200_190902 positions file updated
+2019-10-30 21:59:54,040 INFO: Trip 333_591_190722 positions file updated
+2019-10-30 21:59:54,041 INFO: Trip 341_555_190902 positions file updated
+2019-10-30 21:59:54,042 INFO: Trip 317_136_190701 positions file updated
+2019-10-30 21:59:54,042 INFO: Trip 327_133_191021 positions file updated
+2019-10-30 21:59:54,043 INFO: Trip 371_255_190304 positions file updated
+2019-10-30 21:59:54,046 INFO: Trip 601_63_190824 positions file updated
+2019-10-30 21:59:54,047 INFO: Trip 606_682_190826 positions file updated
+2019-10-30 21:59:54,048 INFO: Trip 226_29_190325 positions file updated
+2019-10-30 21:59:54,049 INFO: Trip 353_32_180702 positions file updated
+2019-10-30 21:59:54,050 INFO: Trip 612_415_190824 positions file updated
+2019-10-30 21:59:54,050 INFO: Trip 380_199_190819 positions file updated
+2019-10-30 21:59:54,051 INFO: Trip 606_739_190826 positions file updated
+2019-10-30 21:59:54,052 INFO: Trip 223_133_180430 positions file updated
+2019-10-30 21:59:54,052 INFO: Trip 223_32_180731 positions file updated
+2019-10-30 21:59:54,053 INFO: Trip 303_488_190916 positions file updated
+2019-10-30 21:59:54,054 INFO: Trip 117_227_190303 positions file updated
+2019-10-30 21:59:54,055 INFO: Trip 155_1397_191028 positions file updated
+2019-10-30 21:59:54,056 INFO: Trip 316_16_191021 positions file updated
+2019-10-30 21:59:54,057 INFO: Trip 348_31_190601 positions file updated
+2019-10-30 21:59:54,057 INFO: Trip 360_58_190718 positions file updated
+2019-10-30 21:59:54,058 INFO: Trip 385_181_190527 positions file updated
+2019-10-30 21:59:54,059 INFO: Trip 330_772_190826 positions file updated
+2019-10-30 21:59:54,060 INFO: Trip 240_1537_191022 positions file updated
+2019-10-30 21:59:54,060 INFO: Trip 306_52_190824 positions file updated
+2019-10-30 21:59:54,061 INFO: Trip 313_280_191001 positions file updated
+2019-10-30 21:59:54,061 INFO: Trip 448_176_190801 positions file updated
+2019-10-30 21:59:54,062 INFO: Trip 338_14_190718 positions file updated
+2019-10-30 21:59:54,063 INFO: Trip 398_80_191007 positions file updated
+2019-10-30 21:59:54,063 INFO: Trip 223_71_180702 positions file updated
+2019-10-30 21:59:54,064 INFO: Trip 226_54_190325 positions file updated
+2019-10-30 21:59:54,065 INFO: Trip 627_197_191029 positions file updated
+2019-10-30 21:59:54,066 INFO: Trip 324_423_181209 positions file updated
+2019-10-30 21:59:54,067 INFO: Trip 664_136_181210 positions file updated
+2019-10-30 21:59:54,067 INFO: Trip 224_221_190901 positions file updated
+2019-10-30 21:59:54,068 INFO: Trip 369_75_190902 positions file updated
+2019-10-30 21:59:54,069 INFO: Trip 374_38_190701 positions file updated
+2019-10-30 21:59:54,070 INFO: Trip 378_227_190928 positions file updated
+2019-10-30 21:59:54,070 INFO: Trip 164_630_190901 positions file updated
+2019-10-30 21:59:54,071 INFO: Trip 212_172_190902 positions file updated
+2019-10-30 21:59:54,072 INFO: Trip 383_142_190910 positions file updated
+2019-10-30 21:59:54,072 INFO: Trip 665_280_190902 positions file updated
+2019-10-30 21:59:54,073 INFO: Trip 322_571_191023 positions file updated
+2019-10-30 21:59:54,073 INFO: Trip 326_98_181210 positions file updated
+2019-10-30 21:59:54,074 INFO: Trip 361_90_190718 positions file updated
+2019-10-30 21:59:54,075 INFO: Trip 367_362_190930 positions file updated
+2019-10-30 21:59:54,075 INFO: Trip 110_110_180702 positions file updated
+2019-10-30 21:59:54,076 INFO: Trip 488_26_180430 positions file updated
+2019-10-30 21:59:54,077 INFO: Trip 208_37_180430 positions file updated
+2019-10-30 21:59:54,077 INFO: Trip 211_59_190901 positions file updated
+2019-10-30 21:59:54,078 INFO: Trip 601_366_190826 positions file updated
+2019-10-30 21:59:54,079 INFO: Trip 155_1451_190901 positions file updated
+2019-10-30 21:59:54,079 INFO: Trip 221_600_190902 positions file updated
+2019-10-30 21:59:54,080 INFO: Trip 375_965_190930 positions file updated
+2019-10-30 21:59:54,080 INFO: Trip 110_86_180702 positions file updated
+2019-10-30 21:59:54,081 INFO: Trip 302_391_190928 positions file updated
+2019-10-30 21:59:54,082 INFO: Trip 306_279_190826 positions file updated
+2019-10-30 21:59:54,082 INFO: Trip 326_78_190304 positions file updated
+2019-10-30 21:59:54,083 INFO: Vehicle positions file updated
+2019-10-30 21:59:54,084 INFO: Shape of trip 228_191_181209 file removed
+2019-10-30 21:59:54,085 INFO: Shape of trip 155_600_181116 file removed
+2019-10-30 21:59:54,085 INFO: Shape of trip 322_509_191023 file removed
+2019-10-30 21:59:54,086 INFO: Shape of trip 375_497_191023 file removed
+2019-10-30 22:00:14,019 INFO: Trip 381_282_190701 positions file updated
+2019-10-30 22:00:14,020 INFO: Trip 389_14_190824 positions file updated
+2019-10-30 22:00:14,021 INFO: Trip 224_234_190902 positions file updated
+2019-10-30 22:00:14,022 INFO: Trip 224_208_190901 positions file updated
+2019-10-30 22:00:14,024 INFO: Trip 389_46_190826 positions file updated
+2019-10-30 22:00:14,025 INFO: Trip 337_322_191015 positions file updated
+2019-10-30 22:00:14,026 INFO: Trip 335_384_191023 positions file updated
+2019-10-30 22:00:14,027 INFO: Trip 395_34_190901 positions file updated
+2019-10-30 22:00:14,028 INFO: Trip 317_166_190902 positions file updated
+2019-10-30 22:00:14,029 INFO: Trip 590_63_190826 positions file updated
+2019-10-30 22:00:14,031 INFO: Trip 209_13_181209 positions file updated
+2019-10-30 22:00:14,032 INFO: Trip 395_220_190902 positions file updated
+2019-10-30 22:00:14,033 INFO: Trip 209_638_190930 positions file updated
+2019-10-30 22:00:14,034 INFO: Trip 166_292_190902 positions file updated
+2019-10-30 22:00:14,035 INFO: Trip 224_244_190902 positions file updated
+2019-10-30 22:00:14,036 INFO: Trip 314_145_190718 positions file updated
+2019-10-30 22:00:14,036 INFO: Trip 203_452_190831 positions file updated
+2019-10-30 22:00:14,037 INFO: Trip 300_563_190826 positions file updated
+2019-10-30 22:00:14,039 INFO: Trip 307_175_191029 positions file updated
+2019-10-30 22:00:14,041 INFO: Trip 348_46_190517 positions file updated
+2019-10-30 22:00:14,042 INFO: Trip 361_87_190718 positions file updated
+2019-10-30 22:00:14,043 INFO: Trip 531_27_190701 positions file updated
+2019-10-30 22:00:14,043 INFO: Trip 240_1597_191022 positions file updated
+2019-10-30 22:00:14,044 INFO: Trip 240_1552_191022 positions file updated
+2019-10-30 22:00:14,045 INFO: Trip 321_131_190819 positions file updated
+2019-10-30 22:00:14,046 INFO: Trip 377_342_190629 positions file updated
+2019-10-30 22:00:14,046 INFO: Trip 620_228_191029 positions file updated
+2019-10-30 22:00:14,047 INFO: Trip 309_119_191029 positions file updated
+2019-10-30 22:00:14,048 INFO: Trip 612_374_190826 positions file updated
+2019-10-30 22:00:14,048 INFO: Trip 117_216_190303 positions file updated
+2019-10-30 22:00:14,049 INFO: Trip 342_7_191024 positions file updated
+2019-10-30 22:00:14,050 INFO: Trip 380_62_190819 positions file updated
+2019-10-30 22:00:14,051 INFO: Trip 399_356_190826 positions file updated
+2019-10-30 22:00:14,052 INFO: Trip 609_560_190824 positions file updated
+2019-10-30 22:00:14,052 INFO: Trip 221_575_190901 positions file updated
+2019-10-30 22:00:14,053 INFO: Trip 375_970_190929 positions file updated
+2019-10-30 22:00:14,054 INFO: Trip 471_287_190902 positions file updated
+2019-10-30 22:00:14,055 INFO: Trip 163_326_180928 positions file updated
+2019-10-30 22:00:14,055 INFO: Trip 317_124_190902 positions file updated
+2019-10-30 22:00:14,056 INFO: Trip 339_300_190831 positions file updated
+2019-10-30 22:00:14,057 INFO: Trip 369_9_190902 positions file updated
+2019-10-30 22:00:14,058 INFO: Trip 370_22_180702 positions file updated
+2019-10-30 22:00:14,059 INFO: Trip 383_114_190910 positions file updated
+2019-10-30 22:00:14,060 INFO: Trip 395_98_190902 positions file updated
+2019-10-30 22:00:14,060 INFO: Trip 375_437_191023 positions file updated
+2019-10-30 22:00:14,061 INFO: Trip 348_16_190601 positions file updated
+2019-10-30 22:00:14,062 INFO: Trip 667_17_190930 positions file updated
+2019-10-30 22:00:14,063 INFO: Trip 163_811_190311 positions file updated
+2019-10-30 22:00:14,064 INFO: Trip 323_259_191014 positions file updated
+2019-10-30 22:00:14,064 INFO: Trip 324_28_191024 positions file updated
+2019-10-30 22:00:14,065 INFO: Trip 344_390_190403 positions file updated
+2019-10-30 22:00:14,066 INFO: Trip 395_210_190901 positions file updated
+2019-10-30 22:00:14,067 INFO: Trip 333_521_190722 positions file updated
+2019-10-30 22:00:14,067 INFO: Trip 398_81_191007 positions file updated
+2019-10-30 22:00:14,068 INFO: Trip 336_86_190103 positions file updated
+2019-10-30 22:00:14,069 INFO: Trip 391_86_190902 positions file updated
+2019-10-30 22:00:14,069 INFO: Trip 624_330_190826 positions file updated
+2019-10-30 22:00:14,070 INFO: Trip 609_464_190826 positions file updated
+2019-10-30 22:00:14,071 INFO: Trip 341_500_190902 positions file updated
+2019-10-30 22:00:14,072 INFO: Trip 590_70_191001 positions file updated
+2019-10-30 22:00:14,073 INFO: Trip 110_99_180430 positions file updated
+2019-10-30 22:00:14,075 INFO: Trip 221_200_190902 positions file updated
+2019-10-30 22:00:14,076 INFO: Trip 333_591_190722 positions file updated
+2019-10-30 22:00:14,077 INFO: Trip 341_555_190902 positions file updated
+2019-10-30 22:00:14,078 INFO: Trip 317_136_190701 positions file updated
+2019-10-30 22:00:14,079 INFO: Trip 327_133_191021 positions file updated
+2019-10-30 22:00:14,080 INFO: Trip 371_255_190304 positions file updated
+2019-10-30 22:00:14,080 INFO: Trip 601_63_190824 positions file updated
+2019-10-30 22:00:14,081 INFO: Trip 606_682_190826 positions file updated
+2019-10-30 22:00:14,082 INFO: Trip 226_29_190325 positions file updated
+2019-10-30 22:00:14,082 INFO: Trip 353_32_180702 positions file updated
+2019-10-30 22:00:14,083 INFO: Trip 612_415_190824 positions file updated
+2019-10-30 22:00:14,084 INFO: Trip 380_199_190819 positions file updated
+2019-10-30 22:00:14,084 INFO: Trip 606_739_190826 positions file updated
+2019-10-30 22:00:14,085 INFO: Trip 223_133_180430 positions file updated
+2019-10-30 22:00:14,086 INFO: Trip 223_32_180731 positions file updated
+2019-10-30 22:00:14,087 INFO: Trip 303_488_190916 positions file updated
+2019-10-30 22:00:14,088 INFO: Trip 117_227_190303 positions file updated
+2019-10-30 22:00:14,089 INFO: Trip 155_1397_191028 positions file updated
+2019-10-30 22:00:14,089 INFO: Trip 316_16_191021 positions file updated
+2019-10-30 22:00:14,090 INFO: Trip 348_31_190601 positions file updated
+2019-10-30 22:00:14,091 INFO: Trip 360_58_190718 positions file updated
+2019-10-30 22:00:14,092 INFO: Trip 385_181_190527 positions file updated
+2019-10-30 22:00:14,092 INFO: Trip 330_772_190826 positions file updated
+2019-10-30 22:00:14,093 INFO: Trip 240_1537_191022 positions file updated
+2019-10-30 22:00:14,094 INFO: Trip 306_52_190824 positions file updated
+2019-10-30 22:00:14,094 INFO: Trip 313_280_191001 positions file updated
+2019-10-30 22:00:14,095 INFO: Trip 448_176_190801 positions file updated
+2019-10-30 22:00:14,096 INFO: Trip 338_14_190718 positions file updated
+2019-10-30 22:00:14,097 INFO: Trip 398_80_191007 positions file updated
+2019-10-30 22:00:14,098 INFO: Trip 223_71_180702 positions file updated
+2019-10-30 22:00:14,098 INFO: Trip 226_54_190325 positions file updated
+2019-10-30 22:00:14,099 INFO: Trip 627_197_191029 positions file updated
+2019-10-30 22:00:14,100 INFO: Trip 324_423_181209 positions file updated
+2019-10-30 22:00:14,101 INFO: Trip 664_136_181210 positions file updated
+2019-10-30 22:00:14,102 INFO: Trip 224_221_190901 positions file updated
+2019-10-30 22:00:14,102 INFO: Trip 369_75_190902 positions file updated
+2019-10-30 22:00:14,103 INFO: Trip 374_38_190701 positions file updated
+2019-10-30 22:00:14,104 INFO: Trip 378_227_190928 positions file updated
+2019-10-30 22:00:14,105 INFO: Trip 164_630_190901 positions file updated
+2019-10-30 22:00:14,105 INFO: Trip 212_172_190902 positions file updated
+2019-10-30 22:00:14,106 INFO: Trip 383_142_190910 positions file updated
+2019-10-30 22:00:14,107 INFO: Trip 665_280_190902 positions file updated
+2019-10-30 22:00:14,108 INFO: Trip 322_571_191023 positions file updated
+2019-10-30 22:00:14,109 INFO: Trip 326_98_181210 positions file updated
+2019-10-30 22:00:14,109 INFO: Trip 367_362_190930 positions file updated
+2019-10-30 22:00:14,110 INFO: Trip 110_110_180702 positions file updated
+2019-10-30 22:00:14,111 INFO: Trip 488_26_180430 positions file updated
+2019-10-30 22:00:14,112 INFO: Trip 208_37_180430 positions file updated
+2019-10-30 22:00:14,112 INFO: Trip 211_59_190901 positions file updated
+2019-10-30 22:00:14,113 INFO: Trip 601_366_190826 positions file updated
+2019-10-30 22:00:14,114 INFO: Trip 155_1451_190901 positions file updated
+2019-10-30 22:00:14,114 INFO: Trip 221_600_190902 positions file updated
+2019-10-30 22:00:14,115 INFO: Trip 375_965_190930 positions file updated
+2019-10-30 22:00:14,116 INFO: Trip 110_86_180702 positions file updated
+2019-10-30 22:00:14,117 INFO: Trip 302_391_190928 positions file updated
+2019-10-30 22:00:14,118 INFO: Trip 306_279_190826 positions file updated
+2019-10-30 22:00:14,118 INFO: Trip 326_78_190304 positions file updated
+2019-10-30 22:00:14,119 INFO: Trip 115_64_180430 positions file updated
+2019-10-30 22:00:14,120 INFO: Trip 212_84_190902 positions file updated
+2019-10-30 22:00:14,121 INFO: Trip 321_116_190902 positions file updated
+2019-10-30 22:00:14,121 INFO: Trip 368_22_190920 positions file updated
+2019-10-30 22:00:14,122 INFO: Trip 369_21_190411 positions file updated
+2019-10-30 22:00:14,123 INFO: Trip 370_23_190701 positions file updated
+2019-10-30 22:00:14,123 INFO: Trip 381_245_190629 positions file updated
+2019-10-30 22:00:14,124 INFO: Trip 385_171_190527 positions file updated
+2019-10-30 22:00:14,124 INFO: Trip 395_30_190902 positions file updated
+2019-10-30 22:00:14,125 INFO: Trip 603_730_190826 positions file updated
+2019-10-30 22:00:14,125 INFO: Trip 446_67_180430 positions file updated
+2019-10-30 22:00:14,127 INFO: Vehicle positions file updated
+2019-10-30 22:00:14,128 INFO: Shape of trip 361_90_190718 file removed
+2019-10-30 22:00:14,278 INFO: New shape of trip 385_171_190527 file exported
+2019-10-30 22:00:14,388 INFO: New shape of trip 115_64_180430 file exported
+2019-10-30 22:00:14,490 INFO: New shape of trip 446_67_180430 file exported
+2019-10-30 22:00:14,635 INFO: New shape of trip 369_21_190411 file exported
+2019-10-30 22:00:14,727 INFO: New shape of trip 212_84_190902 file exported
+2019-10-30 22:00:14,817 INFO: New shape of trip 368_22_190920 file exported
+2019-10-30 22:00:14,950 INFO: New shape of trip 321_116_190902 file exported
+2019-10-30 22:00:15,120 INFO: New shape of trip 395_30_190902 file exported
+2019-10-30 22:00:15,231 INFO: New shape of trip 370_23_190701 file exported
+2019-10-30 22:00:15,393 INFO: New shape of trip 381_245_190629 file exported
+2019-10-30 22:00:15,494 INFO: New shape of trip 603_730_190826 file exported
