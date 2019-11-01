@@ -76,6 +76,7 @@
 			}
 
 			function drawLastFewMinutesShape(geojson) {
+				console.log("printing lfms");
 				console.log(geojson);
 				map.addLayer({
 					type: 'line',
@@ -152,8 +153,8 @@
 							case "":
 								lineStringLayerID = marker.properties.gtfs_trip_id;
 								try {
-									shape_geojson = JSON.parse(readTextFile("trips/" + lineStringLayerID + ".shape"));
-									last_few_minutes = JSON.parse(readTextFile("trips/" + lineStringLayerID + ".lfms"));
+									shape_geojson = JSON.parse(readTextFile(trip_folder_path + lineStringLayerID + ".shape"));
+									last_few_minutes = JSON.parse(readTextFile(trip_folder_path + lineStringLayerID + ".lfms"));
 									drawShape(shape_geojson);
 									drawLastFewMinutesShape(last_few_minutes);
 								}catch (e) {
@@ -179,8 +180,8 @@
 								if (map.getSource(lineStringLayerID + '.lfms')) map.removeSource(lineStringLayerID + '.lfms');
 								lineStringLayerID = marker.properties.gtfs_trip_id;
 								try {
-									shape_geojson = JSON.parse(readTextFile("trips/" + lineStringLayerID + ".shape"));
-									last_few_minutes = JSON.parse(readTextFile("trips/" + lineStringLayerID + ".lfms"));
+									shape_geojson = JSON.parse(readTextFile(trip_folder_path + lineStringLayerID + ".shape"));
+									last_few_minutes = JSON.parse(readTextFile(trip_folder_path + lineStringLayerID + ".lfms"));
 									drawShape(shape_geojson);
 									drawLastFewMinutesShape(last_few_minutes);
 								}catch (e) {
@@ -207,6 +208,7 @@
 			mapboxgl.accessToken = 'pk.eyJ1IjoiZmlsaXBjaXptYXIiLCJhIjoiY2sxaHp3eHlzMGlmODNkanl2c2tqdTZscSJ9.rujrBlG1rSLuHpFaxxYX9w';
 
 			lineStringLayerID = "";
+			trip_folder_path = '../data/trips/';
 
 			var map = new mapboxgl.Map({
 				container: 'map', // container id
@@ -224,10 +226,11 @@
 				if (map.getLayer(lineStringLayerID + '.lfms'))	map.removeLayer(lineStringLayerID + '.lfms');
 				if (map.getSource(lineStringLayerID + '.lfms')) map.removeSource(lineStringLayerID + '.lfms');
 				try {
-					last_few_minutes = JSON.parse(readTextFile("trips/" + lineStringLayerID + ".lfms"));
+					last_few_minutes = JSON.parse(readTextFile(trip_folder_path + lineStringLayerID + ".lfms"));
 					drawLastFewMinutesShape(last_few_minutes);
 				}catch (e) {
 					console.log(e);
+				}
 			}, 10000);
 
 		</script>

@@ -58,7 +58,7 @@ if __name__ == "__main__":
 	parser.add_argument("--update_time", default=20, type=int, help="Time to next request")
 	parser.add_argument("--update_error", default=20, type=int, help="Update time if network error occurred")
 	parser.add_argument("--log", default="veh_pos_proc.log", type=str, help="Name of logging file")
-	parser.add_argument("--trips_folder", default="trips", type=str, help="Name of trips folder")
+	parser.add_argument("--trips_folder", default="../data/trips", type=str, help="Name of trips folder")
 	args = parser.parse_args()
 	logging.basicConfig(format='%(asctime)s %(levelname)s: %(message)s', level=logging.INFO, filename=args.log, filemode='w')
 	logging.info("Program has started")
@@ -117,30 +117,13 @@ if __name__ == "__main__":
 			"""
 			if current_trip_gtfs_id not in active_trips or len(active_trips[current_trip_gtfs_id]) == 0:
 				active_trips[current_trip_gtfs_id] = deque()
-				active_trips[current_trip_gtfs_id].append([bus_input_list["geometry"]["coordinates"], bus_input_list["properties"]["last_position"]["origin_time"]])
+				active_trips[current_trip_gtfs_id].append([bus_input_list["geometry"]["coordinates"], bus_input_list["properties"]["last_position"]["origin_time"], bus_input_list["properties"]["last_position"]["gtfs_shape_dist_traveled"]])
 			else:
-				active_trips[current_trip_gtfs_id].append([bus_input_list["geometry"]["coordinates"], bus_input_list["properties"]["last_position"]["origin_time"]])
+				active_trips[current_trip_gtfs_id].append([bus_input_list["geometry"]["coordinates"], bus_input_list["properties"]["last_position"]["origin_time"], bus_input_list["properties"]["last_position"]["gtfs_shape_dist_traveled"]])
 				while len(active_trips[current_trip_gtfs_id]) > 0 and is_old(active_trips[current_trip_gtfs_id][0]):
 					active_trips[current_trip_gtfs_id].popleft()
 
-			geojson_lfms = {}
-			geojson_lfms["type"] = "FeatureCollection"
-			geojson_lfms["features"] = [{}]
-			geojson_lfms["features"][0]["type"] = "Feature"
-			geojson_lfms["features"][0]["properties"] = {}
-			geojson_lfms["features"][0]["geometry"] = {}
-			geojson_lfms["features"][0]["geometry"]["type"] = "LineString"
-			geojson_lfms["features"][0]["geometry"]["coordinates"] = []
-
-			for pos in active_trips[current_trip_gtfs_id]:
-				geojson_lfms["features"][0]["geometry"]["coordinates"].append(pos[0])
-
-			with open(Path(args.trips_folder) / (current_trip_gtfs_id + '.lfms'), "w+") as f:
-				f.seek(0)
-				f.write(json.dumps(geojson_lfms))
-				f.close()
-				logging.info("Trip " + current_trip_gtfs_id + " positions file updated")
-
+			logging.info("Trip " + current_trip_gtfs_id + " positions file updated")
 
 		with open(args.file_name, "w+") as f:
 			f.seek(0)
@@ -174,9 +157,31 @@ if __name__ == "__main__":
 
 		active_trips_set = current_trips_set
 
+		for trip in current_trips_set:
+			json_data_trip = downloadURL(Request('https://api.golemio.cz/v1/gtfs/trips/' + trip + '?includeShapes=true', headers=headers))
+			geojson_lfms = {}
+			geojson_lfms["type"] = "FeatureCollection"
+			geojson_lfms["features"] = [{}]
+			geojson_lfms["features"][0]["type"] = "Feature"
+			geojson_lfms["features"][0]["properties"] = {}
+			geojson_lfms["features"][0]["geometry"] = {}
+			geojson_lfms["features"][0]["geometry"]["type"] = "LineString"
+			geojson_lfms["features"][0]["geometry"]["coordinates"] = []
+
+			geojson_lfms["features"][0]["geometry"]["coordinates"].append(active_trips[trip][0][0])
+
+			for shape_fault in json_data_trip["shapes"]:
+				if float(shape_fault["properties"]["shape_dist_traveled"]) > float(active_trips[trip][0][2]) and float(shape_fault["properties"]["shape_dist_traveled"]) < float(active_trips[trip][len(active_trips[trip]) - 1][2]):
+					geojson_lfms["features"][0]["geometry"]["coordinates"].append(shape_fault["geometry"]["coordinates"])
+					
+			geojson_lfms["features"][0]["geometry"]["coordinates"].append(active_trips[trip][len(active_trips[trip]) - 1][0])
+			with open(Path(args.trips_folder) / (trip + '.lfms'), "w+") as f:
+				f.seek(0)
+				f.write(json.dumps(geojson_lfms))
+				f.close()
+
 		try:
 			time.sleep(args.update_time - (time.time() - req_start))
 		except Exception as e:
 			logging.warning("Sleep failed, " + str(e))
 			continue
-
