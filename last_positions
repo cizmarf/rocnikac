@@ -1,1 +1,0 @@
-{"type": "FeatureCollection", "timestamp": "2019-11-01-00:55:09", "features": [{"type": "Feature", "properties": {"gtfs_trip_id": "360_57_190718", "gtfs_route_short_name": "360"}, "geometry": {"coordinates": [14.32147, 49.73203], "type": "Point"}}]}

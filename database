@@ -1,0 +1,106 @@
+CREATE DATABASE 'vehicles_info'
+
+CREATE TABLE `vehicles_info`.`stops` (
+  `id_stop` INT(32) NOT NULL AUTO_INCREMENT,
+  `stop_id` VARCHAR(31) NOT NULL COMMENT 'ID used in golemio API',
+  `parent_id_stop` INT(32) NOT NULL,
+  `stop_name` VARCHAR(123) NOT NULL,
+  `lat` DECIMAL(9,6) NOT NULL,
+  `lon` DECIMAL(9,6) NOT NULL,
+  PRIMARY KEY (`id_stop`, `stop_id`));
+
+ALTER TABLE `vehicles_info`.`stops`
+ADD INDEX `parent_stop_idx` (`parent_id_stop` ASC) VISIBLE;
+;
+ALTER TABLE `vehicles_info`.`stops`
+ADD CONSTRAINT `parent_stop`
+  FOREIGN KEY (`parent_id_stop`)
+  REFERENCES `vehicles_info`.`stops` (`id_stop`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+CREATE TABLE `vehicles_info`.`trips` (
+  `id_trip` INT(32) NOT NULL AUTO_INCREMENT,
+  `trip_id` VARCHAR(31) NOT NULL COMMENT 'ID used in golemio API';
+  `trip_headsign_id` INT(32) NOT NULL COMMENT 'Link into headsigns table',
+  `actual_delay` INT(32) NOT NULL,
+  `shape_traveled` INT(32) NULL,
+  `trip_no` VARCHAR(7) NOT NULL COMMENT 'Unique number for the line.',
+  PRIMARY KEY (`id_trip`));
+
+CREATE TABLE `vehicles_info`.`rides` (
+  `id_trip` INT(32) NOT NULL,
+  `id_stop` INT(32) NOT NULL,
+  `arrival_time` DATETIME NOT NULL,
+  `departure_time` DATETIME NOT NULL,
+  `shape_dist_traveled` INT(32) NOT NULL
+  PRIMARY KEY (`id_trip`));
+
+CREATE TABLE `vehicles_info`.`trip_coordinates` (
+  `id_trip` INT(32) NOT NULL,
+  `lat` DECIMAL(9,6) NOT NULL,
+  `log` VARCHAR(45) NOT NULL,
+  `time` DATETIME NOT NULL,
+  `delay` INT(32) NOT NULL),
+  `shape_traveled` INT(32) NOT NULL;
+
+ALTER TABLE `vehicles_info`.`trip_coordinates`
+ADD INDEX `trip_idx` (`id_trip` ASC) VISIBLE;
+;
+ALTER TABLE `vehicles_info`.`trip_coordinates`
+ADD CONSTRAINT `trip`
+  FOREIGN KEY (`id_trip`)
+  REFERENCES `vehicles_info`.`trips` (`id_trip`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+ALTER TABLE `vehicles_info`.`rides`
+ADD INDEX `id_trip_ride_idx` (`id_trip` ASC) VISIBLE,
+DROP PRIMARY KEY;
+;
+
+ALTER TABLE `vehicles_info`.`rides`
+ADD CONSTRAINT `id_trip_ride`
+  FOREIGN KEY (`id_trip`)
+  REFERENCES `vehicles_info`.`trips` (`id_trip`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+ALTER TABLE `vehicles_info`.`rides`
+ADD CONSTRAINT `id_stop_ride`
+  FOREIGN KEY (`id_stop`)
+  REFERENCES `vehicles_info`.`stops` (`id_stop`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+ALTER TABLE `vehicles_info`.`trips`
+ADD INDEX `headsign` (`trip_headsign_id` ASC) VISIBLE;
+;
+
+CREATE TABLE `vehicles_info`.`trip_headsigns` (
+  `id_trip_headsigns` INT(32) NOT NULL AUTO_INCREMENT,
+  `trip_headsigns` VARCHAR(123) NOT NULL,
+  PRIMARY KEY (`id_trip_headsigns`));
+
+ALTER TABLE `vehicles_info`.`trip_headsigns`
+ADD CONSTRAINT `headsign_trip`
+  FOREIGN KEY (`id_trip_headsigns`)
+  REFERENCES `vehicles_info`.`trips` (`trip_headsign_id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+ALTER TABLE `vehicles_info`.`stops`
+ADD INDEX `stop_parent_spot_idx` (`parent_id_stop` ASC) VISIBLE;
+;
+ALTER TABLE `vehicles_info`.`stops`
+ADD CONSTRAINT `stop_parent_spot`
+  FOREIGN KEY (`parent_id_stop`)
+  REFERENCES `vehicles_info`.`stops` (`id_stop`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+USE `vehicles_info`;
+CREATE  OR REPLACE VIEW `trip_no_trip_headsign` AS
+SELECT trips.trip_no, trip_headsigns.trip_headsigns
+FROM trips
+INNER JOIN trip_headsigns ON trips.trip_headsign_id=trip_headsigns.id_trip_headsigns;

@@ -5,7 +5,6 @@ import time
 import json
 import logging
 import os
-import shutil
 from pathlib import Path
 from collections import deque
 
@@ -173,7 +172,7 @@ if __name__ == "__main__":
 			for shape_fault in json_data_trip["shapes"]:
 				if float(shape_fault["properties"]["shape_dist_traveled"]) > float(active_trips[trip][0][2]) and float(shape_fault["properties"]["shape_dist_traveled"]) < float(active_trips[trip][len(active_trips[trip]) - 1][2]):
 					geojson_lfms["features"][0]["geometry"]["coordinates"].append(shape_fault["geometry"]["coordinates"])
-					
+
 			geojson_lfms["features"][0]["geometry"]["coordinates"].append(active_trips[trip][len(active_trips[trip]) - 1][0])
 			with open(Path(args.trips_folder) / (trip + '.lfms'), "w+") as f:
 				f.seek(0)

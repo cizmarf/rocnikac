@@ -1,10 +1,32 @@
+import json
 from urllib.request import Request, urlopen
+import mysql.connector
+
+# mydb = mysql.connector.connect(
+# 	host="localhost",
+# 	database="vehicles_info",
+# 	user="vehicles_access",
+# 	passwd="my_password"
+# )
+# mycursor = mydb.cursor()
+#
+#
+# # sql = "delete from trips where trip_id='newTrip';"
+#
+#
+# mydb.commit()
+
+def downloadURL(request):
+	webURL = urlopen(request)
+	response_body = webURL.read()
+	encoding = webURL.info().get_content_charset('utf-8')
+	return json.loads(response_body.decode(encoding))
 
 headers = {
   'Content-Type': 'application/json; charset=utf-8',
-  'x-access-token': 'YOUR_ACCESS_TOKEN'
+  'x-access-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNpem1hcmZpbGlwQGdtYWlsLmNvbSIsImlkIjo3NiwibmFtZSI6bnVsbCwic3VybmFtZSI6bnVsbCwiaWF0IjoxNTcwNTQ2MTU2LCJleHAiOjExNTcwNTQ2MTU2LCJpc3MiOiJnb2xlbWlvIiwianRpIjoiMzAxYWNhNDUtNGRlNC00ZDRmLWI4NzAtMzQwMDQ5OTM1MzBhIn0.4rCELzCNY8XOSvjqQA7cKocPGJ8D2ezhXiWUkIRUNjg'
 }
-request = Request('https://api.golemio.cz/v1/vehiclepositions', headers=headers)
+request = Request('https://api.golemio.cz/v1/vehiclepositions?limit=1&includePositions=true', headers=headers)
 
-response_body = urlopen(request).read()
+response_body = downloadURL(request)
 print(response_body)
