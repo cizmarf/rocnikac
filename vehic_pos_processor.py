@@ -87,7 +87,7 @@ if __name__ == "__main__":
 			continue
 
 		"""
-			Process json data and generate simplify json file
+			Process json data and generate geojson file
 		"""
 		geojson_vehiclepositions = {}
 		geojson_vehiclepositions["type"] = "FeatureCollection"

@@ -24,7 +24,7 @@ CREATE TABLE `vehicles_info`.`trips` (
   `trip_id` VARCHAR(31) NOT NULL COMMENT 'ID used in golemio API';
   `trip_headsign_id` INT(32) NOT NULL COMMENT 'Link into headsigns table',
   `actual_delay` INT(32) NOT NULL,
-  `shape_traveled` INT(32) NULL,
+  `shape_traveled` INT(32) NOT NULL,
   `trip_no` VARCHAR(7) NOT NULL COMMENT 'Unique number for the line.',
   PRIMARY KEY (`id_trip`));
 
@@ -104,3 +104,11 @@ CREATE  OR REPLACE VIEW `trip_no_trip_headsign` AS
 SELECT trips.trip_no, trip_headsigns.trip_headsigns
 FROM trips
 INNER JOIN trip_headsigns ON trips.trip_headsign_id=trip_headsigns.id_trip_headsigns;
+
+ALTER TABLE `vehicles_info`.`trip_headsigns`
+ADD INDEX `value_index` (`trip_headsigns` ASC) VISIBLE;
+;
+
+ALTER TABLE `vehicles_info`.`trips`
+ADD INDEX `trip_id` (`trip_id` ASC) VISIBLE;
+;
