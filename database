@@ -23,7 +23,7 @@ CREATE TABLE `vehicles_info`.`trips` (
   `id_trip` INT(32) NOT NULL AUTO_INCREMENT,
   `trip_id` VARCHAR(31) NOT NULL COMMENT 'ID used in golemio API';
   `trip_headsign_id` INT(32) NOT NULL COMMENT 'Link into headsigns table',
-  `actual_delay` INT(32) NOT NULL,
+  `current_delay` INT(32) NOT NULL,
   `shape_traveled` INT(32) NOT NULL,
   `trip_no` VARCHAR(7) NOT NULL COMMENT 'Unique number for the line.',
   PRIMARY KEY (`id_trip`));
@@ -112,3 +112,46 @@ ADD INDEX `value_index` (`trip_headsigns` ASC) VISIBLE;
 ALTER TABLE `vehicles_info`.`trips`
 ADD INDEX `trip_id` (`trip_id` ASC) VISIBLE;
 ;
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `insert_headsign_if_exists_and_return_id`(headsign VARCHAR(31)) RETURNS int(32)
+    DETERMINISTIC
+BEGIN
+	DECLARE id INT;
+	IF EXISTS(SELECT `id_trip_headsigns` FROM `trip_headsigns` WHERE `trip_headsigns` = headsign LIMIT 1) THEN
+		SELECT `id_trip_headsigns` INTO id FROM `trip_headsigns` WHERE `trip_headsigns` = headsign LIMIT 1;
+		RETURN id;
+	ELSE
+		INSERT INTO `trip_headsigns` (`trip_headsigns`) VALUE (headsign);
+        SELECT LAST_INSERT_ID() INTO id;
+        RETURN id;
+	END IF;
+END
+
+ALTER TABLE `vehicles_info`.`trip_headsigns`
+ADD UNIQUE INDEX `trip_headsigns_UNIQUE` (`trip_headsigns` ASC) VISIBLE;
+;
+
+ALTER TABLE `vehicles_info`.`trips`
+ADD UNIQUE INDEX `trip_id_UNIQUE` (`trip_id` ASC) VISIBLE;
+
+CREATE FUNCTION `insert_headsign_if_exists_and_return_id` (headsign VARCHAR(123))
+RETURNS INTEGER
+DETERMINISTIC
+BEGIN
+	INSERT IGNORE INTO trip_headsigns (trip_headsigns) VALUES (headsign);
+    SELECT id_trip_headsigns INTO @id FROM trip_headsigns WHERE trip_headsigns = headsign;
+RETURN @id;
+END
+
+ALTER TABLE `vehicles_info`.`stops`
+ADD UNIQUE INDEX `stop_id_UNIQUE` (`stop_id` ASC) VISIBLE;
+;
+
+ALTER TABLE `vehicles_info`.`stops`
+DROP FOREIGN KEY `stop_parent_spot`;
+ALTER TABLE `vehicles_info`.`stops`
+CHANGE COLUMN `parent_id_stop` `parent_id_stop` INT(32) NULL ;
+ALTER TABLE `vehicles_info`.`stops`
+ADD CONSTRAINT `stop_parent_spot`
+  FOREIGN KEY (`parent_id_stop`)
+  REFERENCES `vehicles_info`.`stops` (`id_stop`);
