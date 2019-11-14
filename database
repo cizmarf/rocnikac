@@ -31,8 +31,8 @@ CREATE TABLE `vehicles_info`.`trips` (
 CREATE TABLE `vehicles_info`.`rides` (
   `id_trip` INT(32) NOT NULL,
   `id_stop` INT(32) NOT NULL,
-  `arrival_time` DATETIME NOT NULL,
-  `departure_time` DATETIME NOT NULL,
+  `arrival_time` TIME NOT NULL,
+  `departure_time` TIME NOT NULL,
   `shape_dist_traveled` INT(32) NOT NULL
   PRIMARY KEY (`id_trip`));
 
@@ -155,3 +155,21 @@ ALTER TABLE `vehicles_info`.`stops`
 ADD CONSTRAINT `stop_parent_spot`
   FOREIGN KEY (`parent_id_stop`)
   REFERENCES `vehicles_info`.`stops` (`id_stop`);
+
+CREATE FUNCTION `insert_trip_and_return_id` (trip_id VARCHAR(31), trip_headsign_id INT(32), current_delay INT(32), shape_traveled INT(32), trip_no VARCHAR(7))
+RETURNS INTEGER
+DETERMINISTIC
+BEGIN
+	INSERT INTO trips (trip_id, trip_headsign_id, current_delay, shape_traveled, trip_no) VALUES (trip_id, trip_headsign_id, current_delay, shape_traveled, trip_no);
+    SELECT LAST_INSERT_ID() INTO @id;
+RETURN @id;
+END
+
+CREATE FUNCTION `insert_stop_and_return_id` (stop_id VARCHAR(31), stop_name VARCHAR(123), lat DECIMAL(9, 6), lon DECIMAL(9, 6), parent_id_stop INT(32))
+RETURNS INTEGER
+DETERMINISTIC
+BEGIN
+	INSERT INTO stops (stop_id, stop_name, lat, lon, parent_id_stop) VALUES (stop_id, stop_name, lat, lon, parent_id_stop);
+    SELECT LAST_INSERT_ID() INTO @id;
+RETURN @id;
+END
