@@ -1,42 +1,14 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+import builtins
 import json
-from urllib.request import Request, urlopen
-import mysql.connector
 
+import aiohttp
+import asyncio
+import async_timeout
+import os
 
-def sql_get_result(cursor, sql_query, params=()):
-	cursor.execute(sql_query, params)
-	return cursor.fetchall()
+import numpy as np
 
-
-
-mydb = mysql.connector.connect(
-	host="localhost",
-	database="vehicles_info",
-	user="vehicles_access",
-	passwd="my_password"
-)
-mycursor = mydb.cursor(prepared=True)
-
-# sql_update_query = """SELECT COUNT(`trip_id`) FROM `trips` where trip_id = %s LIMIT 1"""
-#
-# data_tuple = (1,)
-# mycursor.execute(sql_update_query, data_tuple)
-# mydb.commit()
-
-result = sql_get_result(mycursor, 'SELECT id_stop FROM stops WHERE stop_id = %s', ("1",))
-print(result)
-
-# def downloadURL(request):
-# 	webURL = urlopen(request)
-# 	response_body = webURL.read()
-# 	encoding = webURL.info().get_content_charset('utf-8')
-# 	return json.loads(response_body.decode(encoding))
-#
-# headers = {
-#   'Content-Type': 'application/json; charset=utf-8',
-#   'x-access-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNpem1hcmZpbGlwQGdtYWlsLmNvbSIsImlkIjo3NiwibmFtZSI6bnVsbCwic3VybmFtZSI6bnVsbCwiaWF0IjoxNTcwNTQ2MTU2LCJleHAiOjExNTcwNTQ2MTU2LCJpc3MiOiJnb2xlbWlvIiwianRpIjoiMzAxYWNhNDUtNGRlNC00ZDRmLWI4NzAtMzQwMDQ5OTM1MzBhIn0.4rCELzCNY8XOSvjqQA7cKocPGJ8D2ezhXiWUkIRUNjg'
-# }
-# request = Request('https://api.golemio.cz/v1/vehiclepositions?limit=1&includePositions=true', headers=headers)
-#
-# response_body = downloadURL(request)
-# print(response_body)
+int(8)
+getattr(builtins, "float")("fdsf")

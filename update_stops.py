@@ -1,3 +1,5 @@
+import argparse
+import logging
 from urllib.request import Request
 
 import mysql.connector
@@ -34,7 +36,6 @@ def insert(stops, to_insert, id_parent, parent_id):
 
 
 def run_update_stops_script():
-
 	json_stops = downloadURL(Request('https://api.golemio.cz/v1/gtfs/stops', headers=headers))
 	stops = Dictlist()
 
@@ -51,4 +52,13 @@ def run_update_stops_script():
 
 
 if __name__ == "__main__":
+	parser = argparse.ArgumentParser()
+	parser.add_argument("--log", default="../stop_update.log", type=str, help="Name of logging file")
+	args = parser.parse_args()
+
+	logging.basicConfig(format='%(asctime)s %(levelname)s: %(message)s', level=logging.INFO, filename=args.log, filemode='w')
+	logging.info("Program has started")
+
 	run_update_stops_script()
+
+	logging.info("Program has finished")

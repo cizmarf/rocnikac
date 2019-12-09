@@ -37,6 +37,22 @@ def sql_run_transaction(connection, cursor, sql_query, params=()):
 
 
 def sql_run_transaction_and_fetch(connection, cursor, sql_query, params=()):
-	cursor.executemany(sql_query, params)
+	cursor.execute(sql_query, params)
+	ret = cursor.fetchall()
 	connection.commit()
-	return cursor.fetchall()
+	return ret
+
+class GI:
+	type = "type"
+	trip = "trip"
+	shapes = "shapes"
+	feature = "feature"
+	features = "features"
+	geometry = "geometry"
+	properties = "properties"
+	lineString = "LineString"
+	coordinates = "coordinates"
+	gtfs_trip_id = "gtfs_trip_id"
+	featureCollection = "FeatureCollection"
+	shape_dist_traveled = "shape_dist_traveled"
+	gtfs_route_short_name = "gtfs_route_short_name"
