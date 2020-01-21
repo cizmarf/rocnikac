@@ -8,28 +8,12 @@ import logging
 from pathlib import Path
 import mysql.connector
 
-from common_functions import headers
+from common_functions import SQL_queries
+from common_functions import URLs
+from common_functions import Log
 from common_functions import downloadURL
-from common_functions import sql_run_transaction_and_fetch
-from common_functions import sql_run_transaction
-from common_functions import sql_get_result
+from common_functions import headers
 import update_stops
-
-
-# logging messages
-class Log:
-	start = 	"Program has started."
-	net_err = 	"Network error: "
-	sleep = 	"Sleep failed, "
-	io_err = 	"Write to file failed: "
-	vpf_up = 	"Vehicle positions file updated"
-	stops_up =	"Stops are updating"
-	stop_nf = 	"Stop was not found in stops file"
-
-
-	@staticmethod
-	def new_trip(trip_id):
-		return "New trip " + trip_id + " found"
 
 """
 			Following function parses multiple optional arguments or sets default value of them
@@ -48,10 +32,7 @@ def parse_arguments():
 	return args
 
 
-"""
-	Returns geojson object
-"""
-def transform_json_to_geojson(json_vehiclepositions):
+def transform_json_to_geojson(json_vehiclepositions: dict) -> dict:
 	geojson_vehiclepositions = {}
 	geojson_vehiclepositions["type"] = "FeatureCollection"
 	geojson_vehiclepositions["timestamp"] = time.strftime("%Y-%m-%d-%H:%M:%S")
@@ -76,7 +57,7 @@ def transform_json_to_geojson(json_vehiclepositions):
 	Gets json data describing shape of given trip and transforms it into geojson 
 	file format.
 """
-def transform_shape_json_file(old_json_data):
+def transform_shape_json_file(old_json_data: dict) -> dict:
 	new_json_data = {}
 	new_json_data["type"] = "FeatureCollection"
 	new_json_data["features"] = [None]
@@ -91,7 +72,7 @@ def transform_shape_json_file(old_json_data):
 	return new_json_data
 
 
-def update_json_file(json_data, path, mode, log_message):
+def update_json_file(json_data: dict, path: str, mode: str, log_message: str):
 	try:
 		with open(path, mode) as f:
 			f.seek(0)
@@ -106,14 +87,17 @@ def update_json_file(json_data, path, mode, log_message):
 		f.close()
 
 
-def format_shape_traveled(shape_t):
+def format_shape_traveled(shape_t: str) -> int:
 	return int(float(shape_t) * 1000)
+
+
+def sleep_if_error_occurs():
+	time.sleep(args.update_error - (time.time() - req_start))
 
 
 if __name__ == "__main__":
 	args = parse_arguments()
-	logging.basicConfig(format='%(asctime)s %(levelname)s: %(message)s', level=logging.INFO, filename=args.log,
-						filemode='w')
+	logging.basicConfig(format='%(asctime)s %(levelname)s: %(message)s', level=logging.INFO, filename=args.log, filemode='w')
 	logging.info(Log.start)
 	stops_updated = datetime.datetime.min
 
@@ -122,7 +106,7 @@ if __name__ == "__main__":
 		database="vehicles_info",
 		user="vehicles_access",
 		passwd="my_password",
-		autocommit = False
+		autocommit=False
 	)
 	cursor_prepared_db = connection_db.cursor(prepared=True)
 	cursor_db = connection_db.cursor()
@@ -136,21 +120,21 @@ if __name__ == "__main__":
 			Update positions file with priority
 		"""
 		try:
-			json_vehiclepositions = downloadURL(Request('https://api.golemio.cz/v1/vehiclepositions', headers=headers))
+			json_vehiclepositions = downloadURL(URLs.vehicles_positions)
 			update_json_file(transform_json_to_geojson(json_vehiclepositions), Path(args.veh_act_pos_fn), "w+", Log.vpf_up)
 		except URLError as e:
 			logging.error(Log.net_err + str(e))
-			time.sleep(args.update_error - (time.time() - req_start))
+			sleep_if_error_occurs()
 			continue
 		except IOError as e:
 			logging.error(Log.io_err + str(e))
-			time.sleep(args.update_error - (time.time() - req_start))
+			sleep_if_error_occurs()
 			continue
 
 		for bus_input_list in json_vehiclepositions["features"]:
 			# TODO Trip id se musi zahashovat pro effectivni vyhledavani v databazi
 			trip_id = bus_input_list["properties"]["trip"]["gtfs_trip_id"]
-			id_trip = sql_get_result(cursor_db, 'SELECT id_trip FROM trips WHERE trip_id = %s LIMIT 1', (trip_id,))
+			id_trip = SQL_queries.sql_get_result(cursor_db, SQL_queries.S_id_trip_F_trips, (trip_id,))
 
 			delay = int(bus_input_list["properties"]["last_position"]["delay"])
 			shape_traveled = format_shape_traveled(bus_input_list["properties"]["last_position"]["gtfs_shape_dist_traveled"])
@@ -163,7 +147,7 @@ if __name__ == "__main__":
 			if len(id_trip) == 0:
 				logging.info(Log.new_trip(trip_id))
 				try:
-					json_trip = downloadURL(Request('https://api.golemio.cz/v1/gtfs/trips/' + trip_id + '?includeShapes=true&includeStopTimes=true&includeStops=true', headers=headers))
+					json_trip = downloadURL(URLs.trip_by_id(trip_id))
 				except URLError as e:
 					logging.error(Log.net_err + str(e))
 					continue  # This jumps to for loop iterating throw all trips in current request.
@@ -171,15 +155,22 @@ if __name__ == "__main__":
 				trip_headsign = json_trip["trip_headsign"]
 
 				# inserts headsign if not exist and return its id -- (!exists <-> insert) & ret id
-				id_headsign = sql_run_transaction_and_fetch(connection_db, cursor_db, 'SELECT insert_headsign_if_exists_and_return_id(%s)', (trip_headsign, ))[0][0]
+				id_headsign = SQL_queries.sql_run_transaction_and_fetch(connection_db, cursor_db, SQL_queries.insert_headsign, (trip_headsign,))[0][0]
 
 				# inserts trip and return its id
-				id_trip = sql_run_transaction_and_fetch(connection_db, cursor_db, 'SELECT insert_trip_and_return_id (%s, %s, %s, %s, %s)', (trip_id, id_headsign, delay, shape_traveled, trip_no))[0][0]
+				id_trip = SQL_queries.sql_run_transaction_and_fetch(connection_db, cursor_db, SQL_queries.insert_trip,
+														(trip_id, id_headsign, delay, shape_traveled, trip_no))[0][0]
+
+				# insert current coordinates
+				SQL_queries.sql_run_transaction(connection_db, cursor_prepared_db, SQL_queries.up_trip_coo,
+												[(id_trip, bus_lat, bus_lon, bus_time[:bus_time.index(".")], delay, shape_traveled)])
+
+				# TODO reset database
 
 				# creates new ride according to the current trip
 				stops_of_trip = []
 				for json_stop in json_trip["stop_times"]:
-					id_stop = sql_get_result(cursor_db, 'SELECT id_stop FROM stops WHERE stop_id = %s', (json_stop["stop_id"],))
+					id_stop = SQL_queries.sql_get_result(cursor_db, SQL_queries.S_id_stop_F_stops, (json_stop["stop_id"],))
 					if len(id_stop) > 0:
 						id_stop = id_stop[0][0]
 
@@ -188,22 +179,11 @@ if __name__ == "__main__":
 						if (datetime.datetime.now() - stops_updated).total_seconds() > 300:
 							logging.info(Log.stops_up)
 							update_stops.run_update_stops_script()
-							id_stop = sql_get_result(cursor_db, 'SELECT id_stop FROM stops WHERE stop_id = %s', (json_stop["stop_id"],))
+							id_stop = SQL_queries.sql_get_result(cursor_db, SQL_queries.S_id_stop_F_stops, (json_stop["stop_id"],))
 							stops_updated = datetime.datetime.now()
-							if len(id_stop) > 0:
-								id_stop = id_stop[0][0]
-								# stop was not found in the stop file
-							else:
-								logging.warning(Log.stop_nf)
-								stop_id = json_stop["stop_id"]
-								lon = json_stop["stop"]["properties"]["stop_lon"]
-								lat = json_stop["stop"]["properties"]["stop_lat"]
-								stop_name = json_stop["stop"]["properties"]["stop_name"]
-								id_stop = sql_run_transaction_and_fetch(connection_db, cursor_db,
-																		'SELECT insert_stop_and_return_id (%s, %s, %s, %s, NULL)',
-																		(stop_id, stop_name, lat, lon))[0][0]
 
-
+						if len(id_stop) > 0:
+							id_stop = id_stop[0][0]
 						# stop was not found in the stop file
 						else:
 							logging.warning(Log.stop_nf)
@@ -211,32 +191,35 @@ if __name__ == "__main__":
 							lon = json_stop["stop"]["properties"]["stop_lon"]
 							lat = json_stop["stop"]["properties"]["stop_lat"]
 							stop_name = json_stop["stop"]["properties"]["stop_name"]
-							id_stop = sql_run_transaction_and_fetch(connection_db, cursor_db, 'SELECT insert_stop_and_return_id (%s, %s, %s, %s, NULL)', (stop_id, stop_name, lat, lon))[0][0]
+							id_stop = SQL_queries.sql_run_transaction_and_fetch(connection_db, cursor_db, SQL_queries.insert_stop, (stop_id, stop_name, lat, lon))[0][0]
 
-					stops_of_trip.append((id_trip, id_stop, json_stop["arrival_time"], json_stop["departure_time"], format_shape_traveled(json_stop["shape_dist_traveled"])))
+					stops_of_trip.append((id_trip, id_stop, json_stop["arrival_time"], json_stop["departure_time"],
+										  format_shape_traveled(json_stop["shape_dist_traveled"])))
 
-				sql_run_transaction(connection_db, cursor_prepared_db, 'INSERT INTO rides (id_trip, id_stop, arrival_time, departure_time, shape_dist_traveled) VALUES (%s, %s, %s, %s, %s)', stops_of_trip)
+				SQL_queries.sql_run_transaction(connection_db, cursor_prepared_db, SQL_queries.insert_ride,	stops_of_trip)
 
 				# produces shape geojson file
 				geojson_shape = transform_shape_json_file(json_trip)
 				try:
-					update_json_file(geojson_shape, Path(args.trips_folder) / (trip_id + ".shape"), "w+", "New shape of trip " + trip_id + " file exported")
+					update_json_file(geojson_shape, Path(args.trips_folder) / (trip_id + ".shape"), "w+", Log.new_shape(trip_id))
 
 				except IOError as e:
 					logging.error(Log.io_err + str(e))
 					time.sleep(args.update_error - (time.time() - req_start))
 					continue  # This jumps to for loop iterating throw all trips in current request.
+
 			# trip exists
 			else:
 				id_trip = id_trip[0][0]
 
 				# updates trip data
-				sql_run_transaction(connection_db, cursor_prepared_db, 'UPDATE trips SET current_delay = %s, shape_traveled = %s WHERE id_trip = %s', [(delay, shape_traveled, id_trip)])
+				SQL_queries.sql_run_transaction(connection_db, cursor_prepared_db, SQL_queries.up_trip, [(delay, shape_traveled, id_trip)])
 				logging.info("Trip" + trip_id + "updated")
 
-			# insert current coordinates
-			sql_run_transaction(connection_db, cursor_prepared_db, 'INSERT INTO trip_coordinates (id_trip, lat, lon, time, delay, shape_traveled) VALUES (%s, %s, %s, %s, %s, %s)', [(id_trip, bus_lat, bus_lon, bus_time[:bus_time.index(".")], delay, shape_traveled)])
-
+				# insert current coordinates + check if bus_time changed
+				last_trip_time = SQL_queries.sql_get_result(cursor_db, SQL_queries.S_id_trip_F_coor, (id_trip, ))[0][0]
+				if last_trip_time != bus_time[:bus_time.index(".")]:
+					SQL_queries.sql_run_transaction(connection_db, cursor_prepared_db, SQL_queries.up_trip_coo, [(id_trip, bus_lat, bus_lon, bus_time[:bus_time.index(".")], delay, shape_traveled)])
 
 		"""
 			Following code tries to sleep {update_time} - time consumed above seconds
@@ -247,4 +230,3 @@ if __name__ == "__main__":
 		except Exception as e:
 			logging.warning("Sleep failed, " + str(e))
 			continue
-

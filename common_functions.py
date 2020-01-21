@@ -1,8 +1,6 @@
 
 import json
-from urllib.request import urlopen
-
-
+from urllib.request import urlopen, Request
 
 """
 	Following header is necessary for requesting golemio api.
@@ -19,28 +17,15 @@ headers = {
 """
 	This function downloads file of given url request and returns decoded json object
 """
-def downloadURL(request):
+def downloadURL(url: str, header: dict = None) -> dict:
+	if header is None:
+		header = headers
+	request = Request(url, headers = header)
 	webURL = urlopen(request)
 	response_body = webURL.read()
 	encoding = webURL.info().get_content_charset('utf-8')
 	return json.loads(response_body.decode(encoding))
 
-
-def sql_get_result(cursor, sql_query, params=()):
-	cursor.execute(sql_query, params)
-	return cursor.fetchall()
-
-
-def sql_run_transaction(connection, cursor, sql_query, params=()):
-	cursor.executemany(sql_query, params)
-	connection.commit()
-
-
-def sql_run_transaction_and_fetch(connection, cursor, sql_query, params=()):
-	cursor.execute(sql_query, params)
-	ret = cursor.fetchall()
-	connection.commit()
-	return ret
 
 class GI:
 	type = "type"
@@ -56,3 +41,64 @@ class GI:
 	featureCollection = "FeatureCollection"
 	shape_dist_traveled = "shape_dist_traveled"
 	gtfs_route_short_name = "gtfs_route_short_name"
+
+
+class SQL_queries:
+	S_id_trip_F_trips = 'SELECT id_trip FROM trips WHERE trip_id = %s LIMIT 1'
+	S_id_trip_F_coor = 'SELECT `time` FROM trip_coordinates WHERE id_trip = %s ORDER BY `time` DESC LIMIT 1'
+	insert_headsign = 'SELECT insert_headsign_if_exists_and_return_id(%s)'
+	insert_trip = 'SELECT insert_trip_and_return_id (%s, %s, %s, %s, %s)'
+	S_id_stop_F_stops = 'SELECT id_stop FROM stops WHERE stop_id = %s'
+	insert_stop = 'SELECT insert_stop_and_return_id (%s, %s, %s, %s, NULL)'
+	insert_ride = 'INSERT INTO rides (id_trip, id_stop, arrival_time, departure_time, shape_dist_traveled) VALUES (%s, %s, %s, %s, %s)'
+	up_trip = 'UPDATE trips SET current_delay = %s, shape_traveled = %s WHERE id_trip = %s'
+	up_trip_coo = 'INSERT INTO trip_coordinates (id_trip, lat, lon, time, delay, shape_traveled) VALUES (%s, %s, %s, %s, %s, %s)'
+
+	@staticmethod
+	def sql_get_result(cursor, sql_query, params=()):
+		cursor.execute(sql_query, params)
+		return cursor.fetchall()
+
+	@staticmethod
+	def sql_run_transaction(connection, cursor, sql_query, params=()):
+		cursor.executemany(sql_query, params)
+		connection.commit()
+
+	@staticmethod
+	def sql_run_transaction_and_fetch(connection, cursor, sql_query, params=()):
+		cursor.execute(sql_query, params)
+		ret = cursor.fetchall()
+		connection.commit()
+		return ret
+
+
+class URLs:
+	vehicles_positions = 'https://api.golemio.cz/v1/vehiclepositions?limit=20' #TODO limit
+	# stops = 'https://api.golemio.cz/v1/gtfs/stops'
+	trips = 'https://api.golemio.cz/v1/gtfs/trips'
+
+	@staticmethod
+	def stops(limit: int = 10000, offset: int = 0):
+		return 'https://api.golemio.cz/v1/gtfs/stops' + '?limit=' + str(limit) + '&offset=' + str(offset)
+
+	@staticmethod
+	def trip_by_id(trip_id: str) -> str:
+		return 'https://api.golemio.cz/v1/gtfs/trips/' + trip_id + '?includeShapes=true&includeStopTimes=true&includeStops=true'
+
+
+class Log:
+	start = "Program has started."
+	net_err = "Network error: "
+	sleep = "Sleep failed, "
+	io_err = "Write to file failed: "
+	vpf_up = "Vehicle positions file updated"
+	stops_up = "Stops are updating"
+	stop_nf = "Stop was not found in stops file"
+
+	@staticmethod
+	def new_trip(trip_id):
+		return "New trip " + trip_id + " found"
+
+	@staticmethod
+	def new_shape(trip_id):
+		return "New shape of trip " + trip_id + " file exported"

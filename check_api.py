@@ -1,4 +1,4 @@
-
+#!/usr/bin/env python3
 import json
 import sys
 import time
@@ -6,9 +6,9 @@ from urllib.error import URLError
 from urllib.request import urlopen, Request
 from jsonschema import validate
 
-from common_functions import headers
 from common_functions import downloadURL
 from common_functions import GI
+from common_functions import URLs
 
 
 class Schemata:
@@ -136,12 +136,12 @@ def check_url_schema(name: str, url: str, schema: dict, ret: tuple = False):
 		return list_of_errors
 
 	print("Checking", name , "json schema:")
-	json = downloadURL(Request(url, headers=headers))
+	json = downloadURL(url)
 	out = check_json(json, schema)
 	print("Checking", name, "json schema has finished.")
 
 	if len(out) > 0:
-		print("Some errors has found:", flush=True)
+		print("Some errors found:", flush=True)
 
 		for e in out:
 			if type(e[-1]) is tuple:
@@ -151,7 +151,7 @@ def check_url_schema(name: str, url: str, schema: dict, ret: tuple = False):
 				print("Nothing to check. At ", end='', file=sys.stderr)
 
 			else:
-				print("Index '", e[-1], "' has not found. At ", sep='', end='', file=sys.stderr)
+				print("Index '", e[-1], "' did not find. At ", sep='', end='', file=sys.stderr)
 
 			for k in e[:-1]:
 				print('[', k, ']', sep='', end='', file=sys.stderr)
@@ -164,7 +164,7 @@ def check_url_schema(name: str, url: str, schema: dict, ret: tuple = False):
 		print()
 
 	else:
-		print(name, "json matches the schema.")
+		print(name, " json matches the schema.")
 		print()
 
 		if ret:
@@ -183,10 +183,10 @@ def check_url_schema(name: str, url: str, schema: dict, ret: tuple = False):
 
 if __name__ == "__main__":
 	try:
-		trip_id = check_url_schema("Vehicle Positions", 'https://api.golemio.cz/v1/vehiclepositions?limit=20', Schemata.vehicle_positions_schema, ret=(GI.features, 0, GI.properties, GI.trip, GI.gtfs_trip_id))
+		trip_id = check_url_schema("Vehicle Positions", URLs.vehicles_positions, Schemata.vehicle_positions_schema, ret=(GI.features, 0, GI.properties, GI.trip, GI.gtfs_trip_id))
 		if trip_id:
-			check_url_schema("Trip", 'https://api.golemio.cz/v1/gtfs/trips/' + trip_id + '?includeShapes=true&includeStopTimes=true', Schemata.trip_schema)
-		check_url_schema("Stops", 'https://api.golemio.cz/v1/gtfs/stops', Schemata.stops_schema)
+			check_url_schema("Trip", URLs.trip_by_id(trip_id), Schemata.trip_schema)
+		check_url_schema("Stops", URLs.stops, Schemata.stops_schema)
 
 	except URLError as e:
 		print(e)
