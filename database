@@ -39,7 +39,7 @@ CREATE TABLE `vehicles_info`.`rides` (
 CREATE TABLE `vehicles_info`.`trip_coordinates` (
   `id_trip` INT(32) NOT NULL,
   `lat` DECIMAL(9,6) NOT NULL,
-  `lon` VARCHAR(45) NOT NULL,
+  `lon` DECIMAL(45) NOT NULL,
   `time` DATETIME NOT NULL,
   `delay` INT(32) NOT NULL),
   `shape_traveled` INT(32) NOT NULL;

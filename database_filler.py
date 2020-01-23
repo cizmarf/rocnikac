@@ -12,14 +12,41 @@ from common_functions import SQL_queries
 from common_functions import URLs
 from common_functions import Log
 from common_functions import downloadURL
-from common_functions import headers
 import update_stops
+
+
+class Trip_current_info:
+	def __init__(self, 
+				 trip_id: str = None, 
+				 lat: str = None, 
+				 lon: str = None, 
+				 cur_delay: int = None, 
+				 shape_traveled: int = None,
+				 trip_no: str = None, 
+				 time: str = None, 
+				 trip_headsign: str = None, 
+				 id_trip_headsign: int = None, 
+				 id_trip: int = None):
+		
+		self.id_trip = id_trip
+		self.id_trip_headsign = id_trip_headsign
+		self.time = time
+		self.trip_no = trip_no
+		self.shape_traveled = shape_traveled
+		self.cur_delay = cur_delay
+		self.lon = lon
+		self.lat = lat
+		self.trip_id = trip_id
+		self.trip_headsign = trip_headsign
+
 
 """
 			Following function parses multiple optional arguments or sets default value of them
 			Learn 'help' arguments for more information
 			Returns object of arguments
 """
+
+
 def parse_arguments():
 	parser = argparse.ArgumentParser()
 	parser.add_argument("--veh_act_pos_fn", default="../data/veh_act_pos", type=str,
@@ -57,6 +84,8 @@ def transform_json_to_geojson(json_vehiclepositions: dict) -> dict:
 	Gets json data describing shape of given trip and transforms it into geojson 
 	file format.
 """
+
+
 def transform_shape_json_file(old_json_data: dict) -> dict:
 	new_json_data = {}
 	new_json_data["type"] = "FeatureCollection"
@@ -121,87 +150,164 @@ if __name__ == "__main__":
 		"""
 		try:
 			json_vehiclepositions = downloadURL(URLs.vehicles_positions)
-			update_json_file(transform_json_to_geojson(json_vehiclepositions), Path(args.veh_act_pos_fn), "w+", Log.vpf_up)
+			update_json_file(
+				transform_json_to_geojson(json_vehiclepositions),
+				Path(args.veh_act_pos_fn),
+				"w+",
+				Log.vpf_up
+			)
+
 		except URLError as e:
 			logging.error(Log.net_err + str(e))
 			sleep_if_error_occurs()
 			continue
+
 		except IOError as e:
 			logging.error(Log.io_err + str(e))
 			sleep_if_error_occurs()
 			continue
 
 		for bus_input_list in json_vehiclepositions["features"]:
-			# TODO Trip id se musi zahashovat pro effectivni vyhledavani v databazi
-			trip_id = bus_input_list["properties"]["trip"]["gtfs_trip_id"]
-			id_trip = SQL_queries.sql_get_result(cursor_db, SQL_queries.S_id_trip_F_trips, (trip_id,))
 
-			delay = int(bus_input_list["properties"]["last_position"]["delay"])
-			shape_traveled = format_shape_traveled(bus_input_list["properties"]["last_position"]["gtfs_shape_dist_traveled"])
-			trip_no = bus_input_list["properties"]["trip"]["cis_short_name"]
-			bus_lat = bus_input_list["geometry"]["coordinates"][1]
-			bus_lon = bus_input_list["geometry"]["coordinates"][0]
-			bus_time = bus_input_list["properties"]["last_position"]["origin_timestamp"]
+			current_trip = Trip_current_info(
+				trip_id=bus_input_list["properties"]["trip"]["gtfs_trip_id"],
+				lat=bus_input_list["geometry"]["coordinates"][1],
+				lon=bus_input_list["geometry"]["coordinates"][0],
+				cur_delay=int(bus_input_list["properties"]["last_position"]["delay"]),
+				shape_traveled=format_shape_traveled(bus_input_list["properties"]["last_position"]["gtfs_shape_dist_traveled"]),
+				trip_no=bus_input_list["properties"]["trip"]["cis_short_name"],
+				time=bus_input_list["properties"]["last_position"]["origin_timestamp"]
+			)
+
+			try_fetch_id_trip = SQL_queries.sql_get_result(
+				cursor_db,
+				SQL_queries.S_id_trip_F_trips,
+				(current_trip.trip_id,)
+			)
+
+			if len(try_fetch_id_trip) != 0:
+				current_trip.id_trip = try_fetch_id_trip[0][0]
 
 			# if trip does not exist
-			if len(id_trip) == 0:
-				logging.info(Log.new_trip(trip_id))
+			if current_trip.id_trip is None:
+				logging.info(Log.new_trip(current_trip.trip_id))
+
 				try:
-					json_trip = downloadURL(URLs.trip_by_id(trip_id))
+					json_trip = downloadURL(URLs.trip_by_id(current_trip.trip_id))
+
 				except URLError as e:
 					logging.error(Log.net_err + str(e))
 					continue  # This jumps to for loop iterating throw all trips in current request.
 
-				trip_headsign = json_trip["trip_headsign"]
+				current_trip.trip_headsign = json_trip["trip_headsign"]
 
 				# inserts headsign if not exist and return its id -- (!exists <-> insert) & ret id
-				id_headsign = SQL_queries.sql_run_transaction_and_fetch(connection_db, cursor_db, SQL_queries.insert_headsign, (trip_headsign,))[0][0]
+				current_trip.id_trip_headsign = SQL_queries.sql_run_transaction_and_fetch(
+					connection_db, 
+					cursor_db, 
+					SQL_queries.insert_headsign,
+					(current_trip.trip_headsign,)
+				)[0][0]
 
 				# inserts trip and return its id
-				id_trip = SQL_queries.sql_run_transaction_and_fetch(connection_db, cursor_db, SQL_queries.insert_trip,
-														(trip_id, id_headsign, delay, shape_traveled, trip_no))[0][0]
+				id_trip = SQL_queries.sql_run_transaction_and_fetch(
+					connection_db,
+					cursor_db, 
+					SQL_queries.insert_trip,
+					(	current_trip.trip_id,
+						current_trip.id_trip_headsign,
+						current_trip.cur_delay,
+						current_trip.shape_traveled, current_trip.trip_no
+					)
+				)[0][0]
 
 				# insert current coordinates
-				SQL_queries.sql_run_transaction(connection_db, cursor_prepared_db, SQL_queries.up_trip_coo,
-												[(id_trip, bus_lat, bus_lon, bus_time[:bus_time.index(".")], delay, shape_traveled)])
+				SQL_queries.sql_run_transaction(
+					connection_db, 
+					cursor_prepared_db, 
+					SQL_queries.up_trip_coo,
+					[(	id_trip, 
+						current_trip.lat, 
+						current_trip.lon,
+						current_trip.time[:current_trip.time.index(".")],
+						current_trip.cur_delay, current_trip.shape_traveled
+					)]
+				)
 
 				# TODO reset database
 
 				# creates new ride according to the current trip
 				stops_of_trip = []
+
 				for json_stop in json_trip["stop_times"]:
-					id_stop = SQL_queries.sql_get_result(cursor_db, SQL_queries.S_id_stop_F_stops, (json_stop["stop_id"],))
+					id_stop = SQL_queries.sql_get_result(
+						cursor_db,
+						SQL_queries.S_id_stop_F_stops,
+						(json_stop["stop_id"],)
+					)
+
 					if len(id_stop) > 0:
 						id_stop = id_stop[0][0]
 
 					# stop is not in stop table
 					else:
+
 						if (datetime.datetime.now() - stops_updated).total_seconds() > 300:
 							logging.info(Log.stops_up)
 							update_stops.run_update_stops_script()
-							id_stop = SQL_queries.sql_get_result(cursor_db, SQL_queries.S_id_stop_F_stops, (json_stop["stop_id"],))
+							id_stop = SQL_queries.sql_get_result(
+								cursor_db,
+								SQL_queries.S_id_stop_F_stops,
+								(json_stop["stop_id"],)
+							)
 							stops_updated = datetime.datetime.now()
 
 						if len(id_stop) > 0:
 							id_stop = id_stop[0][0]
+
 						# stop was not found in the stop file
 						else:
+
 							logging.warning(Log.stop_nf)
 							stop_id = json_stop["stop_id"]
 							lon = json_stop["stop"]["properties"]["stop_lon"]
 							lat = json_stop["stop"]["properties"]["stop_lat"]
 							stop_name = json_stop["stop"]["properties"]["stop_name"]
-							id_stop = SQL_queries.sql_run_transaction_and_fetch(connection_db, cursor_db, SQL_queries.insert_stop, (stop_id, stop_name, lat, lon))[0][0]
+							id_stop = SQL_queries.sql_run_transaction_and_fetch(
+								connection_db,
+								cursor_db,
+								SQL_queries.insert_stop,
+								(	stop_id,
+									stop_name,
+									lat,
+									lon
+								)
+							)[0][0]
 
-					stops_of_trip.append((id_trip, id_stop, json_stop["arrival_time"], json_stop["departure_time"],
-										  format_shape_traveled(json_stop["shape_dist_traveled"])))
+					stops_of_trip.append((
+						id_trip,
+						id_stop,
+						json_stop["arrival_time"],
+						json_stop["departure_time"],
+						format_shape_traveled(json_stop["shape_dist_traveled"])
+					))
 
-				SQL_queries.sql_run_transaction(connection_db, cursor_prepared_db, SQL_queries.insert_ride,	stops_of_trip)
+				SQL_queries.sql_run_transaction(
+					connection_db,
+					cursor_prepared_db,
+					SQL_queries.insert_ride,
+					stops_of_trip
+				)
 
 				# produces shape geojson file
 				geojson_shape = transform_shape_json_file(json_trip)
 				try:
-					update_json_file(geojson_shape, Path(args.trips_folder) / (trip_id + ".shape"), "w+", Log.new_shape(trip_id))
+					update_json_file(
+						geojson_shape,
+						Path(args.trips_folder) / (current_trip.trip_id + ".shape"),
+						"w+",
+						Log.new_shape(current_trip.trip_id)
+					)
 
 				except IOError as e:
 					logging.error(Log.io_err + str(e))
@@ -210,19 +316,43 @@ if __name__ == "__main__":
 
 			# trip exists
 			else:
-				id_trip = id_trip[0][0]
-
 				# updates trip data
-				SQL_queries.sql_run_transaction(connection_db, cursor_prepared_db, SQL_queries.up_trip, [(delay, shape_traveled, id_trip)])
-				logging.info("Trip" + trip_id + "updated")
+				SQL_queries.sql_run_transaction(
+					connection_db, 
+					cursor_prepared_db, 
+					SQL_queries.up_trip, 
+					[(current_trip.cur_delay, 
+						current_trip.shape_traveled, 
+						current_trip.id_trip
+					)]
+				)
+
+				logging.info("Trip" + current_trip.trip_id + "updated")
+
 
 				# insert current coordinates + check if bus_time changed
-				last_trip_time = SQL_queries.sql_get_result(cursor_db, SQL_queries.S_id_trip_F_coor, (id_trip, ))[0][0]
-				if last_trip_time != bus_time[:bus_time.index(".")]:
-					SQL_queries.sql_run_transaction(connection_db, cursor_prepared_db, SQL_queries.up_trip_coo, [(id_trip, bus_lat, bus_lon, bus_time[:bus_time.index(".")], delay, shape_traveled)])
+				last_trip_time = SQL_queries.sql_get_result(
+					cursor_db,
+					SQL_queries.S_id_trip_F_coor,
+					(current_trip.id_trip,)
+				)[0][0]
+
+				if last_trip_time != current_trip.time[:current_trip.time.index(".")]:
+					SQL_queries.sql_run_transaction(
+						connection_db,
+						cursor_prepared_db,
+						SQL_queries.up_trip_coo,
+						[(	current_trip.id_trip,
+							current_trip.lat,
+							current_trip.lon,
+							current_trip.time[:current_trip.time.index(".")],
+							current_trip.cur_delay,
+							current_trip.shape_traveled
+						)]
+					)
 
 		"""
-			Following code tries to sleep {update_time} - time consumed above seconds
+			Following code tries to sleep {update_time} - seconds consumed above
 			if fails the main loop is repeated immediately
 		"""
 		try:
