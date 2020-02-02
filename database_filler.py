@@ -327,7 +327,7 @@ if __name__ == "__main__":
 					)]
 				)
 
-				logging.info("Trip" + current_trip.trip_id + "updated")
+				logging.info("Trip " + current_trip.trip_id + " updated")
 
 
 				# insert current coordinates + check if bus_time changed

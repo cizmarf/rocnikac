@@ -53,21 +53,30 @@
 	 * @param	file input file
 	 * @desc	read given file, reading local file needs to be allowed in browser
 	 */
-	function readTextFile(file) {
-		var request = new XMLHttpRequest();
+	function getFileByAJAXreq(str_request, callback) {
+		try{
+			var request = new XMLHttpRequest();
+		}
+		catch (e){
+			alert("Your browser does not support AJAX!");
+	        return false;
+		}
+
 		request.onreadystatechange = function () {
 			if (this.readyState === 4) {
-				console.log('Time: ',);
-				console.log('Status: ', this.status);
+				console.log('Prijato: ', request.responseText);
+				callback(request.responseText);
 			}
 		};
+
 		request.onerror = function(){
-			throw Error("FileNotFound")
+			throw Error("Network error")
 		};
-		request.open('GET', file, false);
-		request.send();
+		request.open('POST', "index.html", true);
+		request.send(str_request);
 		return request.responseText;
 	}
+
 	function drawLastFewMinutesShape(geojson) {
 		console.log("printing lfms");
 		console.log(geojson);
@@ -100,6 +109,7 @@
 			}
 		});
 	}
+
 	function drawShape(geojson) {
 		map.addLayer({
 			"id": lineStringLayerID + ".s",
@@ -118,17 +128,13 @@
 			}
 		});
 	}
-	function showBusesOnMap() {
-		try {
-			veh_pos_geojson = JSON.parse(readTextFile("../data/veh_act_pos"));
-		}catch (e) {
-			console.log(e);
-			return;
-		}
+
+	function showBusesOnMap(veh_pos_geojson) {
 		elems.forEach(function(elem) {
 			elem.remove();
 			elems.delete(elem);
 		});
+		veh_pos_geojson = JSON.parse(veh_pos_geojson)
 		veh_pos_geojson.features.forEach(function(marker) {
 			// create a DOM element for the marker
 			var el = document.createElement('div');
@@ -200,9 +206,9 @@
 		zoom: 10 // starting zoom
 	});
 	var elems = new Set();
-	showBusesOnMap();
+	getFileByAJAXreq("vehicles_positions", showBusesOnMap);
 	window.setInterval(function(){
-		showBusesOnMap();
+		getFileByAJAXreq("vehicles_positions", showBusesOnMap);
 		if (map.getLayer(lineStringLayerID + '.lfms'))	map.removeLayer(lineStringLayerID + '.lfms');
 		if (map.getSource(lineStringLayerID + '.lfms')) map.removeSource(lineStringLayerID + '.lfms');
 		try {

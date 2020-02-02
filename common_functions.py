@@ -17,6 +17,14 @@ headers = {
 """
 	This function downloads file of given url request and returns decoded json object
 """
+
+class allFilesURL:
+	prefix = "../"
+	vehicles_positions = prefix + "data/veh_act_pos"
+	log_server = prefix + "server.log"
+
+
+
 def downloadURL(url: str, header: dict = None) -> dict:
 	if header is None:
 		header = headers
@@ -73,7 +81,7 @@ class SQL_queries:
 
 
 class URLs:
-	vehicles_positions = 'https://api.golemio.cz/v1/vehiclepositions?limit=20' #TODO limit
+	vehicles_positions = 'https://api.golemio.cz/v1/vehiclepositions' #TODO limit
 	# stops = 'https://api.golemio.cz/v1/gtfs/stops'
 	trips = 'https://api.golemio.cz/v1/gtfs/trips'
 

@@ -173,3 +173,23 @@ BEGIN
     SELECT LAST_INSERT_ID() INTO @id;
 RETURN @id;
 END
+
+ALTER TABLE `vehicles_info`.`stops`
+DROP FOREIGN KEY `stop_parent_spot`;
+ALTER TABLE `vehicles_info`.`stops`
+ADD CONSTRAINT `stop_parent_spot`
+  FOREIGN KEY (`parent_id_stop`)
+  REFERENCES `vehicles_info`.`stops` (`id_stop`)
+  ON DELETE CASCADE;
+
+CREATE FUNCTION `last_stop_of_trip` (id_trip_to_find INT(32))
+RETURNS INTEGER
+DETERMINISTIC
+BEGIN
+	DECLARE id_stop_to_find INT(32);
+	SET id_stop_to_find = 0;
+	SELECT id_stop INTO id_stop_to_find FROM rides WHERE shape_dist_traveled <= (
+		SELECT `shape_traveled` FROM trip_coordinates WHERE id_trip = id_trip_to_find ORDER BY `time` DESC LIMIT 1
+	) AND id_trip_to_find = id_trip ORDER BY shape_dist_traveled DESC LIMIT 1;
+ RETURN id_stop_to_find;
+END
