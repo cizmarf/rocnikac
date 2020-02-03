@@ -1,5 +1,7 @@
 CREATE DATABASE 'vehicles_info'
 
+SET @@global.time_zone = '+00:00';
+
 CREATE TABLE `vehicles_info`.`stops` (
   `id_stop` INT(32) NOT NULL AUTO_INCREMENT,
   `stop_id` VARCHAR(31) NOT NULL COMMENT 'ID used in golemio API',

@@ -8,7 +8,7 @@ import logging
 from pathlib import Path
 import mysql.connector
 
-from common_functions import SQL_queries
+from common_functions import SQL_queries, allFilesURL
 from common_functions import URLs
 from common_functions import Log
 from common_functions import downloadURL
@@ -49,8 +49,6 @@ class Trip_current_info:
 
 def parse_arguments():
 	parser = argparse.ArgumentParser()
-	parser.add_argument("--veh_act_pos_fn", default="../data/veh_act_pos", type=str,
-						help="The last generated output file")
 	parser.add_argument("--update_time", default=20, type=int, help="Time to next request")
 	parser.add_argument("--update_error", default=20, type=int, help="Update time if network error occurred")
 	parser.add_argument("--log", default="../database_filler.log", type=str, help="Name of logging file")
@@ -95,9 +93,11 @@ def transform_shape_json_file(old_json_data: dict) -> dict:
 	new_json_data["features"][0]["geometry"] = {}
 	new_json_data["features"][0]["geometry"]["type"] = "LineString"
 	new_json_data["features"][0]["geometry"]["properties"] = {}
+	new_json_data["features"][0]["geometry"]["properties"]["shape_dist_traveled"] = []
 	new_json_data["features"][0]["geometry"]["coordinates"] = []
 	for feature in old_json_data["shapes"]:
 		new_json_data["features"][0]["geometry"]["coordinates"].append(feature["geometry"]["coordinates"])
+		new_json_data["features"][0]["geometry"]["properties"]["shape_dist_traveled"].append(format_shape_traveled(feature["properties"]["shape_dist_traveled"]))
 	return new_json_data
 
 
@@ -152,7 +152,7 @@ if __name__ == "__main__":
 			json_vehiclepositions = downloadURL(URLs.vehicles_positions)
 			update_json_file(
 				transform_json_to_geojson(json_vehiclepositions),
-				Path(args.veh_act_pos_fn),
+				allFilesURL.vehicles_positions,
 				"w+",
 				Log.vpf_up
 			)
@@ -210,7 +210,7 @@ if __name__ == "__main__":
 				)[0][0]
 
 				# inserts trip and return its id
-				id_trip = SQL_queries.sql_run_transaction_and_fetch(
+				current_trip.id_trip = SQL_queries.sql_run_transaction_and_fetch(
 					connection_db,
 					cursor_db, 
 					SQL_queries.insert_trip,
@@ -226,7 +226,7 @@ if __name__ == "__main__":
 					connection_db, 
 					cursor_prepared_db, 
 					SQL_queries.up_trip_coo,
-					[(	id_trip, 
+					[(	current_trip.id_trip,
 						current_trip.lat, 
 						current_trip.lon,
 						current_trip.time[:current_trip.time.index(".")],
@@ -285,7 +285,7 @@ if __name__ == "__main__":
 							)[0][0]
 
 					stops_of_trip.append((
-						id_trip,
+						current_trip.id_trip,
 						id_stop,
 						json_stop["arrival_time"],
 						json_stop["departure_time"],
@@ -331,13 +331,19 @@ if __name__ == "__main__":
 
 
 				# insert current coordinates + check if bus_time changed
-				last_trip_time = SQL_queries.sql_get_result(
-					cursor_db,
-					SQL_queries.S_id_trip_F_coor,
-					(current_trip.id_trip,)
-				)[0][0]
+				last_trip_time = ""
+				try:
+					last_trip_time = SQL_queries.sql_get_result(
+						cursor_db,
+						SQL_queries.S_id_trip_F_coor,
+						(current_trip.id_trip,)
+					)[0][0]
+				except IndexError:
+					logging.warning("Trip coor not found.")
 
-				if last_trip_time != current_trip.time[:current_trip.time.index(".")]:
+				dt_c_trip = datetime.datetime.strptime(current_trip.time[:current_trip.time.index(".")], "%Y-%m-%dT%H:%M:%S")
+
+				if dt_c_trip != last_trip_time:
 					SQL_queries.sql_run_transaction(
 						connection_db,
 						cursor_prepared_db,

@@ -1,5 +1,6 @@
 
 import json
+from pathlib import Path
 from urllib.request import urlopen, Request
 
 """
@@ -19,9 +20,13 @@ headers = {
 """
 
 class allFilesURL:
-	prefix = "../"
-	vehicles_positions = prefix + "data/veh_act_pos"
-	log_server = prefix + "server.log"
+	prefix = Path("..")
+	data = Path("data")
+
+	trips_shapes = prefix / data / "trips"
+	vehicles_positions = prefix / data / "veh_act_pos"
+	log_server = prefix / "server.log"
+
 
 
 

@@ -45,6 +45,29 @@
 		background-color: #e570ff;
 		z-index: 1;
 	}
+
+	.stop_pin {
+	  position: absolute;
+	  top: 40%;
+	  left: 50%;
+	  margin-left: 115px;
+
+	  border-radius: 50%;
+	  border: 8px solid #fff;
+	  width: 8px;
+	  height: 8px;
+	}
+
+	.stop_pin::after {
+	  position: absolute;
+	  content: '';
+	  width: 0px;
+	  height: 0px;
+	  bottom: -30px;
+	  left: -6px;
+	  border: 10px solid transparent;
+	  border-top: 17px solid #fff;
+	}
 </style>
 <body>
 <div id='map'></div>
@@ -78,8 +101,12 @@
 	}
 
 	function drawLastFewMinutesShape(geojson) {
+		// console.log(geojson);
+		if (map.getLayer(oldLineStringLayerID + '.lfms'))	map.removeLayer(oldLineStringLayerID + '.lfms');
+		if (map.getSource(oldLineStringLayerID + '.lfms')) map.removeSource(oldLineStringLayerID + '.lfms');
+		geojson = JSON.parse(geojson);
 		console.log("printing lfms");
-		console.log(geojson);
+		// console.log(geojson);
 		map.addLayer({
 			type: 'line',
 			source: {
@@ -108,9 +135,13 @@
 				'line-join': 'round'
 			}
 		});
+		console.log("lfms printed")
 	}
 
 	function drawShape(geojson) {
+		geojson = JSON.parse(geojson);
+		if (map.getLayer(oldLineStringLayerID + '.s'))	map.removeLayer(oldLineStringLayerID + '.s');
+		if (map.getSource(oldLineStringLayerID + '.s')) map.removeSource(oldLineStringLayerID + '.s');
 		map.addLayer({
 			"id": lineStringLayerID + ".s",
 			"type": "line",
@@ -127,6 +158,10 @@
 				"line-width": 5
 			}
 		});
+	}
+
+	function showStopsOnMap() {
+
 	}
 
 	function showBusesOnMap(veh_pos_geojson) {
@@ -149,10 +184,8 @@
 					case "":
 						lineStringLayerID = marker.properties.gtfs_trip_id;
 						try {
-							shape_geojson = JSON.parse(readTextFile(trip_folder_path + lineStringLayerID + ".shape"));
-							last_few_minutes = JSON.parse(readTextFile(trip_folder_path + lineStringLayerID + ".lfms"));
-							drawShape(shape_geojson);
-							drawLastFewMinutesShape(last_few_minutes);
+							getFileByAJAXreq("shape." + lineStringLayerID, drawShape);
+							getFileByAJAXreq("lfms." + lineStringLayerID, drawLastFewMinutesShape);
 						}catch (e) {
 							console.log(e);
 							return;
@@ -168,16 +201,11 @@
 						el.classList.remove('extra_marker');
 						break;
 					default:
-						if (map.getLayer(lineStringLayerID + '.s'))	map.removeLayer(lineStringLayerID + '.s');
-						if (map.getSource(lineStringLayerID + '.s')) map.removeSource(lineStringLayerID + '.s');
-						if (map.getLayer(lineStringLayerID + '.lfms'))	map.removeLayer(lineStringLayerID + '.lfms');
-						if (map.getSource(lineStringLayerID + '.lfms')) map.removeSource(lineStringLayerID + '.lfms');
+						oldLineStringLayerID = lineStringLayerID
 						lineStringLayerID = marker.properties.gtfs_trip_id;
 						try {
-							shape_geojson = JSON.parse(readTextFile(trip_folder_path + lineStringLayerID + ".shape"));
-							last_few_minutes = JSON.parse(readTextFile(trip_folder_path + lineStringLayerID + ".lfms"));
-							drawShape(shape_geojson);
-							drawLastFewMinutesShape(last_few_minutes);
+							getFileByAJAXreq("shape." + lineStringLayerID, drawShape);
+							getFileByAJAXreq("lfms." + lineStringLayerID, drawLastFewMinutesShape);
 						}catch (e) {
 							console.log(e);
 							return;
@@ -195,29 +223,35 @@
 			elems.add(elem);
 		});
 	}
-	// Get your own token here https://www.mapbox.com
-	mapboxgl.accessToken = 'pk.eyJ1IjoiZmlsaXBjaXptYXIiLCJhIjoiY2sxaHp3eHlzMGlmODNkanl2c2tqdTZscSJ9.rujrBlG1rSLuHpFaxxYX9w';
-	lineStringLayerID = "";
-	trip_folder_path = '../data/trips/';
-	var map = new mapboxgl.Map({
-		container: 'map', // container id
-		style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
-		center: [14.6, 50.1], // starting position [lng, lat]
-		zoom: 10 // starting zoom
-	});
-	var elems = new Set();
-	getFileByAJAXreq("vehicles_positions", showBusesOnMap);
-	window.setInterval(function(){
+	try{
+		// Get your own token here https://www.mapbox.com
+		mapboxgl.accessToken = 'pk.eyJ1IjoiZmlsaXBjaXptYXIiLCJhIjoiY2sxaHp3eHlzMGlmODNkanl2c2tqdTZscSJ9.rujrBlG1rSLuHpFaxxYX9w';
+		lineStringLayerID = "";
+		oldLineStringLayerID = "";
+		trip_folder_path = '../data/trips/';
+		var map = new mapboxgl.Map({
+			container: 'map', // container id
+			style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
+			center: [14.42, 50.08], // starting position [lng, lat]
+			zoom: 10 // starting zoom
+		});
+		var elems = new Set();
 		getFileByAJAXreq("vehicles_positions", showBusesOnMap);
-		if (map.getLayer(lineStringLayerID + '.lfms'))	map.removeLayer(lineStringLayerID + '.lfms');
-		if (map.getSource(lineStringLayerID + '.lfms')) map.removeSource(lineStringLayerID + '.lfms');
-		try {
-			last_few_minutes = JSON.parse(readTextFile(trip_folder_path + lineStringLayerID + ".lfms"));
-			drawLastFewMinutesShape(last_few_minutes);
-		}catch (e) {
-			console.log(e);
-		}
-	}, 10000);
+		window.setInterval(function(){
+			getFileByAJAXreq("vehicles_positions", showBusesOnMap);
+			if (lineStringLayerID != ""){
+				try {
+					oldLineStringLayerID = lineStringLayerID;
+					getFileByAJAXreq("lfms." + lineStringLayerID, drawLastFewMinutesShape);
+				}catch (e) {
+					console.log(e);
+				}
+			}
+		}, 10000);
+	}
+	catch(e){
+		alert("Something went wrong.", e)
+	}
 </script>
 
 </body>
