@@ -44,12 +44,30 @@ class Database_connection:
 		)
 		self.cursor_prepared_db = self.connection_db.cursor(prepared=True)
 		self.cursor_db = self.connection_db.cursor()
+		self.trip_id_to_id_trip_map = {}
 
 		SQL_queries.sql_run_transaction(
 			self.connection_db,
 			self.cursor_db,
 			'SET @@session.time_zone = "+00:00"'
 		)
+
+	def get_id_trip_by_trip_id(self, trip_id):
+		# print("trip_id from connection:", trip_id)
+		if trip_id in self.trip_id_to_id_trip_map:
+			return self.trip_id_to_id_trip_map[trip_id]
+		else:
+			try:
+				id_trip =  SQL_queries.sql_get_result(
+					self.cursor_db,
+					'SELECT id_trip FROM trips WHERE trip_id = %s LIMIT 1',
+					(trip_id,)
+				)[0][0]
+				self.trip_id_to_id_trip_map[trip_id] = id_trip
+				return id_trip
+			except IndexError:
+				logging.error("Trip", trip_id, "is not in database.")
+
 
 def prepare_geojson_lfms():
 	geojson_lfms = {}
@@ -68,14 +86,11 @@ def get_lfms(trip_id):
 	with open((allFilesURL.trips_shapes / trip_id).with_suffix(".shape"), "r") as f:
 		shape = json.loads(f.read())
 
-		id_trip = SQL_queries.sql_get_result(
-			connection.cursor_db,
-			'SELECT id_trip FROM trips WHERE trip_id = %s LIMIT 1',
-			(trip_id,)
-		)
+		# print("trip_id from get lfsm:", trip_id)
 
-		print("id_trip", id_trip)
-		id_trip = id_trip[0][0]
+		id_trip = connection.get_id_trip_by_trip_id(trip_id)
+
+		# print("id_trip", id_trip)
 
 		coordinates = SQL_queries.sql_get_result(
 			connection.cursor_db,
@@ -101,12 +116,32 @@ def get_lfms(trip_id):
 
 def get_shape(trip_id):
 	with open((allFilesURL.trips_shapes / trip_id).with_suffix(".shape"), "r") as f:
-		print("Shape opened")
+		# print("Shape opened")
 		shape = json.loads(f.read())
 		shape["features"][0]["geometry"]["properties"] = {}
 		shape["features"][0]["properties"] = {}
-		print("shape:", shape)
+		# print("shape:", shape)
 		return shape
+
+def get_stops(trip_id):
+	id_trip = connection.get_id_trip_by_trip_id(trip_id)
+	stops = SQL_queries.sql_get_result(
+		connection.cursor_db,
+		'SELECT stops.lon, stops.lat, rides.departure_time, stops.stop_name fROM rides INNER JOIN stops ON rides.id_stop = stops.id_stop WHERE rides.id_trip = %s ORDER BY rides.shape_dist_traveled',
+		(id_trip,)
+	)
+
+	print("stops:", stops)
+
+	stops_geojson = {}
+	stops_geojson["type"] = "FeatureCollection"
+	stops_geojson["features"] = []
+	for stop in stops:
+		stops_geojson["features"].append({"name": stop[3], "geometry": {"coordinates": [float(stop[0]), float(stop[1])]}})
+
+	print("stops_goej:", stops_geojson)
+	return stops_geojson
+
 
 
 FILE = 'index.html'
@@ -128,22 +163,21 @@ def server(environ, start_response):
 			response_body = event_handler.veh_pos_file_content
 
 		elif "lfms" == request_body.split('.')[0]:
+			# print("rb:", request_body)
 			response_body = json.dumps(get_lfms(request_body.split('.')[1]))
-			# response_body = json.dumps(get_shape(request_body.split('.')[1]))
 
 		elif "shape" == request_body.split('.')[0]:
-			print("beru shape")
 			response_body = json.dumps(get_shape(request_body.split('.')[1]))
-			# response_body = json.dumps(get_lfms(request_body.split('.')[1]))
-			print("shape vzity")
+
+		elif "stops" == request_body.split('.')[0]:
+			response_body = json.dumps(get_stops(request_body.split('.')[1]))
 
 		status = '200 OK'
 		headers = [('Content-type', 'text/plain')]
 		start_response(status, headers)
-		print("vracim shape")
 		return [response_body.encode()]
 	else:
-		print("get query")
+		logging.warning("GET method should not occurs.")
 		response_body = open(FILE).read()
 		status = '200 OK'
 		headers = [('Content-type', 'text/html'),

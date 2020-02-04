@@ -69,8 +69,13 @@ class SQL_queries:
 
 	@staticmethod
 	def sql_get_result(cursor, sql_query, params=()):
-		cursor.execute(sql_query, params)
-		return cursor.fetchall()
+		try:
+			cursor.execute(sql_query, params)
+			return cursor.fetchall()
+		except Exception as e:
+			print(e)
+			print("Query failed", sql_query, "params:", params)
+
 
 	@staticmethod
 	def sql_run_transaction(connection, cursor, sql_query, params=()):

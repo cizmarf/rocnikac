@@ -12,7 +12,10 @@
 		#map { position:absolute; top:0; bottom:0; width:100%; }
 	</style>
 </head>
-<style>
+<style id="style">
+:root {
+	--pin_color: rgba(238, 109, 82, 1)
+}
 	.marker {
 		--size_of_marker: 24px;
 		width: 			var(--size_of_marker);
@@ -36,6 +39,11 @@
 				background-color	var(--transition_time) ease,
 				border				var(--transition_time) ease;
 	}
+
+.marker:hover {
+	z-index: 1;
+}
+
 	.extra_marker {
 		--size_of_extra_marker: 30px;
 		width: 			var(--size_of_extra_marker);
@@ -46,16 +54,15 @@
 		z-index: 1;
 	}
 
-	.stop_pin {
-	  position: absolute;
-	  top: 40%;
-	  left: 50%;
-	  margin-left: 115px;
 
-	  border-radius: 50%;
-	  border: 8px solid #fff;
-	  width: 8px;
-	  height: 8px;
+	.stop_pin {
+		position: absolute;
+		margin-top: -20px;
+		border-radius: 50%;
+		border: 4px solid var(--pin_color);
+	    width: 7px;
+	    height: 7px;
+		z-index: 0;
 	}
 
 	.stop_pin::after {
@@ -63,11 +70,31 @@
 	  content: '';
 	  width: 0px;
 	  height: 0px;
-	  bottom: -30px;
-	  left: -6px;
-	  border: 10px solid transparent;
-	  border-top: 17px solid #fff;
+	  bottom: -24px;
+	  left: -1px;
+	  border: 5px solid transparent;
+	  border-top: 17px solid var(--pin_color);
+	  z-index: 0;
 	}
+
+	.stop_pin_sign{
+		margin-top: -50px;
+		z-index: 30;
+		text-align: center;
+		line-height: 0.9;
+		position: absolute;
+  		bottom: 15px;
+		left: -50px;
+		width: 100px;
+		font-size: 12px;
+		color: rgba(53, 53, 53, 1);
+		--shadow_color: rgba(242, 242, 242, 0.9);
+    	text-shadow: -2px 0 var(--shadow_color), 0 2px var(--shadow_color), 2px 0 var(--shadow_color), 0 -2px var(--shadow_color);
+		/* text-shadow: 3px 2px green; */
+		/* height: 100px; */
+	}
+
+
 </style>
 <body>
 <div id='map'></div>
@@ -160,8 +187,80 @@
 		});
 	}
 
-	function showStopsOnMap() {
+	function showStopsOnMap(stops_goejson) {
+		stops_shown.forEach(function(elem) {
+			elem.remove();
+			stops_shown.delete(elem);
+		});
 
+		console.log("stops_geo:" + stops_goejson);
+		stops_goejson = JSON.parse(stops_goejson);
+		stops_goejson.features.forEach(function(marker) {
+			console.log("stop in process");
+			var el_p = document.createElement('div');
+			var el_c = document.createElement('div');
+			el_p.appendChild(el_c);
+			el_c.className = 'stop_pin';
+
+			el_c.addEventListener('click', function() {
+				alert("click");
+			});
+
+			// TODO presunout cely element na prvni pricku v senzamu
+
+			el_c.addEventListener("mouseover", function(){
+				var el_s = document.createElement('div');
+				el_s.innerText = marker.name;
+				el_s.setAttribute("class", "stop_pin_sign");
+				el_c.insertBefore(el_s, el_p.childNodes[0]);
+				// style.innerHTML += ".stop_pin::before{content: " + marker.name + ";}";
+				// var el_s = document.createElement('div');
+				// el_s.innerText = marker.name;
+				// el_s.setAttribute("class", "stop_pin_sign");
+				// var elem = new mapboxgl.Marker(el_s)
+				// 		.setLngLat(marker.geometry.coordinates)
+				// 		.addTo(map);
+			});
+
+			el_c.addEventListener("mouseout", function(){
+				var signs = document.getElementsByClassName('stop_pin_sign');
+				while(signs[0]) {
+				    signs[0].parentNode.removeChild(signs[0]);
+				}
+			});
+
+			var elem = new mapboxgl.Marker(el_c)
+					.setLngLat(marker.geometry.coordinates)
+					.addTo(map);
+			stops_shown.add(elem);
+			console.log("stop:" + elem);
+		});
+	}
+
+	function click_bus(gtfs_trip_id){
+		oldLineStringLayerID = lineStringLayerID;
+		lineStringLayerID = gtfs_trip_id;
+		getFileByAJAXreq("stops." + lineStringLayerID, showStopsOnMap);
+		getFileByAJAXreq("shape." + lineStringLayerID, drawShape);
+		getFileByAJAXreq("lfms." + lineStringLayerID, drawLastFewMinutesShape);
+		if (map.getLayer(oldLineStringLayerID + '.lfms'))	map.removeLayer(oldLineStringLayerID + '.lfms');
+		if (map.getSource(oldLineStringLayerID + '.lfms')) map.removeSource(oldLineStringLayerID + '.lfms');
+		if (map.getLayer(oldLineStringLayerID + '.s'))	map.removeLayer(oldLineStringLayerID + '.s');
+		if (map.getSource(oldLineStringLayerID + '.s')) map.removeSource(oldLineStringLayerID + '.s');
+
+	}
+
+	function unclic_bus(){
+		oldLineStringLayerID = lineStringLayerID;
+		lineStringLayerID = "";
+		if (map.getLayer(oldLineStringLayerID + '.lfms'))	map.removeLayer(oldLineStringLayerID + '.lfms');
+		if (map.getSource(oldLineStringLayerID + '.lfms')) map.removeSource(oldLineStringLayerID + '.lfms');
+		if (map.getLayer(oldLineStringLayerID + '.s'))	map.removeLayer(oldLineStringLayerID + '.s');
+		if (map.getSource(oldLineStringLayerID + '.s')) map.removeSource(oldLineStringLayerID + '.s');
+		stops_shown.forEach(function(elem) {
+			elem.remove();
+			stops_shown.delete(elem);
+		});
 	}
 
 	function showBusesOnMap(veh_pos_geojson) {
@@ -182,10 +281,8 @@
 				var last_few_minutes = "";
 				switch (lineStringLayerID) {
 					case "":
-						lineStringLayerID = marker.properties.gtfs_trip_id;
 						try {
-							getFileByAJAXreq("shape." + lineStringLayerID, drawShape);
-							getFileByAJAXreq("lfms." + lineStringLayerID, drawLastFewMinutesShape);
+							click_bus(marker.properties.gtfs_trip_id);
 						}catch (e) {
 							console.log(e);
 							return;
@@ -193,19 +290,12 @@
 						el.classList.add('extra_marker');
 						break;
 					case marker.properties.gtfs_trip_id:
-						if (map.getLayer(lineStringLayerID + '.s'))	map.removeLayer(lineStringLayerID + '.s');
-						if (map.getSource(lineStringLayerID + '.s')) map.removeSource(lineStringLayerID + '.s');
-						if (map.getLayer(lineStringLayerID + '.lfms'))	map.removeLayer(lineStringLayerID + '.lfms');
-						if (map.getSource(lineStringLayerID + '.lfms')) map.removeSource(lineStringLayerID + '.lfms');
-						lineStringLayerID = "";
+						unclic_bus();
 						el.classList.remove('extra_marker');
 						break;
 					default:
-						oldLineStringLayerID = lineStringLayerID
-						lineStringLayerID = marker.properties.gtfs_trip_id;
 						try {
-							getFileByAJAXreq("shape." + lineStringLayerID, drawShape);
-							getFileByAJAXreq("lfms." + lineStringLayerID, drawLastFewMinutesShape);
+							click_bus(marker.properties.gtfs_trip_id)
 						}catch (e) {
 							console.log(e);
 							return;
@@ -235,6 +325,7 @@
 			center: [14.42, 50.08], // starting position [lng, lat]
 			zoom: 10 // starting zoom
 		});
+		var stops_shown = new Set();
 		var elems = new Set();
 		getFileByAJAXreq("vehicles_positions", showBusesOnMap);
 		window.setInterval(function(){
