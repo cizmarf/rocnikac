@@ -195,3 +195,69 @@ BEGIN
 	) AND id_trip_to_find = id_trip ORDER BY shape_dist_traveled DESC LIMIT 1;
  RETURN id_stop_to_find;
 END
+
+ALTER TABLE `vehicles_info`.`trip_coordinates`
+ADD INDEX `shape_traveledx` (`shape_traveled` ASC) VISIBLE;
+;
+
+ALTER TABLE `vehicles_info`.`rides`
+ADD INDEX `shape_dist_traveledx` (`shape_dist_traveled` ASC) VISIBLE;
+;
+
+
+#vsechny pary zastavek mezi kteryma se jezdi (jednosmerne)
+SELECT
+	id_trip,
+    id_stop,
+    shape_dist_traveled,
+    departure_time,
+    LEAD(id_stop, 1) OVER (
+        PARTITION BY id_trip
+        ORDER BY shape_dist_traveled
+    ) lead_stop,
+    LEAD(shape_dist_traveled, 1) OVER (
+        PARTITION BY id_trip
+        ORDER BY shape_dist_traveled
+    ) lead_stop_shape_dtist_traveled,
+    LEAD(arrival_time, 1) OVER (
+        PARTITION BY id_trip
+        ORDER BY shape_dist_traveled
+    ) lead_stop_arrival_time
+FROM
+    rides
+order by
+	id_stop
+
+
+select * from rides where id_trip in (select id_trip from (
+SELECT
+	id_trip,
+    id_stop,
+    shape_dist_traveled,
+    departure_time,
+    LEAD(id_stop, 1) OVER (
+        PARTITION BY id_trip
+        ORDER BY shape_dist_traveled
+    ) lead_stop,
+    LEAD(shape_dist_traveled, 1) OVER (
+        PARTITION BY id_trip
+        ORDER BY shape_dist_traveled
+    ) lead_stop_shape_dtist_traveled,
+    LEAD(arrival_time, 1) OVER (
+        PARTITION BY id_trip
+        ORDER BY shape_dist_traveled
+    ) lead_stop_arrival_time
+FROM
+    rides
+order by
+	id_stop
+) AS inn
+where inn.id_stop = 4918 and inn.lead_stop = 2411)
+order by id_trip, shape_dist_traveled
+
+select * from (
+	SELECT id_trip, id_stop, shape_dist_traveled, departure_time, LEAD(id_stop, 1) OVER (PARTITION BY id_trip ORDER BY shape_dist_traveled) lead_stop, LEAD(shape_dist_traveled, 1) OVER (PARTITION BY id_trip ORDER BY shape_dist_traveled) lead_stop_shape_dist_traveled, LEAD(departure_time, 1) OVER (PARTITION BY id_trip ORDER BY shape_dist_traveled) lead_stop_departure_time FROM rides
+) as inn
+JOIN trip_coordinates ON trip_coordinates.id_trip = inn.id_trip
+WHERE trip_coordinates.shape_traveled between inn.shape_dist_traveled and inn.lead_stop_shape_dist_traveled
+order by id_stop, lead_stop

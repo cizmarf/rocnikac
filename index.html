@@ -78,14 +78,14 @@
 	}
 
 	.stop_pin_sign{
-		margin-top: -50px;
-		z-index: 30;
+		margin-top: -35px;
+		/* z-index: 30; */
 		text-align: center;
 		line-height: 0.9;
-		position: absolute;
-  		bottom: 15px;
-		left: -50px;
-		width: 100px;
+		/* position: absolute; */
+  		/* bottom: 5px; */
+		/* left: -50px; */
+		/* width: 100px; */
 		font-size: 12px;
 		color: rgba(53, 53, 53, 1);
 		--shadow_color: rgba(242, 242, 242, 0.9);
@@ -209,17 +209,17 @@
 			// TODO presunout cely element na prvni pricku v senzamu
 
 			el_c.addEventListener("mouseover", function(){
-				var el_s = document.createElement('div');
-				el_s.innerText = marker.name;
-				el_s.setAttribute("class", "stop_pin_sign");
-				el_c.insertBefore(el_s, el_p.childNodes[0]);
-				// style.innerHTML += ".stop_pin::before{content: " + marker.name + ";}";
 				// var el_s = document.createElement('div');
 				// el_s.innerText = marker.name;
 				// el_s.setAttribute("class", "stop_pin_sign");
-				// var elem = new mapboxgl.Marker(el_s)
-				// 		.setLngLat(marker.geometry.coordinates)
-				// 		.addTo(map);
+				// el_c.insertBefore(el_s, el_p.childNodes[0]);
+				// style.innerHTML += ".stop_pin::before{content: " + marker.name + ";}";
+				var el_s = document.createElement('div');
+				el_s.innerText = marker.name;
+				el_s.setAttribute("class", "stop_pin_sign");
+				new mapboxgl.Marker(el_s)
+						.setLngLat(marker.geometry.coordinates)
+						.addTo(map);
 			});
 
 			el_c.addEventListener("mouseout", function(){

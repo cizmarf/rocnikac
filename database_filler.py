@@ -20,7 +20,8 @@ class Trip_current_info:
 				 trip_id: str = None, 
 				 lat: str = None, 
 				 lon: str = None, 
-				 cur_delay: int = None, 
+				 cur_delay: int = None,
+				 last_stop_delay = None,
 				 shape_traveled: int = None,
 				 trip_no: str = None, 
 				 time: str = None, 
@@ -38,6 +39,7 @@ class Trip_current_info:
 		self.lat = lat
 		self.trip_id = trip_id
 		self.trip_headsign = trip_headsign
+		self.last_stop_delay = last_stop_delay
 
 
 """
@@ -169,6 +171,25 @@ if __name__ == "__main__":
 
 		for bus_input_list in json_vehiclepositions["features"]:
 
+			if	bus_input_list["properties"]["trip"]["gtfs_trip_id"] is None or \
+				bus_input_list["geometry"]["coordinates"][1] is None or \
+				bus_input_list["geometry"]["coordinates"][0] is None or \
+				bus_input_list["properties"]["last_position"]["delay"] is None or \
+				bus_input_list["properties"]["last_position"]["gtfs_shape_dist_traveled"] is None or \
+				bus_input_list["properties"]["trip"]["cis_short_name"] is None or \
+				bus_input_list["properties"]["last_position"]["origin_timestamp"] is None:
+					continue
+
+			delay = bus_input_list["properties"]["last_position"]["delay_stop_departure"]
+
+			if bus_input_list["properties"]["last_position"]["delay_stop_departure"] is None:
+				delay = bus_input_list["properties"]["last_position"]["delay_stop_arrival"]
+				if bus_input_list["properties"]["last_position"]["delay_stop_arrival"] is None:
+					continue
+
+
+			delay = int(delay)
+
 			current_trip = Trip_current_info(
 				trip_id=bus_input_list["properties"]["trip"]["gtfs_trip_id"],
 				lat=bus_input_list["geometry"]["coordinates"][1],
@@ -176,7 +197,8 @@ if __name__ == "__main__":
 				cur_delay=int(bus_input_list["properties"]["last_position"]["delay"]),
 				shape_traveled=format_shape_traveled(bus_input_list["properties"]["last_position"]["gtfs_shape_dist_traveled"]),
 				trip_no=bus_input_list["properties"]["trip"]["cis_short_name"],
-				time=bus_input_list["properties"]["last_position"]["origin_timestamp"]
+				time=bus_input_list["properties"]["last_position"]["origin_timestamp"],
+				last_stop_delay=delay,
 			)
 
 			try_fetch_id_trip = SQL_queries.sql_get_result(
@@ -216,7 +238,7 @@ if __name__ == "__main__":
 					SQL_queries.insert_trip,
 					(	current_trip.trip_id,
 						current_trip.id_trip_headsign,
-						current_trip.cur_delay,
+						current_trip.last_stop_delay,
 						current_trip.shape_traveled, current_trip.trip_no
 					)
 				)[0][0]
@@ -230,7 +252,8 @@ if __name__ == "__main__":
 						current_trip.lat, 
 						current_trip.lon,
 						current_trip.time[:current_trip.time.index(".")],
-						current_trip.cur_delay, current_trip.shape_traveled
+						current_trip.last_stop_delay,
+						current_trip.shape_traveled
 					)]
 				)
 
@@ -321,7 +344,7 @@ if __name__ == "__main__":
 					connection_db, 
 					cursor_prepared_db, 
 					SQL_queries.up_trip, 
-					[(current_trip.cur_delay, 
+					[(	current_trip.last_stop_delay,
 						current_trip.shape_traveled, 
 						current_trip.id_trip
 					)]
@@ -352,7 +375,7 @@ if __name__ == "__main__":
 							current_trip.lat,
 							current_trip.lon,
 							current_trip.time[:current_trip.time.index(".")],
-							current_trip.cur_delay,
+							current_trip.last_stop_delay,
 							current_trip.shape_traveled
 						)]
 					)
