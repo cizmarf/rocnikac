@@ -3,6 +3,8 @@ import json
 from pathlib import Path
 from urllib.request import urlopen, Request
 
+import mysql.connector
+
 """
 	Following header is necessary for requesting golemio api.
 	code copied from https://golemioapi.docs.apiary.io/#reference/public-transport/vehicle-positions/get-all-vehicle-positions
@@ -79,15 +81,29 @@ class SQL_queries:
 
 	@staticmethod
 	def sql_run_transaction(connection, cursor, sql_query, params=()):
-		cursor.executemany(sql_query, params)
-		connection.commit()
+		try:
+			cursor.executemany(sql_query, params)
+			connection.commit()
+		except mysql.connector.errors.IntegrityError as e:
+			print(e)
+			print("Query failed", sql_query, "params:", params)
+		except Exception as e:
+			print(e)
+			print("Query failed", sql_query, "params:", params)
 
 	@staticmethod
 	def sql_run_transaction_and_fetch(connection, cursor, sql_query, params=()):
-		cursor.execute(sql_query, params)
-		ret = cursor.fetchall()
-		connection.commit()
-		return ret
+		try:
+			cursor.execute(sql_query, params)
+			ret = cursor.fetchall()
+			connection.commit()
+			return ret
+		except mysql.connector.errors.IntegrityError as e:
+			print(e)
+			print("Query failed", sql_query, "params:", params)
+		except Exception as e:
+			print(e)
+			print("Query failed", sql_query, "params:", params)
 
 
 class URLs:

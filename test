@@ -1,44 +1,19 @@
 #!/usr/bin/env python3
-from datetime import timedelta
-
-import mysql.connector
-import matplotlib.pyplot as plt
-import numpy as np
+import json
 
 from common_functions import SQL_queries
+import mysql.connector
+import compress_json
 
-connection_db = mysql.connector.connect(
-			host="localhost",
-			database="vehicles_info",
-			user="vehicles_access",
-			passwd="my_password",
-			autocommit=True
-		)
-cursor_prepared_db = connection_db.cursor(prepared=True)
-cursor_db = connection_db.cursor()
+# with open("../veh_pos.json", "r") as f:
+# 	veh_pos = json.load(f)#json.dumps(veh_pos))
+#
+# 	compress_json.dump(veh_pos, "filepath.json.gz")  # for a gzip file
+# 	compress_json.dump(veh_pos, "filepath.json.bz")  # for a bz2 file
+# 	compress_json.dump(veh_pos, "filepath.json.lzma")  # for a lzma file
 
+D1 = compress_json.load("/Users/filipcizmar/Downloads/remote/raw_data/2020-02-14T20.13.52.tar.gz")  # for loading a gzip file
+# D2 = compress_json.load("filepath.json.bz")  # for loading a bz2 file
+# D3 = compress_json.load("filepath.json.lzma")  # for loading a lzma file
 
-result = SQL_queries.sql_get_result(
-	cursor_db,
-	"""	select inn.id_trip, inn.id_stop, inn.lead_stop, departure_time, inn.lead_stop_departure_time, 
-			(inn.lead_stop_shape_dist_traveled - inn.shape_dist_traveled) as diff_shape_trav, 
-			trip_coordinates.time, 
-			(trip_coordinates.shape_traveled - inn.shape_dist_traveled) as shifted_shape_trav, 
-			trip_coordinates.delay,
-			trip_coordinates.shape_traveled,
-			inn.shape_dist_traveled,
-			inn.lead_stop_shape_dist_traveled 
-		from (
-			SELECT id_trip, id_stop, shape_dist_traveled, departure_time, 
-				LEAD(id_stop, 1) OVER (PARTITION BY id_trip ORDER BY shape_dist_traveled) lead_stop, 
-				LEAD(shape_dist_traveled, 1) OVER (PARTITION BY id_trip ORDER BY shape_dist_traveled) lead_stop_shape_dist_traveled, 
-				LEAD(departure_time, 1) OVER (PARTITION BY id_trip ORDER BY shape_dist_traveled) lead_stop_departure_time 
-			FROM rides) as inn 
-			JOIN trip_coordinates 
-			ON trip_coordinates.id_trip = inn.id_trip and id_stop = 2412 and lead_stop = 4920 and trip_coordinates.shape_traveled between inn.shape_dist_traveled and inn.lead_stop_shape_dist_traveled 
-			order by id_stop, lead_stop, shifted_shape_trav"""
-)
-
-for row in result:
-	if row[6].time().hour * 3600 + row[6].time().minute * 60 + row[6].time().second + 3600 - row[3].seconds - row[8] > 1700:
-		print(row)
+print()
