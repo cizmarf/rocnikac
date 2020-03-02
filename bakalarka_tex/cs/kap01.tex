@@ -1,224 +1,80 @@
 %%% Fiktivní kapitola s ukázkami sazby
 
-\chapter{Nápověda k~sazbě}
+\chapter{Analýza problému a jeho řešení}
 
-\section{Úprava práce}
+V této kapitole je detailně popsán problém a způsoby jeho navrženého a současného řešení.
 
-Vlastní text bakalářské práce je uspořádaný hierarchicky do kapitol a podkapitol,
-každá kapitola začíná na nové straně. Text je zarovnán do bloku. Nový odstavec
-se obvykle odděluje malou vertikální mezerou a odsazením prvního řádku. Grafická
-úprava má být v~celém textu jednotná.
+\section{Popis problému}
 
-Práce se tiskne na bílý papír formátu A4. Okraje musí ponechat dost místa na vazbu:
-doporučen je horní, dolní a pravý okraj $25\,\rm mm$, levý okraj $40\,\rm mm$.
-Číslují se všechny strany kromě obálky a informačních stran na začátku práce;
-první číslovaná strana bývá obvykle ta s~obsahem.
+Spoje které zajištˇují hromadnou dopravu se řídí jízdními řády, které určují jejich trasu a udávají časy příjezdu a odjezdu do daných zastávek. Toto jsou zpravidla jediné refenční body u kterých jsme schopní zjistit skutečné zpoždění, nebo předjetí (dále uvažováno jako zpoždění se zápornou hodnotou).
 
-Písmo se doporučuje dvanáctibodové ($12\,\rm pt$) se standardní vzdáleností mezi řádky
-(pokud píšete ve Wordu nebo podobném programu, odpovídá tomu řádkování $1,5$; v~\TeX{}u
-není potřeba nic přepínat). Pro běžný text používejte vzpřímené patkové písmo.
-Text matematických vět se obvykle tiskne pro zdůraznění skloněným (slanted) písmem,
-není-li k~dispozici, může být zastoupeno kurzívou.
+\bigbreak
 
-Primárně je doporučován jednostranný tisk (příliš tenkou práci lze obtížně svázat).
-Delší práce je lepší tisknout oboustranně a přizpůsobit tomu velikosti okrajů:
-$40\,\rm mm$ má vždy \emph{vnitřní} okraj. Rub titulního listu zůstává nepotištěný.
+Vzhledem k tom, že délka trasy mezi dvěma refernčními body nezříka dosahuje i několika desítek kilometrů (TODO spocitat prumer a median), kde mohou vznikat mimořáné události, ale zpravidla je ovlivněna obvyklým provozem, je potřeba navrhnout systém na odhat zpoždění v půběhu jízdy.
 
-Zkratky použité v textu musí být vysvětleny vždy u prvního výskytu zkratky (v~závorce nebo
-v poznámce pod čarou, jde-li o složitější vysvětlení pojmu či zkratky). Pokud je zkratek
-více, připojuje se seznam použitých zkratek, včetně jejich vysvětlení a/nebo odkazů
-na definici.
+\bigbreak
 
-Delší převzatý text jiného autora je nutné vymezit uvozovkami nebo jinak vyznačit a řádně
-citovat.
+Toto celé je potřeba počítat v reálném čase, tak aby uživatelé byli dobře informování o stavu jejich spoje. Proto je potřeba zpracovávat data okamžitě po jejich vydání, spočítat odhad zpoždění a vystavit tyto data veřejně. Vzhledem k tomu, že tyto data velmi rychle zastarávají je nutné provést tento proces co možná nejrychleji.
 
-\section{Jednoduché příklady}
+\bigbreak
 
-Čísla v~českém textu obvykle sázíme v~matematickém režimu s~desetinnou čárkou:
-%%% Bez \usepackage{icomma}:
-% $\pi \doteq 3{,}141\,592\,653\,589$.
-%%% S \usepackage{icomma}:
-$\pi \doteq 3,141\,592\,653\,589$.
-V~matematických textech se považuje za přípustné používat desetinnou tečku
-(pro lepší odlišení od čárky v~roli oddělovače). Numerické výsledky se uvádějí
-s~přiměřeným počtem desetinných míst.
+Pro vyjasnění je potřeba uvést, že se systém nesnaží předpovědět zpoždění, které spoj může nabrat vzhledem k dosavadnímu průběhy trasy. Ale snaží se odhadnou zpoždění v danný bod na trase vzhledem k obvyklému profilu jízdy.
 
-Mezi číslo a jednotku patří úzká mezera: šířka stránky A4 činí $210\,\rm mm$, což si
-pamatuje pouze $5\,\%$ autorů. Pokud ale údaj slouží jako přívlastek, mezeru vynecháváme:
-$25\rm mm$ okraj, $95\%$ interval spolehlivosti.
+TODO obrazek nelinearni trasy
 
-Rozlišujeme různé druhy pomlček:
-červeno-černý (krátká pomlčka),
-strana 16--22 (střední),
-$45-44$ (matematické minus),
-a~toto je --- jak se asi dalo čekat --- vložená věta ohraničená dlouhými pomlčkami.
+\section{Souasné řešení}
 
-V~českém textu se používají \uv{české} uvozovky, nikoliv ``anglické''.
+Takový algoritmus na odhat aktuálního zpoždění již exituje a je zakomponován v systému, ze kterého se čerpají data pro tuto práci. (Detailní popis dat uveden v kapitole ~\ref{cahpter:TODO later}.) Nicméně nezohlednˇuje základní parametry průběhu trasy. Tento algoritmus nahlíží na postup vozidla na trase jako na lineární funkci vůči času. Jak ale z praxe víme (TODO doplnit zdroj), rychlost vozidel není konstantní, neboli doba jízdy není linárně závislá na ujeté vzdálenosti.
 
-% V tomto odstavci se vlnka zviditelňuje
-{
-\def~{{\tt\char126}}
-Na některých místech je potřeba zabránit lámání řádku (v~\TeX{}u značíme vlnovkou):
-u~předložek (neslabičnych, nebo obecně jednopísmenných), vrchol~$v$, před $k$~kroky,
-a~proto, \dots{} obecně kdekoliv, kde by při rozlomení čtenář \uv{ško\-brt\-nul}.
-}
+\section{Analýza požadavků na uživatelskou aplikaci}
 
-\section{Matematické vzorce a výrazy}
+Součástí práce je i vizualizace spočítaných dat. Jinými slovy nástroj umožnˇující přístup uživatelů ke spočítaným datům.
 
-Proměnné sázíme kurzívou (to \TeX{} v~matematickém módu dělá sám, ale
-nezapomínejte na to v~okolním textu a také si matematický mód zapněte).
-Názvy funkcí sázíme vzpřímeně. Tedy například:
-$\var(X) = \E X^2 - \bigl(\E X \bigr)^2$.
+\subsection{Poskytovatelé mapových podkladů}
 
-Zlomky uvnitř odstavce (třeba $\frac{5}{7}$ nebo $\frac{x+y}{2}$) mohou
-být příliš stísněné, takže je lepší sázet jednoduché zlomky s~lomítkem:
-$5/7$, $(x+y)/2$.
+K takovému účelu nejlépe poslouží vykreslení aktuálních poloh vozidel do mapy, kde se po vyžádání uživatelem tyto data zobrazí.
 
-Nechť
-\[   % LaTeXová náhrada klasického TeXového $$
-\mathbb{X} = \begin{pmatrix}
-      \T{\bm x_1} \\
-      \vdots \\
-      \T{\bm x_n}
-      \end{pmatrix}.
-\]
-Povšimněme si tečky za~maticí. Byť je matematický text vysázen
-ve~specifickém prostředí, stále je gramaticky součástí věty a~tudíž je
-zapotřebí neopomenout patřičná interpunkční znaménka. Výrazy, na které
-chceme později odkazovat, je vhodné očíslovat:
-\begin{equation}\label{eq01:Xmat}
-\mathbb{X} = \begin{pmatrix}
-      \T{\bm x_1} \\
-      \vdots \\
-      \T{\bm x_n}
-      \end{pmatrix}.
-\end{equation}
-Výraz \eqref{eq01:Xmat} definuje matici $\mathbb{X}$. Pro lepší čitelnost
-a~přehlednost textu je vhodné číslovat pouze ty výrazy, na které se
-autor někde v~další části textu odkazuje. To jest, nečíslujte
-automaticky všechny výrazy vysázené některým z~matematických
-prostředí.
+\bigbreak
 
-Zarovnání vzorců do několika sloupečků:
-\begin{alignat*}{3}
-S(t) &= \pr(T > t),    &\qquad t&>0       &\qquad&\text{ (zprava spojitá),}\\
-F(t) &= \pr(T \leq t), &\qquad t&>0       &\qquad&\text{ (zprava spojitá).}
-\end{alignat*}
+Za účelem vytvoření dostatečně přívetivé uživatelské aplikace je nezbitné využít některého z poskytovatelů mapového \gls{api}, neboli využít již existující mapový podklad a zanést do něj získané informace.
 
-Dva vzorce se spojovníkem:
-\begin{equation}\label{eq01:FS}
-\left.
-\begin{aligned}
-S(t) &= \pr(T > t) \\[1ex]
-F(t) &= \pr(T \leq t)
-\end{aligned}
-\;	% zde pomůže ručně vynechat trochu místa
-\right\}
-\quad t>0 \qquad \text{(zprava spojité).}
-\end{equation}
+\bigbreak
 
-Dva centrované nečíslované vzorce:
-\begin{gather*}
-\bm Y = \mathbb{X}\bm\beta + \bm\varepsilon, \\[1ex]
-\mathbb{X} = \begin{pmatrix} 1 & \T{\bm x_1} \\ \vdots & \vdots \\ 1 &
-  \T{\bm x_n} \end{pmatrix}.
-\end{gather*}
-Dva centrované číslované vzorce:
-\begin{gather}
-\bm Y = \mathbb{X}\bm\beta + \bm\varepsilon, \label{eq02:Y}\\[1ex]
-\mathbb{X} = \begin{pmatrix} 1 & \T{\bm x_1} \label{eq03:X}\\ \vdots & \vdots \\ 1 &
-  \T{\bm x_n} \end{pmatrix}.
-\end{gather}
+Jedním z těchto poskytovatelů je společnost Google, která má propracované mapové podklady a prostřednictvím služby Google Maps poskytuje pro tuto práci požadovanou službu. Další platformou je Mapbox, který poskytuje velmi podobné služby jako Google Maps. Nicméně natozdíl od Googlu využívá jako mapový podklad \gls{osm} {otevřená geografické data}. Protože smyslem práce je v co největší míře využít otevřená data je žádoucí využít právě Mapbox.
 
-Definice rozdělená na dva případy:
-\[
-P_{r-j}=
-\begin{cases}
-0, & \text{je-li $r-j$ liché},\\
-r!\,(-1)^{(r-j)/2}, & \text{je-li $r-j$ sudé}.
-\end{cases}
-\]
-Všimněte si použití interpunkce v této konstrukci. Čárky a tečky se
-dávají na místa, kam podle jazykových pravidel patří.
+\bigbreak
 
-\begin{align}
-x& = y_1-y_2+y_3-y_5+y_8-\dots = && \text{z \eqref{eq02:Y}} \nonumber\\
-& = y'\circ y^* = && \text{podle \eqref{eq03:X}} \nonumber\\
-& = y(0) y' && \text {z Axiomu 1.}
-\end{align}
+TODO dokumentace mapbox, zeptat se jestli je to vubec nutne rozebirat
 
+\subsubsection{Funkční požadavky}
 
-Dva zarovnané vzorce nečíslované:
-\begin{align*}
-L(\bm\theta) &= \prod_{i=1}^n f_i(y_i;\,\bm\theta), \\
-\ell(\bm\theta) &= \log\bigl\{L(\bm\theta)\bigr\} =
-\sum_{i=1}^n \log\bigl\{f_i(y_i;\,\bm\theta)\bigr\}.
-\end{align*}
-Dva zarovnané vzorce, první číslovaný:
-\begin{align}
-L(\bm\theta) &= \prod_{i=1}^n f_i(y_i;\,\bm\theta), \label{eq01:L} \\
-\ell(\bm\theta) &= \log\bigl\{L(\bm\theta)\bigr\} =
-\sum_{i=1}^n \log\bigl\{f_i(y_i;\,\bm\theta)\bigr\}. \nonumber
-\end{align}
+\begin{itemize}
+	\item Aplikace vykreslí interaktivní mapu Prahy a širšího okolí, kterou bude možné posunovat či oddalovat. V této mapě budou zobrazeny jednotlivé vozidla na aktuálních pozicích a budou se automaticky posouvat po mapě.
 
-Vzorec na dva řádky, první řádek zarovnaný vlevo, druhý vpravo, nečíslovaný:
-\begin{multline*}
-\ell(\mu,\,\sigma^2) = \log\bigl\{L(\mu,\,\sigma^2)\bigr\} =
-\sum_{i=1}^n \log\bigl\{f_i(y_i;\,\mu,\,\sigma^2)\bigr\}= \\
-  = -\,\frac{n}{2}\,\log(2\pi\sigma^2) \,-\,
-\frac{1}{2\sigma^2}\sum_{i=1}^n\,(y_i - \mu)^2.
-\end{multline*}
+	\item Po kliknutí na vozidlo se zobrazí jeho celá trasa včetně zastávek a jeho dopočítané zpoždění.
 
-Vzorec na dva řádky, zarovnaný na $=$, číslovaný uprostřed:
-\begin{equation}\label{eq01:ell}
-\begin{split}
-\ell(\mu,\,\sigma^2) &= \log\bigl\{L(\mu,\,\sigma^2)\bigr\} =
-\sum_{i=1}^n \log\bigl\{f(y_i;\,\mu,\,\sigma^2)\bigr\}= \\
-& = -\,\frac{n}{2}\,\log(2\pi\sigma^2) \,-\,
-\frac{1}{2\sigma^2}\sum_{i=1}^n\,(y_i - \mu)^2.
-\end{split}
-\end{equation}
+	\item Celá aplikace bude postavena na principu server -- client. Tedy serverová strana se postará o přístup k otevřeným datům o vozidlech a jejich uložení a také obsluhu požadavků klienta. Klientská část bude webová stránka poskytující služby popsané výše. Měla by být schopná zobrazit řádově tisíce vozidel.
+\end{itemize}
 
-\section{Definice, věty, důkazy, \dots}
+\subsubsection{Nefunkční požadavky}
 
-Konstrukce typu definice, věta, důkaz, příklad, \dots je vhodné
-odlišit od okolního textu a~případně též číslovat s~možností použití
-křížových odkazů. Pro každý typ těchto konstrukcí je vhodné mít
-v~souboru s~makry (\texttt{makra.tex}) nadefinované jedno prostředí,
-které zajistí jak vizuální odlišení od okolního textu, tak
-automatické číslování s~možností křížově odkazovat.
+\begin{itemize}
+	\item Serverová část bude napsaná v jazyce Python 3.
 
-\begin{definice}\label{def01:1}
-  Nechť náhodné veličiny $X_1,\dots,X_n$ jsou definovány na témž
-  prav\-dě\-po\-dob\-nost\-ním prostoru $(\Omega,\,\mathcal{A},\,\pr)$. Pak
-  vektor $\bm X = \T{(X_1,\dots,X_n)}$ nazveme \emph{náhodným
-    vektorem}.
-\end{definice}
+	\item Webová část bude napsaná pomocí jazyků pro webové technologie, převážně v JavaScriptu.
 
-\begin{definice}[náhodný vektor]\label{def01:2}
-  Nechť náhodné veličiny $X_1,\dots,X_n$ jsou definovány na témž
-  pravděpodobnostním prostoru $(\Omega,\,\mathcal{A},\,\pr)$. Pak
-  vektor $\bm X = \T{(X_1,\dots,X_n)}$ nazveme \emph{náhodným
-    vektorem}.
-\end{definice}
-Definice~\ref{def01:1} ukazuje použití prostředí pro sazbu definice
-bez titulku, definice~\ref{def01:2} ukazuje použití prostředí pro
-sazbu definice s~titulkem.
+	\item Pro vykleslení mapy bude využita služba Mapbox.
 
-\begin{veta}\label{veta01:1}
-  Náhodný vektor $\bm X$ je měřitelné zobrazení prostoru
-  $(\Omega,\,\mathcal{A},\,\pr)$ do $(\R_n,\,\mathcal{B}_n)$.
-\end{veta}
+	\item Ukládání dat na serverové straně bude řešeno MySQL databází.
 
-\begin{lemma}[\citealp{Andel07}, str. 29]\label{veta01:2}
-  Náhodný vektor $\bm X$ je měřitelné zobrazení prostoru
-  $(\Omega,\,\mathcal{A},\,\pr)$ do $(\R_n,\,\mathcal{B}_n)$.
-\end{lemma}
-\begin{dukaz}
-  Jednotlivé kroky důkazu jsou podrobně popsány v~práci \citet[str.
-  29]{Andel07}.
-\end{dukaz}
-Věta~\ref{veta01:1} ukazuje použití prostředí pro sazbu matematické
-věty bez titulku, lemma~\ref{veta01:2} ukazuje použití prostředí pro
-sazbu matematické věty s~titulkem. Lemmata byla zavedena v~hlavním
-souboru tak, že sdílejí číslování s~větami.
+	\item Pro různé odhady zpoždění na zákldě historických dat bude využita knihovna scikit-learn.
+
+\end{itemize}
+
+\subsubsection{Proces běhu aplikace}
+
+Jak je již zmíněno aplikace bude využívat historická data, tedy bude nutné nechat aplikaci tato data nějakou dobu sbírat. Pro efektivní odhady by bylo vhodné mít uložené historické polohy vozidel alesponˇ z uplynulých několika týdnů.
+
+\bigbreak
+
+Avšak již v průběhu sběru dat může aplikace poskytovat základní službu a to vizualizování vozidel v mapě.

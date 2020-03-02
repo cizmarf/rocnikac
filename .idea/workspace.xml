@@ -3,10 +3,26 @@
   <component name="ChangeListManager">
     <list default="true" id="dd19d088-d198-4710-a12d-37bdc6cef14a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common_functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/common_functions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database" beforeDir="false" afterPath="$PROJECT_DIR$/database" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plotting.py" beforeDir="false" afterPath="$PROJECT_DIR$/plotting.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test" beforeDir="false" afterPath="$PROJECT_DIR$/test" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bakalarka_tex/cs/abstrakt.log" beforeDir="false" afterPath="$PROJECT_DIR$/bakalarka_tex/cs/abstrakt.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bakalarka_tex/cs/abstrakt.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/bakalarka_tex/cs/abstrakt.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bakalarka_tex/cs/kap01.aux" beforeDir="false" afterPath="$PROJECT_DIR$/bakalarka_tex/cs/kap01.aux" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bakalarka_tex/cs/kap01.tex" beforeDir="false" afterPath="$PROJECT_DIR$/bakalarka_tex/cs/kap01.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bakalarka_tex/cs/kap02.aux" beforeDir="false" afterPath="$PROJECT_DIR$/bakalarka_tex/cs/kap02.aux" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bakalarka_tex/cs/kap02.tex" beforeDir="false" afterPath="$PROJECT_DIR$/bakalarka_tex/cs/kap02.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bakalarka_tex/cs/kap03.aux" beforeDir="false" afterPath="$PROJECT_DIR$/bakalarka_tex/cs/kap03.aux" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bakalarka_tex/cs/kap04.aux" beforeDir="false" afterPath="$PROJECT_DIR$/bakalarka_tex/cs/kap04.aux" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bakalarka_tex/cs/literatura.aux" beforeDir="false" afterPath="$PROJECT_DIR$/bakalarka_tex/cs/literatura.aux" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bakalarka_tex/cs/pdfa.xmpi" beforeDir="false" afterPath="$PROJECT_DIR$/bakalarka_tex/cs/pdfa.xmpi" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bakalarka_tex/cs/prace.aux" beforeDir="false" afterPath="$PROJECT_DIR$/bakalarka_tex/cs/prace.aux" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bakalarka_tex/cs/prace.lof" beforeDir="false" afterPath="$PROJECT_DIR$/bakalarka_tex/cs/prace.lof" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bakalarka_tex/cs/prace.log" beforeDir="false" afterPath="$PROJECT_DIR$/bakalarka_tex/cs/prace.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bakalarka_tex/cs/prace.lot" beforeDir="false" afterPath="$PROJECT_DIR$/bakalarka_tex/cs/prace.lot" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bakalarka_tex/cs/prace.out" beforeDir="false" afterPath="$PROJECT_DIR$/bakalarka_tex/cs/prace.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bakalarka_tex/cs/prace.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/bakalarka_tex/cs/prace.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bakalarka_tex/cs/prace.tex" beforeDir="false" afterPath="$PROJECT_DIR$/bakalarka_tex/cs/prace.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bakalarka_tex/cs/prace.toc" beforeDir="false" afterPath="$PROJECT_DIR$/bakalarka_tex/cs/prace.toc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bakalarka_tex/cs/uvod.tex" beforeDir="false" afterPath="$PROJECT_DIR$/bakalarka_tex/cs/uvod.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bakalarka_tex/cs/zaver.aux" beforeDir="false" afterPath="$PROJECT_DIR$/bakalarka_tex/cs/zaver.aux" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -115,7 +131,7 @@
         <entry file="file://$PROJECT_DIR$/plotting.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="969">
-              <caret line="80" column="18" lean-forward="true" selection-start-line="80" selection-start-column="18" selection-end-line="80" selection-end-column="18" />
+              <caret line="80" column="18" selection-start-line="80" selection-start-column="18" selection-end-line="80" selection-end-column="18" />
               <folding>
                 <element signature="e#23#53#0" expanded="true" />
               </folding>
@@ -398,12 +414,12 @@
       <workItem from="1580648501337" duration="20203000" />
       <workItem from="1580710043050" duration="34920000" />
       <workItem from="1581271029599" duration="14236000" />
-      <workItem from="1581932983734" duration="6133000" />
+      <workItem from="1581932983734" duration="6497000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="157234000" />
+    <option name="totallyTimeSpent" value="157598000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="6" />
@@ -689,7 +705,7 @@
     <entry file="file://$PROJECT_DIR$/plotting.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="969">
-          <caret line="80" column="18" lean-forward="true" selection-start-line="80" selection-start-column="18" selection-end-line="80" selection-end-column="18" />
+          <caret line="80" column="18" selection-start-line="80" selection-start-column="18" selection-end-line="80" selection-end-column="18" />
           <folding>
             <element signature="e#23#53#0" expanded="true" />
           </folding>
