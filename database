@@ -310,3 +310,5 @@ ADD CONSTRAINT `id_trip_ride`
 	   FOREIGN KEY (`id_trip`)
 	   REFERENCES `vehicles_info`.`trips` (`id_trip`)
 	   ON DELETE CASCADE;
+
+SELECT lon, lat, shape_traveled FROM trip_coordinates WHERE trip_coordinates.id_trip = 5041 AND trip_coordinates.time BETWEEN DATE_SUB(NOW(), INTERVAL 5 MINUTE) AND NOW() ORDER BY trip_coordinates.time

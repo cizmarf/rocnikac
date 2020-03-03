@@ -1,4 +1,6 @@
-\cahpter{Analýza zdroje dat}
+\newcommand{\documentationAtt}[2] {#1 #2}
+
+\chapter{Analýza zdroje dat}
 
 V této kapitole je popsán zdroj real-timových dat o polohách vozidel využívané v této práci.
 
@@ -8,7 +10,7 @@ Na mnohých jednáníh s kolegy ze společnosti Operator ICT bylo řečeno, že 
 
 \bigbreak
 
-Taková data pak přímo putují k provozavoateli systému na monitorování vozidel. Ten však tato data zpracovává a posílá ke zveřejnění na platformě Golemio. Bohužel při tomto procesu zpracování se vytratí informace o události v jáké byly data pořízeny. Tedy informace o příjezdu nebo odjezdu ze zastávky je zjistitelné pouze z \gls{gps} souřadnic.
+Taková data pak přímo putují k provozavoateli systému na monitorování vozidel, kterým je společnost \gls{chaps} jakožto partner \gls{dpp}. Ten však tato data zpracovává a posílá ke zveřejnění na platformě Golemio. Bohužel při tomto procesu zpracování se vytratí informace o události v jáké byly data pořízeny. Tedy informace o příjezdu nebo odjezdu ze zastávky jsou zjistitelné pouze z \gls{gps} souřadnic.
 
 \bigbreak
 
@@ -16,7 +18,7 @@ Po té co jsou tyto data přeneseny do společnosti Operátor ICT by měla být 
 
 \subsection{Dokumentace}
 
-Na úvod je nutné poznamenat, že datová platforma je stále ve vývoji a formát dat se může měnit. S tím mohou přicháy zet určité výpadky a problémy. K jednomu takovému výpadku dosšlu při vývoji této práce, kdy po dobu 14 dnů platfomarma vůbec neodpovídala na dotazy nebo vracela prázdné datasety.
+Na úvod je nutné poznamenat, že datová platforma je stále ve vývoji a formát dat se může měnit. S tím mohou přicházet určité výpadky a problémy. K jednomu takovému výpadku došlu i při vývoji této práce, kdy po dobu 14 dnů platfomarma vůbec neodpovídala na dotazy nebo vracela prázdné datasety.
 
 \bigbreak
 
@@ -30,19 +32,65 @@ TODO reference na dokumentaci
 
 \bigbreak
 
-Každá datová sada je exportována ve formátu \gls{json}. A přistupuje se k nim přes jednotné \gls{api} pomocí \gls{http} požadavku daného \gls{url} adresou a jeho hlavičkou.
+Každá datová sada je exportována ve formátu \gls{geojson} pokud se jedná o geografická data, nebo jinak ve formátu \gls{json}. A přistupuje se k nim přes jednotné \gls{api} pomocí \gls{http} požadavku daného \gls{url} adresou a jeho hlavičkou.
+
+TODO reference na specifikace geojson https://tools.ietf.org/html/rfc7946
+
+\bigbreak
+
+Ačkoli se dokumentace tváří tak, že data jsou exportována ve formátech \gls{json} nebo \gls{geojson}, většinou formát dat není přesně podle specifikace těchto formátů. Například může být uveden atribut \verb"wheelchair_accessible", který je typu \verb"bool" a je nastaven na hodnotu \verb"True", nicmně podle specifikace se tyto hodnoty píší s malým písmenem. Pro tuto práci to sice nepředstavuje komplikaci, protože tento atribut není potřeba, ale mohlo by se stát, že některé parsery \gls{json}u vyhodnotí řetězec jako nevalidní a skončí chybou.
 
 \subsubsection{Pozice vozidel}
 
-Jsou nejdůležijtější datovou sadou pro tuto práci. Jelikož se jedná o real-time data data rychle zastarávají a je nutné je velmi často aktualizaovat.
+Jsou nejdůležijtější datovou sadou pro tuto práci. Jelikož se jedná o real-time data, data rychle zastarávají a je nutné je velmi často aktualizaovat.
 
-\subsubsection{Jednotlivé tripy} TODO jak se rekne trip cesky
+\begin{itemize}
+	\item \documentationAtt{coordinates}{aktuální \gls{gps} souřadnice vozidla}
 
-Dále jsou k dispozici data o každém tripu. To je popis trasy vozidla, včetně zastávek a časů příjezdů a odjezdů do/z nich. Míra unikátnosti těchto tripů je předmětem dohadů a zřejmě jsou pod správou plánovačů \gsl{mhd}, nicméně můžeme s určitou mírou spolehlivosti tvrdit, že každý trip se jede nejvýše jednou za den.
+	\item \documentationAtt{origin\_timestamp}{čas zachycení pozice vozidla, v časovém pásmu \gls{utc}}
+
+	\item \documentationAtt{gtfs\_trip\_id}{unikátní identifik8tor tripu pro spárování s jízdním řádem}
+
+	\item \documentationAtt{gtfs\_shape\_dist\_traveled}{vzdálenost vozidla uražená od začátku tripu v metrech}
+
+	\item \documentationAtt{delay\_stop\_departure}{zpoždění zachycené při odjezdu z poslední projeté zastávky v sekundách}
+\end{itemize}
+
+\subsubsection{Jednotlivé tripy}
+
+TODO jak se rekne trip cesky
+
+Dále jsou k dispozici data o každém tripu. To je popis trasy vozidla, včetně zastávek a časů příjezdů a odjezdů do/z nich. Také může být vyžádáno k informacím o tripu připojit celý shape trasy, tj. lomená čára kopírující celo trasu daného tripu po povrchu Země.
+
+\bigbreak
+
+ Míra unikátnosti těchto tripů je předmětem dohadů a zřejmě jsou pod správou plánovačů \gls{mhd}, nicméně můžeme s určitou mírou spolehlivosti tvrdit, že každý trip se jede nejvýše jednou za den.
+
+\begin{itemize}
+	\item \documentationAtt{trip\_headsign}{nápis na čele vozidla, typicky cílová stanice}
+
+	\item \documentationAtt{route\_id}{číslo linky}
+
+	\item \documentationAtt{trip\_id}{unikátní identifikátor tripu pro spárování s real-time daty, pravděpodobně odpovídá atributu \verb"gtfs\_trip\_id"}
+\end{itemize}
+
+Navíc s každým tripem může být vyžádáno zaslání seznamu zastávek, kterýma projíždí. Po té se obdrží tento seznam s kompletními informacemi o zastávkách, tedy má stejnou informační hodnotu jako samostatný dotaz na zastávky. Navíc je každá zastávka doplněna o informace vázající se k danému tripu.
 
 \subsubsection{Zastávky}
 
-Informace o zastávkách jsou v této práci využívány pouze k zobrazení uživateli aplikace.
+\begin{itemize}
+	\item \documentationAtt{arrival\_time}{čas příjezdu spoje do zastávky}
+
+	\item \documentationAtt{departure\_time}{čas odjezdu spoje do zastávky}
+
+	\item \documentationAtt{shape\_dist\_traveled}{vzdálenost zastávky na trase od výchozího bodu daného tripuv metrech}
+
+	\item \documentationAtt{stop\_id}{unikátní indetifikátor zastávky}
+
+	\item \documentationAtt{coordinates}{\gls{gps} souřadnice zastávky, často \verb"None", je třeba využít atributy \verb"stop\_lat" a \verb"stop\_lon"}
+
+	\item \documentationAtt{stop\_name}{název zastávky}
+\end{itemize}
 
 
 
@@ -62,5 +110,4 @@ Informace o zastávkách jsou v této práci využívány pouze k zobrazení už
 
 
 
-
-Vypozorováním zjištěno, že shape traveled je po celých 100 metrech.
+TODO Vypozorováním zjištěno, že shape traveled je po celých 100 metrech.
