@@ -72,7 +72,7 @@ class SQL_queries:
 	@staticmethod
 	def sql_get_result(cursor, sql_query, params=()):
 		try:
-			cursor.execute(sql_query, params)
+			cursor.execute_fetchall(sql_query, params)
 			return cursor.fetchall()
 		except Exception as e:
 			print(e)
@@ -94,7 +94,7 @@ class SQL_queries:
 	@staticmethod
 	def sql_run_transaction_and_fetch(connection, cursor, sql_query, params=()):
 		try:
-			cursor.execute(sql_query, params)
+			cursor.execute_fetchall(sql_query, params)
 			ret = cursor.fetchall()
 			connection.commit()
 			return ret

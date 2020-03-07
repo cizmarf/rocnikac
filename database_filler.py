@@ -176,7 +176,7 @@ if __name__ == "__main__":
 				bus_input_list["geometry"]["coordinates"][0] is None or \
 				bus_input_list["properties"]["last_position"]["delay"] is None or \
 				bus_input_list["properties"]["last_position"]["gtfs_shape_dist_traveled"] is None or \
-				bus_input_list["properties"]["trip"]["cis_short_name"] is None or \
+				bus_input_list["properties"]["trip"]["gtfs_route_short_name"] is None or \
 				bus_input_list["properties"]["last_position"]["origin_timestamp"] is None:
 					continue
 
@@ -196,7 +196,7 @@ if __name__ == "__main__":
 				lon=bus_input_list["geometry"]["coordinates"][0],
 				cur_delay=int(bus_input_list["properties"]["last_position"]["delay"]),
 				shape_traveled=format_shape_traveled(bus_input_list["properties"]["last_position"]["gtfs_shape_dist_traveled"]),
-				trip_no=bus_input_list["properties"]["trip"]["cis_short_name"],
+				trip_no=bus_input_list["properties"]["trip"]["gtfs_route_short_name"],
 				time=bus_input_list["properties"]["last_position"]["origin_timestamp"],
 				last_stop_delay=delay,
 			)
