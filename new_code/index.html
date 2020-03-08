@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8' />
+	<title>PID vehicles</title>
+	<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+	<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.4.0/mapbox-gl.js'></script>
+	<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.4.0/mapbox-gl.css' rel='stylesheet' />
+	<link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
+	<style>
+		body { margin:0; padding:0; }
+		#map { position:absolute; top:0; bottom:0; width:100%; }
+	</style>
+</head>
+<style id="style">
+:root {
+	--pin_color: rgba(238, 109, 82, 1)
+}
+	.marker {
+		--size_of_marker: 24px;
+		width: 			var(--size_of_marker);
+		height:			var(--size_of_marker);
+		line-height:	var(--size_of_marker);
+		border: 1px solid #edf6ff;
+		border-radius: 50%;
+		cursor: pointer;
+		padding: 0;
+		text-align: center;
+		display: block;
+		vertical-align: middle;
+		background-color: #54a9ff;
+		font-family: 'Poppins', sans-serif;
+		color: #2c2c2c;
+		--transition_time: 0.1s;
+		transition:
+				line-height			var(--transition_time) ease,
+				height 				var(--transition_time) ease,
+				width 				var(--transition_time) ease,
+				background-color	var(--transition_time) ease,
+				border				var(--transition_time) ease;
+	}
+
+.marker:hover {
+	z-index: 1;
+}
+
+	.extra_marker {
+		--size_of_extra_marker: 30px;
+		width: 			var(--size_of_extra_marker);
+		height:			var(--size_of_extra_marker);
+		line-height:	var(--size_of_extra_marker);
+		border: 2px solid #edf6ff;
+		background-color: #e570ff;
+		z-index: 1;
+	}
+
+
+	.stop_pin {
+		position: absolute;
+		margin-top: -20px;
+		border-radius: 50%;
+		border: 4px solid var(--pin_color);
+	    width: 7px;
+	    height: 7px;
+		z-index: 0;
+	}
+
+	.stop_pin::after {
+	  position: absolute;
+	  content: '';
+	  width: 0px;
+	  height: 0px;
+	  bottom: -24px;
+	  left: -1px;
+	  border: 5px solid transparent;
+	  border-top: 17px solid var(--pin_color);
+	  z-index: 0;
+	}
+
+	.stop_pin_sign{
+		margin-top: -35px;
+		/* z-index: 30; */
+		text-align: center;
+		line-height: 0.9;
+		/* position: absolute; */
+  		/* bottom: 5px; */
+		/* left: -50px; */
+		/* width: 100px; */
+		font-size: 12px;
+		color: rgba(53, 53, 53, 1);
+		--shadow_color: rgba(242, 242, 242, 0.9);
+    	text-shadow: -2px 0 var(--shadow_color), 0 2px var(--shadow_color), 2px 0 var(--shadow_color), 0 -2px var(--shadow_color);
+		/* text-shadow: 3px 2px green; */
+		/* height: 100px; */
+	}
+
+
+</style>
+<body>
+<div id='map'></div>
+<script>
+	/**
+	 * @param	file input file
+	 * @desc	read given file, reading local file needs to be allowed in browser
+	 */
+	function getFileByAJAXreq(str_request, callback) {
+		try{
+			var request = new XMLHttpRequest();
+		}
+		catch (e){
+			alert("Your browser does not support AJAX!");
+	        return false;
+		}
+
+		request.onreadystatechange = function () {
+			if (this.readyState === 4) {
+				console.log('Prijato: ', request.responseText);
+				callback(request.responseText);
+			}
+		};
+
+		request.onerror = function(){
+			throw Error("Network error")
+		};
+		request.open('POST', "index.html", true);
+		request.send(str_request);
+		return request.responseText;
+	}
+
+	function drawLastFewMinutesShape(geojson) {
+		// console.log(geojson);
+		if (map.getLayer(oldLineStringLayerID + '.lfms'))	map.removeLayer(oldLineStringLayerID + '.lfms');
+		if (map.getSource(oldLineStringLayerID + '.lfms')) map.removeSource(oldLineStringLayerID + '.lfms');
+		geojson = JSON.parse(geojson);
+		console.log("printing lfms");
+		// console.log(geojson);
+		map.addLayer({
+			type: 'line',
+			source: {
+				"type": 'geojson',
+				"lineMetrics": true,
+				"data": geojson
+			},
+			id: lineStringLayerID + ".lfms",
+			paint: {
+				'line-color': 'red',
+				'line-width': 14,
+				'line-gradient': [
+					'interpolate',
+					['linear'],
+					['line-progress'],
+					0, "blue",
+					0.1, "royalblue",
+					0.3, "cyan",
+					0.5, "lime",
+					0.7, "yellow",
+					1, "red"
+				]
+			},
+			layout: {
+				'line-cap': 'round',
+				'line-join': 'round'
+			}
+		});
+		console.log("lfms printed")
+	}
+
+	function drawShape(geojson) {
+		geojson = JSON.parse(geojson);
+		if (map.getLayer(oldLineStringLayerID + '.s'))	map.removeLayer(oldLineStringLayerID + '.s');
+		if (map.getSource(oldLineStringLayerID + '.s')) map.removeSource(oldLineStringLayerID + '.s');
+		map.addLayer({
+			"id": lineStringLayerID + ".s",
+			"type": "line",
+			"source": {
+				"type": "geojson",
+				"data": geojson
+			},
+			"layout": {
+				"line-join": "round",
+				"line-cap": "round"
+			},
+			"paint": {
+				"line-color": "#BF93E4",
+				"line-width": 5
+			}
+		});
+	}
+
+	function showStopsOnMap(stops_goejson) {
+		stops_shown.forEach(function(elem) {
+			elem.remove();
+			stops_shown.delete(elem);
+		});
+
+		console.log("stops_geo:" + stops_goejson);
+		stops_goejson = JSON.parse(stops_goejson);
+		stops_goejson.features.forEach(function(marker) {
+			console.log("stop in process");
+			var el_p = document.createElement('div');
+			var el_c = document.createElement('div');
+			el_p.appendChild(el_c);
+			el_c.className = 'stop_pin';
+
+			el_c.addEventListener('click', function() {
+				alert("click");
+			});
+
+			// TODO presunout cely element na prvni pricku v senzamu
+
+			el_c.addEventListener("mouseover", function(){
+				// var el_s = document.createElement('div');
+				// el_s.innerText = marker.name;
+				// el_s.setAttribute("class", "stop_pin_sign");
+				// el_c.insertBefore(el_s, el_p.childNodes[0]);
+				// style.innerHTML += ".stop_pin::before{content: " + marker.name + ";}";
+				var el_s = document.createElement('div');
+				el_s.innerText = marker.name;
+				el_s.setAttribute("class", "stop_pin_sign");
+				new mapboxgl.Marker(el_s)
+						.setLngLat(marker.geometry.coordinates)
+						.addTo(map);
+			});
+
+			el_c.addEventListener("mouseout", function(){
+				var signs = document.getElementsByClassName('stop_pin_sign');
+				while(signs[0]) {
+				    signs[0].parentNode.removeChild(signs[0]);
+				}
+			});
+
+			var elem = new mapboxgl.Marker(el_c)
+					.setLngLat(marker.geometry.coordinates)
+					.addTo(map);
+			stops_shown.add(elem);
+			console.log("stop:" + elem);
+		});
+	}
+
+	function click_bus(gtfs_trip_id){
+		oldLineStringLayerID = lineStringLayerID;
+		lineStringLayerID = gtfs_trip_id;
+		getFileByAJAXreq("stops." + lineStringLayerID, showStopsOnMap);
+		getFileByAJAXreq("shape." + lineStringLayerID, drawShape);
+		getFileByAJAXreq("lfms." + lineStringLayerID, drawLastFewMinutesShape);
+		if (map.getLayer(oldLineStringLayerID + '.lfms'))	map.removeLayer(oldLineStringLayerID + '.lfms');
+		if (map.getSource(oldLineStringLayerID + '.lfms')) map.removeSource(oldLineStringLayerID + '.lfms');
+		if (map.getLayer(oldLineStringLayerID + '.s'))	map.removeLayer(oldLineStringLayerID + '.s');
+		if (map.getSource(oldLineStringLayerID + '.s')) map.removeSource(oldLineStringLayerID + '.s');
+
+	}
+
+	function unclic_bus(){
+		oldLineStringLayerID = lineStringLayerID;
+		lineStringLayerID = "";
+		if (map.getLayer(oldLineStringLayerID + '.lfms'))	map.removeLayer(oldLineStringLayerID + '.lfms');
+		if (map.getSource(oldLineStringLayerID + '.lfms')) map.removeSource(oldLineStringLayerID + '.lfms');
+		if (map.getLayer(oldLineStringLayerID + '.s'))	map.removeLayer(oldLineStringLayerID + '.s');
+		if (map.getSource(oldLineStringLayerID + '.s')) map.removeSource(oldLineStringLayerID + '.s');
+		stops_shown.forEach(function(elem) {
+			elem.remove();
+			stops_shown.delete(elem);
+		});
+	}
+
+	function showBusesOnMap(veh_pos_geojson) {
+		elems.forEach(function(elem) {
+			elem.remove();
+			elems.delete(elem);
+		});
+		veh_pos_geojson = JSON.parse(veh_pos_geojson)
+		veh_pos_geojson.features.forEach(function(marker) {
+			// create a DOM element for the marker
+			var el = document.createElement('div');
+			el.className = 'marker';
+			if (lineStringLayerID === marker.properties.gtfs_trip_id)
+				el.classList.add('extra_marker');
+			el.innerText = marker.properties.gtfs_route_short_name;
+			el.addEventListener('click', function() {
+				var shape_geojson = "";
+				var last_few_minutes = "";
+				switch (lineStringLayerID) {
+					case "":
+						try {
+							click_bus(marker.properties.gtfs_trip_id);
+						}catch (e) {
+							console.log(e);
+							return;
+						}
+						el.classList.add('extra_marker');
+						break;
+					case marker.properties.gtfs_trip_id:
+						unclic_bus();
+						el.classList.remove('extra_marker');
+						break;
+					default:
+						try {
+							click_bus(marker.properties.gtfs_trip_id)
+						}catch (e) {
+							console.log(e);
+							return;
+						}
+						var old_extra = document.getElementsByClassName("extra_marker")[0];
+						if (old_extra != null)
+							old_extra.classList.remove("extra_marker");
+						el.classList.add("extra_marker");
+				}
+			});
+			// add marker to map
+			var elem = new mapboxgl.Marker(el)
+					.setLngLat(marker.geometry.coordinates)
+					.addTo(map);
+			elems.add(elem);
+		});
+	}
+	try{
+		// Get your own token here https://www.mapbox.com
+		mapboxgl.accessToken = 'pk.eyJ1IjoiZmlsaXBjaXptYXIiLCJhIjoiY2sxaHp3eHlzMGlmODNkanl2c2tqdTZscSJ9.rujrBlG1rSLuHpFaxxYX9w';
+		lineStringLayerID = "";
+		oldLineStringLayerID = "";
+		trip_folder_path = '../data/trips/';
+		var map = new mapboxgl.Map({
+			container: 'map', // container id
+			style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
+			center: [14.42, 50.08], // starting position [lng, lat]
+			zoom: 10 // starting zoom
+		});
+		var stops_shown = new Set();
+		var elems = new Set();
+		getFileByAJAXreq("vehicles_positions", showBusesOnMap);
+		window.setInterval(function(){
+			getFileByAJAXreq("vehicles_positions", showBusesOnMap);
+			if (lineStringLayerID != ""){
+				try {
+					oldLineStringLayerID = lineStringLayerID;
+					getFileByAJAXreq("lfms." + lineStringLayerID, drawLastFewMinutesShape);
+				}catch (e) {
+					console.log(e);
+				}
+			}
+		}, 10000);
+	}
+	catch(e){
+		alert("Something went wrong.", e)
+	}
+</script>
+
+</body>
+</html>

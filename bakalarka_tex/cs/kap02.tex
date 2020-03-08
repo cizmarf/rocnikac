@@ -40,6 +40,10 @@ TODO reference na specifikace geojson https://tools.ietf.org/html/rfc7946
 
 Ačkoli se dokumentace tváří tak, že data jsou exportována ve formátech \gls{json} nebo \gls{geojson}, většinou formát dat není přesně podle specifikace těchto formátů. Například může být uveden atribut \verb"wheelchair_accessible", který je typu \verb"bool" a je nastaven na hodnotu \verb"True", nicmně podle specifikace se tyto hodnoty píší s malým písmenem. Pro tuto práci to sice nepředstavuje komplikaci, protože tento atribut není potřeba, ale mohlo by se stát, že některé parsery \gls{json}u vyhodnotí řetězec jako nevalidní a skončí chybou.
 
+\bigbreak
+
+TODO Celá datová platforma Golemio je pojatá jako Open Source projekt.
+
 \subsubsection{Pozice vozidel}
 
 Jsou nejdůležijtější datovou sadou pro tuto práci. Jelikož se jedná o real-time data, data rychle zastarávají a je nutné je velmi často aktualizaovat.

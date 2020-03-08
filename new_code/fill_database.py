@@ -5,6 +5,7 @@ import mysql.connector
 
 from new_code.all_vehicle_positions import All_vehicle_positions, Static_all_vehicle_positions
 from new_code.database import Database
+from new_code.stops import Stops
 from new_code.trip import Trip
 
 parser = argparse.ArgumentParser()
@@ -14,6 +15,7 @@ parser.add_argument("--update_error", default=20, type=int, help="Update time if
 args = parser.parse_args([] if "__file__" not in globals() else None)
 
 database_connection = Database()
+trips_black_list = set()
 
 if args.static_data:
 	static_all_vehicle_positions = Static_all_vehicle_positions()
@@ -45,6 +47,9 @@ while True:
 
 	for vehicle in all_vehicle_positions.iterate_vehicles():
 		# print("pro vozidlo")
+
+		if vehicle.trip_id in trips_black_list:
+			continue
 
 		"""
 			Try to get id_trip. If trip does not exist returns empty list else  
@@ -84,32 +89,21 @@ while True:
 				vehicle.id_trip = database_connection.execute_fetchall('SELECT insert_new_trip_to_trips_and_coordinates_and_return_id(%s, %s, %s, %s, %s, %s, %s, %s)', vehicle.get_tuple_new_trip())[0][0]
 				# database_connection.execute_many('INSERT IGNORE INTO rides (id_trip, id_stop, arrival_time, departure_time, shape_dist_traveled) VALUES (%s, %s, %s, %s, %s)', vehicle.get_tuple_new_trip())
 
-				stops_of_trip = []
-				for json_stop in vehicle.json_trip["stop_times"]:
-					stop_id = json_stop["stop_id"]
-					lon = json_stop["stop"]["properties"]["stop_lon"]
-					lat = json_stop["stop"]["properties"]["stop_lat"]
-					stop_name = json_stop["stop"]["properties"]["stop_name"]
-					id_stop = database_connection.execute_fetchall('SELECT insert_stop_if_exists_and_return_id(%s, %s, %s, %s, %s)', (stop_id, stop_name, lat, lon, None))[0][0]
-
-					stops_of_trip.append((
-						vehicle.id_trip,
-						id_stop,
-						json_stop["arrival_time"],
-						json_stop["departure_time"],
-						Trip.format_shape_traveled(json_stop["shape_dist_traveled"])
-					))
-
-				database_connection.execute_many('INSERT INTO rides (id_trip, id_stop, arrival_time, departure_time, shape_dist_traveled) VALUES (%s, %s, %s, %s, %s)', stops_of_trip)
-
+				Stops.insert_ride_by_trip(database_connection, vehicle)
 
 				database_connection.execute('COMMIT;')
+
+			# if any exception occuress rollback and save trip to blacklist
 			except Exception as e:
+				trips_black_list.add(vehicle.trip_id)
 				database_connection.execute('ROLLBACK;')
 				print(vehicle.get_tuple_new_trip())
 				print("new trip insert failed " + str(vehicle.trip_id) + str(e))
 				# TODO osetrit chyby ve vstupech
-				# raise Exception(e)
+				if isinstance(e, mysql.connector.errors.IntegrityError):
+					print(vehicle.trip_id + " has null delay last stop")
+				else:
+					raise Exception(e)
 
 
 	try:

@@ -4,7 +4,7 @@
 
 V této kapitole je detailně popsán problém a způsoby jeho navrženého a současného řešení.
 
-\section{Popis problému}
+\section{Popis problému odhadu zpoždění}
 
 Spoje které zajištˇují hromadnou dopravu se řídí jízdními řády, které určují jejich trasu a udávají časy příjezdu a odjezdu do daných zastávek. Toto jsou zpravidla jediné refenční body u kterých jsme schopní zjistit skutečné zpoždění, nebo předjetí (dále uvažováno jako zpoždění se zápornou hodnotou).
 
@@ -22,29 +22,13 @@ Pro vyjasnění je potřeba uvést, že se systém nesnaží předpovědět zpo�
 
 TODO obrazek nelinearni trasy
 
-\section{Současné řešení}
+\subsection{Současná řešení}
 
-Takový algoritmus na odhat aktuálního zpoždění již exituje a je zakomponován v systému, ze kterého se čerpají data pro tuto práci. (Detailní popis dat uveden v kapitole ~\ref{cahpter:TODO later}.) Nicméně nezohlednˇuje základní parametry průběhu trasy. Tento algoritmus nahlíží na postup vozidla na trase jako na lineární funkci vůči času. Jak ale z praxe víme (TODO doplnit zdroj), rychlost vozidel není konstantní, neboli doba jízdy není linárně závislá na ujeté vzdálenosti.
+Takový algoritmus na odhat aktuálního zpoždění mezi dvěma referenčními body již exituje a je zakomponován v systému, ze kterého se čerpají data pro tuto práci. (Detailní popis dat uveden v kapitole ~\ref{chapter:TODO later}.) Nicméně nezohlednˇuje základní parametry průběhu trasy. Tento algoritmus nahlíží na postup vozidla na trase jako na lineární funkci vůči času. Jak ale z praxe víme (TODO doplnit zdroj), rychlost vozidel není konstantní, neboli doba jízdy není linárně závislá na ujeté vzdálenosti.
 
 \section{Analýza požadavků na uživatelskou aplikaci}
 
 Součástí práce je i vizualizace spočítaných dat. Jinými slovy nástroj umožnˇující přístup uživatelů ke spočítaným datům.
-
-\subsection{Poskytovatelé mapových podkladů}
-
-K takovému účelu nejlépe poslouží vykreslení aktuálních poloh vozidel do mapy, kde se po vyžádání uživatelem tyto data zobrazí.
-
-\bigbreak
-
-Za účelem vytvoření dostatečně přívetivé uživatelské aplikace je nezbitné využít některého z poskytovatelů mapového \gls{api}, neboli využít již existující mapový podklad a zanést do něj získané informace.
-
-\bigbreak
-
-Jedním z těchto poskytovatelů je společnost Google, která má propracované mapové podklady a prostřednictvím služby Google Maps poskytuje pro tuto práci požadovanou službu. Další platformou je Mapbox, který poskytuje velmi podobné služby jako Google Maps. Nicméně natozdíl od Googlu využívá jako mapový podklad \gls{osm} {otevřená geografické data}. Protože smyslem práce je v co největší míře využít otevřená data je žádoucí využít právě Mapbox.
-
-\bigbreak
-
-TODO dokumentace mapbox, zeptat se jestli je to vubec nutne rozebirat
 
 \subsubsection{Funkční požadavky}
 
@@ -78,3 +62,60 @@ Jak je již zmíněno aplikace bude využívat historická data, tedy bude nutn�
 \bigbreak
 
 Avšak již v průběhu sběru dat může aplikace poskytovat základní službu a to vizualizování vozidel v mapě.
+
+\subsection{Poskytovatelé mapových podkladů}
+
+K takovému účelu nejlépe poslouží vykreslení aktuálních poloh vozidel do mapy, kde se po vyžádání uživatelem tyto data zobrazí.
+
+\bigbreak
+
+Za účelem vytvoření dostatečně přívetivé uživatelské aplikace je nezbitné využít některého z poskytovatelů mapového \gls{api}, neboli využít již existující mapový podklad a zanést do něj získané informace.
+
+\bigbreak
+
+Jedním z těchto poskytovatelů je společnost Google, která má propracované mapové podklady a prostřednictvím služby Google Maps poskytuje pro tuto práci požadovanou službu. Další platformou je Mapbox, který poskytuje velmi podobné služby jako Google Maps. Nicméně natozdíl od Googlu využívá jako mapový podklad \gls{osm} {otevřená geografické data}. Protože smyslem práce je v co největší míře využít otevřená data je žádoucí využít právě Mapbox.
+
+\bigbreak
+
+TODO dokumentace mapbox, zeptat se jestli je to vubec nutne rozebirat
+
+\subsection{Současná řešení}
+
+Vizualizaci vozidel \gls{vhd} do mapy již nabízí několik portálů. Všechny jsou však poměrně strohé.
+
+\subsubsection{Golemio}
+
+Takovou mapu zobrazuje i samotný provozavatel datové platformy. Nicméně nejsou zde vidět ani čísla linek zobrazených autobusů, natož pak nějaké další informace.
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{../img/golemio_mapa.png}
+  \caption{Mapa z golemio.cz.}
+  \label{fig:golemio_result}
+\end{figure}
+
+\subsubsection{Tram-bus}
+
+Dalším poskytovatelem je portál tram-bus, který si vede o něco lépe. Ukazuje směr jízdy vozidel, čísla linek a po kliknutí informace o zpoždění a nejbližší zastávky. Pozn.: na mapě již jsou vidět spoje \gls{dpp}, protože v době psaní této práce již byly data veřejné.
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{../img/tram-bus_mapa.png}
+  \caption{Mapa z www.tram-bus.cz.}
+  \label{fig:tram-bus_result}
+\end{figure}
+
+\subsubsection{\gls{idsjmk}}
+
+Mimo Prahu je velice pěkně udělaná aplikace pro zobrazení vozidel \gls{idsjmk} (Integrovaný dopravní systém Jihomoravského kraje). Ten ihned po načtení stránky zobrazuje všechny dobravní prostředky, tedy tramvaje, autobusy a vlaky vše s čísly linek. Dále pak umožnˇuje po kliknutí na vybraný spoj zobrazit více informací včetně jízdního řádu.
+
+\bigbreak
+
+Tato aplikace je po vizuální i funkční stránce dobrou indpirací pro tvorbu aplikace v této práci.
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{../img/idsjmk_mapa.png}
+  \caption{Mapa z mapa.idsjmk.cz.}
+  \label{fig:idsjmk_result}
+\end{figure}
+
+
+TODO popis geojson???

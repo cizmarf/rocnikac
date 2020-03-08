@@ -43,10 +43,13 @@ class All_vehicle_positions():
 		self.json_file = Network.download_URL_to_json(Network.vehicles_positions)
 		
 	def construct_all_trips(self):
-		for vehicle in self.json_file["features"]:
-			trip = Trip()
-			trip.set_atribudes_by_vehicle(vehicle)
-			self.vehicles.append(trip)
+		try:
+			for vehicle in self.json_file["features"]:
+				trip = Trip()
+				trip.set_atribudes_by_vehicle(vehicle)
+				self.vehicles.append(trip)
+		except KeyError:
+			print("error")
 
 	def get_trip_source_id_by_vehicle(self, vehicle) -> str:
 		return vehicle.trip_id

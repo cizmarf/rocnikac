@@ -14,6 +14,10 @@ class Database:
 		self.cursor_prepared = self.connection.cursor(prepared=True)
 		self.cursor = self.connection.cursor(buffered=True)
 
+		self.execute(
+			'SET @@session.time_zone = "+00:00"'
+		)
+
 	def execute_transaction_commit_rollback(self, sql_query, params=()):
 		try:
 			self.execute('START TRANSACTION;')

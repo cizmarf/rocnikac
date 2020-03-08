@@ -1,175 +1,148 @@
 %%% Fiktivní kapitola s ukázkami tabulek, obrázků a kódu
 
-\chapter{Tabulky, obrázky, programy}
+\chapter{Zpracování dat}
 
-Používání tabulek a grafů v~odborném textu má některá společná
-pravidla a~některá specifická. Tabulky a grafy neuvádíme přímo do
-textu, ale umístíme je buď na samostatné stránky nebo na vyhrazené
-místo v~horní nebo dolní části běžných stránek. \LaTeX\ se o~umístění
-plovoucích grafů a tabulek postará automaticky.
+Na datové platformě jsou real-time data o vozidlech dostupná do historie řádově jednotek minut, což je naprosto nedostatečné pro jakékoliv pozdější využití. Hlavně pro počítání statistik nad daty je potřeba zřídit lokální databázi, která bude držet historická data, tak jak proudila ze zdroje. Navíc data jsou poskytována ve formátu \gls{json}, který svou povahou není zrovna úsporný co se do velikosti souboru týče. Proto je vhodné zvolit ukládání dat v jiném formátu.
 
-Každý graf a tabulku
-očíslujeme a umístíme pod ně legendu. Legenda má popisovat obsah grafu
-či tabulky tak podrobně, aby jim čtenář rozuměl bez důkladného
-studování textu práce.
+\subsection{Databáze}
 
-Na každou tabulku a graf musí být v~textu odkaz
-pomocí jejich čísla. Na příslušném místě textu pak shrneme ty
-nejdůležitější závěry, které lze z~tabulky či grafu učinit. Text by
-měl být čitelný a srozumitelný i~bez prohlížení tabulek a grafů a
-tabulky a grafy by měly být srozumitelné i~bez podrobné četby textu.
-
-Na tabulky a grafy odkazujeme pokud možno nepřímo v~průběhu běžného
-toku textu; místo \emph{\uv{Tabulka~\ref{tab03:Nejaka} ukazuje, že
-    muži jsou v~průměru o~$9,9\,\rm kg$ těžší než ženy}} raději napíšeme
-\emph{\uv{Muži jsou o~$9,9\,\rm kg$ těžší než ženy (viz
-    Tabulka~\ref{tab03:Nejaka})}}.
-
-\section{Tabulky}
-
-\begin{table}[b!]
-
-\centering
-%%% Tabulka používá následující balíčky:
-%%%   - booktabs (\toprule, \midrule, \bottomrule)
-%%%   - dcolumn (typ sloupce D: vycentrovaná čísla zarovnaná na
-%%%     desetinnou čárku
-%%%     Všimněte si, že ve zdrojovém kódu jsou desetinné tečky, ale
-%%%     tisknou se čárky.
-%%% Dále používáme příkazy \pulrad a \mc definované v makra.tex
-
-\begin{tabular}{l@{\hspace{1.5cm}}D{.}{,}{3.2}D{.}{,}{1.2}D{.}{,}{2.3}}
-\toprule
- & \mc{} & \mc{\textbf{Směrod.}} & \mc{} \\
-\pulrad{\textbf{Efekt}} & \mc{\pulrad{\textbf{Odhad}}} & \mc{\textbf{chyba}$^a$} &
-\mc{\pulrad{\textbf{P-hodnota}}} \\
-\midrule
-Abs. člen     & -10.01 & 1.01 & \mc{---} \\
-Pohlaví (muž) & 9.89   & 5.98 & 0.098 \\
-Výška (cm)    & 0.78   & 0.12 & <0.001 \\
-\bottomrule
-\multicolumn{4}{l}{\footnotesize \textit{Pozn:}
-$^a$ Směrodatná chyba odhadu metodou Monte Carlo.}
-\end{tabular}
-
-\caption{Maximálně věrohodné odhady v~modelu M.}\label{tab03:Nejaka}
-
-\end{table}
-
-U~\textbf{tabulek} se doporučuje dodržovat následující pravidla:
-
-\begin{itemize} %% nebo compactitem z balíku paralist
-\item Vyhýbat se svislým linkám. Silnějšími vodorovnými linkami
-  oddělit tabulku od okolního textu včetně legendy, slabšími
-  vodorovnými linkami oddělovat záhlaví sloupců od těla tabulky a
-  jednotlivé části tabulky mezi sebou. V~\LaTeX u tuto podobu tabulek
-  implementuje balík \texttt{booktabs}. Chceme-li výrazněji oddělit
-  některé sloupce od jiných, vložíme mezi ně větší mezeru.
-\item Neměnit typ, formát a význam obsahu políček v~tomtéž sloupci
-  (není dobré do téhož sloupce zapisovat tu průměr, onde procenta).
-\item Neopakovat tentýž obsah políček mnohokrát za sebou. Máme-li
-  sloupec \textit{Rozptyl}, který v~prvních deseti řádcích obsahuje
-  hodnotu $0,5$ a v~druhých deseti řádcích hodnotu $1,5$, pak tento
-  sloupec raději zrušíme a vyřešíme to jinak. Například můžeme tabulku
-  rozdělit na dvě nebo do ní vložit popisné řádky, které informují
-o~nějaké proměnné hodnotě opakující se v~následujícím oddíle tabulky
-  (např. \emph{\uv{Rozptyl${}=0,5$}} a níže \emph{\uv{Rozptyl${}=
-      1,5$}}).
-\item Čísla v~tabulce zarovnávat na desetinnou čárku.
-\item V~tabulce je někdy potřebné používat zkratky, které se jinde
-nevyskytují. Tyto zkratky můžeme vysvětlit v~legendě nebo
-v~poznámkách pod tabulkou. Poznámky pod tabulkou můžeme využít i
-k~podrobnějšímu vysvětlení významu  některých sloupců nebo hodnot.
-\end{itemize}
-
-\section{Obrázky}
-
-Několik rad týkajících se obrázků a grafů.
+Tato práce využívá relační databázi obsluhovanou dotazovacím jazykem \gls{sql}. Tato databáze se skládá z 5 tabulek. Jsou jimi:
 
 \begin{itemize}
-\item Graf by měl být vytvořen ve velikosti, v~níž bude použit
-  v~práci. Zmenšení příliš velkého grafu vede ke špatné čitelnosti
-  popisků.
-\item Osy grafu musí být řádně popsány ve stejném jazyce, v~jakém je
-  psána práce (absenci diakritiky lze tolerovat). Kreslíme-li graf
-  hmotnosti proti výšce, nenecháme na nich popisky \texttt{ht} a
-  \texttt{wt}, ale osy popíšeme \emph{Výška [cm]} a~\emph{Hmotnost
-    [kg]}. Kreslíme-li graf funkce $h(x)$, popíšeme osy $x$ a $h(x)$.
-  Každá osa musí mít jasně určenou škálu.
-\item Chceme-li na dvourozměrném grafu vyznačit velké množství bodů,
-  dáme pozor, aby se neslily do jednolité černé tmy. Je-li bodů mnoho,
-  zmenšíme velikost symbolu, kterým je vykreslujeme, anebo vybereme
-  jen malou část bodů, kterou do grafu zaneseme. Grafy, které obsahují
-  tisíce bodů, dělají problémy hlavně v~elektronických dokumentech,
-  protože výrazně zvětšují velikost souborů.
-\item Budeme-li práci tisknout černobíle, vyhneme se používání barev.
-  Čáry roz\-li\-šu\-je\-me typem (plná, tečkovaná, čerchovaná,\ldots), plochy
-  dostatečně roz\-díl\-ný\-mi intensitami šedé nebo šrafováním. Význam
-  jednotlivých typů čar a~ploch vysvětlíme buď v~textové legendě ke
-  grafu anebo v~grafické legendě, která je přímo součástí obrázku.
-\item Vyhýbejte se bitmapovým obrázkům o~nízkém rozlišení a zejména
-  JPEGům (zuby a kompresní artefakty nevypadají na papíře pěkně).
-  Lepší je vytvářet obrázky vektorově a vložit do textu jako PDF.
+	\item \verb-trips- všechny objevené tripy
+
+		\begin{itemize}
+			\item \verb-id_trip- unikátní identifikátor používaný v databázi
+
+			\item \verb-trip_source_id- identifikátor tripu převzatý ze zdroje dat
+
+			\item \verb-id_headsign- identifikátor nápisu pro daný trip
+
+			\item \verb-current_delay- aktuální zpoždění tripu
+
+			\item \verb-shape_dist_traveled- aktuální vzdálenost ujetá od výchozí stanice
+
+			\item \verb-last_updated- čas poslední aktualizace, převzatý ze zdroje dat
+
+			\item \verb-trip_no- číslo dané linky
+		\end{itemize}
+
+	\item \verb-headsigns- nápisy nad vozidlem, cílová stanice
+
+		\begin{itemize}
+			\item \verb-id_headsign- unikátní identifikátor nápisu
+
+			\item \verb-headsign- text nápisu
+		\end{itemize}
+
+	\item \verb-trip_coordinates- všechna historická real-time data
+
+		\begin{itemize}
+			\item \verb-id_trip- identifikátor tripu, ke kterému se záznam váže
+
+			\item \verb-lat- zeměpisná šířka polohy vozidla
+
+			\item \verb-lon- zeměpisná délka polohy vozidla
+
+			\item \verb-inserted- čas vložení záznamu
+
+			\item \verb-delay- zpoždění zachycené v poslední projeté stanici před pořízením záznamu
+
+			\item \verb-shape_dist_traveled- vzdálenost ujetá od výchozí stanice tripu
+
+		\end{itemize}
+
+	\item \verb-stops- všechny zastávky
+
+		\begin{itemize}
+			\item \verb-id_stop- unikátní identifikátor zastávky
+
+			\item \verb-trip_source_id- identifikátor zastávky převzatý ze zdroje dat
+
+			\item \verb-parent_id_stop- identifikátor rodičovské zastávky, pokud existuje
+
+			\item \verb-stop_name- název zastávky
+
+			\item \verb-lat- zeměpisná šířka polohy zastávky
+
+			\item \verb-lon- zeměpisná délka polohy zastávky
+
+		\end{itemize}
+
+	\item \verb-rides- trasa každého tripu, seznam zastávek s časy odjezdů a příjezd tvořící jízdní řád
+
+	\begin{itemize}
+		\item \verb-id_stop- identifikátor tripu
+
+		\item \verb-id_stop- identifikátor zastávky
+
+		\item \verb-arrival_time- čas příjezdu tripu do zastávky
+
+		\item \verb-departure_time- časodjezduu tripu ze zastávky
+
+		\item \verb-shape_dist_traveled- vzdálenost zastávky od výchozí zastávky tripu
+
+	\end{itemize}
+
 \end{itemize}
 
-\section{Programy}
+Atributy se jménem *source\_id jsou pravděpodobně unikátní identifikátor entity ve zdroji dat, nicméně z dokumentace zdroje to nevyplývá.Také je toto id textový řetězec a ačkoli je tvořen pouze číslicemi a podtržítky, není nikde zaručeno, že jej lze převést na číselný ko'd. Takže pro lepší výkon databáze je použito automaticky generované id typu \gls{int}.
 
-Algoritmy, výpisy programů a popis interakce s~programy je vhodné
-odlišit od ostatního textu. Jednou z~možností je použití {\LaTeX}o\-vé\-ho balíčku
-\texttt{fancyvrb} (fancy verbatim), pomocí něhož je v~souboru \texttt{makra.tex}
-nadefinováno prostředí \texttt{code}. Pomocí něho lze vytvořit
-např. následující ukázky.
+\bigbreak
 
-\begin{code}
-> mean(x)
-[1] 158.90
-> objekt$prumer
-[1] 158.90
-\end{code}
-%$
-Menší písmo:
-\begin{code}[fontsize=\footnotesize]
-> mean(x)
-[1] 158.90
-> objekt$prumer
-[1] 158.90
-\end{code}
-%$
-Bez rámečku:
-\begin{code}[frame=none]
-> mean(x)
-[1] 158.90
-> objekt$prumer
-[1] 158.90
-\end{code}
-%$
-Užší rámeček:
-\begin{code}[xrightmargin=20em]
-> mean(x)
-[1] 158.90
-> objekt$prumer
-[1] 158.90
-\end{code}
-%$
+Každá tabulka ma několik indexů, které zlepšují výkon databáze při vkládání a hledání dat. Obvzláště pokud je atribut označen jako unikátní, kde se při každém vložení ověřuje unikátnost.
 
 \begin{figure}[p]\centering
-\includegraphics[width=140mm, height=140mm]{../img/ukazka-obr01}
+\includegraphics[width=140mm, height=140mm]{../img/eer_database}
 % Příponu není potřeba explicitně uvádět, pdflatex automaticky hledá pdf.
 % Rozměry také není nutné uvádět.
-\caption{Náhodný výběr z~rozdělení $\mathcal{N}_2(\boldsymbol{0},\,I)$.}
-\label{obr03:Nvyber}
+\caption{EER diagram databáze.}
+\label{obr01:EER}
 
 \end{figure}
 
-\begin{figure}[p]\centering
-\includegraphics[width=140mm, height=140mm]{../img/ukazka-obr02}
-\caption{Hustoty několika normálních rozdělení.}
-\label{obr03:Nhust}
-\end{figure}
+TODO obrazek na bilem pozadi
 
-\begin{figure}[p]\centering
-\includegraphics[width=140mm, height=198mm]{../img/ukazka-obr03}
-\caption{Hustoty několika normálních rozdělení.}
-\label{obr03:Nhust:podruhe}
+Databáza je nastavená tak, aby umožnˇovala získat všechny potřebné informace o vozidlech, ale hlavně přístup k historickým real-time datům a to separovaně pro dvojci refenčních bodů.
 
-\end{figure}
+TODO celá databaze je definovana v priloze, napsat to jako odstavec nebo jak se toto uvadi?
+
+\subsection{Obsluha databáze}
+
+Tato databáze je plněna skriptem jehož algoritmus postupně využívá všechna dostupná data z datové platformy následovně.
+
+\bigbreak
+
+Algoritmus:
+\begin{code}[frame=none]
+načti všechny dostupné zastávky
+dokud skrip běží
+	načti aktuální polohy vozidel
+	pro každé nalezené vozidlo
+		pokud trip vozidla je známí
+			aktualizuj data
+		jinak
+			stáhni informace o tripu
+			vlož trip
+			zpracuj a vlož jízdu tripu
+\end{code}
+
+\bigbreak
+
+Protože všechny infomace ukládané do databáze jsou důležité pro hlavní cíl této práce, tak pokud se vyskytne trip, který neobsahuje některou z požadovaných infomarcí je pak automaticky zahozen.
+
+\bigbreak
+
+Nejčastěji chybějící atribut je zpoždění v poslední zastávce, toto je nutné vědět pro počítání zpoždění mezi refenrečními body (zastávkami). Absence této informace může být způsobena tím, že vozidlo vůbec nevysílá data potřebnák k jejím dopočtení, pak nemá smysl jej do databáze zahrnovat. Nebo vozidlo už vysílá, ale ještě nezahájilo jízdu, tedy nemá žádnou poslední projetou zastávku, v takovém případe budou data ignorována až do doby příchodu první relevantní informace.
+
+\bigbreak
+
+Vkládání dat je řešeno pomocí databázových transakcí tak, aby stav databáze byl vždy konzistentní. Tedy pokud nejsou poskytnuta data ve formátu, který skript akceptuje, nebo nějaké povinné atributy chybí. Vložení celého tripu nebude provedono.
+
+\bigbreak
+
+Mimo popsanou databázi se do určeného adresáře ukládají trasy jednotlivých tripů. Tyto data jsou používány jen pro vykreslení na mapu, proto není nutné je držet v hlavní databázi.
+
+\bigbreak
+
+ Stejně tak i aktuální polohy vozidel jsou mimo databázi zapisovány do souboru, který je určen a formátován pro čtení webovou aplikací. Aktualizace tohoto souboru je provedena přednostně ihned po načtení real-timových dat.

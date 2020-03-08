@@ -2,18 +2,34 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dd19d088-d198-4710-a12d-37bdc6cef14a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/new_code/all_vehicle_positions.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/new_code/database.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/new_code/file_system.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/new_code/fill_database.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/new_code/get_trips_by_vehicle_positions.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/new_code/get_vehicle_positions.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/new_code/network.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/new_code/stops.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/new_code/trip.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/new_code/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/new_code/server.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common_functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/common_functions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database_filler.py" beforeDir="false" afterPath="$PROJECT_DIR$/database_filler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bakalarka_tex/cs/kap01.aux" beforeDir="false" afterPath="$PROJECT_DIR$/bakalarka_tex/cs/kap01.aux" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bakalarka_tex/cs/kap01.tex" beforeDir="false" afterPath="$PROJECT_DIR$/bakalarka_tex/cs/kap01.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bakalarka_tex/cs/kap02.aux" beforeDir="false" afterPath="$PROJECT_DIR$/bakalarka_tex/cs/kap02.aux" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bakalarka_tex/cs/kap02.tex" beforeDir="false" afterPath="$PROJECT_DIR$/bakalarka_tex/cs/kap02.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bakalarka_tex/cs/kap03.aux" beforeDir="false" afterPath="$PROJECT_DIR$/bakalarka_tex/cs/kap03.aux" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bakalarka_tex/cs/kap03.tex" beforeDir="false" afterPath="$PROJECT_DIR$/bakalarka_tex/cs/kap03.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bakalarka_tex/cs/kap04.aux" beforeDir="false" afterPath="$PROJECT_DIR$/bakalarka_tex/cs/kap04.aux" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bakalarka_tex/cs/kap04.tex" beforeDir="false" afterPath="$PROJECT_DIR$/bakalarka_tex/cs/kap04.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bakalarka_tex/cs/literatura.aux" beforeDir="false" afterPath="$PROJECT_DIR$/bakalarka_tex/cs/literatura.aux" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bakalarka_tex/cs/pdfa.xmpi" beforeDir="false" afterPath="$PROJECT_DIR$/bakalarka_tex/cs/pdfa.xmpi" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bakalarka_tex/cs/prace.aux" beforeDir="false" afterPath="$PROJECT_DIR$/bakalarka_tex/cs/prace.aux" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bakalarka_tex/cs/prace.lof" beforeDir="false" afterPath="$PROJECT_DIR$/bakalarka_tex/cs/prace.lof" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bakalarka_tex/cs/prace.log" beforeDir="false" afterPath="$PROJECT_DIR$/bakalarka_tex/cs/prace.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bakalarka_tex/cs/prace.lot" beforeDir="false" afterPath="$PROJECT_DIR$/bakalarka_tex/cs/prace.lot" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bakalarka_tex/cs/prace.out" beforeDir="false" afterPath="$PROJECT_DIR$/bakalarka_tex/cs/prace.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bakalarka_tex/cs/prace.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/bakalarka_tex/cs/prace.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bakalarka_tex/cs/prace.tex" beforeDir="false" afterPath="$PROJECT_DIR$/bakalarka_tex/cs/prace.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bakalarka_tex/cs/prace.toc" beforeDir="false" afterPath="$PROJECT_DIR$/bakalarka_tex/cs/prace.toc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bakalarka_tex/cs/zaver.aux" beforeDir="false" afterPath="$PROJECT_DIR$/bakalarka_tex/cs/zaver.aux" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/new_code/all_vehicle_positions.py" beforeDir="false" afterPath="$PROJECT_DIR$/new_code/all_vehicle_positions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/new_code/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/new_code/database.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/new_code/fill_database.py" beforeDir="false" afterPath="$PROJECT_DIR$/new_code/fill_database.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/new_code/stops.py" beforeDir="false" afterPath="$PROJECT_DIR$/new_code/stops.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/server.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test" beforeDir="false" afterPath="$PROJECT_DIR$/test" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -29,10 +45,11 @@
     <SUITE FILE_PATH="coverage/rocnikac_source$plotting.coverage" NAME="plotting Coverage Results" MODIFIED="1582800166376" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/rocnikac_source$all_vehicle_positions.coverage" NAME="all_vehicle_positions Coverage Results" MODIFIED="1583362267612" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/new_code" />
     <SUITE FILE_PATH="coverage/rocnikac_source$update_stops.coverage" NAME="update_stops Coverage Results" MODIFIED="1580399234563" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/rocnikac_source$stops.coverage" NAME="stops Coverage Results" MODIFIED="1583588531296" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/new_code" />
     <SUITE FILE_PATH="coverage/rocnikac$get_shape.coverage" NAME="get_shape Coverage Results" MODIFIED="1572174529974" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/rocnikac_source$database_filler.coverage" NAME="database_filler Coverage Results" MODIFIED="1583526466961" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/rocnikac_source$vehic_pos_processor.coverage" NAME="vehic_pos_processor Coverage Results" MODIFIED="1576773112704" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/rocnikac_source$fill_database.coverage" NAME="fill_database Coverage Results" MODIFIED="1583535326762" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/new_code" />
+    <SUITE FILE_PATH="coverage/rocnikac_source$fill_database.coverage" NAME="fill_database Coverage Results" MODIFIED="1583592463359" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/new_code" />
     <SUITE FILE_PATH="coverage/rocnikac_source$test.coverage" NAME="test Coverage Results" MODIFIED="1583362007330" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/rocnikac_source$server.coverage" NAME="server Coverage Results" MODIFIED="1580767799343" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/rocnikac$vehic_pos_processor.coverage" NAME="vehic_pos_processor Coverage Results" MODIFIED="1572469152853" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -57,22 +74,19 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/database_filler.py">
+        <entry file="file://$PROJECT_DIR$/test">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="473">
-              <caret line="198" column="83" selection-start-line="198" selection-start-column="83" selection-end-line="198" selection-end-column="83" />
-              <folding>
-                <element signature="e#0#15#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="68">
+              <caret line="4" column="25" lean-forward="true" selection-start-line="4" selection-start-column="25" selection-end-line="4" selection-end-column="25" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/common_functions.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="67" column="134" lean-forward="true" selection-start-line="67" selection-start-column="19" selection-end-line="67" selection-end-column="134" />
+            <state relative-caret-position="581">
+              <caret line="44" column="8" selection-start-line="44" selection-start-column="6" selection-end-line="44" selection-end-column="8" />
               <folding>
                 <element signature="e#1#12#0" expanded="true" />
               </folding>
@@ -81,25 +95,19 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/new_code/get_trips_by_vehicle_positions.py">
+        <entry file="file://$PROJECT_DIR$/new_code/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
-              <folding>
-                <element signature="e#0#11#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="353">
+              <caret line="124" column="30" lean-forward="true" selection-start-line="124" selection-start-column="30" selection-end-line="124" selection-end-column="30" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/new_code/all_vehicle_positions.py">
+        <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="193">
-              <caret line="18" selection-start-line="18" selection-end-line="18" />
-              <folding>
-                <element signature="e#0#11#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="96">
+              <caret line="124" column="36" selection-start-line="124" selection-start-column="36" selection-end-line="124" selection-end-column="36" />
             </state>
           </provider>
         </entry>
@@ -107,10 +115,46 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/new_code/fill_database.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="754">
-              <caret line="110" column="37" selection-start-line="110" selection-start-column="37" selection-end-line="110" selection-end-column="37" />
+            <state relative-caret-position="396">
+              <caret line="105" column="20" selection-start-line="105" selection-start-column="20" selection-end-line="105" selection-end-column="20" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/new_code/server.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-290">
+              <caret line="141" column="30" selection-start-line="141" selection-start-column="30" selection-end-line="141" selection-end-column="30" />
+              <folding>
+                <element signature="e#0#15#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/server.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="612">
+              <caret line="172" column="54" lean-forward="true" selection-start-line="172" selection-start-column="54" selection-end-line="172" selection-end-column="54" />
+              <folding>
+                <element signature="e#0#15#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/new_code/file_system.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="95">
+              <caret line="10" column="65" selection-start-line="10" selection-start-column="65" selection-end-line="10" selection-end-column="65" />
+              <folding>
+                <element signature="e#0#14#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -119,8 +163,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/new_code/stops.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="29">
-              <caret line="41" column="43" selection-start-line="41" selection-start-column="43" selection-end-line="41" selection-end-column="43" />
+            <state relative-caret-position="-778">
+              <caret line="29" column="124" selection-start-line="29" selection-start-column="124" selection-end-line="29" selection-end-column="124" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -129,45 +173,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file:///usr/local/lib/python3.7/site-packages/mysql/connector/network.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="713">
-              <caret line="241" selection-start-line="241" selection-end-line="241" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/new_code/file_system.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="15" selection-start-line="15" selection-end-line="15" />
-              <folding>
-                <element signature="e#0#14#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/new_code/trip.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="690">
-              <caret line="59" column="92" selection-start-line="59" selection-start-column="92" selection-end-line="59" selection-end-column="92" />
-              <folding>
-                <element signature="e#0#14#0" expanded="true" />
-                <element signature="e#1927#2457#0" />
-                <element signature="e#1623#1647#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/new_code/database.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="163">
-              <caret line="22" column="24" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="24" />
+            <state relative-caret-position="289">
+              <caret line="17" column="48" lean-forward="true" selection-start-line="17" selection-start-column="48" selection-end-line="17" selection-end-column="48" />
             </state>
           </provider>
         </entry>
@@ -178,14 +187,12 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Python Script" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>cis_id</find>
-      <find>mess</find>
-      <find>active_trips</find>
       <find>trip_file[&quot;last_positions&quot;]</find>
       <find>downloadURL</find>
       <find>update_json_file</find>
@@ -207,16 +214,25 @@
       <find>trip_source_id</find>
       <find>update_time</find>
       <find>self.json_trip</find>
-      <find>json_trip</find>
       <find>json_file</find>
+      <find>json_trip</find>
+      <find>FILE</find>
+      <find>gi</find>
+      <find>lfms</find>
+      <find>GI.([a-zA-Z]*)</find>
+      <find>trip_id_to_id_trip_map</find>
+      <find>GI</find>
+      <find>XMLHttpRequest</find>
     </findStrings>
     <replaceStrings>
       <replace>geojson_lfms</replace>
       <replace>veh_pos</replace>
       <replace>\t</replace>
       <replace>self.json_trip</replace>
-      <replace>vehicle.trip_id</replace>
       <replace>vehicle</replace>
+      <replace>&quot;$1&quot;</replace>
+      <replace>tail</replace>
+      <replace>vehicle.trip_id</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -231,21 +247,23 @@
         <option value="$PROJECT_DIR$/vehic_pos_processor.py" />
         <option value="$PROJECT_DIR$/update_stops.py" />
         <option value="$PROJECT_DIR$/check_api.py" />
-        <option value="$PROJECT_DIR$/server.py" />
         <option value="$PROJECT_DIR$/plotting.py" />
         <option value="$PROJECT_DIR$/common_functions.py" />
         <option value="$PROJECT_DIR$/new_code/get_vehicle_positions.sh" />
         <option value="$PROJECT_DIR$/new_code/Trip.py" />
         <option value="$PROJECT_DIR$/new_code/network.py" />
         <option value="$PROJECT_DIR$/new_code/file_system.py" />
-        <option value="$PROJECT_DIR$/new_code/stops.py" />
-        <option value="$PROJECT_DIR$/new_code/database.py" />
         <option value="$PROJECT_DIR$/database_filler.py" />
-        <option value="$PROJECT_DIR$/test" />
         <option value="$PROJECT_DIR$/new_code/get_trips_by_vehicle_positions.py" />
-        <option value="$PROJECT_DIR$/new_code/all_vehicle_positions.py" />
         <option value="$PROJECT_DIR$/new_code/trip.py" />
+        <option value="$PROJECT_DIR$/new_code/all_vehicle_positions.py" />
+        <option value="$PROJECT_DIR$/new_code/stops.py" />
         <option value="$PROJECT_DIR$/new_code/fill_database.py" />
+        <option value="$PROJECT_DIR$/new_code/database.py" />
+        <option value="$PROJECT_DIR$/test" />
+        <option value="$PROJECT_DIR$/new_code/index.html" />
+        <option value="$PROJECT_DIR$/new_code/server.py" />
+        <option value="$PROJECT_DIR$/server.py" />
       </list>
     </option>
   </component>
@@ -281,6 +299,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/SQL Dialect" value="MySQL" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -301,7 +320,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.fill_database">
+  <component name="RunManager" selected="Python.server (1)">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="rocnikac" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -316,50 +335,6 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="true" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="all_vehicle_positions" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="rocnikac" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/new_code" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/new_code/all_vehicle_positions.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="true" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="database_filler" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="rocnikac" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/database_filler.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="true" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -387,29 +362,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="get_trips_by_vehicle_positions" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="rocnikac" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/new_code" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/new_code/get_trips_by_vehicle_positions.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="true" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="update_stops" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="server (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="rocnikac" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -419,7 +372,64 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/update_stops.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/server.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="server" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="rocnikac" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/new_code" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/new_code/server.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="stops" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="rocnikac" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/new_code" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/new_code/stops.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="rocnikac" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="true" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -430,11 +440,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.server (1)" />
+        <item itemvalue="Python.server" />
+        <item itemvalue="Python.test" />
         <item itemvalue="Python.fill_database" />
-        <item itemvalue="Python.database_filler" />
-        <item itemvalue="Python.update_stops" />
-        <item itemvalue="Python.get_trips_by_vehicle_positions" />
-        <item itemvalue="Python.all_vehicle_positions" />
+        <item itemvalue="Python.stops" />
       </list>
     </recent_temporary>
   </component>
@@ -460,18 +470,18 @@
       <workItem from="1581271029599" duration="14236000" />
       <workItem from="1581932983734" duration="23372000" />
       <workItem from="1583341392291" duration="6978000" />
-      <workItem from="1583508586660" duration="24526000" />
+      <workItem from="1583508586660" duration="39364000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="205977000" />
+    <option name="totallyTimeSpent" value="220815000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4989796" visible="true" weight="0.13675214" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4989796" visible="true" weight="0.13675214" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" sideWeight="0.50102043" side_tool="true" weight="0.12942614" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -491,7 +501,7 @@
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="SciView" order="3" sideWeight="0.4870624" visible="true" weight="0.22100122" />
+      <window_info active="true" anchor="right" id="SciView" order="3" sideWeight="0.4870624" visible="true" weight="0.22100122" />
       <window_info anchor="right" id="Database" order="4" weight="0.32967034" />
       <window_info anchor="right" x="0" y="0" width="370" height="850" id="Documentation" order="5" sideWeight="0.5129376" side_tool="true" visible="true" weight="0.22100122" />
     </layout>
@@ -503,11 +513,6 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/test</url>
-          <line>86</line>
-          <option name="timeStamp" value="19" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/database_filler.py</url>
           <line>31</line>
           <option name="timeStamp" value="26" />
@@ -518,14 +523,14 @@
           <option name="timeStamp" value="27" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/new_code/fill_database.py</url>
-          <line>33</line>
-          <option name="timeStamp" value="33" />
+          <url>file://$PROJECT_DIR$/new_code/stops.py</url>
+          <line>89</line>
+          <option name="timeStamp" value="37" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/new_code/all_vehicle_positions.py</url>
-          <line>18</line>
-          <option name="timeStamp" value="34" />
+          <url>file://$PROJECT_DIR$/new_code/stops.py</url>
+          <line>29</line>
+          <option name="timeStamp" value="41" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -538,9 +543,7 @@
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
-        <watch expression="bus_input_list[&quot;properties&quot;][&quot;last_position&quot;][&quot;delay_stop_arrival&quot;]" language="Python" />
-        <watch expression="bus_input_list[&quot;properties&quot;][&quot;last_position&quot;][&quot;delay_stop_departure&quot;]" language="Python" />
-        <watch expression="vehicle[&quot;properties&quot;][&quot;trip&quot;][&quot;gtfs_trip_id&quot;]" language="Python" />
+        <watch expression="vehicle[&quot;json_trip&quot;]" language="Python" />
       </configuration>
     </watches-manager>
   </component>
@@ -558,6 +561,11 @@
       </expression>
     </expressions>
     <expressions id="watch">
+      <expression>
+        <expression-string>vehicle[&quot;json_trip&quot;]</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
       <expression>
         <expression-string>vehicle[&quot;properties&quot;][&quot;trip&quot;][&quot;gtfs_trip_id&quot;]</expression-string>
         <language-id>Python</language-id>
@@ -702,16 +710,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="45" column="52" selection-start-line="37" selection-start-column="8" selection-end-line="45" selection-end-column="52" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/local/Cellar/python/3.7.4_1/Frameworks/Python.framework/Versions/3.7/lib/python3.7/socketserver.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3910">
@@ -771,16 +769,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/new_code/network.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-189">
-          <caret line="1" column="43" selection-start-line="1" selection-start-column="43" selection-end-line="1" selection-end-column="43" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/update_stops.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -791,27 +779,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="520">
-          <caret line="226" column="14" lean-forward="true" selection-start-line="226" selection-start-column="14" selection-end-line="226" selection-end-column="14" />
-          <folding>
-            <element signature="e#67#107#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/new_code/database.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="163">
-          <caret line="22" column="24" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/new_code/get_trips_by_vehicle_positions.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
-          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+          <caret line="14" selection-start-line="14" selection-end-line="14" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
@@ -822,16 +793,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="309" selection-start-line="309" selection-end-line="309" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/new_code/file_system.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="15" selection-start-line="15" selection-end-line="15" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -847,13 +808,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/local/lib/python3.7/site-packages/mysql/connector/network.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="713">
-          <caret line="241" selection-start-line="241" selection-end-line="241" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/database_filler.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="473">
@@ -864,42 +818,117 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/new_code/all_vehicle_positions.py">
+    <entry file="file:///usr/local/lib/python3.7/site-packages/mysql/connector/network.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="193">
-          <caret line="18" selection-start-line="18" selection-end-line="18" />
+        <state relative-caret-position="4029">
+          <caret line="241" selection-start-line="241" selection-end-line="241" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/new_code/network.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="43" selection-start-line="1" selection-start-column="43" selection-end-line="1" selection-end-column="43" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/new_code/fill_database.py">
+    <entry file="file://$PROJECT_DIR$/new_code/all_vehicle_positions.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="754">
-          <caret line="110" column="37" selection-start-line="110" selection-start-column="37" selection-end-line="110" selection-end-column="37" />
+        <state relative-caret-position="867">
+          <caret line="51" column="19" selection-start-line="51" selection-start-column="19" selection-end-line="51" selection-end-column="19" />
           <folding>
-            <element signature="e#0#15#0" expanded="true" />
+            <element signature="e#0#11#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/new_code/stops.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="29">
-          <caret line="41" column="43" selection-start-line="41" selection-start-column="43" selection-end-line="41" selection-end-column="43" />
+        <state relative-caret-position="-778">
+          <caret line="29" column="124" selection-start-line="29" selection-start-column="124" selection-end-line="29" selection-end-column="124" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/new_code/database.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="48" lean-forward="true" selection-start-line="17" selection-start-column="48" selection-end-line="17" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="25" lean-forward="true" selection-start-line="4" selection-start-column="25" selection-end-line="4" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/new_code/fill_database.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="105" column="20" selection-start-line="105" selection-start-column="20" selection-end-line="105" selection-end-column="20" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/new_code/file_system.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="10" column="65" selection-start-line="10" selection-start-column="65" selection-end-line="10" selection-end-column="65" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/new_code/server.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-290">
+          <caret line="141" column="30" selection-start-line="141" selection-start-column="30" selection-end-line="141" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/new_code/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="353">
+          <caret line="124" column="30" lean-forward="true" selection-start-line="124" selection-start-column="30" selection-end-line="124" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/common_functions.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="67" column="134" lean-forward="true" selection-start-line="67" selection-start-column="19" selection-end-line="67" selection-end-column="134" />
+        <state relative-caret-position="581">
+          <caret line="44" column="8" selection-start-line="44" selection-start-column="6" selection-end-line="44" selection-end-column="8" />
           <folding>
             <element signature="e#1#12#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="124" column="36" selection-start-line="124" selection-start-column="36" selection-end-line="124" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="612">
+          <caret line="172" column="54" lean-forward="true" selection-start-line="172" selection-start-column="54" selection-end-line="172" selection-end-column="54" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -1,227 +1,30 @@
-# #!/usr/bin/env python3
-# from io import BytesIO
-# import json
-#
-from common_functions import downloadURL
-from common_functions import URLs
-# import mysql.connector
-# import compress_json
-# #
-# # # with open("../veh_pos.json", "r") as f:
-# # # 	veh_pos = json.load(f)#json.dumps(veh_pos))
-# # #
-# # # 	compress_json.dump(veh_pos, "filepath.json.gz")  # for a gzip file
-# # # 	compress_json.dump(veh_pos, "filepath.json.bz")  # for a bz2 file
-# # # 	compress_json.dump(veh_pos, "filepath.json.lzma")  # for a lzma file
-# #
-# # D1 = compress_json.load("/Users/filipcizmar/Documents/rocnikac/raw_data-2/2020-02-24T14.14.51.tar.gz")  # for loading a gzip file
-# # # D2 = compress_json.load("filepath.json.bz")  # for loading a bz2 file
-# # # D3 = compress_json.load("filepath.json.lzma")  # for loading a lzma file
-# #
-# # print(D1)
-#
-# # print(downloadURL(URLs.trip_by_id("381_72_191128")))
-#
-# import tarfile
-#
-# from new_code.file_system import File_system
-#
-#
-# def format_shape_traveled(shape_t: str) -> int:
-# 	return int(float(shape_t) * 1000)
-#
-# def sql_get_result(cursor, sql_query, params=()):
-# 	try:
-# 		cursor.execute_fetchall(sql_query, params)
-# 		return cursor.fetchall()
-# 	except Exception as e:
-# 		print(e)
-# 		print("Query failed", sql_query, "params:", params)
-#
-# def sql_run_transaction(connection, cursor, sql_query, params=()):
-# 	try:
-# 		cursor.executemany(sql_query, params)
-# 		# connection.commit()
-# 	except mysql.connector.errors.IntegrityError as e:
-# 		print(e)
-# 		print("Query failed", sql_query, "params:", params)
-# 	except Exception as e:
-# 		print(e)
-# 		print("Query failed", sql_query, "params:", params)
-#
-# from functools import wraps
-# import inspect
-#
-# # def initializer(func):
-# # 	all_args = inspect.getfullargspec(func)
-# # 	names, varargs, keywords, defaults = all_args[0], all_args[1], all_args[2], all_args[3]
-# #
-# # 	@wraps(func)
-# # 	def wrapper(self, *args, **kargs):
-# # 		for name, arg in list(zip(names[1:], args)) + list(kargs.items()):
-# # 			setattr(self, name, arg)
-# #
-# # 		for name, default in zip(reversed(names), reversed(defaults)):
-# # 			if not hasattr(self, name):
-# # 				setattr(self, name, default)
-# #
-# # 		func(self, *args, **kargs)
-# #
-# # 	return wrapper
-#
-# class Trip_current_info:
-# 	def __init__(self,
-# 				trip_id: str = None,
-# 				lat: str = None,
-# 				lon: str = None,
-# 				last_updated = None,
-# 				cur_delay: int = None,
-# 				last_stop_delay=None,
-# 				shape_traveled: int = None,
-# 				trip_no: str = None,
-# 				trip_headsign: str = None,
-# 				id_trip_headsign: int = None,
-# 				id_trip: int = None):
-#
-# 		d = dir()
-# 		all_args = inspect.getfullargspec(Trip_current_info.__init__())
-# 		names, varargs, keywords, defaults = all_args[0], all_args[1], all_args[2], all_args[3]
-#
-# 		# for name, arg in list(zip(names[1:], args)) + list(kargs.items()):
-# 		# 	setattr(self, name, arg)
-#
-# 		for name, default in zip(reversed(names), reversed(defaults)):
-# 			if not hasattr(self, name):
-# 				setattr(self, name, default)
-#
-# 		# self.id_trip = id_trip
-# 		# self.id_trip_headsign = id_trip_headsign
-# 		# self.trip_no = trip_no
-# 		# self.shape_traveled = shape_traveled
-# 		# self.cur_delay = cur_delay
-# 		# self.lon = lon
-# 		# self.lat = lat
-# 		# self.trip_id = trip_id
-# 		# self.trip_headsign = trip_headsign
-# 		# self.last_stop_delay = last_stop_delay
-# 		# self.last_updated = last_updated[:last_updated.index(".")]
-#
-# 	def to_tuple_for_insert(self) -> tuple:
-# 		return self.trip_id, self.trip_headsign, self.last_stop_delay, self.shape_traveled, self.trip_no, self.last_updated, self.lat, self.lon
-#
-#
-# #
-# # tar = tarfile.open("/Users/filipcizmar/Documents/rocnikac/raw_data-2/2020-02-24T14.14.51.tar.gz", "r:gz")
-# # print(tar.extractall())
-#
-# from os import listdir
-# from os.path import getmtime
-# import glob
-#
-# files = glob.glob("/Users/filipcizmar/Documents/rocnikac/raw_data-2/*.tar.gz")
-# files.sort(key=getmtime)
-#
-# connection_db = mysql.connector.connect(
-# 			host="localhost",
-# 			database="vehicle_positions_database",
-# 			user="vehicles_access",
-# 			passwd="my_password",
-# 			autocommit=False
-# 		)
-# cursor_prepared_db = connection_db.cursor(prepared=True)
-# cursor_db = connection_db.cursor(buffered=True)
-#
-# not_found_trips = set()
-# found_trips = set()
-#
-# for file in files:
-# 	content = File_system.get_tar_file_content(file)
-#
-# 	json_all_vehicle_positions = json.loads(content)
-#
-# 	for bus_input_list in json_all_vehicle_positions["features"]:
-#
-# 		if bus_input_list["properties"]["trip"]["gtfs_trip_id"] is None or \
-# 				bus_input_list["geometry"]["coordinates"][1] is None or \
-# 				bus_input_list["geometry"]["coordinates"][0] is None or \
-# 				bus_input_list["properties"]["last_position"]["delay"] is None or \
-# 				bus_input_list["properties"]["last_position"]["gtfs_shape_dist_traveled"] is None or \
-# 				bus_input_list["properties"]["trip"]["gtfs_route_short_name"] is None or \
-# 				bus_input_list["properties"]["last_position"]["origin_timestamp"] is None:
-# 			continue
-#
-# 		if bus_input_list["properties"]["trip"]["gtfs_trip_id"] in not_found_trips or bus_input_list["properties"]["trip"]["gtfs_trip_id"] in found_trips:
-# 			continue
-#
-# 		delay = bus_input_list["properties"]["last_position"]["delay_stop_departure"]
-#
-# 		if bus_input_list["properties"]["last_position"]["delay_stop_departure"] is None:
-# 			delay = bus_input_list["properties"]["last_position"]["delay_stop_arrival"]
-# 			if bus_input_list["properties"]["last_position"]["delay_stop_arrival"] is None:
-# 				continue
-#
-# 		delay = int(delay)
-#
-# 		current_trip = Trip_current_info(
-# 			trip_id=bus_input_list["properties"]["trip"]["gtfs_trip_id"],
-# 			lat=bus_input_list["geometry"]["coordinates"][1],
-# 			lon=bus_input_list["geometry"]["coordinates"][0],
-# 			cur_delay=int(bus_input_list["properties"]["last_position"]["delay"]),
-# 			shape_traveled=format_shape_traveled(bus_input_list["properties"]["last_position"]["gtfs_shape_dist_traveled"]),
-# 			trip_no=bus_input_list["properties"]["trip"]["gtfs_route_short_name"],
-# 			last_stop_delay=delay,
-# 			last_updated=bus_input_list["properties"]["last_position"]["origin_timestamp"]
-# 		)
-#
-# 		try_fetch_id_trip = sql_get_result(
-# 			cursor_db,
-# 			'SELECT id_trip FROM trips WHERE trip_source_id = %s LIMIT 1',
-# 			(current_trip.trip_id,)
-# 		)
-#
-#
-#
-# 		if len(try_fetch_id_trip) != 0:
-# 			current_trip.id_trip = try_fetch_id_trip[0][0]
-# 			found_trips.add(current_trip.id_trip)
-#
-# 		# if trip does not exist
-# 		if current_trip.id_trip is None:
-# 			try:
-# 				json_trip = downloadURL(URLs.trip_by_id(current_trip.trip_id))
-# 				with tarfile.open("/Users/filipcizmar/Documents/rocnikac/raw-trips/" + str(current_trip.trip_id) + ".tar.gz", "w:gz") as tar_out:
-# 					string = BytesIO(json.dumps(json_trip).encode())
-# 					string.seek(0)
-# 					info = tarfile.TarInfo(name=str(current_trip.trip_id) + ".json")
-# 					info.size = len(string.getvalue())
-# 					tar_out.addfile(tarinfo=info, fileobj=string)
-# 					print("trip saved:", current_trip.trip_id)
-# 					found_trips.add(current_trip.trip_id)
-#
-# 			except Exception as e:
-# 				print("trip not found " + current_trip.trip_id)
-# 				not_found_trips.add(current_trip.trip_id)
-# 				continue
-#
-# 			current_trip.trip_headsign = json_trip["trip_headsign"]
-#
-# 			cursor_db.execute_fetchall('START TRANSACTION')
-# 			# connection_db.autocommit = False
-# 			# print(current_trip.to_tuple_for_insert())
-#
-# 			cursor_db.execute_fetchall('SELECT `vehicle_positions_database`.`insert_new_trip_to_trips_and_coordinates_and_return_id`(%s, %s, %s, %s, %s, %s, %s, %s)', current_trip.to_tuple_for_insert())
-#
-# 			# sql_run_transaction(connection_db, cursor_prepared_db, 'SELECT `vehicle_positions_database`.`insert_new_trip_to_trips_and_coordinates_and_return_id`(%s, %s, %s, %s, %s, %s, %s, %s)', [current_trip.to_tuple_for_insert()])
-#
-# 			# print("BEFORE commit")
-# 			# print(sql_get_result(cursor_db, 'SELECT * FROM trips WHERE trip_source_id = %s', (current_trip.trip_id,)))
-#
-#
-# 			connection_db.commit()
-#
-# 			# print("after commit")
-# 			# print(str(sql_get_result(cursor_db, 'SELECT * FROM trips WHERE trip_source_id = %s', (current_trip.trip_id, ))))
-#
-#
-
-downloadURL(U)
+import socket, threading
+class ClientThread(threading.Thread):
+    def __init__(self,clientAddress,clientsocket):
+        threading.Thread.__init__(self)
+        self.csocket = clientsocket
+        print ("New connection added: ", clientAddress)
+    def run(self):
+        print ("Connection from : ", clientAddress)
+        #self.csocket.send(bytes("Hi, This is from Server..",'utf-8'))
+        msg = ''
+        while True:
+            data = self.csocket.recv(2048)
+            msg = data.decode()
+            if msg=='bye':
+              break
+            print ("from client", msg)
+            self.csocket.send(bytes(msg,'UTF-8'))
+        print ("Client at ", clientAddress , " disconnected...")
+LOCALHOST = "127.0.0.1"
+PORT = 8080
+server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+server.bind((LOCALHOST, PORT))
+print("Server started")
+print("Waiting for client request..")
+while True:
+    server.listen(1)
+    clientsock, clientAddress = server.accept()
+    newthread = ClientThread(clientAddress, clientsock)
+    newthread.start()

@@ -159,8 +159,11 @@ def server(environ, start_response):
 
 		response_body = ""
 		request_body = request_body.decode('utf-8')
+		print("any request")
 		if "vehicles_positions" == request_body:
 			response_body = event_handler.veh_pos_file_content
+			print("veh")
+			print(response_body)
 
 		elif "lfms" == request_body.split('.')[0]:
 			# print("rb:", request_body)
@@ -179,7 +182,7 @@ def server(environ, start_response):
 	else:
 		logging.warning("GET method should not occurs.")
 		response_body = open(FILE).read()
-		status = '200 OK'
+		status = '400'
 		headers = [('Content-type', 'text/html'),
 				   ('Content-Length', str(len(response_body)))]
 		start_response(status, headers)
