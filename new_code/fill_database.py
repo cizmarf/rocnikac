@@ -9,13 +9,13 @@ from new_code.stops import Stops
 from new_code.trip import Trip
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--static_data", default=True, type=bool, help="Fill with static data or dynamic real-time data.")
+parser.add_argument("--static_data", default=False, type=bool, help="Fill with static data or dynamic real-time data.")
 parser.add_argument("--update_time", default=20, type=int, help="Time to next request")
 parser.add_argument("--update_error", default=20, type=int, help="Update time if network error occurred")
 args = parser.parse_args([] if "__file__" not in globals() else None)
 
 database_connection = Database()
-trips_black_list = set()
+# trips_black_list = set()
 
 if args.static_data:
 	static_all_vehicle_positions = Static_all_vehicle_positions()
@@ -48,8 +48,8 @@ while True:
 	for vehicle in all_vehicle_positions.iterate_vehicles():
 		# print("pro vozidlo")
 
-		if vehicle.trip_id in trips_black_list:
-			continue
+		# if vehicle.trip_id in trips_black_list:
+		# 	continue
 
 		"""
 			Try to get id_trip. If trip does not exist returns empty list else  
@@ -95,7 +95,7 @@ while True:
 
 			# if any exception occuress rollback and save trip to blacklist
 			except Exception as e:
-				trips_black_list.add(vehicle.trip_id)
+				# trips_black_list.add(vehicle.trip_id)
 				database_connection.execute('ROLLBACK;')
 				print(vehicle.get_tuple_new_trip())
 				print("new trip insert failed " + str(vehicle.trip_id) + str(e))

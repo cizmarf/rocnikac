@@ -45,8 +45,9 @@ class Server:
 			return self.trip_id_to_id_trip_map[trip_id]
 		else:
 			try:
+				print("getting trip id:",  trip_id)
 				id_trip = self.database_connection.execute_fetchall(
-					'SELECT id_trip FROM trips WHERE trip_id = %s LIMIT 1',
+					'SELECT id_trip FROM trips WHERE trip_source_id = %s LIMIT 1',
 					(trip_id,)
 				)[0][0]
 				self.trip_id_to_id_trip_map[trip_id] = id_trip
@@ -79,9 +80,11 @@ class Server:
 			# print("id_trip", id_trip)
 
 			coordinates = self.database_connection.execute_fetchall(
-				'SELECT lon, lat, shape_traveled FROM trip_coordinates WHERE trip_coordinates.id_trip = %s AND trip_coordinates.time > DATE_SUB(NOW(), INTERVAL 5 MINUTE) ORDER BY trip_coordinates.time',
+				'SELECT lon, lat, shape_dist_traveled FROM trip_coordinates WHERE trip_coordinates.id_trip = %s AND trip_coordinates.inserted > DATE_SUB(NOW(), INTERVAL 5 MINUTE) ORDER BY trip_coordinates.inserted',
 				(id_trip,)
 			)
+
+			print("coor", coordinates)
 
 			geojson_tail = self.prepare_geojson_tail()
 			if len(coordinates) > 0:
@@ -100,6 +103,10 @@ class Server:
 
 
 	def get_shape(self, trip_id):
+		if '.' in trip_id:
+			return ""
+		# print("getting shape:", trip_id)
+		# print((File_system.all_shapes / trip_id).with_suffix(".shape"))
 		with open((File_system.all_shapes / trip_id).with_suffix(".shape"), "r") as f:
 			# print("Shape opened")
 			shape = json.loads(f.read())
@@ -115,7 +122,7 @@ class Server:
 			(id_trip,)
 		)
 
-		print("stops:", stops)
+		# print("stops:", stops)
 
 		stops_geojson = {}
 		stops_geojson["type"] = "FeatureCollection"
@@ -123,7 +130,7 @@ class Server:
 		for stop in stops:
 			stops_geojson["features"].append({"name": stop[3], "geometry": {"coordinates": [float(stop[0]), float(stop[1])]}})
 
-		print("stops_goej:", stops_geojson)
+		# print("stops_goej:", stops_geojson)
 		return stops_geojson
 
 
@@ -139,12 +146,13 @@ class Server:
 			response_body = ""
 			request_body = request_body.decode('utf-8')
 			if "vehicles_positions" == request_body:
-				print("veh_pos")
+				# print("veh_pos")
 				response_body = event_handler.veh_pos_file_content
 
 			elif "tail" == request_body.split('.')[0]:
 				# print("rb:", request_body)
 				response_body = json.dumps(self.get_tail(request_body.split('.')[1]))
+				# print("tail:", response_body)
 
 			elif "shape" == request_body.split('.')[0]:
 				response_body = json.dumps(self.get_shape(request_body.split('.')[1]))
@@ -152,13 +160,14 @@ class Server:
 			elif "stops" == request_body.split('.')[0]:
 				response_body = json.dumps(self.get_stops(request_body.split('.')[1]))
 
+			print(response_body)
 			status = '200 OK'
 			headers = [('Content-type', 'text/plain')]
 			start_response(status, headers)
 			return [response_body.encode()]
 		else:
 			logging.warning("GET method should not occurs.")
-			response_body = open(self.FILE).read()
+			response_body = "bad request"
 			status = '400'
 			headers = [('Content-type', 'text/html'),
 					   ('Content-Length', str(len(response_body)))]

@@ -123,7 +123,7 @@ class Trip:
 			new_json_data["features"][0]["geometry"]["properties"]["shape_dist_traveled"].append(
 				Trip.format_shape_traveled(feature["properties"]["shape_dist_traveled"]))
 
-		File_system.save_file(new_json_data, File_system.all_shapes + self.trip_id)
+		File_system.save_file(new_json_data, File_system.all_shapes + self.trip_id + '.shape')
 			
 	def _fill_attributes_from_trip_file(self):
 		self.trip_headsign = self.json_trip["trip_headsign"]

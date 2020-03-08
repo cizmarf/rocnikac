@@ -122,17 +122,17 @@
 		request.onerror = function(){
 			throw Error("Network error")
 		};
-		request.open('POST', "index.html", true);
+		request.open('POST', "http://localhost:8080", true);
 		request.send(str_request);
 		return request.responseText;
 	}
 
 	function drawLastFewMinutesShape(geojson) {
 		// console.log(geojson);
-		if (map.getLayer(oldLineStringLayerID + '.lfms'))	map.removeLayer(oldLineStringLayerID + '.lfms');
-		if (map.getSource(oldLineStringLayerID + '.lfms')) map.removeSource(oldLineStringLayerID + '.lfms');
+		if (map.getLayer(oldLineStringLayerID + '.tail'))	map.removeLayer(oldLineStringLayerID + '.tail');
+		if (map.getSource(oldLineStringLayerID + '.tail')) map.removeSource(oldLineStringLayerID + '.tail');
 		geojson = JSON.parse(geojson);
-		console.log("printing lfms");
+		console.log("printing tail");
 		// console.log(geojson);
 		map.addLayer({
 			type: 'line',
@@ -141,7 +141,7 @@
 				"lineMetrics": true,
 				"data": geojson
 			},
-			id: lineStringLayerID + ".lfms",
+			id: lineStringLayerID + ".tail",
 			paint: {
 				'line-color': 'red',
 				'line-width': 14,
@@ -162,7 +162,7 @@
 				'line-join': 'round'
 			}
 		});
-		console.log("lfms printed")
+		console.log("tail printed")
 	}
 
 	function drawShape(geojson) {
@@ -242,9 +242,9 @@
 		lineStringLayerID = gtfs_trip_id;
 		getFileByAJAXreq("stops." + lineStringLayerID, showStopsOnMap);
 		getFileByAJAXreq("shape." + lineStringLayerID, drawShape);
-		getFileByAJAXreq("lfms." + lineStringLayerID, drawLastFewMinutesShape);
-		if (map.getLayer(oldLineStringLayerID + '.lfms'))	map.removeLayer(oldLineStringLayerID + '.lfms');
-		if (map.getSource(oldLineStringLayerID + '.lfms')) map.removeSource(oldLineStringLayerID + '.lfms');
+		getFileByAJAXreq("tail." + lineStringLayerID, drawLastFewMinutesShape);
+		if (map.getLayer(oldLineStringLayerID + '.tail'))	map.removeLayer(oldLineStringLayerID + '.tail');
+		if (map.getSource(oldLineStringLayerID + '.tail')) map.removeSource(oldLineStringLayerID + '.tail');
 		if (map.getLayer(oldLineStringLayerID + '.s'))	map.removeLayer(oldLineStringLayerID + '.s');
 		if (map.getSource(oldLineStringLayerID + '.s')) map.removeSource(oldLineStringLayerID + '.s');
 
@@ -253,8 +253,8 @@
 	function unclic_bus(){
 		oldLineStringLayerID = lineStringLayerID;
 		lineStringLayerID = "";
-		if (map.getLayer(oldLineStringLayerID + '.lfms'))	map.removeLayer(oldLineStringLayerID + '.lfms');
-		if (map.getSource(oldLineStringLayerID + '.lfms')) map.removeSource(oldLineStringLayerID + '.lfms');
+		if (map.getLayer(oldLineStringLayerID + '.tail'))	map.removeLayer(oldLineStringLayerID + '.tail');
+		if (map.getSource(oldLineStringLayerID + '.tail')) map.removeSource(oldLineStringLayerID + '.tail');
 		if (map.getLayer(oldLineStringLayerID + '.s'))	map.removeLayer(oldLineStringLayerID + '.s');
 		if (map.getSource(oldLineStringLayerID + '.s')) map.removeSource(oldLineStringLayerID + '.s');
 		stops_shown.forEach(function(elem) {
@@ -333,7 +333,7 @@
 			if (lineStringLayerID != ""){
 				try {
 					oldLineStringLayerID = lineStringLayerID;
-					getFileByAJAXreq("lfms." + lineStringLayerID, drawLastFewMinutesShape);
+					getFileByAJAXreq("tail." + lineStringLayerID, drawLastFewMinutesShape);
 				}catch (e) {
 					console.log(e);
 				}

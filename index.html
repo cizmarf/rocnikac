@@ -122,7 +122,7 @@
 		request.onerror = function(){
 			throw Error("Network error")
 		};
-		request.open('POST', "index.html", true);
+		request.open('POST', "http://localhost:8080", true);
 		request.send(str_request);
 		return request.responseText;
 	}

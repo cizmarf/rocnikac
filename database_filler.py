@@ -137,7 +137,7 @@ if __name__ == "__main__":
 		database="vehicles_info",
 		user="vehicles_access",
 		passwd="my_password",
-		autocommit=False
+		autocommit=True
 	)
 	cursor_prepared_db = connection_db.cursor(prepared=True)
 	cursor_db = connection_db.cursor()

@@ -144,11 +144,12 @@ def get_stops(trip_id):
 
 
 
-FILE = 'index.html'
+# FILE = 'index.html'
 PORT = 8080
 
 
 def server(environ, start_response):
+	print("any request")
 
 	if environ['REQUEST_METHOD'] == 'POST':
 		try:
@@ -163,7 +164,7 @@ def server(environ, start_response):
 		if "vehicles_positions" == request_body:
 			response_body = event_handler.veh_pos_file_content
 			print("veh")
-			print(response_body)
+			# print(response_body)
 
 		elif "lfms" == request_body.split('.')[0]:
 			# print("rb:", request_body)
@@ -181,8 +182,8 @@ def server(environ, start_response):
 		return [response_body.encode()]
 	else:
 		logging.warning("GET method should not occurs.")
-		response_body = open(FILE).read()
-		status = '400'
+		response_body = "ble" #open(FILE).read()
+		status = '200 OK'
 		headers = [('Content-type', 'text/html'),
 				   ('Content-Length', str(len(response_body)))]
 		start_response(status, headers)
