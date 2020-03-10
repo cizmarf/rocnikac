@@ -10,7 +10,7 @@ from new_code.trip import Trip
 class Static_all_vehicle_positions:
 
 	def __init__(self):
-		self.files = glob.glob(File_system.static_vehicle_positions + "*.tar.gz")
+		self.files = glob.glob(str(File_system.static_vehicle_positions.with_suffix("*.tar.gz")))
 		self.files.sort(key=getmtime)
 
 	def static_get_all_vehicle_positions_json(self):
@@ -54,7 +54,7 @@ class All_vehicle_positions():
 	def get_trip_source_id_by_vehicle(self, vehicle) -> str:
 		return vehicle.trip_id
 
-	def update_geojson_file(self):
+	def update_geojson_file(self, database_connection):
 		geojson_vehiclepositions = {}
 		geojson_vehiclepositions["type"] = "FeatureCollection"
 		geojson_vehiclepositions["timestamp"] = time.strftime("%Y-%m-%d-%H:%M:%S")
@@ -62,7 +62,7 @@ class All_vehicle_positions():
 
 		try:
 			for vehicle in self.vehicles:
-				geojson_vehiclepositions["features"].append(vehicle.to_real_time_geojson())
+				geojson_vehiclepositions["features"].append(vehicle.to_real_time_geojson(database_connection))
 		except KeyError as e:
 			print("error")
 			

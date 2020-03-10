@@ -22,6 +22,7 @@ class Server:
 
 		def on_modified(self, event):
 			if event is not None and event.src_path == str(File_system.all_vehicle_positions_real_time_geojson) or event is None:
+				# print("mod")
 				try:
 					with open(File_system.all_vehicle_positions_real_time_geojson, 'r') as f:
 						if f.mode == 'r':
@@ -128,7 +129,7 @@ class Server:
 		stops_geojson["type"] = "FeatureCollection"
 		stops_geojson["features"] = []
 		for stop in stops:
-			stops_geojson["features"].append({"name": stop[3], "geometry": {"coordinates": [float(stop[0]), float(stop[1])]}})
+			stops_geojson["features"].append({"name": stop[3], "departure_time": stop[2], "geometry": {"coordinates": [float(stop[0]), float(stop[1])]}})
 
 		# print("stops_goej:", stops_geojson)
 		return stops_geojson
@@ -149,18 +150,26 @@ class Server:
 				# print("veh_pos")
 				response_body = event_handler.veh_pos_file_content
 
+			elif "trip" == request_body.split('.')[0]:
+				response_body = '[' + \
+					json.dumps(self.get_shape(request_body.split('.')[1])) + ',' + \
+					json.dumps(self.get_tail(request_body.split('.')[1])) + ',' + \
+					json.dumps(self.get_stops(request_body.split('.')[1])) + ']'
+
 			elif "tail" == request_body.split('.')[0]:
 				# print("rb:", request_body)
 				response_body = json.dumps(self.get_tail(request_body.split('.')[1]))
-				# print("tail:", response_body)
+				print("tail:", request_body.split('.')[1], response_body)
 
 			elif "shape" == request_body.split('.')[0]:
 				response_body = json.dumps(self.get_shape(request_body.split('.')[1]))
+				print("shape:", request_body.split('.')[1],  response_body)
 
 			elif "stops" == request_body.split('.')[0]:
 				response_body = json.dumps(self.get_stops(request_body.split('.')[1]))
+				print("stops:", request_body.split('.')[1], response_body)
 
-			print(response_body)
+			# print(response_body)
 			status = '200 OK'
 			headers = [('Content-type', 'text/plain')]
 			start_response(status, headers)
@@ -182,7 +191,7 @@ class Server:
 		global event_handler
 		event_handler = Server.Veh_pos_file_handler()
 		observer = Observer()
-		observer.schedule(event_handler, path=str(File_system.all_shapes), recursive=False)
+		observer.schedule(event_handler, path=str(File_system.all_vehicle_positions_real_time_geojson.parent), recursive=False)
 		observer.start()
 
 		thread = threading.Thread(target=httpd.serve_forever)
@@ -204,5 +213,3 @@ if __name__ == "__main__":
 	# logging.info(Log.start)
 	server = Server()
 	server.start_server()
-
-

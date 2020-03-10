@@ -62,12 +62,20 @@ class Trip:
 		self.last_updated = last_updated[:last_updated.index(".")]
 		self.id_trip = None
 
-	def to_real_time_geojson(self) -> dict:
+	def to_real_time_geojson(self, database_connection) -> dict:
+		headsign = database_connection.execute_fetchall('SELECT headsigns.headsign, current_delay FROM headsigns JOIN trips ON trips.id_headsign = headsigns.id_headsign AND id_trip = %s', (self.id_trip,))
+		if len(headsign) != 0:
+			self.trip_headsign = headsign[0][0]
+			self.cur_delay = headsign[0][1]
+		else:
+			self.trip_headsign = "No data"
+
 		bus_output_list = {}
 		bus_output_list["type"] = "Feature"
 		bus_output_list["properties"] = {}
 		bus_output_list["properties"]["gtfs_trip_id"] = self.trip_id
 		bus_output_list["properties"]["gtfs_route_short_name"] = self.trip_no
+		bus_output_list["properties"]["headsign"] = self.trip_headsign
 		bus_output_list["properties"]["delay"] = self.cur_delay
 		bus_output_list["geometry"] = {}
 		bus_output_list["geometry"]["coordinates"] = [self.lon, self.lat]
@@ -103,7 +111,7 @@ class Trip:
 		self._fill_attributes_from_trip_file()
 
 	def static_get_json_trip_file(self):
-		content = File_system.get_tar_file_content(File_system.static_trips + self.trip_id + ".tar.gz")
+		content = File_system.get_tar_file_content((File_system.static_trips / self.trip_id).with_suffix(".tar.gz"))
 		self.json_trip = json.loads(content)
 		self._fill_attributes_from_trip_file()
 
@@ -123,7 +131,7 @@ class Trip:
 			new_json_data["features"][0]["geometry"]["properties"]["shape_dist_traveled"].append(
 				Trip.format_shape_traveled(feature["properties"]["shape_dist_traveled"]))
 
-		File_system.save_file(new_json_data, File_system.all_shapes + self.trip_id + '.shape')
+		File_system.save_file(new_json_data, (File_system.all_shapes / self.trip_id).with_suffix('.shape'))
 			
 	def _fill_attributes_from_trip_file(self):
 		self.trip_headsign = self.json_trip["trip_headsign"]

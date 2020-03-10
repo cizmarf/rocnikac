@@ -42,8 +42,7 @@ while True:
 
 	all_vehicle_positions.construct_all_trips()
 
-	# update real-time data file as soon as possible
-	all_vehicle_positions.update_geojson_file()
+	new_trips_to_insert = []
 
 	for vehicle in all_vehicle_positions.iterate_vehicles():
 		# print("pro vozidlo")
@@ -64,46 +63,54 @@ while True:
 
 			try:
 				# print(str(vehicle.get_tuple_update_trip()))
+				#TODO update delay based on ml model
 				database_connection.execute_transaction_commit_rollback('SELECT update_trip_and_insert_coordinates_if_changed(%s, %s, %s, %s, %s, %s);', vehicle.get_tuple_update_trip())
 			except IOError as e:
 				print("Update trip failed " + str(vehicle.trip_id) + str(e))
 
-
-
 		# Trip has not found
 		else:
+
+			new_trips_to_insert.append(vehicle)
 			# print("nenalezen")
-			if args.static_data:
-				try:
-					vehicle.static_get_json_trip_file()
-				except FileNotFoundError:
-					continue
-			else:
-				vehicle.get_json_trip_file()
 
-			vehicle.save_shape_file()
+	# update real-time data file first (second)
+	all_vehicle_positions.update_geojson_file(database_connection)
 
+	for vehicle in new_trips_to_insert:
+		if args.static_data:
 			try:
-				database_connection.execute('START TRANSACTION;')
+				vehicle.static_get_json_trip_file()
+			except FileNotFoundError:
+				continue
+		else:
+			vehicle.get_json_trip_file()
 
-				vehicle.id_trip = database_connection.execute_fetchall('SELECT insert_new_trip_to_trips_and_coordinates_and_return_id(%s, %s, %s, %s, %s, %s, %s, %s)', vehicle.get_tuple_new_trip())[0][0]
-				# database_connection.execute_many('INSERT IGNORE INTO rides (id_trip, id_stop, arrival_time, departure_time, shape_dist_traveled) VALUES (%s, %s, %s, %s, %s)', vehicle.get_tuple_new_trip())
+		vehicle.save_shape_file()
 
-				Stops.insert_ride_by_trip(database_connection, vehicle)
+		try:
+			database_connection.execute('START TRANSACTION;')
 
-				database_connection.execute('COMMIT;')
+			vehicle.id_trip = database_connection.execute_fetchall(
+				'SELECT insert_new_trip_to_trips_and_coordinates_and_return_id(%s, %s, %s, %s, %s, %s, %s, %s)',
+				vehicle.get_tuple_new_trip())[0][0]
+			# database_connection.execute_many('INSERT IGNORE INTO rides (id_trip, id_stop, arrival_time, departure_time, shape_dist_traveled) VALUES (%s, %s, %s, %s, %s)', vehicle.get_tuple_new_trip())
 
-			# if any exception occuress rollback and save trip to blacklist
-			except Exception as e:
-				# trips_black_list.add(vehicle.trip_id)
-				database_connection.execute('ROLLBACK;')
-				print(vehicle.get_tuple_new_trip())
-				print("new trip insert failed " + str(vehicle.trip_id) + str(e))
-				# TODO osetrit chyby ve vstupech
-				if isinstance(e, mysql.connector.errors.IntegrityError):
-					print(vehicle.trip_id + " has null delay last stop")
-				else:
-					raise Exception(e)
+			Stops.insert_ride_by_trip(database_connection, vehicle)
+
+			database_connection.execute('COMMIT;')
+
+		# if any exception occuress rollback and save trip to blacklist
+		except Exception as e:
+			# trips_black_list.add(vehicle.trip_id)
+			database_connection.execute('ROLLBACK;')
+			print(vehicle.get_tuple_new_trip())
+			print("new trip insert failed " + str(vehicle.trip_id) + str(e))
+			# TODO osetrit chyby ve vstupech
+			if isinstance(e, mysql.connector.errors.IntegrityError):
+				print(vehicle.trip_id + " has null delay last stop")
+			else:
+				raise Exception(e)
 
 
 	try:

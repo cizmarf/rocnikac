@@ -10,7 +10,7 @@ from new_code.all_vehicle_positions import All_vehicle_positions
 from new_code.trip import Trip
 
 
-files = glob.glob(File_system.static_vehicle_positions + "*.tar.gz")
+files = glob.glob(str(File_system.static_vehicle_positions.with_suffix("*.tar.gz")))
 files.sort(key=getmtime)
 
 not_found_trips = set()
@@ -31,7 +31,7 @@ for file in files:
 		try:
 			vehicle.get_json_trip_file()
 
-			File_system.save_tar_file(vehicle.json_trip, File_system.static_trips + str(vehicle.trip_id) + ".tar.gz", str(vehicle.trip_id) + ".json")
+			File_system.save_tar_file(vehicle.json_trip, (File_system.static_trips / str(vehicle.trip_id)).with_suffix(".tar.gz"), str(vehicle.trip_id) + ".json")
 
 			found_trips.add(vehicle.trip_id)
 

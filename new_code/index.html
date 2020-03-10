@@ -93,12 +93,238 @@
 		/* text-shadow: 3px 2px green; */
 		/* height: 100px; */
 	}
+    #features {
+        /*position: absolute;*/
+        top: 20px;
+        right: 20px;
+        bottom: 0;
+        width: 20%;
+        height: 10em;
+        padding: 15px;
+        overflow: auto;
+        background: rgba(240, 240, 240, 1.0);
 
+        border: #235620 4px solid;
+    }
 
 </style>
 <body>
+
 <div id='map'></div>
+
+<pre id="features"></pre>
+
 <script>
+
+    class Active_trip{
+        constructor(id, el, delay, headsign){
+            this.trip_source_id = id;
+            this.element = el;
+            this.delay = delay;
+            this.headsign = headsign;
+
+            var all_trip_data = JSON.parse(this.getFileByAJAXreq("trip." + this.trip_source_id));
+
+            this.shape = all_trip_data[0];
+            this.tail = all_trip_data[1];
+            this.stops = all_trip_data[2];
+            this.stops_shown = new Set();
+        }
+
+        show_on_map(){
+            this.element.classList.add('extra_marker');
+            this.draw_shape();
+            this.draw_tail();
+            this.draw_stops();
+        }
+
+        remove_from_map(){
+            console.log("mazu" + this.element.innerText);
+            this.element.classList.remove('extra_marker');
+            console.log(this.element);
+            console.log("smazano");
+            this.remove_shape();
+            this.remove_tail();
+            this.remove_stops();
+
+        }
+
+        update_tail(){
+            this.remove_tail();
+            this.tail = JSON.parse(this.getFileByAJAXreq("tail." + this.trip_source_id));
+            this.draw_tail();
+        }
+
+        draw_shape(){
+            var geojson = this.shape;
+            if (map.getLayer(this.trip_source_id + '.shape'))	map.removeLayer(this.trip_source_id + '.shape');
+            if (map.getSource(this.trip_source_id + '.shape')) map.removeSource(this.trip_source_id + '.shape');
+            map.addLayer({
+                "id": this.trip_source_id + '.shape',
+                "type": "line",
+                "source": {
+                    "type": "geojson",
+                    "data": geojson
+                },
+                "layout": {
+                    "line-join": "round",
+                    "line-cap": "round"
+                },
+                "paint": {
+                    "line-color": "#BF93E4",
+                    "line-width": 5
+                }
+            });
+        }
+
+        draw_tail(){
+            if (map.getLayer(this.trip_source_id + '.tail'))	map.removeLayer(this.trip_source_id + '.tail');
+            if (map.getSource(this.trip_source_id + '.tail')) map.removeSource(this.trip_source_id + '.tail');
+            var geojson = this.tail;
+            console.log("printing tail");
+            // console.log(geojson);
+            map.addLayer({
+                type: 'line',
+                source: {
+                    "type": 'geojson',
+                    "lineMetrics": true,
+                    "data": geojson
+                },
+                id: this.trip_source_id + ".tail",
+                paint: {
+                    'line-color': 'red',
+                    'line-width': 14,
+                    'line-gradient': [
+                        'interpolate',
+                        ['linear'],
+                        ['line-progress'],
+                        0, "blue",
+                        0.1, "royalblue",
+                        0.3, "cyan",
+                        0.5, "lime",
+                        0.7, "yellow",
+                        1, "red"
+                    ]
+                },
+                layout: {
+                    'line-cap': 'round',
+                    'line-join': 'round'
+                }
+            });
+            console.log("tail printed")
+        }
+
+        draw_stops(){
+
+            console.log("stops_geo:" + this.stops);
+            var stops_geojson = this.stops;
+            stops_geojson.features.forEach(function(marker) {
+                console.log("stop in process");
+                var el_p = document.createElement('div');
+                var el_c = document.createElement('div');
+                el_p.appendChild(el_c);
+                el_c.className = 'stop_pin';
+
+                el_c.addEventListener('click', function() {
+                    alert("click");
+                });
+
+                // TODO presunout cely element na prvni pricku v senzamu
+
+                el_c.addEventListener("mouseover", function(){
+                    // var el_s = document.createElement('div');
+                    // el_s.innerText = marker.name;
+                    // el_s.setAttribute("class", "stop_pin_sign");
+                    // el_c.insertBefore(el_s, el_p.childNodes[0]);
+                    // style.innerHTML += ".stop_pin::before{content: " + marker.name + ";}";
+                    var el_s = document.createElement('div');
+                    el_s.innerText = marker.name;
+                    el_s.setAttribute("class", "stop_pin_sign");
+                    new mapboxgl.Marker(el_s)
+                            .setLngLat(marker.geometry.coordinates)
+                            .addTo(map);
+                });
+
+                el_c.addEventListener("mouseout", function(){
+                    var signs = document.getElementsByClassName('stop_pin_sign');
+                    while(signs[0]) {
+                        signs[0].parentNode.removeChild(signs[0]);
+                    }
+                });
+
+                var elem = new mapboxgl.Marker(el_c)
+                        .setLngLat(marker.geometry.coordinates)
+                        .addTo(map);
+
+                this.stops_shown.add(elem);
+                console.log("stop:" + elem);
+            }, this);
+        }
+
+        remove_shape(){
+            if (map.getLayer(this.trip_source_id + '.shape')) map.removeLayer(this.trip_source_id + '.shape');
+            if (map.getSource(this.trip_source_id + '.shape')) map.removeSource(this.trip_source_id + '.shape');
+        }
+
+        remove_tail(){
+            if (map.getLayer(this.trip_source_id + '.tail')) map.removeLayer(this.trip_source_id + '.tail');
+            if (map.getSource(this.trip_source_id + '.tail')) map.removeSource(this.trip_source_id + '.tail');
+        }
+
+        remove_stops(){
+            this.stops_shown.forEach(function(elem) {
+                elem.remove();
+                this.stops_shown.delete(elem);
+            }, this);
+        }
+
+        show_info(){
+            document.getElementById('features').innerHTML = "<h2>" + this.headsign + "</h2></br>Zpoždění: " + this.delay + " s</br>GTFS id: " + this.trip_source_id;
+            document.getElementById('features').style.position = "absolute";
+        }
+
+        update_realtime_data(delay){
+            this.delay = delay;
+        }
+
+        show_time_table(){
+
+        }
+
+        delete_time_table(){
+
+        }
+
+        getFileByAJAXreq(str_request) {
+            try{
+                var request = new XMLHttpRequest();
+            }
+            catch (e){
+                alert("Your browser does not support AJAX!");
+                return false;
+            }
+
+            request.onreadystatechange = function () {
+                if (this.readyState === 4) {
+                    console.log('Prijato: ', request.responseText);
+                    // callback(request.responseText);
+                }
+            };
+
+            request.onerror = function(){
+                throw Error("Network error")
+            };
+            request.open('POST', "http://localhost:8080", false);
+            request.send(str_request);
+            return request.responseText;
+        }
+
+    }
+
+    function delete_info(){
+        document.getElementById('features').style.position = "static";
+    }
+
 	/**
 	 * @param	file input file
 	 * @desc	read given file, reading local file needs to be allowed in browser
@@ -127,197 +353,232 @@
 		return request.responseText;
 	}
 
-	function drawLastFewMinutesShape(geojson) {
-		// console.log(geojson);
-		if (map.getLayer(oldLineStringLayerID + '.tail'))	map.removeLayer(oldLineStringLayerID + '.tail');
-		if (map.getSource(oldLineStringLayerID + '.tail')) map.removeSource(oldLineStringLayerID + '.tail');
-		geojson = JSON.parse(geojson);
-		console.log("printing tail");
-		// console.log(geojson);
-		map.addLayer({
-			type: 'line',
-			source: {
-				"type": 'geojson',
-				"lineMetrics": true,
-				"data": geojson
-			},
-			id: lineStringLayerID + ".tail",
-			paint: {
-				'line-color': 'red',
-				'line-width': 14,
-				'line-gradient': [
-					'interpolate',
-					['linear'],
-					['line-progress'],
-					0, "blue",
-					0.1, "royalblue",
-					0.3, "cyan",
-					0.5, "lime",
-					0.7, "yellow",
-					1, "red"
-				]
-			},
-			layout: {
-				'line-cap': 'round',
-				'line-join': 'round'
-			}
-		});
-		console.log("tail printed")
-	}
-
-	function drawShape(geojson) {
-		geojson = JSON.parse(geojson);
-		if (map.getLayer(oldLineStringLayerID + '.s'))	map.removeLayer(oldLineStringLayerID + '.s');
-		if (map.getSource(oldLineStringLayerID + '.s')) map.removeSource(oldLineStringLayerID + '.s');
-		map.addLayer({
-			"id": lineStringLayerID + ".s",
-			"type": "line",
-			"source": {
-				"type": "geojson",
-				"data": geojson
-			},
-			"layout": {
-				"line-join": "round",
-				"line-cap": "round"
-			},
-			"paint": {
-				"line-color": "#BF93E4",
-				"line-width": 5
-			}
-		});
-	}
-
-	function showStopsOnMap(stops_goejson) {
-		stops_shown.forEach(function(elem) {
-			elem.remove();
-			stops_shown.delete(elem);
-		});
-
-		console.log("stops_geo:" + stops_goejson);
-		stops_goejson = JSON.parse(stops_goejson);
-		stops_goejson.features.forEach(function(marker) {
-			console.log("stop in process");
-			var el_p = document.createElement('div');
-			var el_c = document.createElement('div');
-			el_p.appendChild(el_c);
-			el_c.className = 'stop_pin';
-
-			el_c.addEventListener('click', function() {
-				alert("click");
-			});
-
-			// TODO presunout cely element na prvni pricku v senzamu
-
-			el_c.addEventListener("mouseover", function(){
-				// var el_s = document.createElement('div');
-				// el_s.innerText = marker.name;
-				// el_s.setAttribute("class", "stop_pin_sign");
-				// el_c.insertBefore(el_s, el_p.childNodes[0]);
-				// style.innerHTML += ".stop_pin::before{content: " + marker.name + ";}";
-				var el_s = document.createElement('div');
-				el_s.innerText = marker.name;
-				el_s.setAttribute("class", "stop_pin_sign");
-				new mapboxgl.Marker(el_s)
-						.setLngLat(marker.geometry.coordinates)
-						.addTo(map);
-			});
-
-			el_c.addEventListener("mouseout", function(){
-				var signs = document.getElementsByClassName('stop_pin_sign');
-				while(signs[0]) {
-				    signs[0].parentNode.removeChild(signs[0]);
-				}
-			});
-
-			var elem = new mapboxgl.Marker(el_c)
-					.setLngLat(marker.geometry.coordinates)
-					.addTo(map);
-			stops_shown.add(elem);
-			console.log("stop:" + elem);
-		});
-	}
-
-	function click_bus(gtfs_trip_id){
-		oldLineStringLayerID = lineStringLayerID;
-		lineStringLayerID = gtfs_trip_id;
-		getFileByAJAXreq("stops." + lineStringLayerID, showStopsOnMap);
-		getFileByAJAXreq("shape." + lineStringLayerID, drawShape);
-		getFileByAJAXreq("tail." + lineStringLayerID, drawLastFewMinutesShape);
-		if (map.getLayer(oldLineStringLayerID + '.tail'))	map.removeLayer(oldLineStringLayerID + '.tail');
-		if (map.getSource(oldLineStringLayerID + '.tail')) map.removeSource(oldLineStringLayerID + '.tail');
-		if (map.getLayer(oldLineStringLayerID + '.s'))	map.removeLayer(oldLineStringLayerID + '.s');
-		if (map.getSource(oldLineStringLayerID + '.s')) map.removeSource(oldLineStringLayerID + '.s');
-
-	}
-
-	function unclic_bus(){
-		oldLineStringLayerID = lineStringLayerID;
-		lineStringLayerID = "";
-		if (map.getLayer(oldLineStringLayerID + '.tail'))	map.removeLayer(oldLineStringLayerID + '.tail');
-		if (map.getSource(oldLineStringLayerID + '.tail')) map.removeSource(oldLineStringLayerID + '.tail');
-		if (map.getLayer(oldLineStringLayerID + '.s'))	map.removeLayer(oldLineStringLayerID + '.s');
-		if (map.getSource(oldLineStringLayerID + '.s')) map.removeSource(oldLineStringLayerID + '.s');
-		stops_shown.forEach(function(elem) {
-			elem.remove();
-			stops_shown.delete(elem);
-		});
-	}
+	// function drawLastFewMinutesShape(geojson) {
+	// 	// console.log(geojson);
+	// 	if (map.getLayer(oldLineStringLayerID + '.tail'))	map.removeLayer(oldLineStringLayerID + '.tail');
+	// 	if (map.getSource(oldLineStringLayerID + '.tail')) map.removeSource(oldLineStringLayerID + '.tail');
+	// 	geojson = JSON.parse(geojson);
+	// 	console.log("printing tail");
+	// 	// console.log(geojson);
+	// 	map.addLayer({
+	// 		type: 'line',
+	// 		source: {
+	// 			"type": 'geojson',
+	// 			"lineMetrics": true,
+	// 			"data": geojson
+	// 		},
+	// 		id: lineStringLayerID + ".tail",
+	// 		paint: {
+	// 			'line-color': 'red',
+	// 			'line-width': 14,
+	// 			'line-gradient': [
+	// 				'interpolate',
+	// 				['linear'],
+	// 				['line-progress'],
+	// 				0, "blue",
+	// 				0.1, "royalblue",
+	// 				0.3, "cyan",
+	// 				0.5, "lime",
+	// 				0.7, "yellow",
+	// 				1, "red"
+	// 			]
+	// 		},
+	// 		layout: {
+	// 			'line-cap': 'round',
+	// 			'line-join': 'round'
+	// 		}
+	// 	});
+	// 	console.log("tail printed")
+	// }
+    //
+	// function drawShape(geojson) {
+	// 	geojson = JSON.parse(geojson);
+	// 	if (map.getLayer(oldLineStringLayerID + '.s'))	map.removeLayer(oldLineStringLayerID + '.s');
+	// 	if (map.getSource(oldLineStringLayerID + '.s')) map.removeSource(oldLineStringLayerID + '.s');
+	// 	map.addLayer({
+	// 		"id": lineStringLayerID + ".s",
+	// 		"type": "line",
+	// 		"source": {
+	// 			"type": "geojson",
+	// 			"data": geojson
+	// 		},
+	// 		"layout": {
+	// 			"line-join": "round",
+	// 			"line-cap": "round"
+	// 		},
+	// 		"paint": {
+	// 			"line-color": "#BF93E4",
+	// 			"line-width": 5
+	// 		}
+	// 	});
+	// }
+    //
+	// function showStopsOnMap(stops_goejson) {
+	// 	stops_shown.forEach(function(elem) {
+	// 		elem.remove();
+	// 		stops_shown.delete(elem);
+	// 	});
+    //
+	// 	console.log("stops_geo:" + stops_goejson);
+	// 	stops_goejson = JSON.parse(stops_goejson);
+	// 	stops_goejson.features.forEach(function(marker) {
+	// 		console.log("stop in process");
+	// 		var el_p = document.createElement('div');
+	// 		var el_c = document.createElement('div');
+	// 		el_p.appendChild(el_c);
+	// 		el_c.className = 'stop_pin';
+    //
+	// 		el_c.addEventListener('click', function() {
+	// 			alert("click");
+	// 		});
+    //
+	// 		// TODO presunout cely element na prvni pricku v senzamu
+    //
+	// 		el_c.addEventListener("mouseover", function(){
+	// 			// var el_s = document.createElement('div');
+	// 			// el_s.innerText = marker.name;
+	// 			// el_s.setAttribute("class", "stop_pin_sign");
+	// 			// el_c.insertBefore(el_s, el_p.childNodes[0]);
+	// 			// style.innerHTML += ".stop_pin::before{content: " + marker.name + ";}";
+	// 			var el_s = document.createElement('div');
+	// 			el_s.innerText = marker.name;
+	// 			el_s.setAttribute("class", "stop_pin_sign");
+	// 			new mapboxgl.Marker(el_s)
+	// 					.setLngLat(marker.geometry.coordinates)
+	// 					.addTo(map);
+	// 		});
+    //
+	// 		el_c.addEventListener("mouseout", function(){
+	// 			var signs = document.getElementsByClassName('stop_pin_sign');
+	// 			while(signs[0]) {
+	// 			    signs[0].parentNode.removeChild(signs[0]);
+	// 			}
+	// 		});
+    //
+	// 		var elem = new mapboxgl.Marker(el_c)
+	// 				.setLngLat(marker.geometry.coordinates)
+	// 				.addTo(map);
+	// 		stops_shown.add(elem);
+	// 		console.log("stop:" + elem);
+	// 	});
+	// }
+    //
+	// function click_bus(gtfs_trip_id){
+	// 	oldLineStringLayerID = lineStringLayerID;
+	// 	lineStringLayerID = gtfs_trip_id;
+	// 	getFileByAJAXreq("stops." + lineStringLayerID, showStopsOnMap);
+	// 	getFileByAJAXreq("shape." + lineStringLayerID, drawShape);
+	// 	getFileByAJAXreq("tail." + lineStringLayerID, drawLastFewMinutesShape);
+	// 	if (map.getLayer(oldLineStringLayerID + '.tail'))	map.removeLayer(oldLineStringLayerID + '.tail');
+	// 	if (map.getSource(oldLineStringLayerID + '.tail')) map.removeSource(oldLineStringLayerID + '.tail');
+	// 	if (map.getLayer(oldLineStringLayerID + '.s'))	map.removeLayer(oldLineStringLayerID + '.s');
+	// 	if (map.getSource(oldLineStringLayerID + '.s')) map.removeSource(oldLineStringLayerID + '.s');
+    //
+	// }
+    //
+	// function unclic_bus(){
+	// 	oldLineStringLayerID = lineStringLayerID;
+	// 	lineStringLayerID = "";
+	// 	if (map.getLayer(oldLineStringLayerID + '.tail'))	map.removeLayer(oldLineStringLayerID + '.tail');
+	// 	if (map.getSource(oldLineStringLayerID + '.tail')) map.removeSource(oldLineStringLayerID + '.tail');
+	// 	if (map.getLayer(oldLineStringLayerID + '.s'))	map.removeLayer(oldLineStringLayerID + '.s');
+	// 	if (map.getSource(oldLineStringLayerID + '.s')) map.removeSource(oldLineStringLayerID + '.s');
+	// 	stops_shown.forEach(function(elem) {
+	// 		elem.remove();
+	// 		stops_shown.delete(elem);
+	// 	});
+	// }
 
 	function showBusesOnMap(veh_pos_geojson) {
-		elems.forEach(function(elem) {
+		buses.forEach(function(elem) {
 			elem.remove();
-			elems.delete(elem);
+			buses.delete(elem);
 		});
-		veh_pos_geojson = JSON.parse(veh_pos_geojson)
+		veh_pos_geojson = JSON.parse(veh_pos_geojson);
 		veh_pos_geojson.features.forEach(function(marker) {
+
 			// create a DOM element for the marker
 			var el = document.createElement('div');
 			el.className = 'marker';
-			if (lineStringLayerID === marker.properties.gtfs_trip_id)
-				el.classList.add('extra_marker');
+
+			if (marker.properties.gtfs_trip_id in active_trips) {
+                el.classList.add('extra_marker');
+                active_trips[marker.properties.gtfs_trip_id].update_realtime_data(marker.properties.delay);
+                active_trips[marker.properties.gtfs_trip_id].show_info();
+            }
+
 			el.innerText = marker.properties.gtfs_route_short_name;
+
 			el.addEventListener('click', function() {
-				var shape_geojson = "";
-				var last_few_minutes = "";
-				switch (lineStringLayerID) {
-					case "":
-						try {
-							click_bus(marker.properties.gtfs_trip_id);
-						}catch (e) {
-							console.log(e);
-							return;
-						}
-						el.classList.add('extra_marker');
-						break;
-					case marker.properties.gtfs_trip_id:
-						unclic_bus();
-						el.classList.remove('extra_marker');
-						break;
-					default:
-						try {
-							click_bus(marker.properties.gtfs_trip_id)
-						}catch (e) {
-							console.log(e);
-							return;
-						}
-						var old_extra = document.getElementsByClassName("extra_marker")[0];
-						if (old_extra != null)
-							old_extra.classList.remove("extra_marker");
-						el.classList.add("extra_marker");
-				}
+
+			    if (marker.properties.gtfs_trip_id in active_trips) {
+
+                    var bus = active_trips[marker.properties.gtfs_trip_id];
+                    delete active_trips[marker.properties.gtfs_trip_id];
+
+                    bus.remove_from_map();
+                    delete_info();
+                    // el.classList.remove('extra_marker');
+                    delete bus;
+
+                }else{
+			        delete_info();
+                    var bus = new Active_trip(marker.properties.gtfs_trip_id, el, marker.properties.delay, marker.properties.headsign);
+                    bus.show_on_map();
+                    bus.show_info();
+
+                    for (var trip in active_trips){
+                        active_trips[trip].remove_from_map();
+                        // el.classList.remove('extra_marker');
+                        delete active_trips[trip];
+                    }
+
+                    active_trips[marker.properties.gtfs_trip_id] = bus;
+                }
+				// switch (lineStringLayerID) {
+				// 	case "":
+				// 		try {
+				// 			click_bus(marker.properties.gtfs_trip_id);
+				// 		}catch (e) {
+				// 			console.log(e);
+				// 			return;
+				// 		}
+				// 		el.classList.add('extra_marker');
+				// 		break;
+				// 	case marker.properties.gtfs_trip_id:
+				// 		unclic_bus();
+				// 		el.classList.remove('extra_marker');
+				// 		break;
+				// 	default:
+				// 		try {
+				// 			click_bus(marker.properties.gtfs_trip_id)
+				// 		}catch (e) {
+				// 			console.log(e);
+				// 			return;
+				// 		}
+				// 		var old_extra = document.getElementsByClassName("extra_marker")[0];
+				// 		if (old_extra != null)
+				// 			old_extra.classList.remove("extra_marker");
+				// 		el.classList.add("extra_marker");
+				// }
 			});
 			// add marker to map
+
+            if (marker.properties.gtfs_trip_id in active_trips) {
+                active_trips[marker.properties.gtfs_trip_id].element = el;
+            }
+
 			var elem = new mapboxgl.Marker(el)
 					.setLngLat(marker.geometry.coordinates)
 					.addTo(map);
-			elems.add(elem);
+			buses.add(elem);
 		});
 	}
 	try{
 		// Get your own token here https://www.mapbox.com
 		mapboxgl.accessToken = 'pk.eyJ1IjoiZmlsaXBjaXptYXIiLCJhIjoiY2sxaHp3eHlzMGlmODNkanl2c2tqdTZscSJ9.rujrBlG1rSLuHpFaxxYX9w';
-		lineStringLayerID = "";
-		oldLineStringLayerID = "";
+		// lineStringLayerID = "";
+		// oldLineStringLayerID = "";
 		trip_folder_path = '../data/trips/';
 		var map = new mapboxgl.Map({
 			container: 'map', // container id
@@ -325,19 +586,30 @@
 			center: [14.42, 50.08], // starting position [lng, lat]
 			zoom: 10 // starting zoom
 		});
-		var stops_shown = new Set();
-		var elems = new Set();
+
+
+        //
+
+		var buses = new Set();
+		var active_trips = {};
+
 		getFileByAJAXreq("vehicles_positions", showBusesOnMap);
+
 		window.setInterval(function(){
+
 			getFileByAJAXreq("vehicles_positions", showBusesOnMap);
-			if (lineStringLayerID != ""){
-				try {
-					oldLineStringLayerID = lineStringLayerID;
-					getFileByAJAXreq("tail." + lineStringLayerID, drawLastFewMinutesShape);
-				}catch (e) {
-					console.log(e);
-				}
-			}
+
+			for (var trip in active_trips){
+			    active_trips[trip].update_tail()
+            }
+			// if (lineStringLayerID != ""){
+			// 	try {
+			// 		oldLineStringLayerID = lineStringLayerID;
+			// 		getFileByAJAXreq("tail." + lineStringLayerID, drawLastFewMinutesShape);
+			// 	}catch (e) {
+			// 		console.log(e);
+			// 	}
+			// }
 		}, 10000);
 	}
 	catch(e){
