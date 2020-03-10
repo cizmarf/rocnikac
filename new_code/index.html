@@ -98,7 +98,7 @@
         top: 20px;
         right: 20px;
         bottom: 0;
-        width: 20%;
+        width: 25em;
         height: 10em;
         padding: 15px;
         overflow: auto;
@@ -226,7 +226,7 @@
                 el_c.className = 'stop_pin';
 
                 el_c.addEventListener('click', function() {
-                    alert("click");
+                    getFileByAJAXreq("trips_by_stop." + marker.name, show_trips_by_stop);
                 });
 
                 // TODO presunout cely element na prvni pricku v senzamu
@@ -279,7 +279,8 @@
         }
 
         show_info(){
-            document.getElementById('features').innerHTML = "<h2>" + this.headsign + "</h2></br>Zpoždění: " + this.delay + " s</br>GTFS id: " + this.trip_source_id;
+            document.getElementById('features').innerHTML = "<div><h2>" + this.headsign + "</h2></br>Zpoždění: " + this.delay + " s</br>GTFS id: " + this.trip_source_id + "</div>";
+            document.getElementById('features').append(this.show_time_table());
             document.getElementById('features').style.position = "absolute";
         }
 
@@ -288,11 +289,44 @@
         }
 
         show_time_table(){
+            var main_element = document.createElement("div");
+            main_element.id = "time_table";
+            var table = document.createElement("table");
+            var tbody = document.createElement("tbody");
+
+            this.stops["features"].forEach(function (stop) {
+                var tr = document.createElement("tr");
+                var td_stop_name = document.createElement("td");
+                var td_departure_time = document.createElement("td");
+
+                td_stop_name.innerHTML = stop["name"];
+                console.log("tisknu departur " + stop["departure_time"]);
+                td_departure_time.innerHTML = this.toHHMMSS(stop["departure_time"]);
+
+                tr.append(td_stop_name);
+                tr.append(td_departure_time);
+
+                tbody.append(tr);
+
+            }, this);
+
+            table.append(tbody);
+            main_element.append(table);
+
+            return main_element;
 
         }
 
-        delete_time_table(){
+        toHHMMSS (sec_num) {
+            var sec_num = parseInt(sec_num, 10); // don't forget the second param
+            var hours   = Math.floor(sec_num / 3600);
+            var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+            var seconds = sec_num - (hours * 3600) - (minutes * 60);
 
+            if (hours   < 10) {hours   = "0"+hours;}
+            if (minutes < 10) {minutes = "0"+minutes;}
+            if (seconds < 10) {seconds = "0"+seconds;}
+            return hours+':'+minutes;//+':'+seconds;
         }
 
         getFileByAJAXreq(str_request) {
@@ -319,6 +353,26 @@
             return request.responseText;
         }
 
+    }
+    
+    function show_trips_by_stop(trips){
+        trips = JSON.parse(trips);
+
+        for (var trip in active_trips){
+            active_trips[trip].remove_from_map();
+            // el.classList.remove('extra_marker');
+            delete active_trips[trip];
+        }
+
+        delete_info();
+
+        trips.forEach(function (trip) {
+            if (trip["id"] in buses_elements) {
+                var bus = new Active_trip(trip["id"], buses_elements[trip["id"]], trip["delay"], trip["headsign"]);
+                bus.show_on_map();
+                active_trips[trip["id"]] = bus;
+            }
+        });
     }
 
     function delete_info(){
@@ -494,6 +548,8 @@
 			elem.remove();
 			buses.delete(elem);
 		});
+		buses_elements = {};
+
 		veh_pos_geojson = JSON.parse(veh_pos_geojson);
 		veh_pos_geojson.features.forEach(function(marker) {
 
@@ -504,7 +560,9 @@
 			if (marker.properties.gtfs_trip_id in active_trips) {
                 el.classList.add('extra_marker');
                 active_trips[marker.properties.gtfs_trip_id].update_realtime_data(marker.properties.delay);
-                active_trips[marker.properties.gtfs_trip_id].show_info();
+                if (Object.keys(active_trips).length === 1 ){
+                    active_trips[marker.properties.gtfs_trip_id].show_info();
+                }
             }
 
 			el.innerText = marker.properties.gtfs_route_short_name;
@@ -572,6 +630,7 @@
 					.setLngLat(marker.geometry.coordinates)
 					.addTo(map);
 			buses.add(elem);
+			buses_elements[marker.properties.gtfs_trip_id] = el;
 		});
 	}
 	try{
@@ -592,6 +651,7 @@
 
 		var buses = new Set();
 		var active_trips = {};
+		var buses_elements = {};
 
 		getFileByAJAXreq("vehicles_positions", showBusesOnMap);
 

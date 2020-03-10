@@ -129,10 +129,22 @@ class Server:
 		stops_geojson["type"] = "FeatureCollection"
 		stops_geojson["features"] = []
 		for stop in stops:
-			stops_geojson["features"].append({"name": stop[3], "departure_time": stop[2], "geometry": {"coordinates": [float(stop[0]), float(stop[1])]}})
+			stops_geojson["features"].append({"name": stop[3], "departure_time": stop[2].total_seconds(), "geometry": {"coordinates": [float(stop[0]), float(stop[1])]}})
 
 		# print("stops_goej:", stops_geojson)
 		return stops_geojson
+
+	def get_trips_by_stop(self, stop_name):
+		trips = self.database_connection.execute_fetchall('SELECT trips.trip_source_id, trips.current_delay, headsigns.headsign from trips JOIN headsigns ON trips.id_headsign = headsigns.id_headsign AND trips.last_updated > now() - interval 10 MINUTE AND id_trip IN (SELECT DISTINCT id_trip FROM rides JOIN stops ON rides.id_stop = stops.id_stop AND stops.stop_name = %s);', (stop_name,))
+		trips_json = []
+		# print(trips)
+		for trip in trips:
+			trip_json = {}
+			trip_json["id"] = trip[0]
+			trip_json["delay"] = trip[1]
+			trip_json["headsign"] = trip[2]
+			trips_json.append(trip_json)
+		return trips_json
 
 
 	def server(self, environ, start_response):
@@ -168,6 +180,11 @@ class Server:
 			elif "stops" == request_body.split('.')[0]:
 				response_body = json.dumps(self.get_stops(request_body.split('.')[1]))
 				print("stops:", request_body.split('.')[1], response_body)
+
+			elif "trips_by_stop" == request_body.split('.')[0]:
+				print("trips by stop")
+				response_body = json.dumps(self.get_trips_by_stop(request_body.split('.')[1]))
+				print("trips_stop:", request_body.split('.')[1], response_body)
 
 			# print(response_body)
 			status = '200 OK'

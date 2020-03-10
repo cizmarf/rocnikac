@@ -9,7 +9,7 @@ from new_code.stops import Stops
 from new_code.trip import Trip
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--static_data", default=False, type=bool, help="Fill with static data or dynamic real-time data.")
+parser.add_argument("--static_data", default=True, type=bool, help="Fill with static data or dynamic real-time data.")
 parser.add_argument("--update_time", default=20, type=int, help="Time to next request")
 parser.add_argument("--update_error", default=20, type=int, help="Update time if network error occurred")
 args = parser.parse_args([] if "__file__" not in globals() else None)
@@ -120,3 +120,5 @@ while True:
 		print(e)
 		# logging.warning("Sleep failed, " + str(e))
 		continue
+
+# tODO pokud staticke data, tak vkladat last_updated aktualni cas, protoze to vklada cas porizeni dat

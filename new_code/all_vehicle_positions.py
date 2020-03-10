@@ -10,7 +10,8 @@ from new_code.trip import Trip
 class Static_all_vehicle_positions:
 
 	def __init__(self):
-		self.files = glob.glob(str(File_system.static_vehicle_positions.with_suffix("*.tar.gz")))
+		# path = str(File_system.static_vehicle_positions) + "*.tar.gz"
+		self.files = glob.glob(str(File_system.static_vehicle_positions) + "/*.tar.gz")
 		self.files.sort(key=getmtime)
 
 	def static_get_all_vehicle_positions_json(self):
