@@ -1,5 +1,5 @@
 import argparse
-import datetime
+from datetime import datetime
 import json
 import logging
 import sys
@@ -135,14 +135,29 @@ class Server:
 		return stops_geojson
 
 	def get_trips_by_stop(self, stop_name):
-		trips = self.database_connection.execute_fetchall('SELECT trips.trip_source_id, trips.current_delay, headsigns.headsign from trips JOIN headsigns ON trips.id_headsign = headsigns.id_headsign AND trips.last_updated > now() - interval 10 MINUTE AND id_trip IN (SELECT DISTINCT id_trip FROM rides JOIN stops ON rides.id_stop = stops.id_stop AND stops.stop_name = %s);', (stop_name,))
+		trips = self.database_connection.execute_fetchall('SELECT trips.trip_source_id, trips.current_delay, headsigns.headsign, trips.trip_no from trips JOIN headsigns ON trips.id_headsign = headsigns.id_headsign AND trips.last_updated > now() - interval 10 MINUTE AND id_trip IN (SELECT DISTINCT id_trip FROM rides JOIN stops ON rides.id_stop = stops.id_stop AND stops.stop_name = %s);', (stop_name,))
+		stop_times = self.database_connection.execute_fetchall('SELECT trips.trip_source_id, rides.departure_time FROM trips JOIN rides ON trips.id_trip = rides.id_trip AND rides.id_stop IN (SELECT id_stop FROM stops WHERE stop_name = %s)', (stop_name,))
+		stop_time_dict = {}
+
+		for stop_time in stop_times:
+			stop_time_dict[stop_time[0]] = stop_time[1]
+
+
 		trips_json = []
+
+		now = datetime.now()
+		sec_since_midnight = (now - now.replace(hour=0, minute=0, second=0, microsecond=0)).total_seconds()
 		# print(trips)
 		for trip in trips:
+			# if trip will pass the stop it keeps the trip, else it erases the trip
+			if stop_time_dict[trip[0]].seconds < sec_since_midnight - trip[1]:
+				continue
 			trip_json = {}
 			trip_json["id"] = trip[0]
 			trip_json["delay"] = trip[1]
 			trip_json["headsign"] = trip[2]
+			trip_json["trip_no"] = trip[3]
+			trip_json["departure_time"] = stop_time_dict[trip[0]].total_seconds()
 			trips_json.append(trip_json)
 		return trips_json
 
@@ -164,27 +179,27 @@ class Server:
 
 			elif "trip" == request_body.split('.')[0]:
 				response_body = '[' + \
-					json.dumps(self.get_shape(request_body.split('.')[1])) + ',' + \
-					json.dumps(self.get_tail(request_body.split('.')[1])) + ',' + \
-					json.dumps(self.get_stops(request_body.split('.')[1])) + ']'
+					json.dumps(self.get_shape(request_body[request_body.index('.')+1:])) + ',' + \
+					json.dumps(self.get_tail(request_body[request_body.index('.')+1:])) + ',' + \
+					json.dumps(self.get_stops(request_body[request_body.index('.')+1:])) + ']'
 
 			elif "tail" == request_body.split('.')[0]:
 				# print("rb:", request_body)
-				response_body = json.dumps(self.get_tail(request_body.split('.')[1]))
-				print("tail:", request_body.split('.')[1], response_body)
+				response_body = json.dumps(self.get_tail(request_body[request_body.index('.')+1:]))
+				# print("tail:", request_body.split('.')[1], response_body)
 
 			elif "shape" == request_body.split('.')[0]:
-				response_body = json.dumps(self.get_shape(request_body.split('.')[1]))
+				response_body = json.dumps(self.get_shape(request_body[request_body.index('.')+1:]))
 				print("shape:", request_body.split('.')[1],  response_body)
 
 			elif "stops" == request_body.split('.')[0]:
-				response_body = json.dumps(self.get_stops(request_body.split('.')[1]))
+				response_body = json.dumps(self.get_stops(request_body[request_body.index('.')+1:]))
 				print("stops:", request_body.split('.')[1], response_body)
 
 			elif "trips_by_stop" == request_body.split('.')[0]:
 				print("trips by stop")
-				response_body = json.dumps(self.get_trips_by_stop(request_body.split('.')[1]))
-				print("trips_stop:", request_body.split('.')[1], response_body)
+				response_body = json.dumps(self.get_trips_by_stop(request_body[request_body.index('.')+1:]))
+				print("trips_stop:", request_body[request_body.index('.')+1:], response_body)
 
 			# print(response_body)
 			status = '200 OK'

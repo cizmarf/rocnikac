@@ -226,7 +226,8 @@
                 el_c.className = 'stop_pin';
 
                 el_c.addEventListener('click', function() {
-                    getFileByAJAXreq("trips_by_stop." + marker.name, show_trips_by_stop);
+                    no_stop_chosen = false;
+                    show_trips_by_stop(getFileByAJAXreqNoCallback("trips_by_stop." + marker.name), marker.name);
                 });
 
                 // TODO presunout cely element na prvni pricku v senzamu
@@ -301,7 +302,7 @@
 
                 td_stop_name.innerHTML = stop["name"];
                 console.log("tisknu departur " + stop["departure_time"]);
-                td_departure_time.innerHTML = this.toHHMMSS(stop["departure_time"]);
+                td_departure_time.innerHTML = toHHMMSS(stop["departure_time"]);
 
                 tr.append(td_stop_name);
                 tr.append(td_departure_time);
@@ -315,18 +316,6 @@
 
             return main_element;
 
-        }
-
-        toHHMMSS (sec_num) {
-            var sec_num = parseInt(sec_num, 10); // don't forget the second param
-            var hours   = Math.floor(sec_num / 3600);
-            var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
-            var seconds = sec_num - (hours * 3600) - (minutes * 60);
-
-            if (hours   < 10) {hours   = "0"+hours;}
-            if (minutes < 10) {minutes = "0"+minutes;}
-            if (seconds < 10) {seconds = "0"+seconds;}
-            return hours+':'+minutes;//+':'+seconds;
         }
 
         getFileByAJAXreq(str_request) {
@@ -354,8 +343,55 @@
         }
 
     }
+
+    function toHHMMSS (sec_num) {
+        var sec_num = parseInt(sec_num, 10); // don't forget the second param
+        var hours   = Math.floor(sec_num / 3600);
+        var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+        var seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+        if (hours   < 10) {hours   = "0"+hours;}
+        if (minutes < 10) {minutes = "0"+minutes;}
+        if (seconds < 10) {seconds = "0"+seconds;}
+        return hours+':'+minutes;//+':'+seconds;
+    }
+
+    function show_trips_passing_stop(trips){
+        var main_element = document.createElement("div");
+        main_element.id = "time_table";
+        var table = document.createElement("table");
+        var tbody = document.createElement("tbody");
+
+        trips.forEach(function (trip) {
+            var tr = document.createElement("tr");
+            var td_trip_no = document.createElement("td");
+            var td_trip_headsign = document.createElement("td");
+            var td_trip_departure = document.createElement("td");
+            var td_trip_delay = document.createElement("td");
+
+            td_trip_no.innerHTML = trip["trip_no"];
+            td_trip_delay.innerHTML = trip["delay"];
+            td_trip_headsign.innerHTML = trip["headsign"];
+
+            console.log("tisknu departur " + trip["departure_time"]);
+            td_trip_departure.innerHTML = toHHMMSS(trip["departure_time"]);
+
+            tr.append(td_trip_no);
+            tr.append(td_trip_headsign);
+            tr.append(td_trip_departure);
+            tr.append(td_trip_delay);
+
+            tbody.append(tr);
+
+        });
+
+        table.append(tbody);
+        main_element.append(table);
+        return main_element;
+
+    }
     
-    function show_trips_by_stop(trips){
+    function show_trips_by_stop(trips, name){
         trips = JSON.parse(trips);
 
         for (var trip in active_trips){
@@ -364,9 +400,13 @@
             delete active_trips[trip];
         }
 
-        delete_info();
-
+        // delete_info();
+        document.getElementById('features').innerHTML = "<div><h2>" + name + "</h2></div>";
+        document.getElementById('features').append(this.show_trips_passing_stop(trips));
+        document.getElementById('features').style.position = "absolute";
         trips.forEach(function (trip) {
+
+
             if (trip["id"] in buses_elements) {
                 var bus = new Active_trip(trip["id"], buses_elements[trip["id"]], trip["delay"], trip["headsign"]);
                 bus.show_on_map();
@@ -402,7 +442,31 @@
 		request.onerror = function(){
 			throw Error("Network error")
 		};
-		request.open('POST', "http://localhost:8080", true);
+		request.open('POST', "http://localhost:8080", true); // true for callback
+		request.send(str_request);
+		return request.responseText;
+	}
+
+	function getFileByAJAXreqNoCallback(str_request) {
+		try{
+			var request = new XMLHttpRequest();
+		}
+		catch (e){
+			alert("Your browser does not support AJAX!");
+	        return false;
+		}
+
+		request.onreadystatechange = function () {
+			if (this.readyState === 4) {
+				console.log('Prijato: ', request.responseText);
+				// callback(request.responseText);
+			}
+		};
+
+		request.onerror = function(){
+			throw Error("Network error")
+		};
+		request.open('POST', "http://localhost:8080", false); // true for callback
 		request.send(str_request);
 		return request.responseText;
 	}
@@ -560,7 +624,7 @@
 			if (marker.properties.gtfs_trip_id in active_trips) {
                 el.classList.add('extra_marker');
                 active_trips[marker.properties.gtfs_trip_id].update_realtime_data(marker.properties.delay);
-                if (Object.keys(active_trips).length === 1 ){
+                if (Object.keys(active_trips).length === 1 && no_stop_chosen){
                     active_trips[marker.properties.gtfs_trip_id].show_info();
                 }
             }
@@ -570,6 +634,8 @@
 			el.addEventListener('click', function() {
 
 			    if (marker.properties.gtfs_trip_id in active_trips) {
+
+			        no_stop_chosen = true;
 
                     var bus = active_trips[marker.properties.gtfs_trip_id];
                     delete active_trips[marker.properties.gtfs_trip_id];
@@ -581,6 +647,7 @@
 
                 }else{
 			        delete_info();
+			        no_stop_chosen = true;
                     var bus = new Active_trip(marker.properties.gtfs_trip_id, el, marker.properties.delay, marker.properties.headsign);
                     bus.show_on_map();
                     bus.show_info();
@@ -633,6 +700,8 @@
 			buses_elements[marker.properties.gtfs_trip_id] = el;
 		});
 	}
+
+
 	try{
 		// Get your own token here https://www.mapbox.com
 		mapboxgl.accessToken = 'pk.eyJ1IjoiZmlsaXBjaXptYXIiLCJhIjoiY2sxaHp3eHlzMGlmODNkanl2c2tqdTZscSJ9.rujrBlG1rSLuHpFaxxYX9w';
@@ -652,6 +721,7 @@
 		var buses = new Set();
 		var active_trips = {};
 		var buses_elements = {};
+		var no_stop_chosen = true;
 
 		getFileByAJAXreq("vehicles_positions", showBusesOnMap);
 
