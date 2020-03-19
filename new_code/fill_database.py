@@ -9,7 +9,8 @@ from new_code.stops import Stops
 from new_code.trip import Trip
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--static_data", default=False, type=bool, help="Fill with static data or dynamic real-time data.")
+parser.add_argument("--static_data", default=True, type=bool, help="Fill with static data or dynamic real-time data.")
+parser.add_argument("--static_demo", default=False, type=bool, help="Use only if static data in use, time of insert sets now and want 20 s for next file.")
 parser.add_argument("--update_time", default=20, type=int, help="Time to next request")
 parser.add_argument("--update_error", default=20, type=int, help="Update time if network error occurred")
 args = parser.parse_args([] if "__file__" not in globals() else None)
@@ -64,7 +65,8 @@ while True:
 			try:
 				# print(str(vehicle.get_tuple_update_trip()))
 				#TODO update delay based on ml model
-				database_connection.execute_transaction_commit_rollback('SELECT update_trip_and_insert_coordinates_if_changed(%s, %s, %s, %s, %s, %s);', vehicle.get_tuple_update_trip())
+				database_connection.execute_transaction_commit_rollback('SELECT update_trip_and_insert_coordinates_if_changed(%s, %s, %s, %s, %s, %s);',
+																		vehicle.get_tuple_update_trip(args.static_demo))
 			except IOError as e:
 				print("Update trip failed " + str(vehicle.trip_id) + str(e))
 
@@ -93,7 +95,7 @@ while True:
 
 			vehicle.id_trip = database_connection.execute_fetchall(
 				'SELECT insert_new_trip_to_trips_and_coordinates_and_return_id(%s, %s, %s, %s, %s, %s, %s, %s)',
-				vehicle.get_tuple_new_trip())[0][0]
+				vehicle.get_tuple_new_trip(args.static_demo))[0][0]
 			# database_connection.execute_many('INSERT IGNORE INTO rides (id_trip, id_stop, arrival_time, departure_time, shape_dist_traveled) VALUES (%s, %s, %s, %s, %s)', vehicle.get_tuple_new_trip())
 
 			Stops.insert_ride_by_trip(database_connection, vehicle)
@@ -104,7 +106,7 @@ while True:
 		except Exception as e:
 			# trips_black_list.add(vehicle.trip_id)
 			database_connection.execute('ROLLBACK;')
-			print(vehicle.get_tuple_new_trip())
+			print(vehicle.get_tuple_new_trip(args.static_demo))
 			print("new trip insert failed " + str(vehicle.trip_id) + str(e))
 			# TODO osetrit chyby ve vstupech
 			if isinstance(e, mysql.connector.errors.IntegrityError):
@@ -114,7 +116,7 @@ while True:
 
 
 	try:
-		if not args.static_data:
+		if args.static_demo:
 			time.sleep(args.update_time - (time.time() - req_start))
 	except Exception as e:
 		print(e)

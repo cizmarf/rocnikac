@@ -1,5 +1,6 @@
 import inspect
 import json
+from datetime import datetime
 from functools import wraps
 
 from new_code.file_system import File_system
@@ -95,16 +96,22 @@ class Trip:
 	# self.last_stop_delay = last_stop_delay
 
 
-	def get_tuple_new_trip(self) -> tuple:
+	def get_tuple_new_trip(self, static: bool) -> tuple:
 		"""
 		returns exact tuple for
 		:return:
 		:rtype:
 		"""
-		return (self.trip_id, self.trip_headsign, self.last_stop_delay, self.shape_traveled, self.trip_no, self.last_updated, self.lat, self.lon)
+		if static:
+			return (self.trip_id, self.trip_headsign, self.last_stop_delay, self.shape_traveled, self.trip_no, datetime.now(), self.lat, self.lon)
+		else:
+			return (self.trip_id, self.trip_headsign, self.last_stop_delay, self.shape_traveled, self.trip_no, self.last_updated, self.lat, self.lon)
 
-	def get_tuple_update_trip(self) -> tuple:
-		return (self.trip_id, self.cur_delay, self.shape_traveled, self.lat, self.lon, self.last_updated)
+	def get_tuple_update_trip(self, static) -> tuple:
+		if static:
+			return (self.trip_id, self.last_stop_delay, self.shape_traveled, self.lat, self.lon, datetime.now())
+		else:
+			return (self.trip_id, self.last_stop_delay, self.shape_traveled, self.lat, self.lon, self.last_updated)
 
 	def get_json_trip_file(self):
 		self.json_trip = Network.download_URL_to_json(Network.trip_by_id(self.trip_id))

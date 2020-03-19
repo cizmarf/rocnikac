@@ -22,10 +22,11 @@ connection_db = mysql.connector.connect(
 cursor_prepared_db = connection_db.cursor(prepared=True)
 cursor_db = connection_db.cursor()
 
+cursor_db.execute("use vehicles_info;")
 
 result = SQL_queries.sql_get_result(
 	cursor_db,
-	"""	select inn.id_trip, inn.id_stop, inn.lead_stop, departure_time, inn.lead_stop_departure_time, 
+	"""select inn.id_trip, inn.id_stop, inn.lead_stop, departure_time, inn.lead_stop_departure_time, 
 			(inn.lead_stop_shape_dist_traveled - inn.shape_dist_traveled) as diff_shape_trav, 
 			trip_coordinates.time, 
 			(trip_coordinates.shape_traveled - inn.shape_dist_traveled) as shifted_shape_trav, 
@@ -148,7 +149,7 @@ for e in num:
 	ax.scatter(xx2,xx1, Z, alpha=0.4)
 	ax.scatter(times_dep, shape, times_coo)
 	# X_train = X_train.transpose()
-	# ax.scatter(X_train[1], X_train[0], y_train)
+	ax.scatter(X_train[1], X_train[0], y_train)
 	ax.scatter(arr_t_d, arr_shape, arr_t_c, c='r')
 
 	ax.set_ylabel('shape dt')
