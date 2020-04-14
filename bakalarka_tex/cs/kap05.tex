@@ -1,0 +1,140 @@
+%%% Fiktivní kapitola s instrukcemi k PDF/A
+
+\chapter{Algoritmus odhadu zpoždění}
+
+Tato kapitola pospisuje hledání optimálního modelu pro popis pohybu vozidel na trase.
+
+\subsection{Základní úvahy}
+
+Z toho jak je problém formulován vyplývá, že se má odhadovat zpoždění mezi dvěma refenčními body a jediné takové jsou zastávky na trase danného spoje. Proto cíl algortimu může být formulován jako vytvořit popis průběh trasy mezi každou dvojcí zastávek, které alesponˇ jeden spoj obsluhuje a jsou bezprostředně sousedící ve sledu zastávek ve směru jízdy tohoto spoje.
+
+\bigbreak
+
+
+
+
+\subsubsection{Mapbox API}
+
+Prostředí Mapbox je široce využívaný multiplatformový nástroj pro zobrazení mapového podkladu a umožnˇuje do něj zanést širokou škálu různých geometrických útvarů. Tak že mapové prostředí intuitivně interaguje s uživatelem a vývojáři mohou využití jednoduchécho \gls{api} pro zobrazení žádoucích dat do mapy.
+
+\bigbreak
+
+Webová aplikace této práce využívá naprosto základní funkcionality, které mapbox umožnˇuje. Jejich popis včetně načtení do webové stránky za předpokladu, že jsou splněny základní parametry webové stránky je následující.
+
+\bigbreak
+
+Rozhraní se do webové stránky importuje pomocí:
+\begin{code}[frame=none]
+<script src='https://api.tiles.mapbox.com/
+	mapbox-gl-js/v1.4.0/mapbox-gl.js'></script>
+<link href='https://api.tiles.mapbox.com/
+	mapbox-gl-js/v1.4.0/mapbox-gl.css' rel='stylesheet' />
+\end{code}
+
+\bigbreak
+
+Dále je potřeba vytvořit element s identifikátorem webové stránky, kde bude mapa zobrazena.
+
+\bigbreak
+
+Po naiportovéní je v JavaScriptu k dispozici knihovna jménem \verb-mapboxgl- pomocí, které se ovládá celé mapové prostředí. Pomocí ní je tedˇ možné vytvořit mapu.
+\begin{code}[frame=none]
+var map = new mapboxgl.Map({
+	container: 'map', // identifikátor HTML elementu
+	style: 'mapbox://styles/mapbox/streets-v11',
+	center: [14.42, 50.08], // střed mapy při
+		inicializaci [lng, lat]
+	zoom: 10 // zoom při inicializaci
+});
+\end{code}
+
+\bigbreak
+
+Nyní stačí jen vytvořit \gls{html} element za pomocí \gls{js} a po té může být přidám do mapy funkcí:
+\begin{code}[frame=none]
+new mapboxgl.Marker(element)
+	.setLngLat([Lng, Lat]) // zeměpisná výška a šířka
+		umítění elementu
+	.addTo(map);
+\end{code}
+
+\bigbreak
+
+Pro vykreslení složitějších objektů, jako je třeba lomená čára se využívá funkce \verb-addLayer-.
+\begin{code}[frame=none]
+map.addLayer({
+	"id": id, // identifikátor vrstvy
+	"type": "line", // geometrický útvar k zobrazení
+	"source": {
+		"type": "geojson", // formát zdrojových dat
+		"data": data // zdroj dat
+	},
+	"paint": {
+		"line-color": "#BF93E4", // barva
+		"line-width": 5 // šířka
+	}
+});
+\end{code}
+
+\bigbreak
+
+K manipulaci s objekty typu \verb-Layer- se používá
+\begin{code}[frame=none]
+map.getLayer(id);
+map.gremoveLayer(id);
+\end{code}
+
+\subsubsection{Funkce a design aplikace}
+
+% TODO vypsat co vsechno to umi
+
+
+\subsection{Serverová část}
+
+Příchozí požadavky od klineta jsou řešeny skriptem na serverové straně. Který je napojený na databázi a z ní extrahuje potřebná data.
+
+\bigbreak
+
+Data jsou posílána v textové podobě ve formátu \gls{geojson}, který skrip konstruuje z dat získaných z databáze.
+
+\bigbreak
+
+Server reaguje na 4 typy požadavků:
+
+\begin{itemize}
+	\item \verb-get_vehicle_positions- vrátí aktuální polohy všech vozidel,
+
+	\item \verb-get_tail- vrátí lomenou čáru popisující pohyb vozidla v uplynulých $n$ minutách podle id tripu,
+
+	\item \verb-get_shape- vrátí lomenou čáru popisující trasu spoje podle id spoje,
+
+	\item \verb-get_stops- vrátí seznam zastávek pro spoj podle jeho id.
+\end{itemize}
+
+\bigbreak
+
+Server je naprogramovám pomocí Pythoní knihovny \verb-simple_server-, která slouží pouze k debugování, jak se píše v její dokumentaci. (TODO odkaz na dokumentaci). Protože se nepočítá s reálným nasezením této aplikace, není potřeba programovat robustní server. Pro takové užití by bylo třeba přejít na více vláknové řešení.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%f

@@ -13,7 +13,7 @@ from sklearn.preprocessing import PolynomialFeatures
 
 from database import Database
 
-from new_code.two_stops_model import Two_stops_model
+from two_stops_model import Two_stops_model
 
 database_connection = Database()
 
@@ -178,6 +178,16 @@ for e in num:
 	ax = fig.add_subplot(111, projection='3d')
 	if Z is not None:
 		ax.scatter(xx2,xx1, Z, alpha=0.4)  # grid model
+
+	if model.get_name() == "Hull":
+		print("is hull")
+		lin_arrivals = np.linspace(min(coor_times), max(coor_times), 30)
+		pred = model.predict_nonstandard(lin_arrivals)
+		ax.scatter(lin_arrivals, np.full(30, distance), pred)
+		points = np.array(model.points_of_concave_hull).transpose()
+		ax.scatter(points[0], points[2], points[1])
+
+
 	ax.scatter(coor_times, shape_dist_trv, coor_times_norm)  # known data
 	# X_train = X_train.transpose()
 	# ax.scatter(X_train[1], X_train[0], y_train)

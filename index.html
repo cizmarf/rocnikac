@@ -268,7 +268,7 @@
 			elem.remove();
 			elems.delete(elem);
 		});
-		veh_pos_geojson = JSON.parse(veh_pos_geojson)
+		veh_pos_geojson = JSON.parse(veh_pos_geojson);
 		veh_pos_geojson.features.forEach(function(marker) {
 			// create a DOM element for the marker
 			var el = document.createElement('div');
