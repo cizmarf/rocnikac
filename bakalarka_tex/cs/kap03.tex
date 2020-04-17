@@ -4,7 +4,7 @@
 
 Na datové platformě jsou real-time data o vozidlech dostupná do historie řádově jednotek minut, což je naprosto nedostatečné pro jakékoliv pozdější využití. Hlavně pro počítání statistik nad daty je potřeba zřídit lokální databázi, která bude držet historická data, tak jak proudila ze zdroje. Navíc data jsou poskytována ve formátu \gls{json}, který svou povahou není zrovna úsporný co se do velikosti souboru týče. Proto je vhodné zvolit ukládání dat v jiném formátu.
 
-\subsection{Databáze}
+\section{Databáze}
 
 Tato práce využívá relační databázi obsluhovanou dotazovacím jazykem \gls{sql}. Tato databáze se skládá z 5 tabulek. Jsou jimi:
 
@@ -105,7 +105,7 @@ TODO obrazek na bilem pozadi
 
 Databáza je nastavená tak, aby umožnˇovala získat všechny potřebné informace o vozidlech, ale hlavně přístup k historickým real-time datům a to separovaně pro dvojci refenčních bodů.
 
-TODO celá databaze je definovana v priloze, napsat to jako odstavec nebo jak se toto uvadi?
+TODO SQL dotazy na sestavení celé databaze jsou definovana v priloze, napsat to jako odstavec nebo jak se toto uvadi?
 
 \subsection{Obsluha databáze}
 

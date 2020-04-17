@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  8 MAR 2020 13:04
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  18 APR 2020 00:05
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -844,7 +844,8 @@ Package hyperref Info: Option `breaklinks' set `true' on input line 241.
 \c@veta=\count151
 \c@definice=\count152
 ) (./prace.aux (./titulka.aux) (./uvod.aux) (./kap01.aux)
-(./kap02.aux) (./kap03.aux) (./kap04.aux) (./zaver.aux) (./literatura.aux))
+(./kap02.aux) (./kap03.aux) (./kap04.aux) (./kap05.aux) (./zaver.aux)
+(./literatura.aux))
 \openout1 = `prace.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 247.
@@ -930,7 +931,7 @@ LaTeX Info: Redefining \nameref on input line 247.
 
  (./titulka.tex
 Package hyperref Info: Option `pageanchor' set `false' on input line 6.
-<../img/logo-cs.pdf, id=95, 506.4591pt x 156.49065pt>
+<../img/logo-cs.pdf, id=111, 506.4591pt x 156.49065pt>
 File: ../img/logo-cs.pdf Graphic file (type pdf)
 <use ../img/logo-cs.pdf>
 Package pdftex.def Info: ../img/logo-cs.pdf  used on input line 10.
@@ -1031,12 +1032,12 @@ e vy-u-ºita knihovna|
  []
 
 [4]
-<../img/golemio_mapa.png, id=183, 1063.975pt x 723.70375pt>
+<../img/golemio_mapa.png, id=203, 1063.975pt x 723.70375pt>
 File: ../img/golemio_mapa.png Graphic file (type png)
 <use ../img/golemio_mapa.png>
 Package pdftex.def Info: ../img/golemio_mapa.png  used on input line 91.
 (pdftex.def)             Requested size: 412.56496pt x 280.62003pt.
-<../img/tram-bus_mapa.png, id=186, 928.46875pt x 783.92876pt>
+<../img/tram-bus_mapa.png, id=206, 928.46875pt x 783.92876pt>
 File: ../img/tram-bus_mapa.png Graphic file (type png)
 <use ../img/tram-bus_mapa.png>
 Package pdftex.def Info: ../img/tram-bus_mapa.png  used on input line 101.
@@ -1048,7 +1049,7 @@ Overfull \hbox (6.94542pt too wide) in paragraph at lines 108--109
  []
 
 [5 <../img/golemio_mapa.png>] [6 <../img/tram-bus_mapa.png>]
-<../img/idsjmk_mapa.png, id=207, 1179.40625pt x 932.48375pt>
+<../img/idsjmk_mapa.png, id=227, 1179.40625pt x 932.48375pt>
 File: ../img/idsjmk_mapa.png Graphic file (type png)
 <use ../img/idsjmk_mapa.png>
 Package pdftex.def Info: ../img/idsjmk_mapa.png  used on input line 115.
@@ -1081,7 +1082,7 @@ Package hyperref Warning: Difference (2) between bookmark levels is greater
 
 
 ]
-<../img/eer_database.pdf, id=262, 794.97pt x 614.295pt>
+<../img/eer_database.pdf, id=282, 794.97pt x 614.295pt>
 File: ../img/eer_database.pdf Graphic file (type pdf)
 <use ../img/eer_database.pdf>
 Package pdftex.def Info: ../img/eer_database.pdf  used on input line 96.
@@ -1101,15 +1102,34 @@ Package hyperref Warning: Difference (2) between bookmark levels is greater
 
 
 ]
-Overfull \hbox (7.33485pt too wide) in paragraph at lines 89--90
+Overfull \hbox (7.33485pt too wide) in paragraph at lines 93--94
 []\T1/lmr/m/n/12 P°íchozí po-ºa-davky od kli-neta jsou °e-²eny skrip-tem na ser
 -ve-rové stran¥. Který je|
  []
 
 ) [16]
+\openout2 = `kap05.aux'.
+
+ (./kap05.tex
+Kapitola 5.
+
+Package hyperref Warning: Difference (2) between bookmark levels is greater 
+(hyperref)                than one, level fixed on input line 11.
+
+[17
+
+
+
+]
+Overfull \hbox (1.39368pt too wide) in paragraph at lines 69--70
+[]\T1/lmr/m/n/12 TODO ob-razky kratka trasa s moc ne-kon-zis-tent-nimi daty, dl
+ouha trasa hladka,|
+ []
+
+[18]) [19]
 \openout2 = `zaver.aux'.
 
- (./zaver.tex) [17
+ (./zaver.tex) [20
 
 
 
@@ -1120,7 +1140,7 @@ Overfull \hbox (7.33485pt too wide) in paragraph at lines 89--90
 
 Package natbib Warning: Empty `thebibliography' environment on input line 8.
 
-)) [18
+)) [21
 
 
 
@@ -1128,52 +1148,46 @@ Package natbib Warning: Empty `thebibliography' environment on input line 8.
 \tf@lof=\write7
 \openout7 = `prace.lof'.
 
- [19
+ [22
 
 
 ] (./prace.lot)
 \tf@lot=\write8
 \openout8 = `prace.lot'.
 
- [20
+ [23
 
 ]
 Using TeX to sort glossary entries---this may take a while
-[21
+[24
 
-] [22
+] [25
 
 
 ]
 P\v {r}\'{\i }loha A.
-[23
+[26
 
 ]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 295.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 295.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 296.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 296.
  (./prace.aux (./titulka.aux) (./uvod.aux) (./kap01.aux) (./kap02.aux)
-(./kap03.aux) (./kap04.aux) (./zaver.aux) (./literatura.aux))
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 295.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 295.
+(./kap03.aux) (./kap04.aux) (./kap05.aux) (./zaver.aux) (./literatura.aux))
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 296.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 296.
+Package rerunfilecheck Info: File `prace.out' has not changed.
+(rerunfilecheck)             Checksum: 90922DFFE380299469B3B3368239863B;3899.
 
-
-Package rerunfilecheck Warning: File `prace.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `prace.out':
-(rerunfilecheck)             Before: 25FA1FF87A35CE06D93954F01E04C8E3;3286
-(rerunfilecheck)             After:  2BEBD7B79457A283E41C7BAD127D32E2;3435.
 
 LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 295.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 296.
  ) 
 Here is how much of TeX's memory you used:
- 22244 strings out of 492616
- 337799 string characters out of 6129482
- 450817 words of memory out of 5000000
- 25624 multiletter control sequences out of 15000+600000
+ 22266 strings out of 492616
+ 338043 string characters out of 6129482
+ 451375 words of memory out of 5000000
+ 25629 multiletter control sequences out of 15000+600000
  61799 words of font info for 55 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  45i,6n,57p,1970b,2327s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1185,10 +1199,10 @@ e1/public/lm/lmmi12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/
 lm/lmr12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/lm/lmr17.pf
 b></usr/local/texlive/2019/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/lo
 cal/texlive/2019/texmf-dist/fonts/type1/public/lm/lmtt12.pfb>
-Output written on prace.pdf (27 pages, 7209686 bytes).
+Output written on prace.pdf (30 pages, 7220160 bytes).
 PDF statistics:
- 432 PDF objects out of 1000 (max. 8388607)
- 368 compressed objects within 4 object streams
- 90 named destinations out of 1000 (max. 500000)
- 214 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 477 PDF objects out of 1000 (max. 8388607)
+ 409 compressed objects within 5 object streams
+ 100 named destinations out of 1000 (max. 500000)
+ 246 words of extra memory for PDF output out of 10000 (max. 10000000)
 

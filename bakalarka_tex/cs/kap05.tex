@@ -4,116 +4,109 @@
 
 Tato kapitola pospisuje hledání optimálního modelu pro popis pohybu vozidel na trase.
 
-\subsection{Základní úvahy}
+\bigbreak
 
-Z toho jak je problém formulován vyplývá, že se má odhadovat zpoždění mezi dvěma refenčními body a jediné takové jsou zastávky na trase danného spoje. Proto cíl algortimu může být formulován jako vytvořit popis průběh trasy mezi každou dvojcí zastávek, které alesponˇ jeden spoj obsluhuje a jsou bezprostředně sousedící ve sledu zastávek ve směru jízdy tohoto spoje.
+Z toho jak je problém formulován vyplývá, že se má odhadovat zpoždění mezi dvěma refenčními body a jediné takové jsou zastávky na trase danného spoje. Proto cíl algortimu může být formulován jako vytvořit popis průběh trasy mezi každou dvojcí zastávek, které alesponˇ jeden spoj obsluhuje a jsou bezprostředně sousedící ve sledu zastávek ve směru jízdy tohoto spoje. Nechtˇ se dvojce bodů a spoj je obsluhůjící splnˇující předcházející předpoklad označuje jako A, B a S.
+
+\section{Základní předpoklady}
+
+Hned na začátek je potřeba ustanovit základní předpoklady, ze kterých bude vycházet sestrojený algoritmus.
 
 \bigbreak
 
-
-
-
-\subsubsection{Mapbox API}
-
-Prostředí Mapbox je široce využívaný multiplatformový nástroj pro zobrazení mapového podkladu a umožnˇuje do něj zanést širokou škálu různých geometrických útvarů. Tak že mapové prostředí intuitivně interaguje s uživatelem a vývojáři mohou využití jednoduchécho \gls{api} pro zobrazení žádoucích dat do mapy.
+Zastávky je potřeba rozlišovat na jednotlivá nástupiště. Toto výrazně nezvýší počet dvojic zastávek A a B. -- Naprostá většina zastávek má pouze dvě nástupiště. Pro každý směr jedno. Pokud má více nástupištˇ, pak tak bývá v případech, kdy ze zastávky odjíždí spoje do  více směrů a tudíž pro každné nástupiště je jiná následující zastávka.
 
 \bigbreak
 
-Webová aplikace této práce využívá naprosto základní funkcionality, které mapbox umožnˇuje. Jejich popis včetně načtení do webové stránky za předpokladu, že jsou splněny základní parametry webové stránky je následující.
+Všechny spoje S bez ohladu na linku nebo dopravce jedou ze zastávky A do zastávky B po stejné trase a tedy vzdálenost je konstatní. -- Předpokládá se, že žáný dopravce neužívá jinou komunikaci a pro všechny platí pravidla silničního provozu stejně. V případě mimořádností se trasa může měnit, nicméně detekce mimořádností a jejich řešení je nad rámec této práce.
 
 \bigbreak
 
-Rozhraní se do webové stránky importuje pomocí:
+Čas jízdy ze zastávky A do B závisí pouze na denní době. -- Vysvětleno výše navíc platí žádný z dopravců nedisponuje právem přednosti v jízdě před jiným dopravcem nebo výrazně výkonějším vozidlem.  Dojezdové časy mohou být ovlivněny jen charakterem řidiče, avšak toto není zjistitelné z poskytnutých dat a zárovenˇ se předpokládá, že charatery řidičů jsou rovnoměrně rozloženy mezi všechny dopravce a linky. Podle jízdních řádů některé linky jedou rychleji než jiné, avšak skutečné doba jízdenky je stejná. To že některý spoj zastávku projíždí a tím je rychlejší než jiný spoj není porušení tohoto předpokladu protože se jedná o dvě různé dvojce zastávek.
+
+\bigbreak
+
+Během jízdy mohou nastat mimořádnosti, které porušují výše uvedené předpoklady, nicméně detekce mimořádností a jejich řešení je nad rámec této práce a jejich počet je zanedbatelný, proto na statistické modely nebudou mít vliv.
+
+
+\subsection{Analýza dat}
+
+Z dat popsaných v kapitole (TODO link kap 2???) je potřeba získat všechny dvojce zastávek A, B a všechny oznámené polohy vozidel mezi nimi. Toto je možné z databáze popsané v kapitole (TOTO link pak 3) zjistit pomocí jízdních řádů a dále pomocí atributu \verb-dist_shape_traveled- uvedého u každé zastávky pro každý spoj získat i jednotlivé polohy vozidel.
+
+\bigbreak
+
+Toto je možné realizovat pomocí následujícího \gls{sql} dotazu.
+
+TODO upravit a vylepsit tento dotaz
 \begin{code}[frame=none]
-<script src='https://api.tiles.mapbox.com/
-	mapbox-gl-js/v1.4.0/mapbox-gl.js'></script>
-<link href='https://api.tiles.mapbox.com/
-	mapbox-gl-js/v1.4.0/mapbox-gl.css' rel='stylesheet' />
+select inn.id_trip,
+	inn.id_stop,
+	inn.lead_stop,
+	departure_time,
+	inn.lead_stop_departure_time,
+	(inn.lead_stop_shape_dist_traveled - inn.shape_dist_traveled) as diff_shape_trav,
+	trip_coordinates.inserted,
+	(trip_coordinates.shape_dist_traveled - inn.shape_dist_traveled) as shifted_shape_trav,
+	trip_coordinates.delay
+FROM (
+	SELECT id_trip, id_stop, shape_dist_traveled, departure_time,
+		LEAD(id_stop, 1) OVER (PARTITION BY id_trip ORDER BY shape_dist_traveled) lead_stop,
+		LEAD(shape_dist_traveled, 1) OVER (PARTITION BY id_trip ORDER BY shape_dist_traveled) lead_stop_shape_dist_traveled,
+		LEAD(departure_time, 1) OVER (PARTITION BY id_trip ORDER BY shape_dist_traveled) lead_stop_departure_time
+	FROM rides) as inn
+	JOIN trip_coordinates
+	ON trip_coordinates.id_trip = inn.id_trip and inn.lead_stop_shape_dist_traveled - inn.shape_dist_traveled > 1500 and trip_coordinates.shape_dist_traveled between inn.shape_dist_traveled and inn.lead_stop_shape_dist_traveled
 \end{code}
 
 \bigbreak
 
-Dále je potřeba vytvořit element s identifikátorem webové stránky, kde bude mapa zobrazena.
+Nyní je pro představení si situalce uvedeno několik vizualizací těchto dat. Zejména pak s důrazem na rozlišnosti mezi průběhy tras mezi různými dvojcemi zastávek.
 
 \bigbreak
 
-Po naiportovéní je v JavaScriptu k dispozici knihovna jménem \verb-mapboxgl- pomocí, které se ovládá celé mapové prostředí. Pomocí ní je tedˇ možné vytvořit mapu.
-\begin{code}[frame=none]
-var map = new mapboxgl.Map({
-	container: 'map', // identifikátor HTML elementu
-	style: 'mapbox://styles/mapbox/streets-v11',
-	center: [14.42, 50.08], // střed mapy při
-		inicializaci [lng, lat]
-	zoom: 10 // zoom při inicializaci
-});
-\end{code}
+Všechny diagramy níže a posléze algoritmy pracují s těmito daty jako body třírozměrného prostoru. Každý tento bod reprezentuje jedno hlášení o poloze vozidla. První dimenze bodu je denní doba (v grafech znázorněno jako počet sekund od půlnoci), druhá dimenze je vzdálenost od výchozí zastávky (znázorněno jako počet metrů) a třetí dimenze reprezentuje čas od vyjetí z výchozí stanice (počet sekund).
+
+TODO obrazky kratka trasa s moc nekonzistentnimi daty, dlouha trasa hladka, dlouha trasa s anomaliemi, trasy s nedostatkem dat, trasy kde jsou pekne videt krizovatky (cca 5 prikaldu)
+
+
+\section{Návrh modelu}
+
+Z výše uvedených vizualizací dat vyplývá, že hledání univerzálního modelu popisující všechny možné průběhy tras je nereálné.
 
 \bigbreak
 
-Nyní stačí jen vytvořit \gls{html} element za pomocí \gls{js} a po té může být přidám do mapy funkcí:
-\begin{code}[frame=none]
-new mapboxgl.Marker(element)
-	.setLngLat([Lng, Lat]) // zeměpisná výška a šířka
-		umítění elementu
-	.addTo(map);
-\end{code}
+Lepší je různé průběhy tras rozdělit podle jejich vlastností do kategorií a pro každou použít jiný model. Použité dílčí modely jsou:
+
+
+\subsection{Lineární model}
+
+Ačkoli je snaha tento model nahradit lepším, v některých situacích může jeho použití i na dále dávat smysl. Zejména pak v případech kdy není k dispozici dostatek dat a nebo je vzdálenost dvou zastávek natolik malá, že nemá smyl ani jakýkoliv odhat zpoždění dělat. (TODO do problemu: Lepší by bylo volit trasy s nejmenší dobou jízdy, ale čas jízdy je promněnlivý a težko se získá skutečná doba jízdy z dat. Navíc v praxi jsou vzdálenost a doba jízdy dostatečně závislé)
+
+(TODO obrázek lineárního modelu)
+
+
+\subsection{Polynomiální model}
+
+Polynomiální model se hodí pro situace kdy je průběh trasy nějak ovlivněn vždy ve stejném úseku a má vliv na každý projíždějící spoj. Nebo se v průběhu dne pozvolna mění v závislosti na dopravním vytížení projížděných úseků.
 
 \bigbreak
 
-Pro vykreslení složitějších objektů, jako je třeba lomená čára se využívá funkce \verb-addLayer-.
-\begin{code}[frame=none]
-map.addLayer({
-	"id": id, // identifikátor vrstvy
-	"type": "line", // geometrický útvar k zobrazení
-	"source": {
-		"type": "geojson", // formát zdrojových dat
-		"data": data // zdroj dat
-	},
-	"paint": {
-		"line-color": "#BF93E4", // barva
-		"line-width": 5 // šířka
-	}
-});
-\end{code}
+K tomuto dochází například v případech kdy spoj zastavuje ve městě a v následujících několika málo kilometrech jede pomaleji, poté zrychlý a dále opět vjede do města. Takový model se hodí spíše na delší trasy s plynulou jízdou.
 
 \bigbreak
 
-K manipulaci s objekty typu \verb-Layer- se používá
-\begin{code}[frame=none]
-map.getLayer(id);
-map.gremoveLayer(id);
-\end{code}
+Pro spočítání polynomiálního modelu se využívá knihovna sklearn konkrétně algoritmus zvaný Rigde, který sám o sobě hledá linární závislosti, nicméně vstupní hodnoty jsou mezi sebou náležitě pronásobeny tak, aby simulovali polynomiální funkci. Toho se dosáhne pomocí funkce PolynomialFeatures. Optimální stupenˇ polynomu se zjistí spočítáním modelu pro každý stupenˇ v rozumných mezích a nakonec se zvolí ten s nejmenší chybou. (TODO jak moc detailně se ma toto popisovat?)
 
-\subsubsection{Funkce a design aplikace}
-
-% TODO vypsat co vsechno to umi
+(TODO obrazek poly modelu)
 
 
-\subsection{Serverová část}
+\subsection{Model pomocí konkávního obalu}
 
-Příchozí požadavky od klineta jsou řešeny skriptem na serverové straně. Který je napojený na databázi a z ní extrahuje potřebná data.
+Posledním a nejkomplikovanějším modelem, zasluhující nejvíce pozornosti, je popsání trasy za pomocí konkávního obalu bodů.
 
 \bigbreak
 
-Data jsou posílána v textové podobě ve formátu \gls{geojson}, který skrip konstruuje z dat získaných z databáze.
-
-\bigbreak
-
-Server reaguje na 4 typy požadavků:
-
-\begin{itemize}
-	\item \verb-get_vehicle_positions- vrátí aktuální polohy všech vozidel,
-
-	\item \verb-get_tail- vrátí lomenou čáru popisující pohyb vozidla v uplynulých $n$ minutách podle id tripu,
-
-	\item \verb-get_shape- vrátí lomenou čáru popisující trasu spoje podle id spoje,
-
-	\item \verb-get_stops- vrátí seznam zastávek pro spoj podle jeho id.
-\end{itemize}
-
-\bigbreak
-
-Server je naprogramovám pomocí Pythoní knihovny \verb-simple_server-, která slouží pouze k debugování, jak se píše v její dokumentaci. (TODO odkaz na dokumentaci). Protože se nepočítá s reálným nasezením této aplikace, není potřeba programovat robustní server. Pro takové užití by bylo třeba přejít na více vláknové řešení.
+Tato metoda vznikla jako řešení situace, kdy na trase exituje bod, který určité procento projíždějících spojů zdrží o netriviální dobu. Něco takového nastane pokud spoje projíždí světelnou křižovatkou nebo místem přek kterým se tvoří kolona vozidel. Zde dochází ke skové změně průběhu bodové funkce a spojité modely by s okolím tohoto kritického místa měly problém. Pro jeden takový bod by možná šlo navrhnout jednoduší řešení, nicméně je potřeba algoritmus, který umí pracovat s více kritickými body na trase. Například je nutné poradit si se situací zobrazené na diagramu (TODO link na obrazek), kde jsou na trase takové kritické body dva. V této modelové situaci je pro jednoduchost uvažováno, že se většina projíždějících spojů zdrží v prvním kritickém bodě, nebo v druhém, nebo se lehce zdrží v obou. Stakovým zdržením je počítáno v jízdním řádu a tedy vozidla, která projedou první kritický bod jedou na čas stejně tak jako vozidla v něm zdržená. O snížení nebo zvýšení případného zpoždění spoje je možno rozhodnout až po projetí druhého bodu. Jinými slovy na ose uplynulého času od vyjetí ze zastávky vzniká jakýsi podprostor v němž se zpoždění nemění. Pro jeho popis se využívá právě konkávní obal všech spojů, které přijely včas.
 
 
 
@@ -137,4 +130,27 @@ Server je naprogramovám pomocí Pythoní knihovny \verb-simple_server-, která
 
 
 
-%f
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+f
