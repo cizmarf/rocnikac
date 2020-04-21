@@ -19,24 +19,26 @@
 \contentsline {subsubsection}{Jednotliv\IeC {\'e} tripy}{9}{section*.11}% 
 \contentsline {subsubsection}{Zast\IeC {\'a}vky}{10}{section*.12}% 
 \contentsline {chapter}{\numberline {3}Zpracov\IeC {\'a}n\IeC {\'\i } dat}{11}{chapter.3}% 
-\contentsline {subsection}{\numberline {3.0.1}Datab\IeC {\'a}ze}{11}{subsection.3.0.1}% 
-\contentsline {subsection}{\numberline {3.0.2}Obsluha datab\IeC {\'a}ze}{12}{subsection.3.0.2}% 
+\contentsline {section}{\numberline {3.1}Datab\IeC {\'a}ze}{11}{section.3.1}% 
+\contentsline {subsection}{\numberline {3.1.1}Obsluha datab\IeC {\'a}ze}{12}{subsection.3.1.1}% 
 \contentsline {chapter}{\numberline {4}Vizualizace dat}{15}{chapter.4}% 
-\contentsline {subsection}{\numberline {4.0.1}Klientsk\IeC {\'a} \IeC {\v c}\IeC {\'a}st}{15}{subsection.4.0.1}% 
+\contentsline {section}{\numberline {4.1}Klientsk\IeC {\'a} \IeC {\v c}\IeC {\'a}st}{15}{section.4.1}% 
 \contentsline {subsubsection}{Mapbox API}{15}{section*.13}% 
 \contentsline {subsubsection}{Funkce a design aplikace}{16}{section*.14}% 
-\contentsline {subsection}{\numberline {4.0.2}Serverov\IeC {\'a} \IeC {\v c}\IeC {\'a}st}{16}{subsection.4.0.2}% 
+\contentsline {section}{\numberline {4.2}Serverov\IeC {\'a} \IeC {\v c}\IeC {\'a}st}{16}{section.4.2}% 
 \contentsline {chapter}{\numberline {5}Algoritmus odhadu zpo\IeC {\v z}d\IeC {\v e}n\IeC {\'\i }}{17}{chapter.5}% 
-\contentsline {subsection}{\numberline {5.0.1}Z\IeC {\'a}kladn\IeC {\'\i } \IeC {\'u}vahy}{17}{subsection.5.0.1}% 
-\contentsline {subsubsection}{Anal\IeC {\'y}za dat}{17}{section*.15}% 
-\contentsline {subsection}{\numberline {5.0.2}N\IeC {\'a}vrh modelu}{18}{subsection.5.0.2}% 
-\contentsline {subsubsection}{Line\IeC {\'a}rn\IeC {\'\i } model}{18}{section*.16}% 
-\contentsline {subsubsection}{Polynomi\IeC {\'a}ln\IeC {\'\i } model}{19}{section*.17}% 
-\contentsline {subsubsection}{Model pomoc\IeC {\'\i } konk\IeC {\'a}vn\IeC {\'\i }ho obalu}{19}{section*.18}% 
-\contentsline {chapter}{Z\IeC {\'a}v\IeC {\v e}r}{20}{chapter*.19}% 
-\contentsline {chapter}{Seznam pou\IeC {\v z}it\IeC {\'e} literatury}{21}{chapter*.20}% 
-\contentsline {chapter}{Seznam obr\'azk\r {u}}{22}{chapter*.21}% 
-\contentsline {chapter}{Seznam tabulek}{23}{chapter*.22}% 
-\contentsline {chapter}{Seznam pou\IeC {\v z}it\IeC {\'y}ch zkratek}{24}{chapter*.23}% 
-\contentsline {chapter}{\numberline {A}P\IeC {\v r}\IeC {\'\i }lohy}{26}{appendix.A}% 
-\contentsline {section}{\numberline {A.1}Prvn\IeC {\'\i } p\IeC {\v r}\IeC {\'\i }loha}{26}{section.A.1}% 
+\contentsline {section}{\numberline {5.1}Z\IeC {\'a}kladn\IeC {\'\i } p\IeC {\v r}edpoklady}{17}{section.5.1}% 
+\contentsline {subsection}{\numberline {5.1.1}Anal\IeC {\'y}za dat}{17}{subsection.5.1.1}% 
+\contentsline {section}{\numberline {5.2}N\IeC {\'a}vrh modelu}{18}{section.5.2}% 
+\contentsline {subsection}{\numberline {5.2.1}Line\IeC {\'a}rn\IeC {\'\i } model}{18}{subsection.5.2.1}% 
+\contentsline {subsection}{\numberline {5.2.2}Polynomi\IeC {\'a}ln\IeC {\'\i } model}{19}{subsection.5.2.2}% 
+\contentsline {subsection}{\numberline {5.2.3}Model pomoc\IeC {\'\i } konk\IeC {\'a}vn\IeC {\'\i }ho obalu}{19}{subsection.5.2.3}% 
+\contentsline {subsubsection}{Probl\IeC {\'e}my}{20}{section*.15}% 
+\contentsline {subsubsection}{Popis algoritmu}{20}{section*.16}% 
+\contentsline {chapter}{Z\IeC {\'a}v\IeC {\v e}r}{22}{chapter*.17}% 
+\contentsline {chapter}{Seznam pou\IeC {\v z}it\IeC {\'e} literatury}{23}{chapter*.18}% 
+\contentsline {chapter}{Seznam obr\'azk\r {u}}{24}{chapter*.19}% 
+\contentsline {chapter}{Seznam tabulek}{25}{chapter*.20}% 
+\contentsline {chapter}{Seznam pou\IeC {\v z}it\IeC {\'y}ch zkratek}{26}{chapter*.21}% 
+\contentsline {chapter}{\numberline {A}P\IeC {\v r}\IeC {\'\i }lohy}{28}{appendix.A}% 
+\contentsline {section}{\numberline {A.1}Prvn\IeC {\'\i } p\IeC {\v r}\IeC {\'\i }loha}{28}{section.A.1}% 

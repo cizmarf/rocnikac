@@ -99,6 +99,10 @@ Pro spočítání polynomiálního modelu se využívá knihovna sklearn konkré
 
 (TODO obrazek poly modelu)
 
+\bigbreak
+
+Jako odhad zpoždění se pak vrací rozdíl skutečného počtu sekund na trase a predikce modelu. To celé se pak ještě přičítá k rozdílu predikce v modelu v čase a vzdálenosti příjezdu podle jízdního řádu a pravidelného příjezdu.
+
 
 \subsection{Model pomocí konkávního obalu}
 
@@ -106,8 +110,71 @@ Posledním a nejkomplikovanějším modelem, zasluhující nejvíce pozornosti, 
 
 \bigbreak
 
-Tato metoda vznikla jako řešení situace, kdy na trase exituje bod, který určité procento projíždějících spojů zdrží o netriviální dobu. Něco takového nastane pokud spoje projíždí světelnou křižovatkou nebo místem přek kterým se tvoří kolona vozidel. Zde dochází ke skové změně průběhu bodové funkce a spojité modely by s okolím tohoto kritického místa měly problém. Pro jeden takový bod by možná šlo navrhnout jednoduší řešení, nicméně je potřeba algoritmus, který umí pracovat s více kritickými body na trase. Například je nutné poradit si se situací zobrazené na diagramu (TODO link na obrazek), kde jsou na trase takové kritické body dva. V této modelové situaci je pro jednoduchost uvažováno, že se většina projíždějících spojů zdrží v prvním kritickém bodě, nebo v druhém, nebo se lehce zdrží v obou. Stakovým zdržením je počítáno v jízdním řádu a tedy vozidla, která projedou první kritický bod jedou na čas stejně tak jako vozidla v něm zdržená. O snížení nebo zvýšení případného zpoždění spoje je možno rozhodnout až po projetí druhého bodu. Jinými slovy na ose uplynulého času od vyjetí ze zastávky vzniká jakýsi podprostor v němž se zpoždění nemění. Pro jeho popis se využívá právě konkávní obal všech spojů, které přijely včas.
+Tato metoda vznikla jako řešení situace, kdy na trase exituje bod, který určité procento projíždějících spojů zdrží o netriviální dobu. Něco takového nastane pokud spoje projíždí světelnou křižovatkou nebo místem přek kterým se tvoří kolona vozidel. Zde dochází ke skové změně průběhu bodové funkce a spojité modely by s okolím tohoto kritického místa měly problém. Pro jeden takový bod by možná šlo navrhnout jednoduší řešení, nicméně je potřeba algoritmus, který umí pracovat s více kritickými body na trase. Například je nutné poradit si se situací zobrazené na diagramu (TODO link na obrazek), kde jsou na trase takové kritické body dva. V této modelové situaci je pro jednoduchost uvažováno, že se většina projíždějících spojů zdrží v prvním kritickém bodě, nebo v druhém, nebo se lehce zdrží v obou. S takovým zdržením je počítáno v jízdním řádu a tedy vozidla, která projedou první kritický bod bez zdrření jedou na čas stejně tak, jako vozidla v něm zdržená. O snížení nebo zvýšení případného zpoždění spoje je možno rozhodnout až po projetí druhého bodu. Jinými slovy na ose uplynulého času od vyjetí ze zastávky vzniká jakýsi podprostor v němž se zpoždění nemění. Pro jeho popis se využívá právě konkávní obal všech spojů, které přijely včas.
 
+
+\subsubsection{Problémy}
+
+Ačkoli je myšlenka jednoduchá, při implementaci vyvstává několik technických problémů.
+
+\bigbreak
+
+Nejprve k samotnému konkávnímu obalu. Je potřeba říct, že na množině bodů není definován jednoznačně (TODO obrazek nejednoznacnosti konkavnoho obalu). A jedná se o početně složitý algoritmus. V tomto díle je zapotřebí spočítat obal ve třídimenzionálním prostoru, což je velmi komplikovaný úkol, a proto je potřeba přijít s zjednodušením úlohy. Tedy počítat obal pouze pro dvoudimenzionální prostor. Toho se nedá dosáhnou jinak než diskretizací úlohy a počítání obalu pro každou hodinu zvláštˇ, tedy ze všech bodů, které byly zaznamenány v průběhu jedné hodiny. Tím může dojít k vetší granularitě obalu, než by bylo vhodné, nicméně předpokládá se, že hodina je dostatečně dlouhý časový interval na to, aby zde byly zachyceny všechny druhy průběhu jízdy (započítávají se všechny spoje jedoucí ve stejnou hodiny nejméně týden zpět) a zárovenˇ je to dostatečně krátký interval na nezkreslování denních výkyvů v čase jízdy. Navíc všechny body tvořící obal pro dannou hodinu jsou poté přidány do celkového obalu i s přesným časem zaznamenání a pro počítání konečných výsledků je použit třídimenzionální obal.
+
+\bigbreak
+
+Dále se jako netriviální ukazuje detekce spojů, které přijely včas a tedy všechny jejich body mají být předány k výpočtu obalu. Nabízí se použít data o všech spojí, které přijely do cílové zastávky s co nejmenším zpožděním, ale je nutné mít na paměti, že příjezdy podle jízdního řádu nemusí vůbec odpovídat realitě. Proto se zdá být nejlepší použít data od spojů, které přijely ve stejnou dobu jako je průměr všech příjezdů do cílové zastávky. Toho se docílí tak, že se poslední body podle vzdálenosti všech spojů použijí pro odhat času příjezdu. Zobrazeno na diagramu (TODO link na obrazek odhat prijezdu). Dále se pro každou hodinu seřadí všechny spoje podle vzdálenosti odhadnutého příjezdu od skutečného a použije se určité procento nejbližších spojů k tomuto odhadu.
+
+\bigbreak
+
+Z předchozího popisu řešení vyplývá ovšem, že pro výpočet obalu jsou použity spoje, které ani zdaleka nemusely přijet včas jak je požadováno, ale předpokládá se, že se nepříliš vzdalují od průměrného času příjezdu. To že střední zpoždění pro celý obal není nulové se vyřeší spočtením odchylky průměrného příjezdu od příjezdu podle jízdního řádu a následně přičtení této konstanty k odhadnutnému zpoždění. Každopádně to, že rozptyl příjezdů spojů zahrnutých ve výpočtu obalu může být netriviální, vyžaduje nahlížet na tento obal jako na lineární prostor pohybu zpoždění. Tedy že odhat zpoždění pro bod nacházející se v obalu je lineárně závislý na vzdálenosti od hranice obalu, avšak protože je známo časové rozpětí příjezdu spojů použitých pro výpočet obalu, je možné tuto vzdálenost snadno přenést na skutečné pozdění.
+
+
+\subsubsection{Popis algoritmu}
+
+Po popsání a vyřešení všech komplikací je možné nastínit průběh algoritmu.
+
+\bigbreak
+
+Nejprve konstrukce konkávního obalu:
+
+\begin{code}[frame=none]
+poslední_čas = vyber všechny poslední body podle vzdálenosti od každého spoje
+odhad_příjezdu = odhadni čas příjezdu v průběhu celého dne podle bodů v poslní_čas
+spoje_včas = prázdné pole
+
+pro každou hodinu h:
+	spoje_včas += vyber x \% spojů, které přijely nejblíže odhadu v hodině h
+
+konkávní_obal = prázdné pole
+
+pro každou hodinu h:
+	body = vyber všechny body zaznamenané v hodině h a náležící kterémukili spoji v spoje_včas
+	konkávní obal += spočítej konkávní obal z body
+
+Vrací: konkávní_obal
+\end{code}
+
+Dále odhad zpoždění z konkávního obalu:
+
+\begin{code}[frame=none]
+Vstup: bod v prostoru vzdálenosti, průběhu dne a času na trase
+
+pokud je bod v konkávní_obal:
+	velikost_okna = rozdíl horní hranice obalu od spodní v čase příjezdu do zastávky
+	spodek_okna = spodní hranice okna v čase příjezdu do zastávky
+	poměr = vzdálenost bodu od spodní hranice obalu / vzdálenost bodu od horní hranice obalu
+	odhad_příjezdu = velikost_okna * poměr + spodek_okna
+jinak:
+	pokud je bod pod obalem:
+		spodek_okna = spodní hranice obalu v čase příjezdu do zastávky
+		odhad_příjezdu = spodek_okna - vzdálenost bodu od obalu
+	jinak:
+		vrch_okna = horní hranice obalu v čase příjezdu do zastávky
+		odhad_příjezdu = vrch_okna + vzdálenost bodu od obalu
+
+Vrací: odhad_příjezdu - pravidelný příjezd
+\end{code}
 
 
 
