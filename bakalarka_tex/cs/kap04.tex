@@ -6,7 +6,7 @@ Pro vizualizaci dat do webového rozhraní na mapový podklad je využito prost�
 
 \section{Klientská část}
 
-Tato webová strának je napsána ve standardním \gls{html} s tím, že pro stylování objektů je použit jazyk \gls{css}. Hlavní vlastnosti stránky, jako je zobrazení entit do mapy je použitý jazyk \gls{js}, zejména pak jeho možností pro zachzázení s \gls{dom} elementy. Pro připojení a načítání dat ze serveru se používá technologie \gls{ajax}ových dotazů.
+Tato webová strának je napsána ve standardním \gls{html} s tím, že pro stylování objektů je použit jazyk \gls{css}. Hlavní vlastnosti stránky, jako je zobrazení entit do mapy je použitý jazyk \gls{js}, zejména pak jeho možností pro zacházení s \gls{dom} elementy. Pro připojení a načítání dat ze serveru se používá technologie \gls{ajax}ových dotazů.
 
 \bigbreak
 
@@ -14,11 +14,11 @@ Koncepce klientské aplikace je taková, že žádná data nezpracovává ani ne
 
 \subsubsection{Mapbox API}
 
-Prostředí Mapbox je široce využívaný multiplatformový nástroj pro zobrazení mapového podkladu a umožnˇuje do něj zanést širokou škálu různých geometrických útvarů. Tak že mapové prostředí intuitivně interaguje s uživatelem a vývojáři mohou využití jednoduchécho \gls{api} pro zobrazení žádoucích dat do mapy.
+Prostředí Mapbox je široce využívaný multiplatformový nástroj pro zobrazení mapového podkladu a umožňuje do něj zanést širokou škálu různých geometrických útvarů. Tak že mapové prostředí intuitivně interaguje s uživatelem a vývojáři mohou využití jednoduchécho \gls{api} pro zobrazení žádoucích dat do mapy.
 
 \bigbreak
 
-Webová aplikace této práce využívá naprosto základní funkcionality, které mapbox umožnˇuje. Jejich popis včetně načtení do webové stránky za předpokladu, že jsou splněny základní parametry webové stránky je následující.
+Webová aplikace této práce využívá naprosto základní funkcionality, které mapbox umožňuje. Jejich popis včetně načtení do webové stránky za předpokladu, že jsou splněny základní parametry webové stránky je následující.
 
 \bigbreak
 
@@ -36,7 +36,7 @@ Dále je potřeba vytvořit element s identifikátorem webové stránky, kde bud
 
 \bigbreak
 
-Po naiportovéní je v JavaScriptu k dispozici knihovna jménem \verb-mapboxgl- pomocí, které se ovládá celé mapové prostředí. Pomocí ní je tedˇ možné vytvořit mapu.
+Po naiportovéní je v JavaScriptu k dispozici knihovna jménem \verb-mapboxgl- pomocí, které se ovládá celé mapové prostředí. Tedy je tedˇ možné vytvořit samotnou mapu.
 \begin{code}[frame=none]
 var map = new mapboxgl.Map({
 	container: 'map', // identifikátor HTML elementu
@@ -80,12 +80,12 @@ map.addLayer({
 K manipulaci s objekty typu \verb-Layer- se používá
 \begin{code}[frame=none]
 map.getLayer(id);
-map.gremoveLayer(id);
+map.removeLayer(id);
 \end{code}
 
 \subsubsection{Funkce a design aplikace}
 
-% TODO vypsat co vsechno to umi
+TODO vypsat co vsechno to umi, jak to udelat aby se to nekrylo s funkcnimi pozdavky??? + popsat design s obrazky
 
 
 \section{Serverová část}
@@ -112,7 +112,7 @@ Server reaguje na 4 typy požadavků:
 
 \bigbreak
 
-Server je naprogramovám pomocí Pythoní knihovny \verb-simple_server-, která slouží pouze k debugování, jak se píše v její dokumentaci. (TODO odkaz na dokumentaci). Protože se nepočítá s reálným nasezením této aplikace, není potřeba programovat robustní server. Pro takové užití by bylo třeba přejít na více vláknové řešení.
+Server je naprogramovám pomocí Pythoní knihovny \verb-simple_server-, která slouží pouze k debugování, jak se píše v její dokumentaci. (TODO odkaz na dokumentaci). Protože se nepočítá s reálným nasezením této aplikace, není potřeba programovat robustní server. Pro demonstrační účely je však toto řešení dostatečné.
 
 
 

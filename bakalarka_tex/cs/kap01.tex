@@ -6,36 +6,38 @@ V této kapitole je detailně popsán problém a způsoby jeho navrženého a so
 
 \section{Popis problému odhadu zpoždění}
 
-Spoje které zajištˇují hromadnou dopravu se řídí jízdními řády, které určují jejich trasu a udávají časy příjezdu a odjezdu do daných zastávek. Toto jsou zpravidla jediné refenční body u kterých jsme schopní zjistit skutečné zpoždění, nebo předjetí (dále uvažováno jako zpoždění se zápornou hodnotou).
+Spoje které zajištˇují hromadnou dopravu se řídí jízdními řády, které určují jejich trasu a udávají časy příjezdu a odjezdu do daných zastávek. Toto jsou zpravidla jediné refenční body u kterých je možno zjistit skutečné zpoždění, nebo předjetí (dále uvažováno jako zpoždění se zápornou hodnotou).
 
 \bigbreak
 
-Vzhledem k tom, že délka trasy mezi dvěma refernčními body nezříka dosahuje i několika desítek kilometrů (TODO spocitat prumer a median), kde mohou vznikat mimořáné události, ale zpravidla je ovlivněna obvyklým provozem, je potřeba navrhnout systém na odhat zpoždění v půběhu jízdy.
+Vzhledem k tom, že délka trasy mezi dvěma refernčními body nezříka dosahuje i několika desítek kilometrů (TODO spocitat prumer a median), kde sice mohou vznikat mimořáné události, ale ve většině případů je ovlivněna pouze obvyklým provozem v dané denní době, je potřeba navrhnout systém na odhat zpoždění v půběhu jízdy mezi těmito body.
 
 \bigbreak
 
-Toto celé je potřeba počítat v reálném čase, tak aby uživatelé byli dobře informování o stavu jejich spoje. Proto je potřeba zpracovávat data okamžitě po jejich vydání, spočítat odhad zpoždění a vystavit tyto data veřejně. Vzhledem k tomu, že tyto data velmi rychle zastarávají je nutné provést tento proces co možná nejrychleji.
+Tento odhad je nutné počítat v reálném čase, tak aby uživatelé byli dobře informování o stavu jejich spoje. A proto je potřeba zpracovávat data okamžitě po jejich vydání, spočítat odhad zpoždění a vystavit tyto data veřejně. Vzhledem k tomu, že tyto data velmi rychle zastarávají je nutné provádět tento proces co možná nejrychleji.
 
 \bigbreak
 
-Pro vyjasnění je potřeba uvést, že se systém nesnaží předpovědět zpoždění, které spoj může nabrat vzhledem k dosavadnímu průběhy trasy. Ale snaží se odhadnou zpoždění v danný bod na trase vzhledem k obvyklému profilu jízdy.
+Pro vyjasnění je potřeba uvést, že se systém nesnaží předpovědět zpoždění, které spoj může nabrat vzhledem k dosavadnímu průběhy trasy. Ale snaží se odhadnou zpoždění v danném bodě na trase vzhledem k obvyklému profilu jízdy.
 
 TODO obrazek nelinearni trasy
 
 \subsection{Současná řešení}
 
-Takový algoritmus na odhat aktuálního zpoždění mezi dvěma referenčními body již exituje a je zakomponován v systému, ze kterého se čerpají data pro tuto práci. (Detailní popis dat uveden v kapitole ~\ref{chapter:TODO later}.) Nicméně nezohlednˇuje základní parametry průběhu trasy. Tento algoritmus nahlíží na postup vozidla na trase jako na lineární funkci vůči času. Jak ale z praxe víme (TODO doplnit zdroj), rychlost vozidel není konstantní, neboli doba jízdy není linárně závislá na ujeté vzdálenosti.
+Takový algoritmus na odhat aktuálního zpoždění mezi dvěma referenčními body již exituje a je zakomponován v systému, ze kterého se čerpají data pro tuto práci. (Detailní popis dat uveden v kapitole ~\ref{chapter:TODO later}.) Nicméně nezohledňuje základní parametry průběhu trasy. Tento algoritmus nahlíží na postup vozidla na trase jako na lineární funkci vůči času. Je ovšem zřejmé, že rychlost vozidel není konstantní, neboli doba jízdy není linárně závislá na ujeté vzdálenosti.
 
 \section{Analýza požadavků na uživatelskou aplikaci}
 
-Součástí práce je i vizualizace spočítaných dat. Jinými slovy nástroj umožnˇující přístup uživatelů ke spočítaným datům.
+Součástí práce je i vizualizace spočítaných dat. Jinými slovy nástroj umožňující přístup uživatelů ke spočítaným datům.
 
 \subsubsection{Funkční požadavky}
 
 \begin{itemize}
-	\item Aplikace vykreslí interaktivní mapu Prahy a širšího okolí, kterou bude možné posunovat či oddalovat. V této mapě budou zobrazeny jednotlivé vozidla na aktuálních pozicích a budou se automaticky posouvat po mapě.
+	\item Aplikace vykreslí interaktivní mapu Prahy a širšího okolí, kterou bude možné posouvat či zoomovat. V této mapě budou zobrazeny jednotlivé vozidla na aktuálních pozicích a budou se automaticky posouvat po mapě, tak jak se pohybují ve skutečnosti.
 
-	\item Po kliknutí na vozidlo se zobrazí jeho celá trasa včetně zastávek a jeho dopočítané zpoždění.
+	\item Po kliknutí na vozidlo se zobrazí jeho celá trasa včetně zastávek a jeho dopočítaného zpoždění.
+
+	\item Po kliknutí na zastávku se zobrazí seznam spojů, které budou projíždět vybranou zastávkou a jejich trasy se vykreslí do mapy.
 
 	\item Celá aplikace bude postavena na principu server -- client. Tedy serverová strana se postará o přístup k otevřeným datům o vozidlech a jejich uložení a také obsluhu požadavků klienta. Klientská část bude webová stránka poskytující služby popsané výše. Měla by být schopná zobrazit řádově tisíce vozidel.
 \end{itemize}
@@ -51,13 +53,13 @@ Součástí práce je i vizualizace spočítaných dat. Jinými slovy nástroj u
 
 	\item Ukládání dat na serverové straně bude řešeno MySQL databází.
 
-	\item Pro různé odhady zpoždění na zákldě historických dat bude využita knihovna scikit-learn.
+	\item Pro algoritmus odhadu zpoždění na zákldě historických dat budou využity různé knihovny pro jazyk Python 3. Zejména pak scikit-learn a alphashape.
 
 \end{itemize}
 
 \subsubsection{Proces běhu aplikace}
 
-Jak je již zmíněno aplikace bude využívat historická data, tedy bude nutné nechat aplikaci tato data nějakou dobu sbírat. Pro efektivní odhady by bylo vhodné mít uložené historické polohy vozidel alesponˇ z uplynulých několika týdnů.
+Jak je již zmíněno aplikace bude využívat historická data, tedy bude nutné nechat aplikaci tato data nějakou dobu sbírat. Pro efektivní odhady by bylo vhodné mít uložené historické polohy vozidel alespoň z uplynulých několika týdnů.
 
 \bigbreak
 
@@ -69,11 +71,11 @@ K takovému účelu nejlépe poslouží vykreslení aktuálních poloh vozidel d
 
 \bigbreak
 
-Za účelem vytvoření dostatečně přívetivé uživatelské aplikace je nezbitné využít některého z poskytovatelů mapového \gls{api}, neboli využít již existující mapový podklad a zanést do něj získané informace.
+Za účelem vytvoření dostatečně přívětivé uživatelské aplikace je nezbytné využít některého z poskytovatelů mapových podkladů a zanést do něj získané informace.
 
 \bigbreak
 
-Jedním z těchto poskytovatelů je společnost Google, která má propracované mapové podklady a prostřednictvím služby Google Maps poskytuje pro tuto práci požadovanou službu. Další platformou je Mapbox, který poskytuje velmi podobné služby jako Google Maps. Nicméně natozdíl od Googlu využívá jako mapový podklad \gls{osm} {otevřená geografické data}. Protože smyslem práce je v co největší míře využít otevřená data je žádoucí využít právě Mapbox.
+Jedním z těchto poskytovatelů je společnost Google, která má propracované mapové podklady a prostřednictvím služby Google Maps poskytuje pro tuto práci požadovanou službu. Další platformou je Mapbox, který poskytuje velmi podobné služby jako Google Maps. Nicméně narozdíl od Googlu využívá jako mapový podklad \gls{osm} {otevřená geografické data}. Protože smyslem práce je v co největší míře využít otevřená data je žádoucí využít právě Mapbox.
 
 \bigbreak
 
@@ -105,17 +107,14 @@ Dalším poskytovatelem je portál tram-bus, který si vede o něco lépe. Ukaz
 
 \subsubsection{\gls{idsjmk}}
 
-Mimo Prahu je velice pěkně udělaná aplikace pro zobrazení vozidel \gls{idsjmk} (Integrovaný dopravní systém Jihomoravského kraje). Ten ihned po načtení stránky zobrazuje všechny dobravní prostředky, tedy tramvaje, autobusy a vlaky vše s čísly linek. Dále pak umožnˇuje po kliknutí na vybraný spoj zobrazit více informací včetně jízdního řádu.
+Mimo Prahu je velice pěkně udělaná aplikace pro zobrazení vozidel \gls{idsjmk} (Integrovaný dopravní systém Jihomoravského kraje). Ten ihned po načtení stránky zobrazuje všechny dobravní prostředky, tedy tramvaje, autobusy a vlaky vše s čísly linek. Dále pak umožňuje po kliknutí na vybraný spoj zobrazit více informací včetně jízdního řádu.
 
 \bigbreak
 
-Tato aplikace je po vizuální i funkční stránce dobrou indpirací pro tvorbu aplikace v této práci.
+Tato aplikace je po vizuální i funkční stránce dobrou inspirací pro tvorbu aplikace v této práci.
 
 \begin{figure}
   \includegraphics[width=\linewidth]{../img/idsjmk_mapa.png}
   \caption{Mapa z mapa.idsjmk.cz.}
   \label{fig:idsjmk_result}
 \end{figure}
-
-
-TODO popis geojson???

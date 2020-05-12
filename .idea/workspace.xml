@@ -3,18 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="dd19d088-d198-4710-a12d-37bdc6cef14a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bakalarka_tex/cs/kap03.aux" beforeDir="false" afterPath="$PROJECT_DIR$/bakalarka_tex/cs/kap03.aux" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bakalarka_tex/cs/kap04.aux" beforeDir="false" afterPath="$PROJECT_DIR$/bakalarka_tex/cs/kap04.aux" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bakalarka_tex/cs/kap05.aux" beforeDir="false" afterPath="$PROJECT_DIR$/bakalarka_tex/cs/kap05.aux" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bakalarka_tex/cs/kap05.tex" beforeDir="false" afterPath="$PROJECT_DIR$/bakalarka_tex/cs/kap05.tex" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bakalarka_tex/cs/literatura.aux" beforeDir="false" afterPath="$PROJECT_DIR$/bakalarka_tex/cs/literatura.aux" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bakalarka_tex/cs/pdfa.xmpi" beforeDir="false" afterPath="$PROJECT_DIR$/bakalarka_tex/cs/pdfa.xmpi" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bakalarka_tex/cs/prace.aux" beforeDir="false" afterPath="$PROJECT_DIR$/bakalarka_tex/cs/prace.aux" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bakalarka_tex/cs/prace.log" beforeDir="false" afterPath="$PROJECT_DIR$/bakalarka_tex/cs/prace.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bakalarka_tex/cs/prace.out" beforeDir="false" afterPath="$PROJECT_DIR$/bakalarka_tex/cs/prace.out" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bakalarka_tex/cs/prace.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/bakalarka_tex/cs/prace.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bakalarka_tex/cs/prace.toc" beforeDir="false" afterPath="$PROJECT_DIR$/bakalarka_tex/cs/prace.toc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bakalarka_tex/cs/zaver.aux" beforeDir="false" afterPath="$PROJECT_DIR$/bakalarka_tex/cs/zaver.aux" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -62,7 +50,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/new_code/fill_database.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-424">
+            <state relative-caret-position="68">
               <caret line="12" column="50" selection-start-line="12" selection-start-column="50" selection-end-line="12" selection-end-column="50" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
@@ -86,7 +74,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/new_code/plotting.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
+            <state relative-caret-position="272">
               <caret line="30" column="10" selection-start-line="30" selection-end-line="30" selection-end-column="10" />
               <folding>
                 <element signature="e#23#53#0" expanded="true" />
@@ -98,7 +86,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/new_code/two_stops_model.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-748">
+            <state relative-caret-position="17">
               <caret line="111" column="70" selection-start-line="111" selection-start-column="70" selection-end-line="111" selection-end-column="70" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
@@ -221,7 +209,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -238,6 +225,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -404,17 +392,17 @@
       <workItem from="1583688720103" duration="49967000" />
       <workItem from="1584226217380" duration="35416000" />
       <workItem from="1586119799221" duration="24851000" />
+      <workItem from="1587594484932" duration="28000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="217579000" />
+    <option name="totallyTimeSpent" value="217607000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4989796" visible="true" weight="0.15140416" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4989796" visible="true" weight="0.15323566" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" sideWeight="0.50102043" side_tool="true" weight="0.12942614" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -822,16 +810,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/new_code/all_vehicle_positions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="714">
-          <caret line="49" column="36" selection-start-line="49" selection-start-column="36" selection-end-line="49" selection-end-column="36" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/new_code/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="969">
@@ -850,33 +828,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="969">
           <caret line="59" selection-start-line="59" selection-end-line="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/new_code/server.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="24" selection-start-line="8" selection-start-column="24" selection-end-line="9" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common_functions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1190">
-          <caret line="74" column="45" selection-start-line="74" selection-start-column="45" selection-end-line="74" selection-end-column="45" />
-          <folding>
-            <element signature="e#1#12#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/new_code/fill_database.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-424">
-          <caret line="12" column="50" selection-start-line="12" selection-start-column="50" selection-end-line="12" selection-end-column="50" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -922,9 +873,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/new_code/fill_database.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="12" column="50" selection-start-line="12" selection-start-column="50" selection-end-line="12" selection-end-column="50" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/new_code/all_vehicle_positions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="714">
+          <caret line="49" column="36" selection-start-line="49" selection-start-column="36" selection-end-line="49" selection-end-column="36" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/new_code/plotting.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
+        <state relative-caret-position="272">
           <caret line="30" column="10" selection-start-line="30" selection-end-line="30" selection-end-column="10" />
           <folding>
             <element signature="e#23#53#0" expanded="true" />
@@ -932,9 +903,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/new_code/server.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="24" selection-start-line="8" selection-start-column="24" selection-end-line="9" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common_functions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1190">
+          <caret line="74" column="45" selection-start-line="74" selection-start-column="45" selection-end-line="74" selection-end-column="45" />
+          <folding>
+            <element signature="e#1#12#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/new_code/two_stops_model.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-748">
+        <state relative-caret-position="17">
           <caret line="111" column="70" selection-start-line="111" selection-start-column="70" selection-end-line="111" selection-end-column="70" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />

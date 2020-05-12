@@ -6,15 +6,15 @@ V této kapitole je popsán zdroj real-timových dat o polohách vozidel využí
 
 \section{Přístup k datům}
 
-Na mnohých jednáníh s kolegy ze společnosti Operator ICT bylo řečeno, že využívané vozidla vysílají data o své poleze při různých událostech. Zejména pak při brždění, rozjezdu, ale také, pro účely této práce nejdůležitější, při vyhlášení zastávky, nebo jinak každých 20 sekund.
+Na mnohých jednáních s kolegy ze společnosti Operator ICT bylo řečeno, že využívané vozidla vysílají data o své poleze při různých událostech. Zejména pak při brždění, rozjezdu, ale také, pro účely této práce nejdůležitější, při vyhlášení zastávky, nebo jinak každých 20 sekund.
 
 \bigbreak
 
-Taková data pak přímo putují k provozavoateli systému na monitorování vozidel, kterým je společnost \gls{chaps} jakožto partner \gls{dpp}. Ten však tato data zpracovává a posílá ke zveřejnění na platformě Golemio. Bohužel při tomto procesu zpracování se vytratí informace o události v jáké byly data pořízeny. Tedy informace o příjezdu nebo odjezdu ze zastávky jsou zjistitelné pouze z \gls{gps} souřadnic.
+Taková data pak přímo putují k provozavoateli systému na monitorování vozidel, kterým je společnost \gls{kapsch} jakožto partner \gls{dpp}. Ten však tato data zpracovává a posílá ke zveřejnění na platformě Golemio. Bohužel při tomto procesu zpracování se vytratí informace o události v jáké byly data pořízeny. Tedy informace o příjezdu nebo odjezdu ze zastávky jsou zjistitelné pouze z \gls{gps} souřadnic.
 
 \bigbreak
 
-Po té co jsou tyto data přeneseny do společnosti Operátor ICT by měla být zveřejněna, nicméně data ve výše popsané podobě jsou poměrně chudá, proto je k nim přidáno více atributů. Z pohledu této práce je nejzajímavější informace o vzdálenosti, kterou vozidlo urazdilo od jeho výchozí zastávky. Dále jsou přidána data o jízdních řádech a zastávkách jejichž púvodcem je \gls{ropid}.
+Po té co jsou tyto data přeneseny do společnosti Operátor ICT by měla být zveřejněna, nicméně data ve výše popsané podobě jsou poměrně chudá, proto je k nim přidáno více atributů. Z pohledu této práce je nejzajímavější informace o vzdálenosti, kterou vozidlo urazilo od jeho výchozí zastávky. Dále jsou přidána data o jízdních řádech a zastávkách jejichž původcem je \gls{ropid}.
 
 \subsection{Dokumentace}
 
@@ -22,19 +22,19 @@ Na úvod je nutné poznamenat, že datová platforma je stále ve vývoji a form
 
 \bigbreak
 
-Současně s využívaným datovým formátem, je nasazený pokročilý formát který obsahuje více informací a je přehledněji opraven. Nicméně při zahájení vývoje této práce nebyl k dispozici, proto jsou využívána data pouze ze starší verze.
+Současně s využívanou verzí \gls{api}, je nasazené i pokročilejší \gls{api} ve verzi 2, které obsahuje více informací a je přehledněji upraveno. Nicméně při zahájení vývoje této práce nebyla verze 2 k dispozici, proto jsou využívána data pouze ze starší verze.
 
 \bigbreak
 
-Oficiální dokumnetace datové platformy je poměrně zastaralá sama o sobě, tak že aktuální sada parametrů jí neodpovídá a neobsahuje žádné popisy dat. Proto vysvětlení jednotlivých atributů se zakládá na intuitivním pochopení nebo vyplynulo z jednání se správci platformy. V následujících kapitolách bude popsán formát dat, tak jak přichází od zdroje, a proto se může od oficiálně vystaené dokumentace lišit. A také budou popsány pouze atributy využívané v této práci nebo zajímavé pro její budoucí rozvoj.
+Oficiální dokumnetace datové platformy je poměrně zastaralá sama o sobě tak, že aktuální sada parametrů jí neodpovídá a neobsahuje žádné popisy nebo vysvětlení dat. Proto vysvětlení jednotlivých atributů se zakládá na intuitivním pochopení nebo vyplynulo z jednání se správci platformy. V následujících kapitolách bude popsán formát dat, tak jak přichází ze zdroje, a proto se může od oficiálně vystavené dokumentace lišit. A také budou popsány pouze atributy využívané v této práci nebo zajímavé pro její budoucí rozvoj.
 
 TODO reference na dokumentaci
 
 \bigbreak
 
-Každá datová sada je exportována ve formátu \gls{geojson} pokud se jedná o geografická data, nebo jinak ve formátu \gls{json}. A přistupuje se k nim přes jednotné \gls{api} pomocí \gls{http} požadavku daného \gls{url} adresou a jeho hlavičkou.
+Každá datová sada je exportována ve formátu \gls{geojson} pokud se jedná o geografická data, nebo jinak ve formátu \gls{json}. Přistupuje se k nim přes jednotné webové rozhraní pomocí \gls{http} požadavku daného \gls{url} adresou a jeho hlavičkou.
 
-TODO reference na specifikace geojson https://tools.ietf.org/html/rfc7946
+TODO reference na specifikace geojson??? detailnejsi popis pristupoveho api??? https://tools.ietf.org/html/rfc7946
 
 \bigbreak
 
@@ -42,33 +42,35 @@ Ačkoli se dokumentace tváří tak, že data jsou exportována ve formátech \g
 
 \bigbreak
 
-TODO Celá datová platforma Golemio je pojatá jako Open Source projekt.
+TODO rozepsat: Celá datová platforma Golemio je pojatá jako Open Source projekt.
 
 \subsubsection{Pozice vozidel}
 
-Jsou nejdůležijtější datovou sadou pro tuto práci. Jelikož se jedná o real-time data, data rychle zastarávají a je nutné je velmi často aktualizaovat.
+Ze zveřejněných dat na této platformě jsou nejdůležijtější data pro tuto práci pozice vozidel. Jelikož se jedná o real-time data, data rychle zastarávají a je nutné je velmi často aktualizaovat.
+
+\bigbreak
+
+Využívané atributy jsou:
 
 \begin{itemize}
 	\item \documentationAtt{coordinates}{aktuální \gls{gps} souřadnice vozidla}
 
 	\item \documentationAtt{origin\_timestamp}{čas zachycení pozice vozidla, v časovém pásmu \gls{utc}}
 
-	\item \documentationAtt{gtfs\_trip\_id}{unikátní identifik8tor tripu pro spárování s jízdním řádem}
+	\item \documentationAtt{gtfs\_trip\_id}{unikátní identifikátor tripu pro spárování s jízdním řádem}
 
 	\item \documentationAtt{gtfs\_shape\_dist\_traveled}{vzdálenost vozidla uražená od začátku tripu v metrech}
 
 	\item \documentationAtt{delay\_stop\_departure}{zpoždění zachycené při odjezdu z poslední projeté zastávky v sekundách}
-\end{itemize}
+\end{itemize}.
 
-\subsubsection{Jednotlivé tripy}
+\subsubsection{Jednotlivé jízdy}
 
-TODO jak se rekne trip cesky
-
-Dále jsou k dispozici data o každém tripu. To je popis trasy vozidla, včetně zastávek a časů příjezdů a odjezdů do/z nich. Také může být vyžádáno k informacím o tripu připojit celý shape trasy, tj. lomená čára kopírující celo trasu daného tripu po povrchu Země.
+Dále jsou k dispozici data o každé jízdě. To je popis trasy vozidla, včetně zastávek a časů příjezdů a odjezdů do/z nich. Také může být vyžádáno k informacím o jízdě připojit celý shape trasy, tj. lomená čára kopírující celou trasu daného tripu po povrchu Země.
 
 \bigbreak
 
- Míra unikátnosti těchto tripů je předmětem dohadů a zřejmě jsou pod správou plánovačů \gls{mhd}, nicméně můžeme s určitou mírou spolehlivosti tvrdit, že každý trip se jede nejvýše jednou za den.
+ Míra unikátnosti identifikátorů těchto tripů je předmětem dohadů a zřejmě jsou pod správou plánovačů \gls{mhd}, nicméně může být předpokládáno, že každá jízda se jede nejvýše jednou za den.
 
 \begin{itemize}
 	\item \documentationAtt{trip\_headsign}{nápis na čele vozidla, typicky cílová stanice}
@@ -78,7 +80,7 @@ Dále jsou k dispozici data o každém tripu. To je popis trasy vozidla, včetn�
 	\item \documentationAtt{trip\_id}{unikátní identifikátor tripu pro spárování s real-time daty, pravděpodobně odpovídá atributu \verb"gtfs\_trip\_id"}
 \end{itemize}
 
-Navíc s každým tripem může být vyžádáno zaslání seznamu zastávek, kterýma projíždí. Po té se obdrží tento seznam s kompletními informacemi o zastávkách, tedy má stejnou informační hodnotu jako samostatný dotaz na zastávky. Navíc je každá zastávka doplněna o informace vázající se k danému tripu.
+Navíc s každým tripem může být vyžádáno zaslání seznamu zastávek, kterýma projíždí. Zde jsou k dispozici informace vázající se k danému průjezdu zastávkou. Každá uvená zastávka s sebou nese i kompletní informaci o sobě, tedy má stejnou informační hodnotu jako samostatný dotaz na jednotlivé zastávky z datové sady zastávek.
 
 \subsubsection{Zastávky}
 
@@ -95,22 +97,6 @@ Navíc s každým tripem může být vyžádáno zaslání seznamu zastávek, kt
 
 	\item \documentationAtt{stop\_name}{název zastávky}
 \end{itemize}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

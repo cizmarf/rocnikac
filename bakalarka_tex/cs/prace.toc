@@ -4,41 +4,44 @@
 \contentsline {section}{\numberline {1.1}Popis probl\IeC {\'e}mu odhadu zpo\IeC {\v z}d\IeC {\v e}n\IeC {\'\i }}{3}{section.1.1}% 
 \contentsline {subsection}{\numberline {1.1.1}Sou\IeC {\v c}asn\IeC {\'a} \IeC {\v r}e\IeC {\v s}en\IeC {\'\i }}{3}{subsection.1.1.1}% 
 \contentsline {section}{\numberline {1.2}Anal\IeC {\'y}za po\IeC {\v z}adavk\IeC {\r u} na u\IeC {\v z}ivatelskou aplikaci}{3}{section.1.2}% 
-\contentsline {subsubsection}{Funk\IeC {\v c}n\IeC {\'\i } po\IeC {\v z}adavky}{4}{section*.4}% 
-\contentsline {subsubsection}{Nefunk\IeC {\v c}n\IeC {\'\i } po\IeC {\v z}adavky}{4}{section*.5}% 
-\contentsline {subsubsection}{Proces b\IeC {\v e}hu aplikace}{4}{section*.6}% 
+\contentsline {subsubsection}{Funk\IeC {\v c}n\IeC {\'\i } po\IeC {\v z}adavky}{4}{section*.3}% 
+\contentsline {subsubsection}{Nefunk\IeC {\v c}n\IeC {\'\i } po\IeC {\v z}adavky}{4}{section*.4}% 
+\contentsline {subsubsection}{Proces b\IeC {\v e}hu aplikace}{4}{section*.5}% 
 \contentsline {subsection}{\numberline {1.2.1}Poskytovatel\IeC {\'e} mapov\IeC {\'y}ch podklad\IeC {\r u}}{4}{subsection.1.2.1}% 
 \contentsline {subsection}{\numberline {1.2.2}Sou\IeC {\v c}asn\IeC {\'a} \IeC {\v r}e\IeC {\v s}en\IeC {\'\i }}{5}{subsection.1.2.2}% 
-\contentsline {subsubsection}{Golemio}{5}{section*.7}% 
-\contentsline {subsubsection}{Tram-bus}{5}{section*.8}% 
-\contentsline {subsubsection}{\gls {idsjmk}}{5}{section*.9}% 
+\contentsline {subsubsection}{Golemio}{5}{section*.6}% 
+\contentsline {subsubsection}{Tram-bus}{5}{section*.7}% 
+\contentsline {subsubsection}{\gls {idsjmk}}{7}{section*.8}% 
 \contentsline {chapter}{\numberline {2}Anal\IeC {\'y}za zdroje dat}{8}{chapter.2}% 
 \contentsline {section}{\numberline {2.1}P\IeC {\v r}\IeC {\'\i }stup k dat\IeC {\r u}m}{8}{section.2.1}% 
 \contentsline {subsection}{\numberline {2.1.1}Dokumentace}{8}{subsection.2.1.1}% 
-\contentsline {subsubsection}{Pozice vozidel}{9}{section*.10}% 
-\contentsline {subsubsection}{Jednotliv\IeC {\'e} tripy}{9}{section*.11}% 
-\contentsline {subsubsection}{Zast\IeC {\'a}vky}{10}{section*.12}% 
+\contentsline {subsubsection}{Pozice vozidel}{9}{section*.9}% 
+\contentsline {subsubsection}{Jednotliv\IeC {\'e} j\IeC {\'\i }zdy}{9}{section*.10}% 
+\contentsline {subsubsection}{Zast\IeC {\'a}vky}{10}{section*.11}% 
 \contentsline {chapter}{\numberline {3}Zpracov\IeC {\'a}n\IeC {\'\i } dat}{11}{chapter.3}% 
 \contentsline {section}{\numberline {3.1}Datab\IeC {\'a}ze}{11}{section.3.1}% 
 \contentsline {subsection}{\numberline {3.1.1}Obsluha datab\IeC {\'a}ze}{12}{subsection.3.1.1}% 
 \contentsline {chapter}{\numberline {4}Vizualizace dat}{15}{chapter.4}% 
 \contentsline {section}{\numberline {4.1}Klientsk\IeC {\'a} \IeC {\v c}\IeC {\'a}st}{15}{section.4.1}% 
-\contentsline {subsubsection}{Mapbox API}{15}{section*.13}% 
-\contentsline {subsubsection}{Funkce a design aplikace}{16}{section*.14}% 
+\contentsline {subsubsection}{Mapbox API}{15}{section*.12}% 
+\contentsline {subsubsection}{Funkce a design aplikace}{16}{section*.13}% 
 \contentsline {section}{\numberline {4.2}Serverov\IeC {\'a} \IeC {\v c}\IeC {\'a}st}{16}{section.4.2}% 
-\contentsline {chapter}{\numberline {5}Algoritmus odhadu zpo\IeC {\v z}d\IeC {\v e}n\IeC {\'\i }}{17}{chapter.5}% 
-\contentsline {section}{\numberline {5.1}Z\IeC {\'a}kladn\IeC {\'\i } p\IeC {\v r}edpoklady}{17}{section.5.1}% 
-\contentsline {subsection}{\numberline {5.1.1}Anal\IeC {\'y}za dat}{17}{subsection.5.1.1}% 
-\contentsline {section}{\numberline {5.2}N\IeC {\'a}vrh modelu}{18}{section.5.2}% 
-\contentsline {subsection}{\numberline {5.2.1}Line\IeC {\'a}rn\IeC {\'\i } model}{18}{subsection.5.2.1}% 
-\contentsline {subsection}{\numberline {5.2.2}Polynomi\IeC {\'a}ln\IeC {\'\i } model}{19}{subsection.5.2.2}% 
-\contentsline {subsection}{\numberline {5.2.3}Model pomoc\IeC {\'\i } konk\IeC {\'a}vn\IeC {\'\i }ho obalu}{19}{subsection.5.2.3}% 
-\contentsline {subsubsection}{Probl\IeC {\'e}my}{20}{section*.15}% 
-\contentsline {subsubsection}{Popis algoritmu}{20}{section*.16}% 
-\contentsline {chapter}{Z\IeC {\'a}v\IeC {\v e}r}{22}{chapter*.17}% 
-\contentsline {chapter}{Seznam pou\IeC {\v z}it\IeC {\'e} literatury}{23}{chapter*.18}% 
-\contentsline {chapter}{Seznam obr\'azk\r {u}}{24}{chapter*.19}% 
-\contentsline {chapter}{Seznam tabulek}{25}{chapter*.20}% 
-\contentsline {chapter}{Seznam pou\IeC {\v z}it\IeC {\'y}ch zkratek}{26}{chapter*.21}% 
-\contentsline {chapter}{\numberline {A}P\IeC {\v r}\IeC {\'\i }lohy}{28}{appendix.A}% 
-\contentsline {section}{\numberline {A.1}Prvn\IeC {\'\i } p\IeC {\v r}\IeC {\'\i }loha}{28}{section.A.1}% 
+\contentsline {chapter}{\numberline {5}Algoritmus odhadu zpo\IeC {\v z}d\IeC {\v e}n\IeC {\'\i }}{18}{chapter.5}% 
+\contentsline {section}{\numberline {5.1}Z\IeC {\'a}kladn\IeC {\'\i } p\IeC {\v r}edpoklady}{18}{section.5.1}% 
+\contentsline {subsection}{\numberline {5.1.1}Anal\IeC {\'y}za dat}{18}{subsection.5.1.1}% 
+\contentsline {section}{\numberline {5.2}N\IeC {\'a}vrh modelu}{19}{section.5.2}% 
+\contentsline {subsection}{\numberline {5.2.1}Line\IeC {\'a}rn\IeC {\'\i } model}{19}{subsection.5.2.1}% 
+\contentsline {subsection}{\numberline {5.2.2}Polynomi\IeC {\'a}ln\IeC {\'\i } model}{20}{subsection.5.2.2}% 
+\contentsline {subsection}{\numberline {5.2.3}Model pomoc\IeC {\'\i } konk\IeC {\'a}vn\IeC {\'\i }ho obalu}{20}{subsection.5.2.3}% 
+\contentsline {subsubsection}{Probl\IeC {\'e}my}{21}{section*.14}% 
+\contentsline {subsubsection}{Popis algoritmu}{21}{section*.15}% 
+\contentsline {chapter}{\numberline {6}Porovn\IeC {\'\i }n\IeC {\'\i } se st\IeC {\'a}vaj\IeC {\'\i }c\IeC {\'\i }m \IeC {\v r}e\IeC {\v s}en\IeC {\'\i }m}{23}{chapter.6}% 
+\contentsline {chapter}{\numberline {7}Navrhy na zlepseni}{24}{chapter.7}% 
+\contentsline {chapter}{\numberline {8}Statistiky}{25}{chapter.8}% 
+\contentsline {chapter}{Z\IeC {\'a}v\IeC {\v e}r}{26}{chapter*.16}% 
+\contentsline {chapter}{Seznam pou\IeC {\v z}it\IeC {\'e} literatury}{27}{chapter*.17}% 
+\contentsline {chapter}{Seznam obr\'azk\r {u}}{28}{chapter*.18}% 
+\contentsline {chapter}{Seznam tabulek}{29}{chapter*.19}% 
+\contentsline {chapter}{Seznam pou\IeC {\v z}it\IeC {\'y}ch zkratek}{30}{chapter*.20}% 
+\contentsline {chapter}{\numberline {A}P\IeC {\v r}\IeC {\'\i }lohy}{32}{appendix.A}% 
+\contentsline {section}{\numberline {A.1}Prvn\IeC {\'\i } p\IeC {\v r}\IeC {\'\i }loha}{32}{section.A.1}% 

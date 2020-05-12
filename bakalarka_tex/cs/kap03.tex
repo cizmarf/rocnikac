@@ -2,11 +2,11 @@
 
 \chapter{Zpracování dat}
 
-Na datové platformě jsou real-time data o vozidlech dostupná do historie řádově jednotek minut, což je naprosto nedostatečné pro jakékoliv pozdější využití. Hlavně pro počítání statistik nad daty je potřeba zřídit lokální databázi, která bude držet historická data, tak jak proudila ze zdroje. Navíc data jsou poskytována ve formátu \gls{json}, který svou povahou není zrovna úsporný co se do velikosti souboru týče. Proto je vhodné zvolit ukládání dat v jiném formátu.
+Na datové platformě jsou real-time data o vozidlech dostupná do historie řádově jednotek minut, což je naprosto nedostatečné pro jakékoliv pozdější využití. Hlavně pro počítání statistik nad daty je potřeba zřídit lokální databázi, která bude držet historická data tak, jak proudila ze zdroje. Navíc data jsou poskytována ve formátu \gls{json}, který svou povahou není zrovna úsporný co se do velikosti souboru týče. Proto je vhodné zvolit ukládání dat v jiném formátu.
 
 \section{Databáze}
 
-Tato práce využívá relační databázi obsluhovanou dotazovacím jazykem \gls{sql}. Tato databáze se skládá z 5 tabulek. Jsou jimi:
+Za tímto účelem tato práce využívá relační databázi obsluhovanou dotazovacím jazykem \gls{sql}. Tato databáze se skládá z 5 tabulek. Jsou jimi:
 
 \begin{itemize}
 	\item \verb-trips- všechny objevené tripy
@@ -86,7 +86,7 @@ Tato práce využívá relační databázi obsluhovanou dotazovacím jazykem \gl
 
 \end{itemize}
 
-Atributy se jménem *source\_id jsou pravděpodobně unikátní identifikátor entity ve zdroji dat, nicméně z dokumentace zdroje to nevyplývá.Také je toto id textový řetězec a ačkoli je tvořen pouze číslicemi a podtržítky, není nikde zaručeno, že jej lze převést na číselný ko'd. Takže pro lepší výkon databáze je použito automaticky generované id typu \gls{int}.
+Atributy se jménem *source\_id jsou pravděpodobně unikátní identifikátor entity ve zdroji dat, nicméně z dokumentace zdroje to nevyplývá. Také je toto id textový řetězec a ačkoli je tvořen pouze číslicemi a podtržítky, není nikde zaručeno, že jej lze jednoduše převést na číselný ko'd. Takže pro lepší výkon databáze je použito automaticky generované id typu \gls{int}.
 
 \bigbreak
 
@@ -103,7 +103,7 @@ Každá tabulka ma několik indexů, které zlepšují výkon databáze při vkl
 
 TODO obrazek na bilem pozadi
 
-Databáza je nastavená tak, aby umožnˇovala získat všechny potřebné informace o vozidlech, ale hlavně přístup k historickým real-time datům a to separovaně pro dvojci refenčních bodů.
+Databáza je nastavená tak, aby umožňovala získat všechny potřebné informace o vozidlech, ale hlavně přístup k historickým real-time datům a to separovaně pro dvojci refenčních bodů.
 
 TODO SQL dotazy na sestavení celé databaze jsou definovana v priloze, napsat to jako odstavec nebo jak se toto uvadi?
 
@@ -119,17 +119,17 @@ načti všechny dostupné zastávky
 dokud skrip běží
 	načti aktuální polohy vozidel
 	pro každé nalezené vozidlo
-		pokud trip vozidla je známí
+		pokud jízda vozidla je známá
 			aktualizuj data
 		jinak
-			stáhni informace o tripu
-			vlož trip
-			zpracuj a vlož jízdu tripu
+			stáhni informace o jízdě
+			vlož jízdu
+			zpracuj a vlož jízdu
 \end{code}
 
 \bigbreak
 
-Protože všechny infomace ukládané do databáze jsou důležité pro hlavní cíl této práce, tak pokud se vyskytne trip, který neobsahuje některou z požadovaných infomarcí je pak automaticky zahozen.
+Protože všechny infomace ukládané do databáze jsou důležité pro hlavní cíl této práce, tak pokud se vyskytne jízda, který neobsahuje některou z požadovaných infomarcí je pak automaticky zahozena.
 
 \bigbreak
 
@@ -137,12 +137,12 @@ Nejčastěji chybějící atribut je zpoždění v poslední zastávce, toto je 
 
 \bigbreak
 
-Vkládání dat je řešeno pomocí databázových transakcí tak, aby stav databáze byl vždy konzistentní. Tedy pokud nejsou poskytnuta data ve formátu, který skript akceptuje, nebo nějaké povinné atributy chybí. Vložení celého tripu nebude provedono.
+Vkládání dat je řešeno pomocí databázových transakcí tak, aby stav databáze byl vždy konzistentní. Tedy pokud nejsou poskytnuta data ve formátu, který skript akceptuje, nebo nějaké povinné atributy chybí. Vložení celé jízdy nebude provedono.
 
 \bigbreak
 
-Mimo popsanou databázi se do určeného adresáře ukládají trasy jednotlivých tripů. Tyto data jsou používány jen pro vykreslení na mapu, proto není nutné je držet v hlavní databázi.
+Mimo popsanou databázi se do určeného adresáře ukládají trasy jednotlivých jízd. Tyto data jsou používány jen pro vykreslení na mapu, proto není nutné je držet v hlavní databázi. Navíc jsou trasy příjmány Mapboxem ve formátu \gls{geojson} tedy tyto data není nutné vůbec transformovat.
 
 \bigbreak
 
- Stejně tak i aktuální polohy vozidel jsou mimo databázi zapisovány do souboru, který je určen a formátován pro čtení webovou aplikací. Aktualizace tohoto souboru je provedena přednostně ihned po načtení real-timových dat.
+ Stejně tak i aktuální polohy vozidel jsou mimo databázi zapisovány do souboru, který je určen a formátován pro čtení webovou aplikací. Aktualizace tohoto souboru je provedena přednostně, ihned po načtení real-timových dat. Tím se zabrání nechtěnému čekaní na aktualizaci celé databáze, která může trvat jednotky sekund.

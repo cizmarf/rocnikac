@@ -6,23 +6,23 @@ Tato kapitola pospisuje hledání optimálního modelu pro popis pohybu vozidel 
 
 \bigbreak
 
-Z toho jak je problém formulován vyplývá, že se má odhadovat zpoždění mezi dvěma refenčními body a jediné takové jsou zastávky na trase danného spoje. Proto cíl algortimu může být formulován jako vytvořit popis průběh trasy mezi každou dvojcí zastávek, které alesponˇ jeden spoj obsluhuje a jsou bezprostředně sousedící ve sledu zastávek ve směru jízdy tohoto spoje. Nechtˇ se dvojce bodů a spoj je obsluhůjící splnˇující předcházející předpoklad označuje jako A, B a S.
+Z toho jak je problém formulován vyplývá, že se má odhadovat zpoždění mezi dvěma refenčními body a jediné takové jsou zastávky na trase danného spoje. Proto cíl algortimu může být formulován jako vytvořit popis průběhu trasy mezi každou dvojcí zastávek, které alespoň jeden spoj obsluhuje a jsou bezprostředně sousedící ve sledu zastávek ve směru jízdy tohoto spoje. Nechtˇ se dvojce bodů a spoj je obsluhůjící splňující předcházející předpoklad označuje jako A, B a S.
 
 \section{Základní předpoklady}
 
-Hned na začátek je potřeba ustanovit základní předpoklady, ze kterých bude vycházet sestrojený algoritmus.
+Hned na začátek je potřeba ustanovit základní předpoklady ze kterých bude vycházet sestrojený algoritmus.
 
 \bigbreak
 
-Zastávky je potřeba rozlišovat na jednotlivá nástupiště. Toto výrazně nezvýší počet dvojic zastávek A a B. -- Naprostá většina zastávek má pouze dvě nástupiště. Pro každý směr jedno. Pokud má více nástupištˇ, pak tak bývá v případech, kdy ze zastávky odjíždí spoje do  více směrů a tudíž pro každné nástupiště je jiná následující zastávka.
+Zastávky je potřeba rozlišovat na jednotlivá nástupiště. Toto výrazně nezvýší počet dvojic zastávek A a B. -- Naprostá většina zastávek má pouze dvě nástupiště. Pro každý směr jedno. Pokud má více nástupištˇ, pak tak bývá v případech, kdy ze zastávky odjíždí spoje do více směrů a tudíž pro každné nástupiště je jiná následující zastávka.
 
 \bigbreak
 
-Všechny spoje S bez ohladu na linku nebo dopravce jedou ze zastávky A do zastávky B po stejné trase a tedy vzdálenost je konstatní. -- Předpokládá se, že žáný dopravce neužívá jinou komunikaci a pro všechny platí pravidla silničního provozu stejně. V případě mimořádností se trasa může měnit, nicméně detekce mimořádností a jejich řešení je nad rámec této práce.
+Všechny spoje S bez ohladu na linku nebo dopravce jedou ze zastávky A do zastávky B po stejné trase a tedy vzdálenost je konstatní. -- Předpokládá se, že žáný dopravce nevyužívá jinou komunikaci a pro všechny platí pravidla silničního provozu stejně.
 
 \bigbreak
 
-Čas jízdy ze zastávky A do B závisí pouze na denní době. -- Vysvětleno výše navíc platí žádný z dopravců nedisponuje právem přednosti v jízdě před jiným dopravcem nebo výrazně výkonějším vozidlem.  Dojezdové časy mohou být ovlivněny jen charakterem řidiče, avšak toto není zjistitelné z poskytnutých dat a zárovenˇ se předpokládá, že charatery řidičů jsou rovnoměrně rozloženy mezi všechny dopravce a linky. Podle jízdních řádů některé linky jedou rychleji než jiné, avšak skutečné doba jízdenky je stejná. To že některý spoj zastávku projíždí a tím je rychlejší než jiný spoj není porušení tohoto předpokladu protože se jedná o dvě různé dvojce zastávek.
+Čas jízdy ze zastávky A do B závisí pouze na denní době. -- Vysvětleno výše. Navíc platí žádný z dopravců nedisponuje právem přednosti v jízdě před jiným dopravcem nebo výrazně výkonějším vozidlem.  Dojezdové časy mohou být ovlivněny jen charakterem řidiče, avšak toto není zjistitelné z poskytnutých dat a zároveň se předpokládá, že charatery řidičů jsou rovnoměrně rozloženy mezi všechny dopravce a linky. Podle jízdních řádů některé linky jedou ve stejnou denní dobu rychleji než jiné, avšak skutečné doba jízdy je stejná. To že některý spoj zastávku projíždí a tím je rychlejší než jiný spoj není porušení tohoto předpokladu protože se jedná o dvě různé dvojce zastávek.
 
 \bigbreak
 
@@ -37,7 +37,7 @@ Z dat popsaných v kapitole (TODO link kap 2???) je potřeba získat všechny dv
 
 Toto je možné realizovat pomocí následujícího \gls{sql} dotazu.
 
-TODO upravit a vylepsit tento dotaz
+TODO upravit a vylepsit tento dotaz, do jake miry mam uvadet vsechny pouzite sql dotazy???
 \begin{code}[frame=none]
 select inn.id_trip,
 	inn.id_stop,
@@ -95,7 +95,7 @@ K tomuto dochází například v případech kdy spoj zastavuje ve městě a v n
 
 \bigbreak
 
-Pro spočítání polynomiálního modelu se využívá knihovna sklearn konkrétně algoritmus zvaný Rigde, který sám o sobě hledá linární závislosti, nicméně vstupní hodnoty jsou mezi sebou náležitě pronásobeny tak, aby simulovali polynomiální funkci. Toho se dosáhne pomocí funkce PolynomialFeatures. Optimální stupenˇ polynomu se zjistí spočítáním modelu pro každý stupenˇ v rozumných mezích a nakonec se zvolí ten s nejmenší chybou. (TODO jak moc detailně se ma toto popisovat?)
+Pro spočítání polynomiálního modelu se využívá knihovna sklearn konkrétně algoritmus zvaný Rigde, který sám o sobě hledá linární závislosti, nicméně vstupní hodnoty jsou mezi sebou náležitě pronásobeny tak, aby simulovali polynomiální funkci. Toho se dosáhne pomocí funkce PolynomialFeatures. Optimální stupeň polynomu se zjistí spočítáním modelu pro každý stupeň v rozumných mezích a nakonec se zvolí ten s nejmenší chybou. (TODO jak moc detailně se ma toto popisovat?)
 
 (TODO obrazek poly modelu)
 
@@ -119,7 +119,7 @@ Ačkoli je myšlenka jednoduchá, při implementaci vyvstává několik technick
 
 \bigbreak
 
-Nejprve k samotnému konkávnímu obalu. Je potřeba říct, že na množině bodů není definován jednoznačně (TODO obrazek nejednoznacnosti konkavnoho obalu). A jedná se o početně složitý algoritmus. V tomto díle je zapotřebí spočítat obal ve třídimenzionálním prostoru, což je velmi komplikovaný úkol, a proto je potřeba přijít s zjednodušením úlohy. Tedy počítat obal pouze pro dvoudimenzionální prostor. Toho se nedá dosáhnou jinak než diskretizací úlohy a počítání obalu pro každou hodinu zvláštˇ, tedy ze všech bodů, které byly zaznamenány v průběhu jedné hodiny. Tím může dojít k vetší granularitě obalu, než by bylo vhodné, nicméně předpokládá se, že hodina je dostatečně dlouhý časový interval na to, aby zde byly zachyceny všechny druhy průběhu jízdy (započítávají se všechny spoje jedoucí ve stejnou hodiny nejméně týden zpět) a zárovenˇ je to dostatečně krátký interval na nezkreslování denních výkyvů v čase jízdy. Navíc všechny body tvořící obal pro dannou hodinu jsou poté přidány do celkového obalu i s přesným časem zaznamenání a pro počítání konečných výsledků je použit třídimenzionální obal.
+Nejprve k samotnému konkávnímu obalu. Je potřeba říct, že na množině bodů není definován jednoznačně (TODO obrazek nejednoznacnosti konkavnoho obalu). A jedná se o početně složitý algoritmus. V tomto díle je zapotřebí spočítat obal ve třídimenzionálním prostoru, což je velmi komplikovaný úkol, a proto je potřeba přijít s zjednodušením úlohy. Tedy počítat obal pouze pro dvoudimenzionální prostor. Toho se nedá dosáhnou jinak než diskretizací úlohy a počítání obalu pro každou hodinu zvláštˇ, tedy ze všech bodů, které byly zaznamenány v průběhu jedné hodiny. Tím může dojít k vetší granularitě obalu, než by bylo vhodné, nicméně předpokládá se, že hodina je dostatečně dlouhý časový interval na to, aby zde byly zachyceny všechny druhy průběhu jízdy (započítávají se všechny spoje jedoucí ve stejnou hodiny nejméně týden zpět) a zároveň je to dostatečně krátký interval na nezkreslování denních výkyvů v čase jízdy. Navíc všechny body tvořící obal pro dannou hodinu jsou poté přidány do celkového obalu i s přesným časem zaznamenání a pro počítání konečných výsledků je použit třídimenzionální obal.
 
 \bigbreak
 
