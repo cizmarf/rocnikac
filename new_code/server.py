@@ -13,8 +13,8 @@ import mysql.connector
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
-from new_code.database import Database
-from new_code.file_system import File_system
+from database import Database
+from file_system import File_system
 
 class Server:
 

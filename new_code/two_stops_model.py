@@ -64,6 +64,11 @@ class Super_model:
 
 class Two_stops_model:
 
+	TRAVEL_TIME_LIMIT = 7200  # 2 hours
+	SECONDS_A_DAY = 24 * 60 * 60
+	REMOVE_ALPHA_TIMES = 2
+	VEHICLE_ARRIVED_MARGIN = 200  # if vehicle is less then 200 m from arr stop it is consider to be arrived
+
 	class Linear_model(Super_model):
 
 		# distance between the stops, time between the stops
@@ -263,24 +268,51 @@ class Two_stops_model:
 		def get_name(self):
 			return "Hull"
 
-
-
 	# norm_data is dict of shapes, coor_times ands day_times, ids_trip
-	def __init__(self, dep_id_stop: str, arr_id_stop: str, distance: int, max_travel_time: int, shapes, coor_times, day_times, ids_trip):
+	def __init__(self, dep_id_stop: str, arr_id_stop: str, distance: int):
 		self.dep_id_stop = dep_id_stop
 		self.arr_id_stop = arr_id_stop
 		self.distance = distance
-		self.norm_data = Norm_data(shapes, coor_times, day_times, ids_trip)
-		self.max_travel_time = max_travel_time
+		self.max_travel_time = 0
+		self.shapes = []
+		self.coor_times = []
+		self.day_times = []
+		self.ids_trip = []
+
+	def add_row(self, shape: int, dep_time: int, day_time: int, id_trip: str, arr_time: int, delay: int):
+
+		# ignores data if a bus is much more longer time on its way than usual
+		if day_time - dep_time < Two_stops_model.TRAVEL_TIME_LIMIT:
+			self.shapes.append(shape)
+
+			# vehicle passed midnight
+			if day_time - dep_time - delay < Two_stops_model.SECONDS_A_DAY / 2:
+				self.coor_times.append(day_time - dep_time - delay + Two_stops_model.SECONDS_A_DAY)
+			else:
+				self.coor_times.append(day_time - dep_time - delay)
+
+			self.day_times.append(day_time)
+			self.ids_trip.append(id_trip)
+
+			if arr_time - dep_time > self.max_travel_time and arr_time > dep_time:
+				self.max_travel_time = arr_time - dep_time
+
+			# vehile passes midnight
+			if arr_time - dep_time + Two_stops_model.SECONDS_A_DAY> self.max_travel_time and arr_time <= dep_time:
+				self.max_travel_time = arr_time - dep_time + Two_stops_model.SECONDS_A_DAY
+
+
+
+	def create_model(self):
+		self.norm_data = Norm_data(self.shapes, self.coor_times, self.day_times, self.ids_trip)
 		self._create_model()
 
 	def _reduce_errors(self):
-
-		remove_alpha = 2
+		# removes trips delayed more then alpha times
 		trips_to_remove = set()
 		for row in self.norm_data:
-			if row.shape > self.distance - 200:  # 200 m to arrival stop
-				if row.coor_time > self.max_travel_time * remove_alpha:
+			if row.shape > self.distance - Two_stops_model.VEHICLE_ARRIVED_MARGIN:  # 200 m to arrival stop
+				if row.coor_time > self.max_travel_time * Two_stops_model.REMOVE_ALPHA_TIMES:
 					trips_to_remove.add(row.id_trip)
 
 		self.norm_data.remove_items_by_id_trip(trips_to_remove)
@@ -310,3 +342,5 @@ class Two_stops_model:
 
 	def get_model(self) -> Super_model:
 		return self.model
+
+	def save_model(self):
