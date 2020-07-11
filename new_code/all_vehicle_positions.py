@@ -3,9 +3,9 @@ import json
 import time
 from os.path import getmtime
 
-from new_code.file_system import File_system
-from new_code.network import Network
-from new_code.trip import Trip
+from file_system import File_system
+from network import Network
+from trip import Trip
 
 class Static_all_vehicle_positions:
 
@@ -47,7 +47,7 @@ class All_vehicle_positions():
 		try:
 			for vehicle in self.json_file["features"]:
 				trip = Trip()
-				trip.set_atribudes_by_vehicle(vehicle)
+				trip.set_attributes_by_vehicle(vehicle)
 				self.vehicles.append(trip)
 		except KeyError:
 			print("error")
@@ -55,20 +55,7 @@ class All_vehicle_positions():
 	def get_trip_source_id_by_vehicle(self, vehicle) -> str:
 		return vehicle.trip_id
 
-	def update_geojson_file(self, database_connection):
-		geojson_vehiclepositions = {}
-		geojson_vehiclepositions["type"] = "FeatureCollection"
-		geojson_vehiclepositions["timestamp"] = time.strftime("%Y-%m-%d-%H:%M:%S")
-		geojson_vehiclepositions["features"] = []
-
-		try:
-			for vehicle in self.vehicles:
-				geojson_vehiclepositions["features"].append(vehicle.to_real_time_geojson(database_connection))
-		except KeyError as e:
-			print("error")
-			
-		File_system.save_file(geojson_vehiclepositions, File_system.all_vehicle_positions_real_time_geojson)
-		
+	def estimate_delays(self):
 
 
 if __name__ == "__main__":

@@ -2,13 +2,13 @@ import mysql.connector
 
 
 class Database:
-
+	## Sets connection to the database and keeps it during the whole execution
 	def __init__(self):
 		self.connection = mysql.connector.connect(
 			host="localhost",
 			database="vehicle_positions_database",
 			user="vehicles_access",
-			passwd="my_password",
+			passwd="my_password_1234",
 			autocommit=True
 		)
 		self.cursor_prepared = self.connection.cursor(prepared=True)
@@ -46,6 +46,22 @@ class Database:
 		# except Exception as e:
 		# 	print(e)
 		# 	print("Query failed", sql_query, "params:", params)
+
+	def execute_procedure_fetchall(self, query, params=()):
+		self.cursor.callproc(query, params)
+		return_list = []
+		for result in self.cursor.stored_results():
+			return_list.append(result.fetchall())
+		# return self.cursor.stored_results()[0].fetchall()
+
+		# i dont got meaning of the for loop but it is not working otherwise
+		if return_list[0] == [] and len(return_list) == 1:
+			return_list = []
+
+		if len(return_list) == 1:
+			return_list = return_list[0]
+
+		return return_list
 
 	def commit(self):
 		self.connection.commit()

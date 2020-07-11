@@ -39,23 +39,32 @@ Toto je možné realizovat pomocí následujícího \gls{sql} dotazu.
 
 TODO upravit a vylepsit tento dotaz, do jake miry mam uvadet vsechny pouzite sql dotazy???
 \begin{code}[frame=none]
-select inn.id_trip,
-	inn.id_stop,
-	inn.lead_stop,
+SELECT schedule.id_trip,
+	schedule.id_stop,
+	schedule.lead_stop, 
 	departure_time,
-	inn.lead_stop_departure_time,
-	(inn.lead_stop_shape_dist_traveled - inn.shape_dist_traveled) as diff_shape_trav,
+	schedule.lead_stop_departure_time,
+	(schedule.lead_stop_shape_dist_traveled - schedule.shape_dist_traveled)
+		AS diff_shape_trav,
 	trip_coordinates.inserted,
-	(trip_coordinates.shape_dist_traveled - inn.shape_dist_traveled) as shifted_shape_trav,
+	(trip_coordinates.shape_dist_traveled - schedule.shape_dist_traveled)
+		AS shifted_shape_trav,
 	trip_coordinates.delay
 FROM (
 	SELECT id_trip, id_stop, shape_dist_traveled, departure_time,
-		LEAD(id_stop, 1) OVER (PARTITION BY id_trip ORDER BY shape_dist_traveled) lead_stop,
-		LEAD(shape_dist_traveled, 1) OVER (PARTITION BY id_trip ORDER BY shape_dist_traveled) lead_stop_shape_dist_traveled,
-		LEAD(departure_time, 1) OVER (PARTITION BY id_trip ORDER BY shape_dist_traveled) lead_stop_departure_time
-	FROM rides) as inn
-	JOIN trip_coordinates
-	ON trip_coordinates.id_trip = inn.id_trip and inn.lead_stop_shape_dist_traveled - inn.shape_dist_traveled > 1500 and trip_coordinates.shape_dist_traveled between inn.shape_dist_traveled and inn.lead_stop_shape_dist_traveled
+		LEAD(id_stop, 1) OVER (
+			PARTITION BY id_trip ORDER BY shape_dist_traveled) lead_stop,
+		LEAD(shape_dist_traveled, 1) OVER (
+			PARTITION BY id_trip ORDER BY shape_dist_traveled) lead_stop_shape_dist_traveled,
+		LEAD(departure_time, 1) OVER (
+			PARTITION BY id_trip ORDER BY shape_dist_traveled) lead_stop_departure_time
+	FROM rides) AS schedule
+JOIN trip_coordinates
+ON trip_coordinates.id_trip = schedule.id_trip AND
+	schedule.lead_stop_shape_dist_traveled - schedule.shape_dist_traveled > 1500 AND
+	trip_coordinates.shape_dist_traveled BETWEEN schedule.shape_dist_traveled AND
+	schedule.lead_stop_shape_dist_traveled
+ORDER BY id_stop, lead_stop, shifted_shape_trav
 \end{code}
 
 \bigbreak
@@ -144,13 +153,13 @@ odhad_příjezdu = odhadni čas příjezdu v průběhu celého dne podle bodů v
 spoje_včas = prázdné pole
 
 pro každou hodinu h:
-	spoje_včas += vyber x \% spojů, které přijely nejblíže odhadu v hodině h
+    spoje_včas += vyber x \% spojů, které přijely nejblíže odhadu v hodině h
 
 konkávní_obal = prázdné pole
 
 pro každou hodinu h:
-	body = vyber všechny body zaznamenané v hodině h a náležící kterémukili spoji v spoje_včas
-	konkávní obal += spočítej konkávní obal z body
+    body = vyber všechny body zaznamenané v hodině h a náležící kterémukili spoji v spoje_včas
+    konkávní obal += spočítej konkávní obal z body
 
 Vrací: konkávní_obal
 \end{code}
@@ -161,17 +170,17 @@ Dále odhad zpoždění z konkávního obalu:
 Vstup: bod v prostoru vzdálenosti, průběhu dne a času na trase
 
 pokud je bod v konkávní_obal:
-	velikost_okna = rozdíl horní hranice obalu od spodní v čase příjezdu do zastávky
-	spodek_okna = spodní hranice okna v čase příjezdu do zastávky
-	poměr = vzdálenost bodu od spodní hranice obalu / vzdálenost bodu od horní hranice obalu
-	odhad_příjezdu = velikost_okna * poměr + spodek_okna
+    velikost_okna = rozdíl horní hranice obalu od spodní v čase příjezdu do zastávky
+    spodek_okna = spodní hranice okna v čase příjezdu do zastávky
+    poměr = vzdálenost bodu od spodní hranice obalu / vzdálenost bodu od horní hranice obalu
+    odhad_příjezdu = velikost_okna * poměr + spodek_okna
 jinak:
-	pokud je bod pod obalem:
-		spodek_okna = spodní hranice obalu v čase příjezdu do zastávky
-		odhad_příjezdu = spodek_okna - vzdálenost bodu od obalu
-	jinak:
-		vrch_okna = horní hranice obalu v čase příjezdu do zastávky
-		odhad_příjezdu = vrch_okna + vzdálenost bodu od obalu
+    pokud je bod pod obalem:
+        spodek_okna = spodní hranice obalu v čase příjezdu do zastávky
+        odhad_příjezdu = spodek_okna - vzdálenost bodu od obalu
+    jinak:
+        vrch_okna = horní hranice obalu v čase příjezdu do zastávky
+        odhad_příjezdu = vrch_okna + vzdálenost bodu od obalu
 
 Vrací: odhad_příjezdu - pravidelný příjezd
 \end{code}

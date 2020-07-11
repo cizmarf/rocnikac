@@ -1,3 +1,4 @@
+import os
 import tarfile
 from io import BytesIO
 
@@ -11,6 +12,7 @@ class File_system:
 	static_trips = Path("/Users/filipcizmar/Documents/rocnikac/raw-trips/")
 	all_shapes = Path("/Users/filipcizmar/Documents/rocnikac/data/trips/")
 	all_vehicle_positions_real_time_geojson = Path("/Users/filipcizmar/Documents/rocnikac/data/vehicle_positions")
+	all_models = Path("/Users/filipcizmar/Documents/rocnikac/data/models")
 
 	@staticmethod
 	def get_tar_file_content(path) -> str:
@@ -41,10 +43,17 @@ class File_system:
 				f.write(json.dumps(content))
 
 		except Exception as e:
-			print("error")
 			raise IOError(e)
 
 
 	@staticmethod
 	def get_file_content(path):
 		pass
+
+	@staticmethod
+	def delete_file(path):
+		try:
+			os.remove(path)
+		except Exception as e:
+			print("file not found", path)
+

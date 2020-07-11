@@ -1,9 +1,9 @@
 import argparse
 import logging
 
-from new_code.database import Database
-from new_code.network import Network
-from new_code.trip import Trip
+from database import Database
+from network import Network
+from trip import Trip
 
 
 class Stops:

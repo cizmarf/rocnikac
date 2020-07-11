@@ -3,8 +3,8 @@ import json
 from datetime import datetime
 from functools import wraps
 
-from new_code.file_system import File_system
-from new_code.network import Network
+from file_system import File_system
+from network import Network
 
 class Trip:
 
@@ -48,12 +48,12 @@ class Trip:
 		self.id_trip_headsign: int = None
 		self.id_trip: int = None
 		
-	def set_atribudes_by_vehicle(self, vehicle: dict):
+	def set_attributes_by_vehicle(self, vehicle: dict):
 		self.json_file = vehicle
 		self.trip_id = vehicle["properties"]["trip"]["gtfs_trip_id"]
 		self.lat = vehicle["geometry"]["coordinates"][1]
 		self.lon = vehicle["geometry"]["coordinates"][0]
-		self.cur_delay = int(vehicle["properties"]["last_position"]["delay"])
+		self.cur_delay = int(vehicle["properties"]["last_position"]["delay"])  # TODO rewrite on model delay in use
 		self.shape_traveled = Trip.format_shape_traveled(vehicle["properties"]["last_position"]["gtfs_shape_dist_traveled"])
 		self.trip_no = vehicle["properties"]["trip"]["gtfs_route_short_name"]
 		self.last_stop_delay = vehicle["properties"]["last_position"]["delay_stop_departure"]
@@ -97,24 +97,19 @@ class Trip:
 
 
 	def get_tuple_new_trip(self, static: bool) -> tuple:
-		"""
-		returns exact tuple for
-		:return:
-		:rtype:
-		"""
 		if static:
-			return (self.trip_id, self.trip_headsign, self.last_stop_delay, self.shape_traveled, self.trip_no, datetime.now(), self.lat, self.lon)
+			return (self.trip_id, self.trip_headsign, self.cur_delay, self.last_stop_delay, self.shape_traveled, self.trip_no, datetime.now(), self.lat, self.lon)
 		else:
-			return (self.trip_id, self.trip_headsign, self.last_stop_delay, self.shape_traveled, self.trip_no, self.last_updated, self.lat, self.lon)
+			return (self.trip_id, self.trip_headsign, self.cur_delay, self.last_stop_delay, self.shape_traveled, self.trip_no, self.last_updated, self.lat, self.lon)
 
 	def get_tuple_update_trip(self, static) -> tuple:
 		if static:
-			return (self.trip_id, self.last_stop_delay, self.shape_traveled, self.lat, self.lon, datetime.now())
+			return (self.trip_id, self.cur_delay, self.last_stop_delay, self.shape_traveled, self.lat, self.lon, datetime.now())
 		else:
-			return (self.trip_id, self.last_stop_delay, self.shape_traveled, self.lat, self.lon, self.last_updated)
+			return (self.trip_id, self.cur_delay, self.last_stop_delay, self.shape_traveled, self.lat, self.lon, self.last_updated)
 
-	def get_json_trip_file(self):
-		self.json_trip = Network.download_URL_to_json(Network.trip_by_id(self.trip_id))
+	async def get_async_json_trip_file(self):
+		self.json_trip = await Network.download_async_URL_to_json(Network.trip_by_id(self.trip_id))
 		self._fill_attributes_from_trip_file()
 
 	def static_get_json_trip_file(self):

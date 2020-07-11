@@ -1,5 +1,10 @@
+from __future__ import annotations
+
+import lzma
+import pickle
 from collections import namedtuple, Set
 
+from file_system import File_system
 import numpy as np
 import alphashape
 from skimage.metrics import mean_squared_error
@@ -38,18 +43,29 @@ class Norm_data:
 					  id_trip=self.get_ids_trip()[i])
 
 	def remove_items_by_id_trip(self, ids_trip: Set):
-		indecies = []
-		for i in range(len(self.data)):
+		indices = []
+		for i in range(self.data.shape[1]):
 			if self.get_ids_trip()[i] in ids_trip:
-				indecies.append(i)
+				indices.append(i)
 
 		transp = self.data.transpose()
-		np.delete(transp, indecies)
+		np.delete(transp, indices)
 		self.data = transp.transpose()
 		assert len(self.data) == 4
 
 
 class Super_model:
+
+	model_path = "../../data/models/"
+
+	def __init__(self, distance: int, norm_data: Norm_data = None, dep_stop = None, arr_stop = None, bss_or_hol = None):
+		self.model = None
+		self.distance = distance
+		self.norm_data = norm_data
+		self.dep_stop = dep_stop
+		self.arr_stop = arr_stop
+		self.bss_or_hol = bss_or_hol
+
 	def predict(self, norm_shape_dist_trv, update_time, departure_time, arrival_time):
 		pass
 
@@ -59,6 +75,14 @@ class Super_model:
 	def get_name(self):
 		pass
 
+	def get_model(self) -> Super_model:
+		return self.model
+
+	def save_model(self):
+		with lzma.open((File_system.all_models / (str(self.dep_stop) + "_" + str(self.arr_stop) + "_" + self.bss_or_hol)).with_suffix(".model"), "wb") as model_file:
+			pickle.dump(self, model_file)
+
+
 
 # model returns normal delay as a trip at departure stop has no delay
 
@@ -67,12 +91,13 @@ class Two_stops_model:
 	TRAVEL_TIME_LIMIT = 7200  # 2 hours
 	SECONDS_A_DAY = 24 * 60 * 60
 	REMOVE_ALPHA_TIMES = 2
-	VEHICLE_ARRIVED_MARGIN = 200  # if vehicle is less then 200 m from arr stop it is consider to be arrived
+	VEHICLE_ARRIVED_MARGIN = 200  # if vehicle is less then 200 m from arr stop it is considered to be arrived
 
 	class Linear_model(Super_model):
 
 		# distance between the stops, time between the stops
 		def __init__(self, distance):
+			super().__init__(distance)
 			self.distance = distance
 
 		# distance traveled from departure stop, all in seconds
@@ -85,19 +110,21 @@ class Two_stops_model:
 			return norm_update_time - estimated_time_progress
 
 		def predict_standard(self, norm_shape_dist_trv, update_time):
-			print("should not occurs")
+			print("predict standard linear should not occurs")
 			pass
-
 
 		def get_name(self):
 			return "Linear"
 
+		def save_model(self):
+			print("save linear model should not occurs")
+			pass
+
 
 	class Polynomial_model(Super_model):
 
-		def __init__(self, distance, norm_data: Norm_data):
-			self.norm_data = norm_data
-			self.distance = distance
+		def __init__(self, distance, norm_data: Norm_data, dep_stop, arr_stop, bss_or_hol):
+			super().__init__(distance, norm_data, dep_stop, arr_stop, bss_or_hol)
 			self.min_day_time = min(self.norm_data.get_day_times())
 			self.max_day_time = max(self.norm_data.get_day_times())
 			self._train_model()
@@ -158,9 +185,8 @@ class Two_stops_model:
 
 	class Concave_hull_model(Super_model):
 
-		def __init__(self, distance, norm_data):
-			self.norm_data = norm_data
-			self.distance = distance
+		def __init__(self, distance, norm_data, dep_stop, arr_stop, bss_or_hol):
+			super().__init__(distance, norm_data, dep_stop, arr_stop, bss_or_hol)
 			self.min_day_time = min(self.norm_data.get_day_times())
 			self.max_day_time = max(self.norm_data.get_day_times())
 			self._train_model()
@@ -269,7 +295,7 @@ class Two_stops_model:
 			return "Hull"
 
 	# norm_data is dict of shapes, coor_times ands day_times, ids_trip
-	def __init__(self, dep_id_stop: str, arr_id_stop: str, distance: int):
+	def __init__(self, dep_id_stop: str, arr_id_stop: str, distance: int, bss_or_hol: str):
 		self.dep_id_stop = dep_id_stop
 		self.arr_id_stop = arr_id_stop
 		self.distance = distance
@@ -278,6 +304,7 @@ class Two_stops_model:
 		self.coor_times = []
 		self.day_times = []
 		self.ids_trip = []
+		self.bss_or_hol = bss_or_hol
 
 	def add_row(self, shape: int, dep_time: int, day_time: int, id_trip: str, arr_time: int, delay: int):
 
@@ -297,7 +324,7 @@ class Two_stops_model:
 			if arr_time - dep_time > self.max_travel_time and arr_time > dep_time:
 				self.max_travel_time = arr_time - dep_time
 
-			# vehile passes midnight
+			# vehicle passes midnight
 			if arr_time - dep_time + Two_stops_model.SECONDS_A_DAY> self.max_travel_time and arr_time <= dep_time:
 				self.max_travel_time = arr_time - dep_time + Two_stops_model.SECONDS_A_DAY
 
@@ -306,6 +333,10 @@ class Two_stops_model:
 	def create_model(self):
 		self.norm_data = Norm_data(self.shapes, self.coor_times, self.day_times, self.ids_trip)
 		self._create_model()
+
+	def __len__(self):
+		assert len(self.shapes) == len(self.day_times) == len(self.coor_times) == len(self.ids_trip)
+		return len(self.shapes)
 
 	def _reduce_errors(self):
 		# removes trips delayed more then alpha times
@@ -321,7 +352,7 @@ class Two_stops_model:
 	def _create_model(self):
 		# linear -> < 2000 m, pocet dat alespon 10 na kilometr a 4 spoje denne
 		self._reduce_errors()
-		poly_model = Two_stops_model.Polynomial_model(self.distance, self.norm_data)
+		poly_model = Two_stops_model.Polynomial_model(self.distance, self.norm_data, self.dep_id_stop, self.arr_id_stop, self.bss_or_hol)
 		rmse_aplha = 0.2
 		print("rmse:", poly_model.get_rmse(), "dist * alpha:", self.distance * rmse_aplha)
 
@@ -329,18 +360,13 @@ class Two_stops_model:
 			self.model = Two_stops_model.Linear_model(self.distance)
 			print("less than 2 km or not enough data")
 		else:  # creates poly model and if rmse is not acceptable it creates hull model
-			poly_model = Two_stops_model.Polynomial_model(self.distance, self.norm_data)
+			poly_model = Two_stops_model.Polynomial_model(self.distance, self.norm_data, self.dep_id_stop, self.arr_id_stop, self.bss_or_hol)
 
 			if poly_model.get_rmse() < self.distance * rmse_aplha:
 				self.model = poly_model
 			else:
 				try:
-					self.model = Two_stops_model.Concave_hull_model(self.distance, self.norm_data)
+					self.model = Two_stops_model.Concave_hull_model(self.distance, self.norm_data, self.dep_id_stop, self.arr_id_stop,  self.bss_or_hol)
 				except RuntimeError as e:
 					print(self.dep_id_stop, self.arr_id_stop)
 					raise e
-
-	def get_model(self) -> Super_model:
-		return self.model
-
-	def save_model(self):
