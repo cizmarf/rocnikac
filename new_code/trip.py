@@ -3,6 +3,8 @@ import json
 from datetime import datetime
 from functools import wraps
 
+import pytz
+
 from file_system import File_system
 from network import Network
 
@@ -41,12 +43,18 @@ class Trip:
 		self.lon: str = None
 		self.last_updated=None
 		self.cur_delay: int = None
-		self.last_stop_delay=None
+		self.last_stop_delay = None
 		self.shape_traveled: int = None
 		self.trip_no: str = None
 		self.trip_headsign: str = None
 		self.id_trip_headsign: int = None
 		self.id_trip: int = None
+		self.last_stop = None
+		self.next_stop = None
+		self.last_stop_shape_dist_trav = None
+		self.arrival_time = None
+		self.departure_time = None
+		self.stop_dist_diff = None
 		
 	def set_attributes_by_vehicle(self, vehicle: dict):
 		self.json_file = vehicle
@@ -60,7 +68,9 @@ class Trip:
 		if self.last_stop_delay is None:
 			self.last_stop_delay = vehicle["properties"]["last_position"]["delay_stop_arrival"]
 		last_updated = vehicle["properties"]["last_position"]["origin_timestamp"]
-		self.last_updated = last_updated[:last_updated.index(".")]
+
+		# extracts time from json and sets timezone to UTC and convert the time to prague timezone
+		self.last_updated = pytz.utc.localize(datetime.strptime(last_updated[:last_updated.index(".")], '%Y-%m-%dT%H:%M:%S')).astimezone(pytz.timezone('Europe/Prague'))
 		self.id_trip = None
 
 	def to_real_time_geojson(self, database_connection) -> dict:
@@ -98,15 +108,21 @@ class Trip:
 
 	def get_tuple_new_trip(self, static: bool) -> tuple:
 		if static:
-			return (self.trip_id, self.trip_headsign, self.cur_delay, self.last_stop_delay, self.shape_traveled, self.trip_no, datetime.now(), self.lat, self.lon)
+			return (self.trip_id, self.trip_headsign, self.cur_delay, self.shape_traveled, self.trip_no, datetime.now(), self.lat, self.lon)
 		else:
-			return (self.trip_id, self.trip_headsign, self.cur_delay, self.last_stop_delay, self.shape_traveled, self.trip_no, self.last_updated, self.lat, self.lon)
+			return (self.trip_id, self.trip_headsign, self.cur_delay, self.shape_traveled, self.trip_no, self.last_updated, self.lat, self.lon)
 
 	def get_tuple_update_trip(self, static) -> tuple:
 		if static:
 			return (self.trip_id, self.cur_delay, self.last_stop_delay, self.shape_traveled, self.lat, self.lon, datetime.now())
 		else:
 			return (self.trip_id, self.cur_delay, self.last_stop_delay, self.shape_traveled, self.lat, self.lon, self.last_updated)
+
+	def get_tuple_for_predict(self):
+		try:
+			return (self.shape_traveled - self.last_stop_shape_dist_trav, self.last_updated, self.departure_time, self.arrival_time)
+		except Exception as e:
+			return None
 
 	async def get_async_json_trip_file(self):
 		self.json_trip = await Network.download_async_URL_to_json(Network.trip_by_id(self.trip_id))

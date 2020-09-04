@@ -3,10 +3,10 @@ import mysql.connector
 
 class Database:
 	## Sets connection to the database and keeps it during the whole execution
-	def __init__(self):
+	def __init__(self, database="vehicle_positions_database"):
 		self.connection = mysql.connector.connect(
 			host="localhost",
-			database="vehicle_positions_database",
+			database=database,
 			user="vehicles_access",
 			passwd="my_password_1234",
 			autocommit=True

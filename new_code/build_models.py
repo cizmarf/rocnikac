@@ -4,22 +4,13 @@ from database import Database
 
 from two_stops_model import Two_stops_model
 
+import lib
+
 class Build_models:
 	## Builds models of rides between all pairs of stops
 
 	def __init__(self):
 		self.database_connection = Database()
-
-	@staticmethod
-	def time_to_sec(timed):
-		return timed.time().hour * 3600 + timed.time().minute * 60 + timed.time().second  # + 3600
-
-	@staticmethod
-	def is_business_day(date):
-		day_of_week = date.weekday()
-		if 0 <= day_of_week < 5:
-			return True
-		return False
 
 	def main(self):
 		## Selects all trip_coordinates from the database and splits it into separated models
@@ -73,7 +64,7 @@ class Build_models:
 				# if new stop pair found a new model pair is created
 				if nonbusiness_day_model.dep_id_stop == business_day_model.dep_id_stop == sts_row[1] and \
 				   nonbusiness_day_model.arr_id_stop == business_day_model.arr_id_stop == sts_row[2]:
-					if Build_models.is_business_day(sts_row[6]):
+					if lib.is_business_day(sts_row[6]):
 						business_day_model.add_row(
 							sts_row[7],  		# shape distance traveled from dep stop
 							sts_row[3].seconds, # departure time

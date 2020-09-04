@@ -66,9 +66,11 @@ class Super_model:
 		self.arr_stop = arr_stop
 		self.bss_or_hol = bss_or_hol
 
+	# predicts real delay
 	def predict(self, norm_shape_dist_trv, update_time, departure_time, arrival_time):
 		pass
 
+	# estimates time for given data
 	def predict_standard(self, norm_shape_dist_trv, update_time):
 		pass
 
@@ -102,12 +104,16 @@ class Two_stops_model:
 
 		# distance traveled from departure stop, all in seconds
 		def predict(self, norm_shape_dist_trv, update_time, departure_time, arrival_time):
+			update_time = (update_time.hour * 60 + update_time.minute) * 60 + update_time.second
+			departure_time = departure_time.total_seconds()
+			arrival_time = arrival_time.total_seconds()
+
 			time_diff = arrival_time - departure_time
-			norm_update_time = update_time - arrival_time
+			norm_update_time = update_time - departure_time
 
 			ratio = norm_shape_dist_trv / self.distance
 			estimated_time_progress = time_diff * ratio
-			return norm_update_time - estimated_time_progress
+			return estimated_time_progress - norm_update_time  # returns delay -> negative delay means a bus is faster
 
 		def predict_standard(self, norm_shape_dist_trv, update_time):
 			print("predict standard linear should not occurs")
@@ -117,7 +123,7 @@ class Two_stops_model:
 			return "Linear"
 
 		def save_model(self):
-			print("save linear model should not occurs")
+			print("save linear model does not make any sense.")
 			pass
 
 
@@ -370,3 +376,4 @@ class Two_stops_model:
 				except RuntimeError as e:
 					print(self.dep_id_stop, self.arr_id_stop)
 					raise e
+

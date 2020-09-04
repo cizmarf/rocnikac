@@ -1,14 +1,19 @@
+import lzma
+import ntpath
 import os
+import pickle
 import tarfile
 from io import BytesIO
 
 import json
+from os import listdir
+from os.path import isfile, join
 from pathlib import Path
 
 
 class File_system:
 
-	static_vehicle_positions = Path("/Users/filipcizmar/Documents/rocnikac/raw_data-2/")
+	static_vehicle_positions = Path("/Users/filipcizmar/Documents/rocnikac/raw_data_test/")
 	static_trips = Path("/Users/filipcizmar/Documents/rocnikac/raw-trips/")
 	all_shapes = Path("/Users/filipcizmar/Documents/rocnikac/data/trips/")
 	all_vehicle_positions_real_time_geojson = Path("/Users/filipcizmar/Documents/rocnikac/data/vehicle_positions")
@@ -57,3 +62,17 @@ class File_system:
 		except Exception as e:
 			print("file not found", path)
 
+	@staticmethod
+	def load_all_models():
+		models = {}
+		# models_path = [join(File_system.all_models, f) for f in listdir(File_system.all_models) if isfile(join(File_system.all_models, f))]
+		models_path = [path for path in Path(File_system.all_models).glob('*') if path.is_file()]
+
+		for model_path in models_path:
+			with lzma.open(model_path, "rb") as model_file:
+				models[model_path.stem] = pickle.load(model_file)
+
+		return models
+
+if __name__ == '__main__':
+	print(File_system.load_all_models())

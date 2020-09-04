@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import argparse
 import asyncio
 import logging
@@ -13,11 +15,23 @@ from all_vehicle_positions import All_vehicle_positions, Static_all_vehicle_posi
 from database import Database
 from stops import Stops
 from trip import Trip
+from two_stops_model import *
+import lib
 
 from file_system import File_system
 
 
-async def update_or_insert_trip(vehicle, database_connection):
+def estimate_delays(all_vehicle_positions: All_vehicle_positions, models, database_connection):
+	for vehicle in all_vehicle_positions.iterate_vehicles():
+		# gets model from given set, if no model found uses linear model by default
+		model = models.get(str(vehicle.last_stop) + "_" + str(vehicle.nex_stop + "_bss " if lib.is_business_day(vehicle.last_updated) else "_hol"), Two_stops_model.Linear_model(vehicle.stop_dist_diff))
+
+		tuple_for_predict = vehicle.get_tuple_for_predict()
+		if tuple_for_predict is not None:
+			vehicle.cur_delay = model.predict(*tuple_for_predict)
+
+
+async def update_or_insert_trip(vehicle, database_connection, args):
 	# Tries to get id_trip. If trip does not exist returns empty list else
 	# returns list where first element is id_trip.
 	try_id_trip = database_connection.execute_fetchall('SELECT id_trip FROM trips WHERE trip_source_id = %s LIMIT 1', (vehicle.trip_id,))
@@ -28,10 +42,12 @@ async def update_or_insert_trip(vehicle, database_connection):
 
 		# Updates database row of current trip and adds new record of historical data
 		try:
-			# TODO update delay based on ml model
-			database_connection.execute_transaction_commit_rollback(
-				'SELECT update_trip_and_insert_coordinates_if_changed(%s, %s, %s, %s, %s, %s, %s);',
-				vehicle.get_tuple_update_trip(args.static_demo))
+			if vehicle.cur_delay is None:
+				pass # the vehicle have not started its trip yet
+			else:
+				database_connection.execute_transaction_commit_rollback(
+					'SELECT update_trip_and_insert_coordinates_if_changed(%s, %s, %s, %s, %s, %s, %s);',
+					vehicle.get_tuple_update_trip(args.static_demo))
 		except IOError as e:
 			logging.warning("Update trip failed " + str(vehicle.trip_id) + str(e))
 			# raise Exception(e)
@@ -55,7 +71,7 @@ async def update_or_insert_trip(vehicle, database_connection):
 
 			database_connection.execute('START TRANSACTION;')
 			vehicle.id_trip = database_connection.execute_fetchall(
-				'SELECT insert_new_trip_to_trips_and_coordinates_and_return_id(%s, %s, %s, %s, %s, %s, %s, %s, %s)',
+				'SELECT insert_new_trip_to_trips_and_coordinates_and_return_id(%s, %s, %s, %s, %s, %s, %s, %s)',
 				vehicle.get_tuple_new_trip(args.static_demo))[0][0]
 			Stops.insert_ride_by_trip(database_connection, vehicle)
 			database_connection.execute('COMMIT;')
@@ -67,19 +83,32 @@ async def update_or_insert_trip(vehicle, database_connection):
 				print(vehicle.trip_id + " has null delay last stop")
 			# raise Exception(e)
 
-async def process_async_vehicles(all_vehicle_positions, database_connection):
+async def process_async_vehicles(all_vehicle_positions, database_connection, args):
 	# Iterates for all vehicles found in source file
 	gather = []
 	for vehicle in all_vehicle_positions.iterate_vehicles():
 		try:
-			if vehicle.trip_no == "317" or vehicle.trip_no == "303":
-				gather.append(update_or_insert_trip(vehicle, database_connection))
+			# if vehicle.trip_no == "317" or vehicle.trip_no == "303":
+			gather.append(update_or_insert_trip(vehicle, database_connection, args))
 		except Exception as e:
 			logging.warning("Trip update failed " + vehicle.trip_id + ". Exception: " + str(e))
 
 	await asyncio.gather(*gather)
 
-def main(database_connection):
+async def as_pr(i):
+	await asyncio.sleep(2)
+	print(i)
+
+async def as_print(li):
+	gather = []
+	for i in li:
+		gather.append((as_pr(i)))
+
+	await asyncio.gather(*gather)
+
+def main(database_connection, args):
+
+	models = File_system.load_all_models()
 
 	# For static data source only
 	static_iterator = None
@@ -101,13 +130,15 @@ def main(database_connection):
 		else:
 			all_vehicle_positions.get_all_vehicle_positions_json()
 
-		all_vehicle_positions.construct_all_trips()  # Creates class for each trip in current source file
+		all_vehicle_positions.construct_all_trips(database_connection)  # Creates class for each trip in current source file
 
-		all_vehicle_positions.estimate_delays()
+		estimate_delays(all_vehicle_positions, models, database_connection)
 
-		all_vehicle_positions.get_all_vehicle_positions_json()
+		# all_vehicle_positions.get_all_vehicle_positions_json()
 
-		asyncio.run(process_async_vehicles(all_vehicle_positions, database_connection))
+		# asyncio.run(as_print([1,2,3]))
+
+		asyncio.run(process_async_vehicles(all_vehicle_positions, database_connection, args))
 
 		try:
 			if args.static_demo or not args.static_data:
@@ -135,4 +166,4 @@ if __name__ == "__main__":
 			File_system.delete_file(File_system.all_shapes / (id[0] + '.shape'))
 		sys.exit(0)
 
-	main(database_connection)
+	main(database_connection, args)
