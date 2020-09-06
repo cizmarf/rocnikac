@@ -13,14 +13,14 @@ from pathlib import Path
 
 class File_system:
 
-	static_vehicle_positions = Path("/Users/filipcizmar/Documents/rocnikac/raw_data_test/")
+	static_vehicle_positions = Path("/Users/filipcizmar/Documents/rocnikac/raw_data-2/")
 	static_trips = Path("/Users/filipcizmar/Documents/rocnikac/raw-trips/")
 	all_shapes = Path("/Users/filipcizmar/Documents/rocnikac/data/trips/")
 	all_vehicle_positions_real_time_geojson = Path("/Users/filipcizmar/Documents/rocnikac/data/vehicle_positions")
 	all_models = Path("/Users/filipcizmar/Documents/rocnikac/data/models")
 
 	@staticmethod
-	def get_tar_file_content(path) -> str:
+	def get_tar_file_content(path) ->bytes:
 		with tarfile.open(path, "r:gz") as tar:
 			print("cur file:", path)
 			member = tar.getmembers()[0]
@@ -28,14 +28,22 @@ class File_system:
 			if f is not None:
 				return f.read()
 			else:
-				return ""
+				return b""
 
 	@staticmethod
 	def save_tar_file(content: dict, path, name):
-		with tarfile.open(path, "w:gz") as tar_out:
+		path_name = ""
+		if isinstance(path, Path):
+			path_name = path.joinpath(name)
+		elif isinstance(name, Path):
+			path_name = Path(path).joinpath(name)
+		else:
+			path_name = path + name
+
+		with tarfile.open(path_name, "w:gz") as tar_out:
 			string = BytesIO(json.dumps(content).encode())
 			string.seek(0)
-			info = tarfile.TarInfo(name=name)
+			info = tarfile.TarInfo(name=str(name))
 			info.size = len(string.getvalue())
 			tar_out.addfile(tarinfo=info, fileobj=string)
 
@@ -53,7 +61,14 @@ class File_system:
 
 	@staticmethod
 	def get_file_content(path):
-		pass
+		try:
+			with open(path, "r") as f:
+				if f is not None:
+					return f.read()
+				else:
+					return ""
+		except FileNotFoundError:
+			return ""
 
 	@staticmethod
 	def delete_file(path):
@@ -63,7 +78,7 @@ class File_system:
 			print("file not found", path)
 
 	@staticmethod
-	def load_all_models():
+	def load_all_models() -> dict:
 		models = {}
 		# models_path = [join(File_system.all_models, f) for f in listdir(File_system.all_models) if isfile(join(File_system.all_models, f))]
 		models_path = [path for path in Path(File_system.all_models).glob('*') if path.is_file()]
@@ -73,6 +88,16 @@ class File_system:
 				models[model_path.stem] = pickle.load(model_file)
 
 		return models
+
+	@staticmethod
+	def pickle_object(obj, path):
+		with lzma.open(path, "wb") as file:
+			pickle.dump(obj, file)
+
+	@staticmethod
+	def pickle_load_object(path):
+		with lzma.open(path, "rb") as file:
+			return pickle.load(file)
 
 if __name__ == '__main__':
 	print(File_system.load_all_models())

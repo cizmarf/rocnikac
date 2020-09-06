@@ -95,16 +95,6 @@ async def process_async_vehicles(all_vehicle_positions, database_connection, arg
 
 	await asyncio.gather(*gather)
 
-async def as_pr(i):
-	await asyncio.sleep(2)
-	print(i)
-
-async def as_print(li):
-	gather = []
-	for i in li:
-		gather.append((as_pr(i)))
-
-	await asyncio.gather(*gather)
 
 def main(database_connection, args):
 

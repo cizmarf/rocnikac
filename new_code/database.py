@@ -14,20 +14,20 @@ class Database:
 		self.cursor_prepared = self.connection.cursor(prepared=True)
 		self.cursor = self.connection.cursor(buffered=True)
 
-		self.execute(
-			'SET @@session.time_zone = "+00:00"'
-		)
+		# self.execute(
+		# 	'SET @@session.time_zone = "Europe/Prague"'
+		# )
 
 	def execute_transaction_commit_rollback(self, sql_query, params=()):
 		try:
-			self.execute('START TRANSACTION;')
+			self.cursor.execute('START TRANSACTION;')
 			ret = self.execute(sql_query, params)
-			self.execute('COMMIT;')
+			self.commit()
 			return ret
 		except Exception as e:
-			self.execute('ROLLBACK;')
-			print("rollback")
-			raise IOError(e)
+			self.rollback()
+			# print("rollback")
+			raise IOError(e) from None
 
 	def execute_fetchall(self, sql_query, params=()):
 		self.cursor.execute(sql_query, params)
@@ -47,14 +47,15 @@ class Database:
 		# 	print(e)
 		# 	print("Query failed", sql_query, "params:", params)
 
-	def execute_procedure_fetchall(self, query, params=()):
-		self.cursor.callproc(query, params)
+	def execute_procedure_fetchall(self, name, params=()):
+		self.cursor.callproc(name, params)
 		return_list = []
+
+		# i dont got meaning of the for loop but it is not working otherwise
 		for result in self.cursor.stored_results():
 			return_list.append(result.fetchall())
 		# return self.cursor.stored_results()[0].fetchall()
 
-		# i dont got meaning of the for loop but it is not working otherwise
 		if return_list[0] == [] and len(return_list) == 1:
 			return_list = []
 
@@ -68,3 +69,7 @@ class Database:
 
 	def rollback(self):
 		self.connection.rollback()
+
+	def close(self):
+		self.cursor.close()
+		self.connection.close()

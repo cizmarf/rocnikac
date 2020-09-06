@@ -15,12 +15,12 @@ class Network:
 	trips = 'https://api.golemio.cz/v1/gtfs/trips'
 
 	@staticmethod
-	def stops(limit: int = 10000, offset: int = 0):
+	def stops(limit: int = 10000, offset: int = 0) -> str:
 		return 'https://api.golemio.cz/v1/gtfs/stops' + '?limit=' + str(limit) + '&offset=' + str(offset)
 
 	@staticmethod
 	def trip_by_id(trip_id: str) -> str:
-		return 'https://api.golemio.cz/v1/gtfs/trips/' + trip_id + '?includeShapes=true&includeStopTimes=true&includeStops=true'
+		return 'https://api.golemio.cz/v1/gtfs/trips/' + str(trip_id) + '?includeShapes=true&includeStopTimes=true&includeStops=true'
 
 	@staticmethod
 	def download_URL(url: str, header: dict = None) -> str:
