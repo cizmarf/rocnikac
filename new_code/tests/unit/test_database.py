@@ -6,6 +6,7 @@ import pickle
 import unittest
 from pathlib import Path
 
+import tests.lib_tests
 from database import Database
 from download_and_process import main
 from file_system import File_system
@@ -17,15 +18,6 @@ class TestDatabaseClass(unittest.TestCase):
 
 	# database_connection = Database("vehicle_positions_test_database")
 
-	parser = argparse.ArgumentParser()
-	parser.add_argument("--static_data", default=True, type=bool, help="Fill with static data or dynamic real-time data.")
-	parser.add_argument("--static_demo", default=False, type=bool,
-						help="Use only if static data in use, time of insert sets now and wait 20 s for next file.")
-	parser.add_argument("--update_time", default=20, type=int, help="Time to next request")
-	parser.add_argument("--update_error", default=20, type=int, help="Update time if network error occurred")
-	parser.add_argument("--clean_old", default=-1, type=int, help="Deletes all trips inactive for more than set minutes")
-	args = parser.parse_args([] if "__file__" not in globals() else None)
-
 
 
 	# def testTest(self):
@@ -34,21 +26,6 @@ class TestDatabaseClass(unittest.TestCase):
 	# def testAExecutionOrder(self):
 	# 	self.assertEqual(unittest.defaultTestLoader.getTestCaseNames(FillDatabase), ['testAExecutionOrder', 'testDatabaseConnection', 'testSuccessExecute_transaction_commit_rollback'])
 
-	def _drop_all_tables(self):
-		database_connection = Database("vehicle_positions_test_database")
-
-		database_connection.cursor.execute("SET FOREIGN_KEY_CHECKS=0;")
-
-		database_connection.cursor.execute("TRUNCATE TABLE vehicle_positions_test_database.rides;")
-		database_connection.cursor.execute("TRUNCATE TABLE vehicle_positions_test_database.stops;")
-		database_connection.cursor.execute("TRUNCATE TABLE vehicle_positions_test_database.trip_coordinates;")
-		database_connection.cursor.execute("TRUNCATE TABLE vehicle_positions_test_database.trips;")
-		database_connection.cursor.execute("TRUNCATE TABLE vehicle_positions_test_database.headsigns;")
-		database_connection.connection.commit()
-
-		database_connection.cursor.execute("SET FOREIGN_KEY_CHECKS=1;")
-
-		database_connection.close()
 
 	def testDatabaseConnection(self):
 		database_connection = Database("vehicle_positions_test_database")
@@ -58,7 +35,7 @@ class TestDatabaseClass(unittest.TestCase):
 		database_connection.close()
 
 	def testSuccessExecute_transaction_commit_rollback(self):
-		self._drop_all_tables()
+		tests.lib_tests.drop_all_tables()
 		database_connection = Database("vehicle_positions_test_database")
 
 		database_connection.execute_transaction_commit_rollback("INSERT INTO headsigns (headsign) VALUES (%s)", ('test',))
@@ -69,7 +46,7 @@ class TestDatabaseClass(unittest.TestCase):
 		database_connection.close()
 
 	def testFailExecute_transaction_commit_rollback(self):
-		self._drop_all_tables()
+		tests.lib_tests.drop_all_tables()
 		database_connection = Database("vehicle_positions_test_database")
 
 		database_connection.execute_transaction_commit_rollback("INSERT INTO headsigns (headsign) VALUES (%s)", ('test',))
@@ -82,7 +59,7 @@ class TestDatabaseClass(unittest.TestCase):
 		database_connection.close()
 
 	def testFetchall(self):
-		self._drop_all_tables()
+		tests.lib_tests.drop_all_tables()
 		database_connection = Database("vehicle_positions_test_database")
 
 		database_connection.cursor.execute("INSERT INTO headsigns (headsign) VALUES (%s)", ('test1',))
@@ -96,7 +73,7 @@ class TestDatabaseClass(unittest.TestCase):
 		database_connection.close()
 
 	def testExecute(self):
-		self._drop_all_tables()
+		tests.lib_tests.drop_all_tables()
 		database_connection = Database("vehicle_positions_test_database")
 
 		database_connection.execute("INSERT INTO headsigns (headsign) VALUES (%s)", ('test1',))
@@ -110,7 +87,7 @@ class TestDatabaseClass(unittest.TestCase):
 		database_connection.close()
 
 	def testExecute_many(self):
-		self._drop_all_tables()
+		tests.lib_tests.drop_all_tables()
 		database_connection = Database("vehicle_positions_test_database")
 
 		database_connection.execute_many("INSERT INTO headsigns (headsign) VALUES (%s)", [('test1',), ('test2',)])
@@ -123,11 +100,11 @@ class TestDatabaseClass(unittest.TestCase):
 		database_connection.close()
 
 	def	testExecute_procedure_fetchall(self):
-		self._drop_all_tables()
+		tests.lib_tests.drop_all_tables()
+		args = tests.lib_tests.get_args()
 		database_connection = Database("vehicle_positions_test_database")
 
 		from stops import Stops
-		from trip import Trip
 		from all_vehicle_positions import All_vehicle_positions
 
 		vehicle_positions = All_vehicle_positions()
@@ -140,7 +117,7 @@ class TestDatabaseClass(unittest.TestCase):
 				vehicle._fill_attributes_from_trip_file()
 				vehicle.id_trip = database_connection.execute_fetchall(
 					'SELECT insert_new_trip_to_trips_and_coordinates_and_return_id(%s, %s, %s, %s, %s, %s, %s, %s)',
-					vehicle.get_tuple_new_trip(TestDatabaseClass.args.static_demo))[0][0]
+					vehicle.get_tuple_new_trip(args.static_demo))[0][0]
 				Stops.insert_ride_by_trip(database_connection, vehicle)
 				database_connection.execute('COMMIT;')
 				break

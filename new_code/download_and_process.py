@@ -24,7 +24,9 @@ from file_system import File_system
 def estimate_delays(all_vehicle_positions: All_vehicle_positions, models, database_connection):
 	for vehicle in all_vehicle_positions.iterate_vehicles():
 		# gets model from given set, if no model found uses linear model by default
-		model = models.get(str(vehicle.last_stop) + "_" + str(vehicle.nex_stop + "_bss " if lib.is_business_day(vehicle.last_updated) else "_hol"), Two_stops_model.Linear_model(vehicle.stop_dist_diff))
+		model = models.get(
+			str(vehicle.last_stop or '') + "_" + str(vehicle.next_stop or '') + ("_bss" if lib.is_business_day(vehicle.last_updated) else "_hol"),
+			Two_stops_model.Linear_model(vehicle.stop_dist_diff))
 
 		tuple_for_predict = vehicle.get_tuple_for_predict()
 		if tuple_for_predict is not None:

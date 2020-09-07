@@ -1,3 +1,4 @@
+import datetime
 import unittest
 from network import Network
 
@@ -11,7 +12,7 @@ class TestNetwork(unittest.TestCase):
 	def test_download_URL_download_URL_to_json(self):
 		file_json = Network.download_URL_to_json(Network.trips)
 
-		assert isinstance(file_json, list)
+		self.assertIsInstance(file_json, list)
 
 	def test_download_async_URL_download_async_URL_to_json(self):
 		import asyncio
@@ -37,7 +38,7 @@ class TestNetwork(unittest.TestCase):
 		async_time = end - start
 
 		self.assertEqual(len(result), 10)
-		assert isinstance(result[0], dict)
+		self.assertIsInstance(result[0], dict)
 
 		start = time.time()
 

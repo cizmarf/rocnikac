@@ -2,6 +2,7 @@ import inspect
 import json
 from datetime import datetime
 from functools import wraps
+from pathlib import Path
 
 import pytz
 
@@ -49,12 +50,16 @@ class Trip:
 		self.trip_headsign: str = None
 		self.id_trip_headsign: int = None
 		self.id_trip: int = None
+
 		self.last_stop = None
 		self.next_stop = None
 		self.last_stop_shape_dist_trav = None
 		self.arrival_time = None
 		self.departure_time = None
 		self.stop_dist_diff = None
+
+		self.json_trip = None
+		self.json_file = None
 		
 	def set_attributes_by_vehicle(self, vehicle: dict):
 		self.json_file = vehicle
@@ -73,6 +78,7 @@ class Trip:
 		self.last_updated = pytz.utc.localize(datetime.strptime(last_updated[:last_updated.index(".")], '%Y-%m-%dT%H:%M:%S')).astimezone(pytz.timezone('Europe/Prague'))
 		self.id_trip = None
 
+	# deprecated
 	def to_real_time_geojson(self, database_connection) -> dict:
 		headsign = database_connection.execute_fetchall('SELECT headsigns.headsign, current_delay FROM headsigns JOIN trips ON trips.id_headsign = headsigns.id_headsign AND id_trip = %s', (self.id_trip,))
 		if len(headsign) != 0:
@@ -108,13 +114,19 @@ class Trip:
 
 	def get_tuple_new_trip(self, static: bool) -> tuple:
 		if static:
-			return (self.trip_id, self.trip_headsign, self.cur_delay, self.shape_traveled, self.trip_no, datetime.now(), self.lat, self.lon)
+			timezone = pytz.timezone("Europe/Prague")
+			now = timezone.localize(datetime.now().replace(microsecond=0))
+
+			return (self.trip_id, self.trip_headsign, self.cur_delay, self.shape_traveled, self.trip_no, now, self.lat, self.lon)
 		else:
 			return (self.trip_id, self.trip_headsign, self.cur_delay, self.shape_traveled, self.trip_no, self.last_updated, self.lat, self.lon)
 
 	def get_tuple_update_trip(self, static) -> tuple:
 		if static:
-			return (self.trip_id, self.cur_delay, self.last_stop_delay, self.shape_traveled, self.lat, self.lon, datetime.now())
+			timezone = pytz.timezone("Europe/Prague")
+			now = timezone.localize(datetime.now().replace(microsecond=0))
+
+			return (self.trip_id, self.cur_delay, self.last_stop_delay, self.shape_traveled, self.lat, self.lon, now)
 		else:
 			return (self.trip_id, self.cur_delay, self.last_stop_delay, self.shape_traveled, self.lat, self.lon, self.last_updated)
 
@@ -133,7 +145,7 @@ class Trip:
 		self.json_trip = json.loads(content)
 		self._fill_attributes_from_trip_file()
 
-	def save_shape_file(self):
+	def save_shape_file(self, path=File_system.all_shapes):
 		new_json_data = {}
 		new_json_data["type"] = "FeatureCollection"
 		new_json_data["features"] = [None]
@@ -149,7 +161,8 @@ class Trip:
 			new_json_data["features"][0]["geometry"]["properties"]["shape_dist_traveled"].append(
 				Trip.format_shape_traveled(feature["properties"]["shape_dist_traveled"]))
 
-		File_system.save_file(new_json_data, (File_system.all_shapes / self.trip_id).with_suffix('.shape'))
+		File_system.save_file(new_json_data, (Path(path) / self.trip_id).with_suffix('.shape'))
 			
 	def _fill_attributes_from_trip_file(self):
 		self.trip_headsign = self.json_trip["trip_headsign"]
+

@@ -1,6 +1,6 @@
 import glob
 import json
-import time
+import os
 from os.path import getmtime
 
 from file_system import File_system
@@ -31,9 +31,13 @@ class All_vehicle_positions():
 	# function code is inspired from the internet
 	@staticmethod
 	def findFirstOccurrence(A, x):
-
 		# search space is A[left..right]
 		(left, right) = (0, len(A) - 1)
+
+		# get sort order
+		order = 'asc'
+		if A[0] > A[len(A) - 1]:
+			order = 'des'
 
 		# initialize the result by -1
 		result = -1
@@ -51,13 +55,18 @@ class All_vehicle_positions():
 				result = mid
 				right = mid - 1
 
-			# if key is less than the mid element, discard right half
-			elif x < A[mid]:
-				right = mid - 1
-
-			# if key is more than the mid element, discard left half
+			elif order == 'asc':
+				# if key is less than the mid element, discard right half
+				if x < A[mid]:
+					right = mid - 1
+				# if key is more than the mid element, discard left half
+				else:
+					left = mid + 1
 			else:
-				left = mid + 1
+				if x > A[mid]:
+					right = mid - 1
+				else:
+					left = mid + 1
 
 		# return the leftmost index or -1 if the element is not found
 		return result
@@ -66,13 +75,13 @@ class All_vehicle_positions():
 	def get_sublist(A, indexA, indexB):
 		return A[indexA:indexB]
 
-	# linear search, stops count use to be up to 100
+	# linear search, number of stops use to be up to 100
 	# if shape dist trav out of range it keeps nones for last and next stop
 	@staticmethod
 	def get_last_next_stop_and_sdt(trip_ride, shape_traveled):
 		for i in range(len(trip_ride) - 1):
-			if trip_ride[i][2] < shape_traveled < trip_ride[i + 1][2]:
-				# trip.last_stop, trip.next_stop, trip.last_stop_shape_dist_trav, trip.departure_time, trip.arrival_time, stop_dist_diff
+			if trip_ride[i][2] <= shape_traveled < trip_ride[i + 1][2]:
+				# trip.last_stop, trip.next_stop, trip.last_stop_shape_dist_trav, trip.departure_time, trip.arrival_time, trip.stop_dist_diff
 				return trip_ride[i][1], trip_ride[i + 1][1], trip_ride[i][2], trip_ride[i][4], trip_ride[i + 1][3], trip_ride[i + 1][2] - trip_ride[i][2]
 
 		return None, None, None, None, None, None
@@ -93,7 +102,15 @@ class All_vehicle_positions():
 
 	def get_all_vehicle_positions_json(self):
 		self.json_file = Network.download_URL_to_json(Network.vehicles_positions)
-		
+
+	@staticmethod
+	def get_trip_rides_sublist(trip_rides, trip_ids, trip_id):
+		return All_vehicle_positions.get_sublist(trip_rides,
+					All_vehicle_positions.findFirstOccurrence(
+						trip_ids, trip_id),
+					len(trip_ids) - All_vehicle_positions.findFirstOccurrence(
+						trip_ids[::-1], trip_id))
+
 	def construct_all_trips(self, database_connection):
 		try:
 
@@ -127,7 +144,9 @@ class All_vehicle_positions():
 
 				if len(trip_rides) > 0:
 					# gets sublist of trips rides for current trip by looking for first and last occurrence of trip id
-					trip_ride = All_vehicle_positions.get_sublist(trip_rides, All_vehicle_positions.findFirstOccurrence(trip_ids, trip.trip_id), len(trip_ids) - 1 - All_vehicle_positions.findFirstOccurrence(trip_ids[::-1], trip.trip_id))
+					trip_ride = All_vehicle_positions.get_trip_rides_sublist(trip_rides, trip_ids, trip.trip_id)
+
+					# File_system.pickle_object(trip_rides, '../input_data/get_last_next_stop_and_sdt_trip_rides.list')
 
 					trip.last_stop, \
 					trip.next_stop, \
@@ -145,14 +164,14 @@ class All_vehicle_positions():
 		return vehicle.trip_id
 
 
-if __name__ == "__main__":
-	trip = Trip(
-		trip_id=1,
-		lat=1,
-		lon=1,
-		cur_delay=1,
-		shape_traveled=2,
-		trip_no=3,
-		last_stop_delay=4,
-		last_updated="56.87"
-	)
+# if __name__ == "__main__":
+# 	trip = Trip(
+# 		trip_id=1,
+# 		lat=1,
+# 		lon=1,
+# 		cur_delay=1,
+# 		shape_traveled=2,
+# 		trip_no=3,
+# 		last_stop_delay=4,
+# 		last_updated="56.87"
+# 	)
