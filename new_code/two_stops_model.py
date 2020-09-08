@@ -108,12 +108,12 @@ class Two_stops_model:
 			departure_time = departure_time.total_seconds()
 			arrival_time = arrival_time.total_seconds()
 
-			time_diff = arrival_time - departure_time
-			norm_update_time = update_time - departure_time
+			time_diff = (arrival_time - departure_time) % Two_stops_model.SECONDS_A_DAY
+			norm_update_time = (update_time - departure_time) % Two_stops_model.SECONDS_A_DAY
 
 			ratio = norm_shape_dist_trv / self.distance
 			estimated_time_progress = time_diff * ratio
-			return estimated_time_progress - norm_update_time  # returns delay -> negative delay means a bus is faster
+			return norm_update_time - estimated_time_progress  # returns delay -> negative delay means a bus is faster
 
 		def predict_standard(self, norm_shape_dist_trv, update_time):
 			print("predict standard linear should not occurs")

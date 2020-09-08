@@ -156,7 +156,8 @@ class All_vehicle_positions():
 					trip.stop_dist_diff = \
 						All_vehicle_positions.get_last_next_stop_and_sdt(trip_ride, trip.shape_traveled)
 
-				self.vehicles.append(trip)
+				if trip.last_stop_delay is not None and trip.cur_delay is not None:
+					self.vehicles.append(trip)
 		except KeyError:
 			print("error")
 

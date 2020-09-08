@@ -26,7 +26,7 @@ class Build_models:
 					trip_coordinates.inserted, 
 					(trip_coordinates.shape_dist_traveled - schedule.shape_dist_traveled) 
 						AS shifted_shape_trav, 
-					trip_coordinates.delay 
+					trip_coordinates.last_stop_delay 
 				FROM (
 					SELECT id_trip, id_stop, shape_dist_traveled, departure_time, 
 						LEAD(id_stop, 1) OVER (

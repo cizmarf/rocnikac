@@ -3,8 +3,8 @@ import argparse
 
 from database import Database
 
-def drop_all_tables():
-	database_connection = Database("vehicle_positions_test_database")
+def drop_all_tables(database_name="vehicle_positions_test_database"):
+	database_connection = Database(database_name)
 
 	database_connection.cursor.execute("SET FOREIGN_KEY_CHECKS=0;")
 
@@ -15,9 +15,11 @@ def drop_all_tables():
 	database_connection.cursor.execute("TRUNCATE TABLE vehicle_positions_test_database.headsigns;")
 	database_connection.connection.commit()
 
-	database_connection.cursor.execute("SET FOREIGN_KEY_CHECKS=1;")
+	test_select = database_connection.execute_fetchall('SELECT * FROM trip_coordinates')
 
-	database_connection.close()
+	assert len(test_select) == 0
+
+	database_connection.cursor.execute("SET FOREIGN_KEY_CHECKS=1;")
 
 def get_args():
 	parser = argparse.ArgumentParser()

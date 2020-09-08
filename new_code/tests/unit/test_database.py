@@ -32,7 +32,7 @@ class TestDatabaseClass(unittest.TestCase):
 
 		database_connection.cursor.execute('SELECT VERSION()')
 
-		database_connection.close()
+
 
 	def testSuccessExecute_transaction_commit_rollback(self):
 		tests.lib_tests.drop_all_tables()
@@ -43,7 +43,7 @@ class TestDatabaseClass(unittest.TestCase):
 		result = database_connection.cursor.fetchall()
 		self.assertEqual(len(result), 1)
 
-		database_connection.close()
+
 
 	def testFailExecute_transaction_commit_rollback(self):
 		tests.lib_tests.drop_all_tables()
@@ -56,7 +56,7 @@ class TestDatabaseClass(unittest.TestCase):
 		except Exception:
 			pass
 
-		database_connection.close()
+
 
 	def testFetchall(self):
 		tests.lib_tests.drop_all_tables()
@@ -70,7 +70,7 @@ class TestDatabaseClass(unittest.TestCase):
 		self.assertEqual(result[0][0], 'test1')
 		self.assertEqual(result[1][0], 'test2')
 
-		database_connection.close()
+
 
 	def testExecute(self):
 		tests.lib_tests.drop_all_tables()
@@ -84,7 +84,7 @@ class TestDatabaseClass(unittest.TestCase):
 		self.assertEqual(result[0][0], 'test1')
 		self.assertEqual(result[1][0], 'test2')
 
-		database_connection.close()
+
 
 	def testExecute_many(self):
 		tests.lib_tests.drop_all_tables()
@@ -97,7 +97,7 @@ class TestDatabaseClass(unittest.TestCase):
 		self.assertEqual(result[0][0], 'test1')
 		self.assertEqual(result[1][0], 'test2')
 
-		database_connection.close()
+
 
 	def	testExecute_procedure_fetchall(self):
 		tests.lib_tests.drop_all_tables()
@@ -116,7 +116,7 @@ class TestDatabaseClass(unittest.TestCase):
 				vehicle.json_trip = json.loads(File_system.get_file_content(Path("../input_data/421_225_191114.json")))
 				vehicle._fill_attributes_from_trip_file()
 				vehicle.id_trip = database_connection.execute_fetchall(
-					'SELECT insert_new_trip_to_trips_and_coordinates_and_return_id(%s, %s, %s, %s, %s, %s, %s, %s)',
+					'SELECT insert_new_trip_to_trips_and_coordinates_and_return_id(%s, %s, %s, %s, %s, %s, %s, %s, %s)',
 					vehicle.get_tuple_new_trip(args.static_demo))[0][0]
 				Stops.insert_ride_by_trip(database_connection, vehicle)
 				database_connection.execute('COMMIT;')
@@ -126,7 +126,7 @@ class TestDatabaseClass(unittest.TestCase):
 
 		self.assertEqual(result, File_system.pickle_load_object("../output_data/testExecute_procedure_fetchall.obj"))
 
-		database_connection.close()
+
 
 	# def testInsertData(self):
 	# 	File_system.static_vehicle_positions = Path("/Users/filipcizmar/Documents/rocnikac/raw_data_unittest/")

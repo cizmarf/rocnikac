@@ -80,6 +80,7 @@ CREATE TABLE `vehicle_positions_database`.`rides` (
       `inserted` DATETIME NOT NULL,
       `delay` INT(32) NOT NULL,
       `shape_dist_traveled` INT(32) NOT NULL,
+      `last_stop_delay` INT(32) NOT NULL,
   	INDEX `id_trip_x` (`id_trip` ASC) VISIBLE,
   	INDEX `shape_dist_traveled_x` (`shape_dist_traveled` ASC) VISIBLE,
   	CONSTRAINT `id_trip_from_trip_coordinates_to_trips`
@@ -119,6 +120,7 @@ CREATE DEFINER=`root`@`localhost` FUNCTION `insert_new_trip_to_trips_and_coordin
 	trip_source_id_to_insert VARCHAR(31),
 	headsign_to_insert VARCHAR(123),
 	current_delay_to_insert INT(32),
+	last_stop_delay_to_insert INT(32),
 	shape_dist_traveled_to_insert INT(32),
 	trip_no_to_insert VARCHAR(7),
 	last_updated_to_insert DATETIME,
@@ -162,13 +164,15 @@ BEGIN
         lon,
         inserted,
         delay,
-        shape_dist_traveled)
+        shape_dist_traveled,
+        last_stop_delay)
 	VALUES (@id_trip,
 	        lat_to_insert,
 	        lon_to_insert,
 	        last_updated_to_insert,
 	        current_delay_to_insert,
-	        shape_dist_traveled_to_insert);
+	        shape_dist_traveled_to_insert,
+	        last_stop_delay_to_insert);
 
     RETURN @id_trip;
 END;
@@ -258,7 +262,7 @@ BEGIN
         trip_coordinates.inserted,
         (trip_coordinates.shape_dist_traveled - schedule.shape_dist_traveled)
             AS shifted_shape_trav,
-        trip_coordinates.delay
+        trip_coordinates.last_stop_delay
     FROM (
         SELECT id_trip, id_stop, shape_dist_traveled, departure_time,
             LEAD(id_stop, 1) OVER (
@@ -283,7 +287,7 @@ END;
 CREATE DEFINER=`root`@`localhost` FUNCTION `update_trip_and_insert_coordinates_if_changed`(
 	trip_source_id_to_insert VARCHAR(31),
 	current_delay_to_insert INT(32),
-    last_stop_delay INT(32),
+    last_stop_delay_to_insert INT(32),
 	shape_dist_traveled_to_insert INT(32),
 	lat_to_insert DECIMAL(9,6),
 	lon_to_insert DECIMAL(9,6),
@@ -304,14 +308,17 @@ BEGIN
 		    lon,
 		    inserted,
 		    delay,
-		    shape_dist_traveled)
+		    shape_dist_traveled,
+		    last_stop_delay)
 		VALUES (
 		    @id_trip,
 		    lat_to_insert,
 		    lon_to_insert,
 		    last_updated_to_insert,
-		    last_stop_delay,
-		    shape_dist_traveled_to_insert);
+		    current_delay_to_insert,
+		    shape_dist_traveled_to_insert,
+		    last_stop_delay_to_insert);
+
 		UPDATE trips
 		SET trips.last_updated = last_updated_to_insert,
 		    trips.current_delay = current_delay_to_insert,
@@ -321,4 +328,4 @@ BEGIN
 	ELSE
 		RETURN 0;
 	END IF;
-END
+END;

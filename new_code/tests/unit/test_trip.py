@@ -69,20 +69,22 @@ class TestTrip(unittest.TestCase):
 				self.assertEqual(static_tuple_trip[0], '421_225_191114')
 				self.assertEqual(static_tuple_trip[1], 'Kolín,Nádraží')
 				self.assertEqual(static_tuple_trip[2], 33)
-				self.assertEqual(static_tuple_trip[3], 22300)
-				self.assertEqual(static_tuple_trip[4], '421')
+				self.assertEqual(static_tuple_trip[3], 37)
+				self.assertEqual(static_tuple_trip[4], 22300)
+				self.assertEqual(static_tuple_trip[5], '421')
 				# test time now
-				self.assertEqual(static_tuple_trip[6], 49.93896)
-				self.assertEqual(static_tuple_trip[7], 14.98064)
+				self.assertEqual(static_tuple_trip[7], 49.93896)
+				self.assertEqual(static_tuple_trip[8], 14.98064)
 
 				self.assertEqual(real_tuple_trip[0], '421_225_191114')
 				self.assertEqual(real_tuple_trip[1], 'Kolín,Nádraží')
 				self.assertEqual(real_tuple_trip[2], 33)
-				self.assertEqual(real_tuple_trip[3], 22300)
-				self.assertEqual(real_tuple_trip[4], '421')
-				self.assertEqual(str(real_tuple_trip[5]), '2020-02-20 14:49:20+01:00')
-				self.assertEqual(real_tuple_trip[6], 49.93896)
-				self.assertEqual(real_tuple_trip[7], 14.98064)
+				self.assertEqual(real_tuple_trip[3], 37)
+				self.assertEqual(real_tuple_trip[4], 22300)
+				self.assertEqual(real_tuple_trip[5], '421')
+				self.assertEqual(str(real_tuple_trip[6]), '2020-02-20 14:49:20+01:00')
+				self.assertEqual(real_tuple_trip[7], 49.93896)
+				self.assertEqual(real_tuple_trip[8], 14.98064)
 
 				break
 

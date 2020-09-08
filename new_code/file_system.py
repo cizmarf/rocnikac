@@ -17,7 +17,7 @@ class File_system:
 	static_trips = Path("/Users/filipcizmar/Documents/rocnikac/raw-trips/") # TODO change to new dir
 	all_shapes = Path("/Users/filipcizmar/Documents/rocnikac/rocnikac_source/new_code/data/shapes/")
 	all_vehicle_positions_real_time_geojson = Path("/Users/filipcizmar/Documents/rocnikac/rocnikac_source/new_code/data/vehicle_positions")
-	all_models = Path("/Users/filipcizmar/Documents/rocnikac/data/models/") # TODO change to new dir
+	all_models = Path("/Users/filipcizmar/Documents/rocnikac/rocnikac_source/new_code/data/models/") # TODO change to new dir
 
 	@staticmethod
 	def get_tar_file_content(path) ->bytes:

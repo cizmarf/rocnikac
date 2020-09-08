@@ -3,6 +3,7 @@
 import argparse
 import asyncio
 import logging
+import os
 from datetime import datetime
 import time
 import sys
@@ -31,6 +32,8 @@ def estimate_delays(all_vehicle_positions: All_vehicle_positions, models, databa
 		tuple_for_predict = vehicle.get_tuple_for_predict()
 		if tuple_for_predict is not None:
 			vehicle.cur_delay = model.predict(*tuple_for_predict)
+
+		# else it uses last stop delay, set in trips construction
 
 
 async def update_or_insert_trip(vehicle, database_connection, args):
@@ -69,11 +72,11 @@ async def update_or_insert_trip(vehicle, database_connection, args):
 
 		try:
 			# Saves shape of current trip into specific folder
-			vehicle.save_shape_file()
+			# vehicle.save_shape_file() TODO UNCOMMENT
 
 			database_connection.execute('START TRANSACTION;')
 			vehicle.id_trip = database_connection.execute_fetchall(
-				'SELECT insert_new_trip_to_trips_and_coordinates_and_return_id(%s, %s, %s, %s, %s, %s, %s, %s)',
+				'SELECT insert_new_trip_to_trips_and_coordinates_and_return_id(%s, %s, %s, %s, %s, %s, %s, %s, %s)',
 				vehicle.get_tuple_new_trip(args.static_demo))[0][0]
 			Stops.insert_ride_by_trip(database_connection, vehicle)
 			database_connection.execute('COMMIT;')

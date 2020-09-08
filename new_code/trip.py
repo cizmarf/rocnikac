@@ -66,16 +66,17 @@ class Trip:
 		self.trip_id = vehicle["properties"]["trip"]["gtfs_trip_id"]
 		self.lat = vehicle["geometry"]["coordinates"][1]
 		self.lon = vehicle["geometry"]["coordinates"][0]
-		self.cur_delay = int(vehicle["properties"]["last_position"]["delay"])  # TODO rewrite on model delay in use
+		self.cur_delay = vehicle["properties"]["last_position"]["delay_stop_departure"]  # TODO rewrite on model delay in use
 		self.shape_traveled = Trip.format_shape_traveled(vehicle["properties"]["last_position"]["gtfs_shape_dist_traveled"])
 		self.trip_no = vehicle["properties"]["trip"]["gtfs_route_short_name"]
-		self.last_stop_delay = vehicle["properties"]["last_position"]["delay_stop_departure"]
+		self.last_stop_delay = self.cur_delay
 		if self.last_stop_delay is None:
 			self.last_stop_delay = vehicle["properties"]["last_position"]["delay_stop_arrival"]
 		last_updated = vehicle["properties"]["last_position"]["origin_timestamp"]
 
-		# extracts time from json and sets timezone to UTC and convert the time to prague timezone
+		# TODO extracts time from json and sets timezone to UTC and convert the time to prague timezone, sometimes in UTC sometimes it is not
 		self.last_updated = pytz.utc.localize(datetime.strptime(last_updated[:last_updated.index(".")], '%Y-%m-%dT%H:%M:%S')).astimezone(pytz.timezone('Europe/Prague'))
+		# self.last_updated = datetime.strptime(last_updated[:last_updated.index(".")], '%Y-%m-%dT%H:%M:%S')
 		self.id_trip = None
 
 	# deprecated
@@ -117,9 +118,9 @@ class Trip:
 			timezone = pytz.timezone("Europe/Prague")
 			now = timezone.localize(datetime.now().replace(microsecond=0))
 
-			return (self.trip_id, self.trip_headsign, self.cur_delay, self.shape_traveled, self.trip_no, now, self.lat, self.lon)
+			return (self.trip_id, self.trip_headsign, self.cur_delay, self.last_stop_delay, self.shape_traveled, self.trip_no, now, self.lat, self.lon)
 		else:
-			return (self.trip_id, self.trip_headsign, self.cur_delay, self.shape_traveled, self.trip_no, self.last_updated, self.lat, self.lon)
+			return (self.trip_id, self.trip_headsign, self.cur_delay, self.last_stop_delay, self.shape_traveled, self.trip_no, self.last_updated, self.lat, self.lon)
 
 	def get_tuple_update_trip(self, static) -> tuple:
 		if static:
