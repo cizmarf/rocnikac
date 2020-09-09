@@ -72,6 +72,7 @@ class Trip:
 		self.last_stop_delay = self.cur_delay
 		if self.last_stop_delay is None:
 			self.last_stop_delay = vehicle["properties"]["last_position"]["delay_stop_arrival"]
+			self.cur_delay = self.last_stop_delay
 		last_updated = vehicle["properties"]["last_position"]["origin_timestamp"]
 
 		# TODO extracts time from json and sets timezone to UTC and convert the time to prague timezone, sometimes in UTC sometimes it is not

@@ -1,8 +1,11 @@
 from __future__ import annotations
 
 import lzma
+import math
 import pickle
+import warnings
 from collections import namedtuple, Set
+from pathlib import Path
 
 from file_system import File_system
 import numpy as np
@@ -15,8 +18,10 @@ from sklearn.preprocessing import PolynomialFeatures
 
 class Norm_data:
 
+	# shape_dist_trav from departure stop, time since departure stop, timestamp of data creation, it trip
 	def __init__(self, shapes, coor_times, day_times, ids_trip):
-		assert len(shapes) == len(day_times) == len(coor_times) == len(ids_trip)
+		if not len(shapes) == len(day_times) == len(coor_times) == len(ids_trip):
+			raise IOError("Norm_data request same length lists")
 		self.data = np.array([shapes, coor_times, day_times, ids_trip])
 
 	def get_shapes(self):
@@ -43,15 +48,15 @@ class Norm_data:
 					  id_trip=self.get_ids_trip()[i])
 
 	def remove_items_by_id_trip(self, ids_trip: Set):
-		indices = []
-		for i in range(self.data.shape[1]):
-			if self.get_ids_trip()[i] in ids_trip:
-				indices.append(i)
+		bo = np.isin(self.get_ids_trip(), list(ids_trip))
+		indices = list(np.where(bo == True))
+		# for i in range(self.data.shape[1]):
+		# 	if self.get_ids_trip()[i] in ids_trip:
+		# 		indices.append(i)
 
-		transp = self.data.transpose()
-		np.delete(transp, indices)
-		self.data = transp.transpose()
-		assert len(self.data) == 4
+		# transp = self.data.transpose()
+		self.data = np.delete(self.data, indices, 1)
+		# self.data = clean.transpose()
 
 
 class Super_model:
@@ -80,8 +85,8 @@ class Super_model:
 	def get_model(self) -> Super_model:
 		return self.model
 
-	def save_model(self):
-		with lzma.open((File_system.all_models / (str(self.dep_stop) + "_" + str(self.arr_stop) + "_" + self.bss_or_hol)).with_suffix(".model"), "wb") as model_file:
+	def save_model(self, path = File_system.all_models):
+		with lzma.open((Path(path) / (str(self.dep_stop) + "_" + str(self.arr_stop) + "_" + self.bss_or_hol)).with_suffix(".model"), "wb") as model_file:
 			pickle.dump(self, model_file)
 
 
@@ -104,12 +109,12 @@ class Two_stops_model:
 
 		# distance traveled from departure stop, all in seconds
 		def predict(self, norm_shape_dist_trv, update_time, departure_time, arrival_time):
-			update_time = (update_time.hour * 60 + update_time.minute) * 60 + update_time.second
-			departure_time = departure_time.total_seconds()
-			arrival_time = arrival_time.total_seconds()
 
 			time_diff = (arrival_time - departure_time) % Two_stops_model.SECONDS_A_DAY
-			norm_update_time = (update_time - departure_time) % Two_stops_model.SECONDS_A_DAY
+			norm_update_time = math.fmod(update_time - departure_time, Two_stops_model.SECONDS_A_DAY)
+
+			if norm_update_time < - Two_stops_model.SECONDS_A_DAY / 2:
+				norm_update_time += Two_stops_model.SECONDS_A_DAY
 
 			ratio = norm_shape_dist_trv / self.distance
 			estimated_time_progress = time_diff * ratio
@@ -146,22 +151,26 @@ class Two_stops_model:
 			best_degree = 3
 			best_error = float('inf')  # maxint
 
-			for degree in [3, 4, 5, 6, 7, 8, 9, 10]:
-				model = make_pipeline(PolynomialFeatures(degree), Ridge())
-				model.fit(X_train, y_train)
-				pred = model.predict(X_test)
-				error = mean_squared_error(y_test, pred)
-				if error < best_error:
-					best_degree = degree
-					best_error = error
+			# TODO delate with
+			with warnings.catch_warnings():
+				warnings.simplefilter("ignore")
+
+				for degree in [3, 4, 5, 6, 7, 8, 9, 10]:
+					model = make_pipeline(PolynomialFeatures(degree), Ridge(), verbose=0)
+					model.fit(X_train, y_train)
+					pred = model.predict(X_test)
+					error = mean_squared_error(y_test, pred)
+					if error < best_error:
+						best_degree = degree
+						best_error = error
 				# print("Deg:", degree, "Err", error)
 
-			self.model = make_pipeline(PolynomialFeatures(best_degree), Ridge())
-			self.model.fit(input_data, output_data)
-			pred = self.model.predict(input_data)
-			self.rmse = mean_squared_error(output_data, pred)
+				self.model = make_pipeline(PolynomialFeatures(best_degree), Ridge())
+				self.model.fit(input_data, output_data)
+				pred = self.model.predict(input_data)
+				self.rmse = mean_squared_error(output_data, pred)
 
-			del self.norm_data  # deletes norm data structure because it is no more needed
+				del self.norm_data  # deletes norm data structure because it is no more needed
 
 		def predict(self, norm_shape_dist_trv, update_time, departure_time, arrival_time):
 			if self.max_day_time < update_time:  # if in estimator area
@@ -170,14 +179,17 @@ class Two_stops_model:
 			if self.min_day_time > update_time:
 				update_time = self.min_day_time
 
-			time_diff = arrival_time - departure_time
-			norm_update_time = update_time - departure_time
+			time_diff = (arrival_time - departure_time) % Two_stops_model.SECONDS_A_DAY
+			norm_update_time = math.fmod(update_time - departure_time, Two_stops_model.SECONDS_A_DAY)
 
-			input_data = np.pad(np.array([norm_shape_dist_trv, update_time]).T, ((0, 0), (0, 1)), constant_values=1)
+			if norm_update_time < - Two_stops_model.SECONDS_A_DAY / 2:
+				norm_update_time += Two_stops_model.SECONDS_A_DAY
+
+			input_data = np.array([norm_shape_dist_trv, update_time, 1]).reshape(1,-1)
 			prediction = self.model.predict(input_data)  # estimation of coor time
-			arrival_data = np.pad(np.array([self.distance, arrival_time]).T, ((0, 0), (0, 1)), constant_values=1)
+			arrival_data = np.array([self.distance, arrival_time, 1]).reshape(1,-1)
 			model_delay = self.model.predict(arrival_data) - time_diff  # no of seconds difference between scheduled arrival and model estimation
-			return model_delay + norm_update_time - prediction
+			return model_delay[0] + norm_update_time - prediction[0]
 
 		def predict_standard(self, norm_shape_dist_trv, update_time):
 			input_data = np.pad(np.array([norm_shape_dist_trv, update_time]).T, ((0, 0), (0, 1)), constant_values=1)
@@ -301,7 +313,7 @@ class Two_stops_model:
 			return "Hull"
 
 	# norm_data is dict of shapes, coor_times ands day_times, ids_trip
-	def __init__(self, dep_id_stop: str, arr_id_stop: str, distance: int, bss_or_hol: str):
+	def __init__(self, dep_id_stop: int, arr_id_stop: int, distance: int, bss_or_hol: str):
 		self.dep_id_stop = dep_id_stop
 		self.arr_id_stop = arr_id_stop
 		self.distance = distance
@@ -312,17 +324,17 @@ class Two_stops_model:
 		self.ids_trip = []
 		self.bss_or_hol = bss_or_hol
 
-	def add_row(self, shape: int, dep_time: int, day_time: int, id_trip: str, arr_time: int, delay: int):
+	def add_row(self, shape: int, dep_time: int, day_time: int, id_trip: str, arr_time: int, last_stop_delay: int):
 
 		# ignores data if a bus is much more longer time on its way than usual
 		if day_time - dep_time < Two_stops_model.TRAVEL_TIME_LIMIT:
 			self.shapes.append(shape)
 
 			# vehicle passed midnight
-			if day_time - dep_time - delay < Two_stops_model.SECONDS_A_DAY / 2:
-				self.coor_times.append(day_time - dep_time - delay + Two_stops_model.SECONDS_A_DAY)
+			if day_time - dep_time - last_stop_delay < - Two_stops_model.SECONDS_A_DAY / 2:
+				self.coor_times.append(day_time - dep_time - last_stop_delay + Two_stops_model.SECONDS_A_DAY)
 			else:
-				self.coor_times.append(day_time - dep_time - delay)
+				self.coor_times.append(day_time - dep_time - last_stop_delay)
 
 			self.day_times.append(day_time)
 			self.ids_trip.append(id_trip)
@@ -338,7 +350,36 @@ class Two_stops_model:
 
 	def create_model(self):
 		self.norm_data = Norm_data(self.shapes, self.coor_times, self.day_times, self.ids_trip)
-		self._create_model()
+
+		# linear -> < 2000 m, pocet dat alespon 10 na kilometr a 4 spoje denne
+		self._reduce_errors()
+		if len(self.norm_data) < 5:
+			return
+		poly_model = Two_stops_model.Polynomial_model(self.distance, self.norm_data, self.dep_id_stop, self.arr_id_stop, self.bss_or_hol)
+		rmse_aplha = 0.2
+		# poly_model.get_rmse() < self.distance * rmse_aplha
+
+		if  len(self.norm_data) > 1000 and len(self.norm_data) >= self.distance * 0.001 * 9 * 4:
+			self.model = poly_model
+			print("rmse:", poly_model.get_rmse(), "\ndist * alpha:", self.distance * rmse_aplha, "\nlen:", len(self.norm_data))
+			print("kandidat: dep:", self.dep_id_stop, "arr:", self.arr_id_stop, "bss/hol:", self.bss_or_hol)
+
+		if False:
+
+			if self.distance < 1500 or len(self.norm_data) < self.distance * 0.001 * 9 * 4:  # 9 samples per km, 4 times a day:
+				self.model = Two_stops_model.Linear_model(self.distance)
+				print("less than 2 km or not enough data")
+			else:  # creates poly model and if rmse is not acceptable it creates hull model
+				poly_model = Two_stops_model.Polynomial_model(self.distance, self.norm_data, self.dep_id_stop, self.arr_id_stop, self.bss_or_hol)
+
+				if poly_model.get_rmse() < self.distance * rmse_aplha:
+					self.model = poly_model
+				else:
+					try:
+						self.model = Two_stops_model.Concave_hull_model(self.distance, self.norm_data, self.dep_id_stop, self.arr_id_stop, self.bss_or_hol)
+					except RuntimeError as e:
+						print(self.dep_id_stop, self.arr_id_stop)
+						raise e
 
 	def __len__(self):
 		assert len(self.shapes) == len(self.day_times) == len(self.coor_times) == len(self.ids_trip)
@@ -355,25 +396,4 @@ class Two_stops_model:
 		self.norm_data.remove_items_by_id_trip(trips_to_remove)
 
 
-	def _create_model(self):
-		# linear -> < 2000 m, pocet dat alespon 10 na kilometr a 4 spoje denne
-		self._reduce_errors()
-		poly_model = Two_stops_model.Polynomial_model(self.distance, self.norm_data, self.dep_id_stop, self.arr_id_stop, self.bss_or_hol)
-		rmse_aplha = 0.2
-		print("rmse:", poly_model.get_rmse(), "dist * alpha:", self.distance * rmse_aplha)
-
-		if self.distance < 1500 or len(self.norm_data) < self.distance * 0.0001 * 9 * 4:  # 9 samples per km, 4 times a day:
-			self.model = Two_stops_model.Linear_model(self.distance)
-			print("less than 2 km or not enough data")
-		else:  # creates poly model and if rmse is not acceptable it creates hull model
-			poly_model = Two_stops_model.Polynomial_model(self.distance, self.norm_data, self.dep_id_stop, self.arr_id_stop, self.bss_or_hol)
-
-			if poly_model.get_rmse() < self.distance * rmse_aplha:
-				self.model = poly_model
-			else:
-				try:
-					self.model = Two_stops_model.Concave_hull_model(self.distance, self.norm_data, self.dep_id_stop, self.arr_id_stop,  self.bss_or_hol)
-				except RuntimeError as e:
-					print(self.dep_id_stop, self.arr_id_stop)
-					raise e
 

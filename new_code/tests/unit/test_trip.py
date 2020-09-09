@@ -15,7 +15,7 @@ class TestTrip(unittest.TestCase):
 		trip = Trip()
 		trip.set_attributes_by_vehicle(json_file["features"][3])
 
-		self.assertEqual(trip.cur_delay, 55)
+		self.assertEqual(trip.cur_delay, 82)
 		self.assertEqual(trip.json_file, json_file["features"][3])
 		self.assertEqual(trip.last_stop_delay, 82)
 		self.assertEqual(str(trip.last_updated), "2020-02-20 14:49:42+01:00")
@@ -68,7 +68,7 @@ class TestTrip(unittest.TestCase):
 
 				self.assertEqual(static_tuple_trip[0], '421_225_191114')
 				self.assertEqual(static_tuple_trip[1], 'Kolín,Nádraží')
-				self.assertEqual(static_tuple_trip[2], 33)
+				self.assertEqual(static_tuple_trip[2], 37)
 				self.assertEqual(static_tuple_trip[3], 37)
 				self.assertEqual(static_tuple_trip[4], 22300)
 				self.assertEqual(static_tuple_trip[5], '421')
@@ -78,7 +78,7 @@ class TestTrip(unittest.TestCase):
 
 				self.assertEqual(real_tuple_trip[0], '421_225_191114')
 				self.assertEqual(real_tuple_trip[1], 'Kolín,Nádraží')
-				self.assertEqual(real_tuple_trip[2], 33)
+				self.assertEqual(real_tuple_trip[2], 37)
 				self.assertEqual(real_tuple_trip[3], 37)
 				self.assertEqual(real_tuple_trip[4], 22300)
 				self.assertEqual(real_tuple_trip[5], '421')
@@ -98,7 +98,7 @@ class TestTrip(unittest.TestCase):
 		real_tuple_trip = trip.get_tuple_update_trip(False)
 
 		self.assertEqual(static_tuple_trip[0], '381_72_191128')
-		self.assertEqual(static_tuple_trip[1], 73)
+		self.assertEqual(static_tuple_trip[1], 142)
 		self.assertEqual(static_tuple_trip[2], 142)
 		self.assertEqual(static_tuple_trip[3], 53100)
 		self.assertEqual(static_tuple_trip[4], 50.03094)
@@ -106,7 +106,7 @@ class TestTrip(unittest.TestCase):
 		# test time now
 
 		self.assertEqual(real_tuple_trip[0], '381_72_191128')
-		self.assertEqual(real_tuple_trip[1], 73)
+		self.assertEqual(real_tuple_trip[1], 142)
 		self.assertEqual(real_tuple_trip[2], 142)
 		self.assertEqual(real_tuple_trip[3], 53100)
 		self.assertEqual(real_tuple_trip[4], 50.03094)

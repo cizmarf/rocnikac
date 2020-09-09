@@ -22,6 +22,7 @@ class Stops:
 			stops[stop_parent_id] = stop
 
 		# inserts all stops of trip ride
+		# there is no info about stop parents in stop times dictionary
 		Stops.insert(database_connection, stops, stops[""], 'NULL', '')
 
 		stops_of_trip = []
@@ -41,11 +42,10 @@ class Stops:
 			'INSERT INTO rides (id_trip, id_stop, arrival_time, departure_time, shape_dist_traveled) VALUES (%s, %s, %s, %s, %s)',
 			stops_of_trip)
 
+	# appends value to list in proper element of dict, creates new dict element if not exists
 	class Dictlist(dict):
 		def __setitem__(self, key, value):
-			try:
-				self[key]
-			except KeyError:
+			if key not in self:
 				super(Stops.Dictlist, self).__setitem__(key, [])
 			self[key].append(value)
 
@@ -64,6 +64,7 @@ class Stops:
 	def number_of_stops(json_stops) -> int:
 		return len(json_stops['features'])
 
+	# deprecated
 	@staticmethod
 	def run_update_stops_script(limit: int = 10000):
 		database_connection = Database()

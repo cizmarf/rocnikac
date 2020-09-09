@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
+import os
 from datetime import timedelta
+from pathlib import Path
 
 import mysql.connector
 import matplotlib.pyplot as plt
@@ -12,6 +14,7 @@ from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import PolynomialFeatures
 
 from database import Database
+from file_system import File_system
 
 from two_stops_model import Two_stops_model
 
@@ -28,106 +31,106 @@ def is_business_day(date):
 
 
 
-stop_pairs = database_connection.execute_fetchall(
-	"""	select inn.id_trip, inn.id_stop, inn.lead_stop, departure_time, inn.lead_stop_departure_time, 
-			(inn.lead_stop_shape_dist_traveled - inn.shape_dist_traveled) as diff_shape_trav, 
-			trip_coordinates.inserted, 
-			(trip_coordinates.shape_dist_traveled - inn.shape_dist_traveled) as shifted_shape_trav, 
-			trip_coordinates.delay 
-		from (
-			SELECT id_trip, id_stop, shape_dist_traveled, departure_time, 
-				LEAD(id_stop, 1) OVER (PARTITION BY id_trip ORDER BY shape_dist_traveled) lead_stop, 
-				LEAD(shape_dist_traveled, 1) OVER (PARTITION BY id_trip ORDER BY shape_dist_traveled) lead_stop_shape_dist_traveled, 
-				LEAD(departure_time, 1) OVER (PARTITION BY id_trip ORDER BY shape_dist_traveled) lead_stop_departure_time 
-			FROM rides) as inn 
-			JOIN trip_coordinates 
-			ON trip_coordinates.id_trip = inn.id_trip and inn.lead_stop_shape_dist_traveled - inn.shape_dist_traveled > 1500 and trip_coordinates.shape_dist_traveled between inn.shape_dist_traveled and inn.lead_stop_shape_dist_traveled 
-			-- order by id_stop, lead_stop, shifted_shape_trav"""
-)
-
-all_pairs = {}
-
-for row in stop_pairs:
-	if str(row[1]) + " " + str(row[2]) in all_pairs:
-		all_pairs[str(row[1]) + " " + str(row[2])] += 1
-	else:
-		all_pairs[str(row[1]) + " " + str(row[2])] = 0
-
-num = []
-for k, v in all_pairs.items():
-	num.append([k, v])
-
-num.sort(key=lambda x: x[1], reverse=True)
-
-for e in num:
-	dep_stop = e[0].split()[0]
-	arr_stop = e[0].split()[1]
-	result = database_connection.execute_fetchall(
-		"""	select inn.id_trip, 
-				inn.id_stop, 
-				inn.lead_stop, 
-				inn.departure_time, 
-				inn.lead_stop_arrival_time, 
-				(inn.lead_stop_shape_dist_traveled - inn.shape_dist_traveled) as diff_shape_trav, 
-				trip_coordinates.inserted, 
-				(trip_coordinates.shape_dist_traveled - inn.shape_dist_traveled) as shifted_shape_trav, 
-				trip_coordinates.delay
-			from (
-				SELECT id_trip, id_stop, shape_dist_traveled, departure_time,
-					LEAD(id_stop, 1) OVER (PARTITION BY id_trip ORDER BY shape_dist_traveled) lead_stop, 
-					LEAD(shape_dist_traveled, 1) OVER (PARTITION BY id_trip ORDER BY shape_dist_traveled) lead_stop_shape_dist_traveled, 
-					LEAD(arrival_time, 1) OVER (PARTITION BY id_trip ORDER BY shape_dist_traveled) lead_stop_arrival_time 
-				FROM rides) as inn 
-				JOIN trip_coordinates 
-				ON trip_coordinates.id_trip = inn.id_trip and id_stop = %s and lead_stop = %s and trip_coordinates.shape_dist_traveled between (inn.shape_dist_traveled) and (inn.lead_stop_shape_dist_traveled) 
-				order by id_stop, lead_stop, shifted_shape_trav""",
-		(dep_stop, arr_stop)
-	)
-
-	shape_dist_trv = []
-	coor_times_norm = []
-	coor_times = []
-	ids_trip = []
-	arrivals = set()
-	distance = result[0][5]
-	max_traveled_time = 0
-
-
-	for row in result:
-		# reduce errors
-		if (timediff_to_sec(row[6]) - row[3].seconds) < 40000:
-			if is_business_day(row[6]):
-				if row[3].seconds > row[4].seconds:
-					arrivals.add((row[4].seconds, row[5], row[4].seconds - row[3].seconds + 24 * 60 * 60))
-					if row[4].seconds - row[3].seconds + 24 * 60 * 60 > max_traveled_time:
-						max_traveled_time = row[4].seconds - row[3].seconds + 24 * 60 * 60
-				else:
-					arrivals.add((row[4].seconds, row[5], row[4].seconds - row[3].seconds))
-					if row[4].seconds - row[3].seconds > max_traveled_time:
-						max_traveled_time = row[4].seconds - row[3].seconds
-
-
-				ids_trip.append(row[0])
-				shape_dist_trv.append(row[7])
-				coor_time_norm = timediff_to_sec(row[6]) - row[3].seconds - row[8]
-				if coor_time_norm < - 12 * 60 * 60:
-					coor_time_norm += 24 * 60 * 60
-				coor_times_norm.append(coor_time_norm)
-				coor_times.append(timediff_to_sec(row[6]))
-				# print("bd", row[0])
-			else:
-				# print("weekend", row[0])
-				pass
-
-
-	model = Two_stops_model(arr_stop,
-							dep_stop,
-							distance,
-							max_traveled_time,
-							shape_dist_trv,
-							coor_times_norm,
-							coor_times,
-							ids_trip).get_model()
+# stop_pairs = database_connection.execute_fetchall(
+# 	"""	select inn.id_trip, inn.id_stop, inn.lead_stop, departure_time, inn.lead_stop_departure_time,
+# 			(inn.lead_stop_shape_dist_traveled - inn.shape_dist_traveled) as diff_shape_trav,
+# 			trip_coordinates.inserted,
+# 			(trip_coordinates.shape_dist_traveled - inn.shape_dist_traveled) as shifted_shape_trav,
+# 			trip_coordinates.delay
+# 		from (
+# 			SELECT id_trip, id_stop, shape_dist_traveled, departure_time,
+# 				LEAD(id_stop, 1) OVER (PARTITION BY id_trip ORDER BY shape_dist_traveled) lead_stop,
+# 				LEAD(shape_dist_traveled, 1) OVER (PARTITION BY id_trip ORDER BY shape_dist_traveled) lead_stop_shape_dist_traveled,
+# 				LEAD(departure_time, 1) OVER (PARTITION BY id_trip ORDER BY shape_dist_traveled) lead_stop_departure_time
+# 			FROM rides) as inn
+# 			JOIN trip_coordinates
+# 			ON trip_coordinates.id_trip = inn.id_trip and inn.lead_stop_shape_dist_traveled - inn.shape_dist_traveled > 1500 and trip_coordinates.shape_dist_traveled between inn.shape_dist_traveled and inn.lead_stop_shape_dist_traveled
+# 			-- order by id_stop, lead_stop, shifted_shape_trav"""
+# )
+#
+# all_pairs = {}
+#
+# for row in stop_pairs:
+# 	if str(row[1]) + " " + str(row[2]) in all_pairs:
+# 		all_pairs[str(row[1]) + " " + str(row[2])] += 1
+# 	else:
+# 		all_pairs[str(row[1]) + " " + str(row[2])] = 0
+#
+# num = []
+# for k, v in all_pairs.items():
+# 	num.append([k, v])
+#
+# num.sort(key=lambda x: x[1], reverse=True)
+#
+# for e in num:
+# 	dep_stop = e[0].split()[0]
+# 	arr_stop = e[0].split()[1]
+# 	result = database_connection.execute_fetchall(
+# 		"""	select inn.id_trip,
+# 				inn.id_stop,
+# 				inn.lead_stop,
+# 				inn.departure_time,
+# 				inn.lead_stop_arrival_time,
+# 				(inn.lead_stop_shape_dist_traveled - inn.shape_dist_traveled) as diff_shape_trav,
+# 				trip_coordinates.inserted,
+# 				(trip_coordinates.shape_dist_traveled - inn.shape_dist_traveled) as shifted_shape_trav,
+# 				trip_coordinates.delay
+# 			from (
+# 				SELECT id_trip, id_stop, shape_dist_traveled, departure_time,
+# 					LEAD(id_stop, 1) OVER (PARTITION BY id_trip ORDER BY shape_dist_traveled) lead_stop,
+# 					LEAD(shape_dist_traveled, 1) OVER (PARTITION BY id_trip ORDER BY shape_dist_traveled) lead_stop_shape_dist_traveled,
+# 					LEAD(arrival_time, 1) OVER (PARTITION BY id_trip ORDER BY shape_dist_traveled) lead_stop_arrival_time
+# 				FROM rides) as inn
+# 				JOIN trip_coordinates
+# 				ON trip_coordinates.id_trip = inn.id_trip and id_stop = %s and lead_stop = %s and trip_coordinates.shape_dist_traveled between (inn.shape_dist_traveled) and (inn.lead_stop_shape_dist_traveled)
+# 				order by id_stop, lead_stop, shifted_shape_trav""",
+# 		(dep_stop, arr_stop)
+# 	)
+#
+# 	shape_dist_trv = []
+# 	coor_times_norm = []
+# 	coor_times = []
+# 	ids_trip = []
+# 	arrivals = set()
+# 	distance = result[0][5]
+# 	max_traveled_time = 0
+#
+#
+# 	for row in result:
+# 		# reduce errors
+# 		if (timediff_to_sec(row[6]) - row[3].seconds) < 40000:
+# 			if is_business_day(row[6]):
+# 				if row[3].seconds > row[4].seconds:
+# 					arrivals.add((row[4].seconds, row[5], row[4].seconds - row[3].seconds + 24 * 60 * 60))
+# 					if row[4].seconds - row[3].seconds + 24 * 60 * 60 > max_traveled_time:
+# 						max_traveled_time = row[4].seconds - row[3].seconds + 24 * 60 * 60
+# 				else:
+# 					arrivals.add((row[4].seconds, row[5], row[4].seconds - row[3].seconds))
+# 					if row[4].seconds - row[3].seconds > max_traveled_time:
+# 						max_traveled_time = row[4].seconds - row[3].seconds
+#
+#
+# 				ids_trip.append(row[0])
+# 				shape_dist_trv.append(row[7])
+# 				coor_time_norm = timediff_to_sec(row[6]) - row[3].seconds - row[8]
+# 				if coor_time_norm < - 12 * 60 * 60:
+# 					coor_time_norm += 24 * 60 * 60
+# 				coor_times_norm.append(coor_time_norm)
+# 				coor_times.append(timediff_to_sec(row[6]))
+# 				# print("bd", row[0])
+# 			else:
+# 				# print("weekend", row[0])
+# 				pass
+#
+#
+# 	model = Two_stops_model(arr_stop,
+# 							dep_stop,
+# 							distance,
+# 							max_traveled_time,
+# 							shape_dist_trv,
+# 							coor_times_norm,
+# 							coor_times,
+# 							ids_trip).get_model()
 
 	# makes ready input data for training a model
 	# input_data = np.array([shape_dist_trv, coor_times]).transpose()
@@ -153,50 +156,53 @@ for e in num:
 	# model = make_pipeline(PolynomialFeatures(best_degree), Ridge())
 	# model.fit(input_data, output_data)
 
-	x = np.linspace(0, max(shape_dist_trv), 30)
-	y = np.linspace(min(coor_times), max(coor_times), 30)
+
+model = File_system.pickle_load_object(Path('./tests/input_data') / Path("221406_223778_hol.model"))
+
+x = np.linspace(0, model.distance, 30)
+y = np.linspace(model.min_day_time, model.max_day_time, 30)
 
 
-	# makes grid for model visualization
-	xx1, xx2 = np.meshgrid(x, y)
-	grid = np.pad(np.array([xx1.ravel(), xx2.ravel()]).T, ((0, 0), (0, 1)), constant_values=1)
-	Z = model.predict_standard(xx1.ravel(), xx2.ravel())
+# makes grid for model visualization
+xx1, xx2 = np.meshgrid(x, y)
+grid = np.pad(np.array([xx1.ravel(), xx2.ravel()]).T, ((0, 0), (0, 1)), constant_values=1)
+Z = model.predict_standard(xx1.ravel(), xx2.ravel())
 
-	arr_shape = []
-	arr_t_c = []
-	arr_t_d = []
+arr_shape = []
+arr_t_c = []
+arr_t_d = []
 
-	# red dots for arrivals times
-	for ea in arrivals:
-		arr_t_d.append(ea[0])
-		arr_shape.append(ea[1])
-		arr_t_c.append(ea[2])
+# red dots for arrivals times
+# for ea in arrivals:
+# 	arr_t_d.append(ea[0])
+# 	arr_shape.append(ea[1])
+# 	arr_t_c.append(ea[2])
 
-	import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 
-	fig = plt.figure()
-	ax = fig.add_subplot(111, projection='3d')
-	if Z is not None:
-		ax.scatter(xx2,xx1, Z, alpha=0.4)  # grid model
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+if Z is not None:
+	ax.scatter(xx2,xx1, Z, alpha=0.4)  # grid model
 
-	if model.get_name() == "Hull":
-		print("is hull")
-		lin_arrivals = np.linspace(min(coor_times), max(coor_times), 30)
-		pred = model.predict_nonstandard(lin_arrivals)
-		ax.scatter(lin_arrivals, np.full(30, distance), pred)
-		points = np.array(model.points_of_concave_hull).transpose()
-		ax.scatter(points[0], points[2], points[1])
+if model.get_name() == "Hull":
+	print("is hull")
+	lin_arrivals = np.linspace(model.min_day_time, model.max_day_time, 30)
+	pred = model.predict_nonstandard(lin_arrivals)
+	ax.scatter(lin_arrivals, np.full(30, model.distance), pred)
+	points = np.array(model.points_of_concave_hull).transpose()
+	ax.scatter(points[0], points[2], points[1])
 
 
-	ax.scatter(coor_times, shape_dist_trv, coor_times_norm)  # known data
-	# X_train = X_train.transpose()
-	# ax.scatter(X_train[1], X_train[0], y_train)
-	ax.scatter(arr_t_d, arr_shape, arr_t_c, c='r')  # arrivals
+# ax.scatter(coor_times, shape_dist_trv, coor_times_norm)  # known data
+# X_train = X_train.transpose()
+# ax.scatter(X_train[1], X_train[0], y_train)
+ax.scatter(arr_t_d, arr_shape, arr_t_c, c='r')  # arrivals
 
-	ax.set_ylabel('shp dist trv')
-	ax.set_zlabel('coor time')
-	ax.set_xlabel('day time')
+ax.set_ylabel('shp dist trv')
+ax.set_zlabel('coor time')
+ax.set_xlabel('day time')
 
-	plt.title("From " + e[0].split()[0] + " to " + e[0].split()[1] + ", occurrences " + str(e[1]) + ", poly degree " )
-	plt.show()
+# plt.title("From " + e[0].split()[0] + " to " + e[0].split()[1] + ", occurrences " + str(e[1]) + ", poly degree " )
+plt.show()
 

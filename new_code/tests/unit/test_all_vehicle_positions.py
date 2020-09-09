@@ -52,6 +52,8 @@ class testAll_vehicle_positions(unittest.TestCase):
 
 		first_insert_true = File_system.pickle_load_object("../output_data/test_construct_all_trips_vehicles_1.list")
 		first_insert_result = vehicle_positions.vehicles
+
+		# File_system.pickle_object(first_insert_result, "../output_data/test_construct_all_trips_vehicles_1.list")
 		
 		self.assertEqual(len(first_insert_true), len(first_insert_result))
 		
@@ -66,6 +68,8 @@ class testAll_vehicle_positions(unittest.TestCase):
 
 		second_insert_true = File_system.pickle_load_object("../output_data/test_construct_all_trips_vehicles_2.list")
 		second_insert_result = vehicle_positions.vehicles
+
+		# File_system.pickle_object(second_insert_result, "../output_data/test_construct_all_trips_vehicles_2.list")
 
 		self.assertEqual(len(second_insert_true), len(second_insert_result))
 

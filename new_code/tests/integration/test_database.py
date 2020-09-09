@@ -23,7 +23,7 @@ class MyTestCase(unittest.TestCase):
 
 	def testInsertData(self):
 
-		if True:  # takes very long time to fill database
+		if False:  # takes very long time to fill database
 			database_connection = Database("vehicle_positions_test_database")
 			# res = database_connection.execute_fetchall('SELECT * FROM vehicle_positions_test_database.trip_coordinates order by last_stop_delay')
 
@@ -55,7 +55,7 @@ class MyTestCase(unittest.TestCase):
 	def test_get_all_pairs_of_stops(self):
 		database_connection = Database("vehicle_positions_test_database")
 
-		all_trip_coordinates = database_connection.execute_procedure_fetchall('get_all_pairs_of_stops')
+		all_trip_coordinates = database_connection.execute_procedure_fetchall('get_all_pairs_of_stops', (0,0, 1500))
 
 		ride_of_trip = database_connection.execute_fetchall('SELECT * FROM rides WHERE id_trip = %s ORDER BY shape_dist_traveled', (all_trip_coordinates[0][0],))
 

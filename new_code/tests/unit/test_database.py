@@ -122,7 +122,9 @@ class TestDatabaseClass(unittest.TestCase):
 				database_connection.execute('COMMIT;')
 				break
 
-		result = database_connection.execute_procedure_fetchall("get_all_pairs_of_stops")
+		result = database_connection.execute_procedure_fetchall("get_all_pairs_of_stops", (0, 0, 0))
+
+		# File_system.pickle_object(result, "../output_data/testExecute_procedure_fetchall.obj")
 
 		self.assertEqual(result, File_system.pickle_load_object("../output_data/testExecute_procedure_fetchall.obj"))
 

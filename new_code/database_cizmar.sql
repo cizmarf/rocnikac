@@ -250,8 +250,13 @@ END;
 
 -- returns all pairs of stops where the first is right followed by the second in ride of at least one trip
 -- for each pair it selects all trip coordinates data captured between these stops
-CREATE PROCEDURE `get_all_pairs_of_stops` ()
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_all_pairs_of_stops`(
+	IN offset_var BigInt,
+    IN limit_var BigInt,
+    IN min_stop_dist INT
+)
 BEGIN
+	IF limit_var = 0 THEN SET limit_var = 9223372036854775807; END IF;
     SELECT schedule.id_trip,
         schedule.id_stop,
         schedule.lead_stop,
@@ -262,7 +267,8 @@ BEGIN
         trip_coordinates.inserted,
         (trip_coordinates.shape_dist_traveled - schedule.shape_dist_traveled)
             AS shifted_shape_trav,
-        trip_coordinates.last_stop_delay
+        trip_coordinates.last_stop_delay,
+        trip_coordinates.delay -- for demo use only
     FROM (
         SELECT id_trip, id_stop, shape_dist_traveled, departure_time,
             LEAD(id_stop, 1) OVER (
@@ -274,10 +280,11 @@ BEGIN
         FROM rides) AS schedule
     JOIN trip_coordinates
     ON trip_coordinates.id_trip = schedule.id_trip AND
-        schedule.lead_stop_shape_dist_traveled - schedule.shape_dist_traveled > 1500 AND
+        schedule.lead_stop_shape_dist_traveled - schedule.shape_dist_traveled > min_stop_dist AND
         trip_coordinates.shape_dist_traveled BETWEEN schedule.shape_dist_traveled AND
         schedule.lead_stop_shape_dist_traveled
-    ORDER BY id_stop, lead_stop, shifted_shape_trav;
+    ORDER BY id_stop, lead_stop, shifted_shape_trav
+    LIMIT offset_var, limit_var;
 END;
 
 

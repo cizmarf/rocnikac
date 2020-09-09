@@ -14,7 +14,7 @@ from pathlib import Path
 class File_system:
 
 	static_vehicle_positions = Path("/Users/filipcizmar/Documents/rocnikac/rocnikac_source/new_code/tests/input_data/raw_vehicle_positions_all/")
-	static_trips = Path("/Users/filipcizmar/Documents/rocnikac/raw-trips/") # TODO change to new dir
+	static_trips = Path("/Users/filipcizmar/Documents/rocnikac/rocnikac_source/new_code/tests/input_data/raw_trips/")
 	all_shapes = Path("/Users/filipcizmar/Documents/rocnikac/rocnikac_source/new_code/data/shapes/")
 	all_vehicle_positions_real_time_geojson = Path("/Users/filipcizmar/Documents/rocnikac/rocnikac_source/new_code/data/vehicle_positions")
 	all_models = Path("/Users/filipcizmar/Documents/rocnikac/rocnikac_source/new_code/data/models/") # TODO change to new dir
