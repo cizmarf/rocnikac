@@ -6,6 +6,7 @@ from pathlib import Path
 
 import pytz
 
+import lib
 from file_system import File_system
 from network import Network
 
@@ -134,7 +135,7 @@ class Trip:
 
 	def get_tuple_for_predict(self):
 		try:
-			return (self.shape_traveled - self.last_stop_shape_dist_trav, self.last_updated, self.departure_time, self.arrival_time)
+			return (self.shape_traveled - self.last_stop_shape_dist_trav, lib.time_to_sec(self.last_updated), self.departure_time.seconds, self.arrival_time.seconds)
 		except Exception as e:
 			return None
 

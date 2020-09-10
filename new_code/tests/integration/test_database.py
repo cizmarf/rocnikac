@@ -22,9 +22,12 @@ class FillDatabase():
 class MyTestCase(unittest.TestCase):
 
 	def testInsertData(self):
+		database_connection = Database("vehicle_positions_test_database")
+		no_of_trips = database_connection.execute_fetchall('SELECT count(*) FROM trips')
 
-		if False:  # takes very long time to fill database
-			database_connection = Database("vehicle_positions_test_database")
+		# if count of trips changed refill database
+		if no_of_trips[0][0] != 149:  # takes very long time to fill database
+			# database_connection = Database("vehicle_positions_test_database")
 			# res = database_connection.execute_fetchall('SELECT * FROM vehicle_positions_test_database.trip_coordinates order by last_stop_delay')
 
 			tests.lib_tests.drop_all_tables()
@@ -39,8 +42,6 @@ class MyTestCase(unittest.TestCase):
 			main(database_connection, args)
 
 			File_system.static_vehicle_positions = old_path
-
-		database_connection = Database("vehicle_positions_test_database")
 
 		trips = database_connection.execute_fetchall('SELECT count(*) FROM trips')
 		trip_coordinates = database_connection.execute_fetchall('SELECT * FROM trip_coordinates where id_trip = 1 ORDER BY shape_dist_traveled')
