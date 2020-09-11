@@ -169,58 +169,58 @@ class TestModels(unittest.TestCase):
 
 class TestTwo_stops_models(unittest.TestCase):
 	def test_add_row_a(self):
-		# database_connection = Database('vehicle_positions_database')
-		#
-		# # demo app needs aprox 30 secs to fetch
-		# # in production it may takes longer time to fetch all data
-		# database_connection.execute('SET GLOBAL connect_timeout=600')
-		# database_connection.execute('SET GLOBAL wait_timeout=600')
-		# database_connection.execute('SET GLOBAL interactive_timeout=600')
-		#
-		# stop_to_stop_data = database_connection.execute_procedure_fetchall(
-		# 	'get_all_pairs_of_stops', (0, 0, 1500))
-		#
-		# res_list = []
-		# shapes = []
-		# coor_times = []
-		#
-		# cur_dep_stop = stop_to_stop_data[0][1]
-		# cur_arr_stop = stop_to_stop_data[0][2]
-		# no_of_samples = 0
-		# rows_to_save = []
-		#
-		# for row in stop_to_stop_data:
-		# 	if row[1] == 230571 and row[2] == 226625:
-		# 		rows_to_save.append(row)
-		# 	if cur_dep_stop == row[1] and cur_arr_stop == row[2]:
-		# 		if row[7] != 0:
-		# 			no_of_samples += 1
-		# 			shapes.append(row[7])
-		# 			coor_times.append(Two_stops_model._get_coor_time(lib.time_to_sec(row[6]), row[3].seconds, row[8]))
-		#
-		# 	else:
-		# 		rate = np.divide(coor_times, np.divide(shapes, 10))
-		#
-		# 		res_list.append([cur_dep_stop, cur_arr_stop, np.nanmean(rate), no_of_samples])
-		# 		# high_variable = np.where(abs(rate - rate.mean()) > rate.std() is True)
-		# 		if row[7] != 0:
-		# 			coor_times=[]
-		# 			shapes=[]
-		# 			shapes.append(row[7])
-		# 			coor_times.append(Two_stops_model._get_coor_time(lib.time_to_sec(row[6]), row[3].seconds, row[8]))
-		#
-		# 			no_of_samples = 1
-		#
-		# 		cur_dep_stop = row[1]
-		# 		cur_arr_stop = row[2]
-		#
-		# rate = np.divide(coor_times, np.divide(shapes, 10))
-		#
-		# res_list.append([cur_dep_stop, cur_arr_stop, np.nanmean(rate), no_of_samples])
-		#
-		# res_arr = np.array(res_list)
-		#
-		# File_system.pickle_object(rows_to_save, '../input_data/test_two_stops_model_data.list')
+		database_connection = Database('vehicle_positions_database')
+
+		# demo app needs aprox 30 secs to fetch
+		# in production it may takes longer time to fetch all data
+		database_connection.execute('SET GLOBAL connect_timeout=600')
+		database_connection.execute('SET GLOBAL wait_timeout=600')
+		database_connection.execute('SET GLOBAL interactive_timeout=600')
+
+		stop_to_stop_data = database_connection.execute_procedure_fetchall(
+			'get_all_pairs_of_stops', (0, 0, 1500))
+
+		res_list = []
+		shapes = []
+		coor_times = []
+
+		cur_dep_stop = stop_to_stop_data[0][1]
+		cur_arr_stop = stop_to_stop_data[0][2]
+		no_of_samples = 0
+		rows_to_save = []
+
+		for row in stop_to_stop_data:
+			if row[1] == 230571 and row[2] == 226625:
+				rows_to_save.append(row)
+			if cur_dep_stop == row[1] and cur_arr_stop == row[2]:
+				if row[7] != 0:
+					no_of_samples += 1
+					shapes.append(row[7])
+					coor_times.append(Two_stops_model._get_coor_time(lib.time_to_sec(row[6]), row[3].seconds, row[8]))
+
+			else:
+				rate = np.divide(coor_times, np.divide(shapes, 10))
+
+				res_list.append([cur_dep_stop, cur_arr_stop, np.nanmean(rate), no_of_samples])
+				# high_variable = np.where(abs(rate - rate.mean()) > rate.std() is True)
+				if row[7] != 0:
+					coor_times=[]
+					shapes=[]
+					shapes.append(row[7])
+					coor_times.append(Two_stops_model._get_coor_time(lib.time_to_sec(row[6]), row[3].seconds, row[8]))
+
+					no_of_samples = 1
+
+				cur_dep_stop = row[1]
+				cur_arr_stop = row[2]
+
+		rate = np.divide(coor_times, np.divide(shapes, 10))
+
+		res_list.append([cur_dep_stop, cur_arr_stop, np.nanmean(rate), no_of_samples])
+
+		res_arr = np.array(res_list)
+
+		File_system.pickle_object(rows_to_save, '../input_data/test_two_stops_model_data.list')
 
 		rows = File_system.pickle_load_object('../input_data/test_two_stops_model_data.list')
 

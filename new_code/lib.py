@@ -15,5 +15,11 @@ def is_business_day(date):
 		return True
 	return False
 
+
 def time_to_sec(timed):
-	return timed.time().hour * SECONDS_AN_HOUR + timed.time().minute * MINUTES_AN_HOUR + timed.time().second  # + 3600
+	return timed.time().hour * SECONDS_AN_HOUR + \
+		   timed.time().minute * MINUTES_AN_HOUR + \
+		   timed.time().second
+
+
+

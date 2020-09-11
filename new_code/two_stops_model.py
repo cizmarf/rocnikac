@@ -21,7 +21,11 @@ from sklearn.preprocessing import PolynomialFeatures
 
 class Norm_data:
 
-	# shape_dist_trav from departure stop, time since departure stop, no of sec since midnight, it trip, timestamp of sample creation
+	# shape_dist_trav from departure stop,
+	# time since departure stop,
+	# no of sec since midnight,
+	# it trip,
+	# timestamp of sample creation
 	def __init__(self, shapes, coor_times, day_times, ids_trip, timestamps):
 		if not len(shapes) == len(day_times) == len(coor_times) == len(ids_trip) == len(timestamps):
 			raise IOError("Norm_data request same length lists")
@@ -55,8 +59,8 @@ class Norm_data:
 					  timestamp=self.get_timestamps()[i])
 
 	def remove_items_by_id_trip(self, trip_id_time: Set, id_to_time_map: dict):
-
-		indices = list(np.where(np.isin(self.get_ids_trip(), list(trip_id_time)) == True)[0])
+		indices = list(np.where(
+			np.isin(self.get_ids_trip(), list(trip_id_time)) == True)[0])
 		indices_out = []
 		# indices = set(indices)
 		two_hours_sec = 60 * 60 * 2
@@ -72,15 +76,13 @@ class Norm_data:
 
 		self.data = np.delete(self.data, indices_out, 1)
 
-		print()
-
-
 
 class Super_model:
 
 	model_path = "../../data/models/"
 
-	def __init__(self, distance: int, norm_data: Norm_data = None, dep_stop = None, arr_stop = None, bss_or_hol = None):
+	def __init__(self, distance: int, norm_data: Norm_data = None,
+				 dep_stop = None, arr_stop = None, bss_or_hol = None):
 		self.model = None
 		self.distance = distance
 		self.norm_data = norm_data
@@ -103,7 +105,9 @@ class Super_model:
 		return self.model
 
 	def save_model(self, path = File_system.all_models):
-		with lzma.open((Path(path) / (str(self.dep_stop) + "_" + str(self.arr_stop) + "_" + self.bss_or_hol)).with_suffix(".model"), "wb") as model_file:
+		with lzma.open((
+				Path(path) / (str(self.dep_stop) + "_" + str(self.arr_stop) + "_" + self.bss_or_hol)
+			).with_suffix(".model"), "wb") as model_file:
 			pickle.dump(self, model_file)
 
 
@@ -211,7 +215,8 @@ class Two_stops_model:
 			return model_delay[0] + norm_update_time - prediction[0]
 
 		def predict_standard(self, norm_shape_dist_trv, update_time):
-			input_data = np.pad(np.array([norm_shape_dist_trv, update_time]).T, ((0, 0), (0, 1)), constant_values=1)
+			input_data = np.pad(np.array(
+				[norm_shape_dist_trv, update_time]).T, ((0, 0), (0, 1)), constant_values=1)
 			return self.model.predict(input_data)
 
 		def get_rmse(self):
@@ -363,7 +368,6 @@ class Two_stops_model:
 			self.max_travel_time = arr_time - dep_time + Two_stops_model.SECONDS_A_DAY
 
 
-
 	def create_model(self):
 		self.norm_data = Norm_data(self.shapes, self.coor_times, self.day_times, self.ids_trip, self.timestamps)
 		self._reduce_errors()
@@ -385,12 +389,6 @@ class Two_stops_model:
 
 		self.model = concav_model
 
-		# if  len(self.norm_data) > 1000 and len(self.norm_data) >= self.distance * 0.001 * 9 * 4:
-		# 	self.model = poly_model
-		# 	print("rmse:", poly_model.get_rmse(), "\ndist * alpha:", self.distance * rmse_aplha, "\nlen:", len(self.norm_data))
-		# 	print("kandidat: dep:", self.dep_id_stop, "arr:", self.arr_id_stop, "bss/hol:", self.bss_or_hol)
-
-
 	def __len__(self):
 		assert len(self.shapes) == len(self.day_times) == len(self.coor_times) == len(self.ids_trip)
 		return len(self.shapes)
@@ -402,17 +400,26 @@ class Two_stops_model:
 		coor_times = self.norm_data.get_coor_times()
 		shapes = self.norm_data.get_shapes()
 
+		# coordinates times and distance are semi linear dependent
 		rate = np.divide(coor_times, np.divide(shapes, 10))
 
 		# print("mena:", abs(rate - rate.mean()))
 		# print("std:", rate.std())
-		high_variable = np.where((abs(rate - rate.mean()) > rate.std() * Two_stops_model.REDUCE_VARIANCE_RATE).astype(int) == 1)[0]
 
-		for hv in high_variable:
+		# gets indices of high variance
+		high_variance = np.where((
+				abs(rate - rate.mean()) > rate.std() * Two_stops_model.REDUCE_VARIANCE_RATE
+			).astype(int) == 1)[0]
+
+		# for all indicated indices gets trips ids
+		# and creates dictionary of day times of all corrupted samples
+		for hv in high_variance:
 			trip_id = self.norm_data.get_ids_trip()[hv]
 			trips_to_remove.add(trip_id)
+
 			if trip_id in trip_times_to_remove:
 				trip_times_to_remove[trip_id].append(self.norm_data.get_timestamps()[hv])
+
 			else:
 				trip_times_to_remove[trip_id] = [self.norm_data.get_timestamps()[hv]]
 
@@ -424,5 +431,3 @@ class Two_stops_model:
 			return (day_time - dep_time - last_stop_delay + Two_stops_model.SECONDS_A_DAY)
 		else:
 			return (day_time - dep_time - last_stop_delay)
-
-

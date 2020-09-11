@@ -1,11 +1,9 @@
-import asyncio
 import unittest
 from datetime import timedelta
 
 import tests.lib_tests
 from all_vehicle_positions import *
 from database import Database
-from download_and_process import update_or_insert_trip
 
 
 class testStatic_all_vehicle_positions(unittest.TestCase):
@@ -54,9 +52,9 @@ class testAll_vehicle_positions(unittest.TestCase):
 		first_insert_result = vehicle_positions.vehicles
 
 		# File_system.pickle_object(first_insert_result, "../output_data/test_construct_all_trips_vehicles_1.list")
-		
+
 		self.assertEqual(len(first_insert_true), len(first_insert_result))
-		
+
 		first_insert_true = first_insert_true[0]
 		first_insert_result = first_insert_result[0]
 
@@ -140,6 +138,7 @@ class testAll_vehicle_positions(unittest.TestCase):
 
 		# trip passed last stop
 		self.assertTupleEqual(All_vehicle_positions.get_last_next_stop_and_sdt(trip_ride_a, 70000), (None, None, None, None, None, None))
+
 
 if __name__ == '__main__':
 	unittest.main()
