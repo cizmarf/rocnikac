@@ -62,10 +62,10 @@ class Stops:
 
 		del stops[parent_id]
 		database_connection.execute_many("""
-			INSERT IGNORE INTO stops (
-				stop_source_id, stop_name, lat, lon, parent_id_stop) 
-			VALUES (%s, %s, %s, %s, ' + str(id_parent) + ')"""
-			, [tuple(t) for t in to_insert])
+					INSERT IGNORE INTO stops (
+						stop_source_id, stop_name, lat, lon, parent_id_stop) 
+					VALUES (%s, %s, %s, %s, """ + str(id_parent) + """)"""
+										 , [tuple(t) for t in to_insert])
 
 		# insert all descendants
 		for e in to_insert:
@@ -75,10 +75,10 @@ class Stops:
 					stops,
 					stops[e[0]],
 					database_connection.execute_fetchall("""
-						SELECT id_stop 
-						FROM stops 
-						WHERE stop_source_id = %s""",
-					(e[0], ))[0][0],
+								SELECT id_stop 
+								FROM stops 
+								WHERE stop_source_id = %s""",
+														 (e[0],))[0][0],
 					e[0]
 				)
 

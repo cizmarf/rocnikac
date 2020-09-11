@@ -431,5 +431,3 @@ class Two_stops_model:
 			return (day_time - dep_time - last_stop_delay + Two_stops_model.SECONDS_A_DAY)
 		else:
 			return (day_time - dep_time - last_stop_delay)
-
-

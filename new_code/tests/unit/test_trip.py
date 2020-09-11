@@ -36,7 +36,7 @@ class TestTrip(unittest.TestCase):
 			if vehicle["properties"]["trip"]["gtfs_trip_id"] == "421_225_191114":
 				trip = Trip()
 				trip.set_attributes_by_vehicle(vehicle)
-				trip.json_trip = json.loads(File_system.get_tar_file_content("../input_data/raw_trips/421_225_191114.json"))
+				trip.json_trip = json.loads(File_system.get_file_content("../input_data/421_225_191114.json"))
 				trip._fill_attributes_from_trip_file()
 				trip.save_shape_file('../output_data/')
 				break
@@ -54,6 +54,7 @@ class TestTrip(unittest.TestCase):
 		self.assertEqual(len(shape_dist_trav), len(coordinates))
 		self.assertEqual(len(shape_dist_trav), 1198)
 		self.assertEqual(shape_dist_trav[1], 17)
+
 
 	def test_get_tuple_new_trip(self):
 		json_file = json.loads(File_system.get_tar_file_content("../input_data/2020-02-20T13.50.23.tar.gz"))

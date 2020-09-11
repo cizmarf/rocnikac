@@ -52,9 +52,9 @@ class testAll_vehicle_positions(unittest.TestCase):
 		first_insert_result = vehicle_positions.vehicles
 
 		# File_system.pickle_object(first_insert_result, "../output_data/test_construct_all_trips_vehicles_1.list")
-		
+
 		self.assertEqual(len(first_insert_true), len(first_insert_result))
-		
+
 		first_insert_true = first_insert_true[0]
 		first_insert_result = first_insert_result[0]
 
@@ -138,6 +138,7 @@ class testAll_vehicle_positions(unittest.TestCase):
 
 		# trip passed last stop
 		self.assertTupleEqual(All_vehicle_positions.get_last_next_stop_and_sdt(trip_ride_a, 70000), (None, None, None, None, None, None))
+
 
 if __name__ == '__main__':
 	unittest.main()

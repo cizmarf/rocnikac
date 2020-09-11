@@ -10,6 +10,7 @@ import lib
 from file_system import File_system
 from network import Network
 
+
 class Trip:
 
 	@staticmethod
@@ -44,7 +45,7 @@ class Trip:
 		self.trip_id: str = None
 		self.lat: str = None
 		self.lon: str = None
-		self.last_updated=None
+		self.last_updated = None
 		self.cur_delay: int = None
 		self.last_stop_delay = None
 		self.shape_traveled: int = None
@@ -62,7 +63,7 @@ class Trip:
 
 		self.json_trip = None
 		self.json_file = None
-		
+
 	def set_attributes_by_vehicle(self, vehicle: dict):
 		self.json_file = vehicle
 		self.trip_id = vehicle["properties"]["trip"]["gtfs_trip_id"]
@@ -84,6 +85,7 @@ class Trip:
 				last_updated[:last_updated.index(".")],
 				'%Y-%m-%dT%H:%M:%S')
 			).astimezone(pytz.timezone('Europe/Prague'))
+
 		# self.last_updated = datetime.strptime(last_updated[:last_updated.index(".")], '%Y-%m-%dT%H:%M:%S')
 		self.id_trip = None
 
@@ -196,7 +198,7 @@ class Trip:
 				Trip.format_shape_traveled(feature["properties"]["shape_dist_traveled"]))
 
 		File_system.save_file(new_json_data, (Path(path) / self.trip_id).with_suffix('.shape'))
-			
+
 	def _fill_attributes_from_trip_file(self):
 		self.trip_headsign = self.json_trip["trip_headsign"]
 

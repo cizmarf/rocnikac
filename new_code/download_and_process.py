@@ -18,6 +18,23 @@ from database import Database
 from stops import Stops
 from file_system import File_system
 
+def estimate_delays(all_vehicle_positions: All_vehicle_positions, models):
+
+	for vehicle in all_vehicle_positions.iterate_vehicles():
+
+		# gets model from given set, if no model found uses linear model by default
+		model = models.get(
+			str(vehicle.last_stop or '') + "_" +
+			str(vehicle.next_stop or '') +
+			("_bss" if lib.is_business_day(vehicle.last_updated) else "_hol"),
+			Two_stops_model.Linear_model(vehicle.stop_dist_diff))
+
+		tuple_for_predict = vehicle.get_tuple_for_predict()
+
+		# else it uses last stop delay, set in trips construction
+		if tuple_for_predict is not None:
+			vehicle.cur_delay = model.predict(*tuple_for_predict)
+
 
 async def update_or_insert_trip(vehicle, database_connection, args):
 	# Tries to get id_trip. If trip does not exist returns empty list else
@@ -140,8 +157,7 @@ def main(database_connection, args):
 		all_vehicle_positions.construct_all_trips(database_connection)
 
 		# estimate delays based on models created
-		lib.estimate_delays(all_vehicle_positions, models)
-
+		estimate_delays(all_vehicle_positions, models)
 		# this is deprecated solution of creating output vehicle position file,
 		# in current version it needs to read all data from database for each server request
 		# all_vehicle_positions.get_all_vehicle_positions_json()
@@ -204,4 +220,6 @@ if __name__ == "__main__":
 		bm.main()
 
 	# this runs the main project features
+
 	main(database_connection, args)
+

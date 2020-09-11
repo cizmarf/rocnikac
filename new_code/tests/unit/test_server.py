@@ -1,6 +1,11 @@
 import unittest
 from server import *
 
+################################################################
+# IMPORTANT test server needs fill database by simple static data
+# otherwise no test passes
+# run testInsertData first and than test server
+################################################################
 
 class TestServer(unittest.TestCase):
 	def test_get_id_trip_by_trip_id(self):
