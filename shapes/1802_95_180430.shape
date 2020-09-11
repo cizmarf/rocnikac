@@ -1,0 +1,1 @@
+{"type": "FeatureCollection", "features": [{"type": "Feature", "geometry": {"type": "LineString", "properties": {"shape_dist_traveled": [0, 129, 168]}, "coordinates": [[14.3978, 50.12242], [14.39602, 50.12264], [14.39549, 50.1227]]}}]}
