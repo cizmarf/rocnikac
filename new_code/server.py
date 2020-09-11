@@ -137,20 +137,23 @@ class Server:
 
 			if len(coordinates) > 0:
 				# appends first returned row from database
-				geojson_tail["features"][0]["geometry"]["coordinates"].append([float(coordinates[0][0]), float(coordinates[0][1])])
+				geojson_tail["features"][0]["geometry"]["coordinates"].append(
+					[float(coordinates[0][0]), float(coordinates[0][1])])
 
 				# steps over shapes from shape file
 				# because we do not really care about addition points from vehicles positions
 				for i in range(len(shape["features"][0]["geometry"]["coordinates"])):
 					shape_fault = shape["features"][0]["geometry"]["coordinates"][i]
-					shape_dist_traveled = shape["features"][0]["geometry"]["properties"]["shape_dist_traveled"][i]
+					shape_dist_traveled = \
+						shape["features"][0]["geometry"]["properties"]["shape_dist_traveled"][i]
 
 					# appends shape faults if it is between last and last - 5 mins positions of the trip
 					if float(coordinates[0][2]) < float(shape_dist_traveled) < float(coordinates[-1][2]):
 						geojson_tail["features"][0]["geometry"]["coordinates"].append(shape_fault)
 
 				# appends the last known position of given trip
-				geojson_tail["features"][0]["geometry"]["coordinates"].append([float(coordinates[-1][0]), float(coordinates[-1][1])])
+				geojson_tail["features"][0]["geometry"]["coordinates"].append(
+					[float(coordinates[-1][0]), float(coordinates[-1][1])])
 
 			return geojson_tail
 
@@ -285,36 +288,35 @@ class Server:
 			if "vehicles_positions" == request_body:
 				# print("veh_pos")
 				# response_body = event_handler.veh_pos_file_content
-				response_body = self.get_vehicles_positions()
+				response_body = json.dumps(self.get_vehicles_positions())
 
 			# for given trip_id it returns its stops and tail and shape
 			elif "trip" == request_body.split('.')[0]:
+				trip_id = request_body[request_body.index('.')+1:]
 				response_body = '[' + \
-					json.dumps(self.get_shape(request_body[request_body.index('.')+1:])) + ',' + \
-					json.dumps(self.get_tail(request_body[request_body.index('.')+1:])) + ',' + \
-					json.dumps(self.get_stops(request_body[request_body.index('.')+1:])) + ']'
+					json.dumps(self.get_shape(trip_id)) + ',' + \
+					json.dumps(self.get_tail(trip_id)) + ',' + \
+					json.dumps(self.get_stops(trip_id)) + ']'
 
 			# returns tail for trip of the given trip_id
 			elif "tail" == request_body.split('.')[0]:
-				# print("rb:", request_body)
-				response_body = json.dumps(self.get_tail(request_body[request_body.index('.')+1:]))
-				# print("tail:", request_body.split('.')[1], response_body)
+				response_body = json.dumps(self.get_tail(
+					request_body[request_body.index('.')+1:]))
 
 			# returns shape for trip of the given trip_id
 			elif "shape" == request_body.split('.')[0]:
-				response_body = json.dumps(self.get_shape(request_body[request_body.index('.')+1:]))
-				print("shape:", request_body.split('.')[1],  response_body)
+				response_body = json.dumps(self.get_shape(
+					request_body[request_body.index('.')+1:]))
 
 			# returns stops for trip of the given trip_id
 			elif "stops" == request_body.split('.')[0]:
-				response_body = json.dumps(self.get_stops(request_body[request_body.index('.')+1:]))
-				print("stops:", request_body.split('.')[1], response_body)
+				response_body = json.dumps(self.get_stops(
+					request_body[request_body.index('.')+1:]))
 
 			# returns trip_id for all trips passing the given stop and their timetables
 			elif "trips_by_stop" == request_body.split('.')[0]:
-				print("trips by stop")
-				response_body = json.dumps(self.get_trips_by_stop(request_body[request_body.index('.')+1:]))
-				print("trips_stop:", request_body[request_body.index('.')+1:], response_body)
+				response_body = json.dumps(self.get_trips_by_stop(
+					request_body[request_body.index('.')+1:]))
 
 			# print(response_body)
 			status = '200 OK'
@@ -352,6 +354,7 @@ class Server:
 			pass
 
 		# observer.join()
+		httpd.server_close()
 		thread.join()
 		sys.exit()
 
@@ -359,5 +362,10 @@ class Server:
 if __name__ == "__main__":
 	# logging.basicConfig(format='%(asctime)s %(levelname)s: %(message)s', level=logging.INFO, filename=allFilesURL.log_server, filemode='w')
 	# logging.info(Log.start)
-	server = Server()
+	parser = argparse.ArgumentParser()
+	parser.add_argument("--database", default='vehicle_positions_test_database', type=str,
+		help="Says source database name")
+	args = parser.parse_args([] if "__file__" not in globals() else None)
+
+	server = Server(args.database)
 	server.start_server()

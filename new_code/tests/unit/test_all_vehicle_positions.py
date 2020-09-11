@@ -1,11 +1,9 @@
-import asyncio
 import unittest
 from datetime import timedelta
 
 import tests.lib_tests
 from all_vehicle_positions import *
 from database import Database
-from download_and_process import update_or_insert_trip
 
 
 class testStatic_all_vehicle_positions(unittest.TestCase):

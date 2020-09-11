@@ -28,7 +28,11 @@ class Stops:
 		stops_of_trip = []
 		for json_stop in vehicle.json_trip["stop_times"]:
 			stop_id = json_stop["stop_id"]
-			id_stop = database_connection.execute_fetchall('SELECT id_stop FROM stops WHERE stop_source_id = %s', (stop_id, ))[0][0]
+			id_stop = database_connection.execute_fetchall("""
+				SELECT id_stop 
+				FROM stops 
+				WHERE stop_source_id = %s""",
+				(stop_id, ))[0][0]
 
 			stops_of_trip.append((
 				vehicle.id_trip,
@@ -38,11 +42,14 @@ class Stops:
 				Trip.format_shape_traveled(json_stop["shape_dist_traveled"])
 			))
 
-		database_connection.execute_many(
-			'INSERT INTO rides (id_trip, id_stop, arrival_time, departure_time, shape_dist_traveled) VALUES (%s, %s, %s, %s, %s)',
+		database_connection.execute_many("""
+			INSERT INTO rides (
+				id_trip, id_stop, arrival_time, departure_time, shape_dist_traveled) 
+			VALUES (%s, %s, %s, %s, %s)""",
 			stops_of_trip)
 
-	# appends value to list in proper element of dict, creates new dict element if not exists
+	# appends value to list in proper element of dict,
+	# creates new dict element if not exists
 	class Dictlist(dict):
 		def __setitem__(self, key, value):
 			if key not in self:
@@ -54,11 +61,26 @@ class Stops:
 	def insert(database_connection, stops, to_insert, id_parent, parent_id):
 
 		del stops[parent_id]
-		database_connection.execute_many('INSERT IGNORE INTO stops (stop_source_id, stop_name, lat, lon, parent_id_stop) VALUES (%s, %s, %s, %s, ' + str(id_parent) + ')', [tuple(t) for t in to_insert])
+		database_connection.execute_many("""
+			INSERT IGNORE INTO stops (
+				stop_source_id, stop_name, lat, lon, parent_id_stop) 
+			VALUES (%s, %s, %s, %s, ' + str(id_parent) + ')"""
+			, [tuple(t) for t in to_insert])
 
-		for e in to_insert: # insert all descendants
+		# insert all descendants
+		for e in to_insert:
 			if e[0] in stops:
-				Stops.insert(database_connection, stops, stops[e[0]], database_connection.execute_fetchall('SELECT id_stop FROM stops WHERE stop_source_id = %s', (e[0], ))[0][0], e[0])
+				Stops.insert(
+					database_connection,
+					stops,
+					stops[e[0]],
+					database_connection.execute_fetchall("""
+						SELECT id_stop 
+						FROM stops 
+						WHERE stop_source_id = %s""",
+					(e[0], ))[0][0],
+					e[0]
+				)
 
 	@staticmethod
 	def number_of_stops(json_stops) -> int:
@@ -74,7 +96,8 @@ class Stops:
 
 		while Stops.number_of_stops(temp_json_stops) > 0:
 			offset += limit
-			temp_json_stops = Network.download_URL_to_json(Network.stops(limit, offset))
+			temp_json_stops = Network.download_URL_to_json(
+				Network.stops(limit, offset))
 			json_stops['features'].extend(temp_json_stops['features'])
 
 		stops = Stops.Dictlist()
@@ -93,10 +116,15 @@ class Stops:
 
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser()
-	parser.add_argument("--log", default="../stop_update.log", type=str, help="Name of log file")
+	parser.add_argument("--log", default="../stop_update.log", type=str,
+		help="Name of log file")
 	args = parser.parse_args()
 
-	logging.basicConfig(format='%(asctime)s %(levelname)s: %(message)s', level=logging.INFO, filename=args.log, filemode='w')
+	logging.basicConfig(
+		format='%(asctime)s %(levelname)s: %(message)s',
+		level=logging.INFO,
+		filename=args.log,
+		filemode='w')
 	logging.info("Program has started")
 
 	Stops.run_update_stops_script()

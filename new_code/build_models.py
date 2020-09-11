@@ -39,7 +39,8 @@ class Build_models:
 				sts_row[8])
 		
 	def get_data(self):
-		# offset, limit set to 0, in production set appropriate values and change function behavior
+		# offset, limit set to 0, in production set appropriate values
+		# and change function behavior
 		self.stop_to_stop_data = self.database_connection.execute_procedure_fetchall(
 			'get_all_pairs_of_stops', (0, 0, 1500))
 		## This query selects all pairs of stops, the second leads the first,
@@ -55,8 +56,16 @@ class Build_models:
 		else:
 			# For all stops pairs two models are created (business days and nonbusiness days)
 			# dep stop id, arr stop id, distance between stops
-			self.business_day_model = Two_stops_model(self.stop_to_stop_data[0][1], self.stop_to_stop_data[0][2], self.stop_to_stop_data[0][5], "bss")
-			self.nonbusiness_day_model = Two_stops_model(self.stop_to_stop_data[0][1], self.stop_to_stop_data[0][2], self.stop_to_stop_data[0][5], "hol")
+			self.business_day_model = Two_stops_model(
+				self.stop_to_stop_data[0][1],
+				self.stop_to_stop_data[0][2],
+				self.stop_to_stop_data[0][5],
+				"bss")
+			self.nonbusiness_day_model = Two_stops_model(
+				self.stop_to_stop_data[0][1],
+				self.stop_to_stop_data[0][2],
+				self.stop_to_stop_data[0][5],
+				"hol")
 
 
 			for sts_row in self.stop_to_stop_data:

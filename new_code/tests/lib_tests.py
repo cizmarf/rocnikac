@@ -32,3 +32,8 @@ def get_args():
 	args = parser.parse_args([] if "__file__" not in globals() else None)
 
 	return args
+
+def get_args_demo():
+	args = get_args()
+	args.static_demo = True
+	return args

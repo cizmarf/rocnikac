@@ -129,17 +129,5 @@ class TestDatabaseClass(unittest.TestCase):
 		self.assertEqual(result, File_system.pickle_load_object("../output_data/testExecute_procedure_fetchall.obj"))
 
 
-
-	# def testInsertData(self):
-	# 	File_system.static_vehicle_positions = Path("/Users/filipcizmar/Documents/rocnikac/raw_data_unittest/")
-	#
-	# 	# main(FillDatabase.database_connection, FillDatabase.args)
-	#
-	# 	trips = self.database_connection.execute_fetchall('SELECT * FROM trips')
-	# 	print(trips)
-	# 	print(len(trips))
-	# 	self.assertGreater(len(trips), 1)
-
-
 if __name__ == '__main__':
 	unittest.main()

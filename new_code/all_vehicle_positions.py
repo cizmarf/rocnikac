@@ -112,15 +112,16 @@ class All_vehicle_positions():
 					len(trip_ids) - All_vehicle_positions.findFirstOccurrence(
 						trip_ids[::-1], trip_id))
 
+
 	def construct_all_trips(self, database_connection):
 		try:
-
 			# finds ids of all current trips
 			trip_ids = []
 			for vehicle in self.json_file["features"]:
 				trip_ids.append(vehicle["properties"]["trip"]["gtfs_trip_id"])
 
-			# selects timetables of these trips for getting last and next stop by shape dist traveled
+			# selects timetables of these trips
+			# for getting last and next stop by shape dist traveled
 			trip_rides = database_connection.execute_fetchall(
 				"""	SELECT 
 						trips.trip_source_id, 
@@ -144,8 +145,10 @@ class All_vehicle_positions():
 				trip.set_attributes_by_vehicle(vehicle)
 
 				if len(trip_rides) > 0:
-					# gets sublist of trips rides for current trip by looking for first and last occurrence of trip id
-					trip_ride = All_vehicle_positions.get_trip_rides_sublist(trip_rides, trip_ids, trip.trip_id)
+					# gets sublist of trips rides for current trip
+					# by looking for first and last occurrence of trip id
+					trip_ride = All_vehicle_positions.get_trip_rides_sublist(
+						trip_rides, trip_ids, trip.trip_id)
 
 					# File_system.pickle_object(trip_rides, '../input_data/get_last_next_stop_and_sdt_trip_rides.list')
 
@@ -155,7 +158,8 @@ class All_vehicle_positions():
 					trip.departure_time, \
 					trip.arrival_time, \
 					trip.stop_dist_diff = \
-						All_vehicle_positions.get_last_next_stop_and_sdt(trip_ride, trip.shape_traveled)
+						All_vehicle_positions.get_last_next_stop_and_sdt(
+							trip_ride, trip.shape_traveled)
 
 				if trip.last_stop_delay is not None and trip.cur_delay is not None:
 					self.vehicles.append(trip)
@@ -164,17 +168,3 @@ class All_vehicle_positions():
 
 	def get_trip_source_id_by_vehicle(self, vehicle) -> str:
 		return vehicle.trip_id
-
-
-
-# if __name__ == "__main__":
-# 	trip = Trip(
-# 		trip_id=1,
-# 		lat=1,
-# 		lon=1,
-# 		cur_delay=1,
-# 		shape_traveled=2,
-# 		trip_no=3,
-# 		last_stop_delay=4,
-# 		last_updated="56.87"
-# 	)

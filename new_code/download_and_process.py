@@ -6,57 +6,44 @@
 import argparse
 import asyncio
 import logging
-import os
-from datetime import datetime
 import time
 import sys
-from os.path import dirname, abspath, join
 
 import mysql.connector
 
+import lib
 from all_vehicle_positions import All_vehicle_positions, Static_all_vehicle_positions
-# from all_vehicle_positions import All_vehicle_positions
 from build_models import Build_models
 from database import Database
 from stops import Stops
-from trip import Trip
-from two_stops_model import *
-import lib
-
 from file_system import File_system
-
-
-def estimate_delays(all_vehicle_positions: All_vehicle_positions, models, database_connection):
-	for vehicle in all_vehicle_positions.iterate_vehicles():
-		# gets model from given set, if no model found uses linear model by default
-		model = models.get(
-			str(vehicle.last_stop or '') + "_" + str(vehicle.next_stop or '') + ("_bss" if lib.is_business_day(vehicle.last_updated) else "_hol"),
-			Two_stops_model.Linear_model(vehicle.stop_dist_diff))
-
-		tuple_for_predict = vehicle.get_tuple_for_predict()
-		if tuple_for_predict is not None:
-			vehicle.cur_delay = model.predict(*tuple_for_predict)
-
-		# else it uses last stop delay, set in trips construction
 
 
 async def update_or_insert_trip(vehicle, database_connection, args):
 	# Tries to get id_trip. If trip does not exist returns empty list else
 	# returns list where first element is id_trip.
-	try_id_trip = database_connection.execute_fetchall('SELECT id_trip FROM trips WHERE trip_source_id = %s LIMIT 1', (vehicle.trip_id,))
+	try_id_trip = database_connection.execute_fetchall("""
+		SELECT id_trip 
+		FROM trips 
+		WHERE trip_source_id = %s 
+		LIMIT 1"""
+		, (vehicle.trip_id,))
 
 	# Trip found
 	if len(try_id_trip) != 0:
+
+		# extracts trip id
 		vehicle.id_trip = try_id_trip[0][0]
 
-		# Updates database row of current trip and adds new record of historical data
 		try:
-			if vehicle.cur_delay is None:
-				pass # the vehicle have not started its trip yet
-			else:
-				database_connection.execute_transaction_commit_rollback(
-					'SELECT update_trip_and_insert_coordinates_if_changed(%s, %s, %s, %s, %s, %s, %s);',
+			# the vehicle have not started its trip yet
+			if vehicle.cur_delay is not None:
+
+				# Updates database row of current trip and adds new record of historical data
+				database_connection.execute_transaction_commit_rollback("""
+					SELECT update_trip_and_insert_coordinates_if_changed(%s, %s, %s, %s, %s, %s, %s);""",
 					vehicle.get_tuple_update_trip(args.static_demo))
+
 		except IOError as e:
 			logging.warning("Update trip failed " + str(vehicle.trip_id) + str(e))
 			# raise Exception(e)
@@ -67,46 +54,61 @@ async def update_or_insert_trip(vehicle, database_connection, args):
 		if args.static_data:
 			try:
 				vehicle.static_get_json_trip_file()
+
+			# if file not found do not insert inconsistent data
 			except FileNotFoundError:
 				return
 		else:
-			# print("async download started trip id: " + vehicle.trip_id + " time: " + str(datetime.now()))
 			await vehicle.get_async_json_trip_file()
-			# print("async download finished trip id: " + vehicle.trip_id + " time: " + str(datetime.now()))
 
 		try:
-			# Saves shape of current trip into specific folder
-			# vehicle.save_shape_file() TODO UNCOMMENT
-
+			# tries insert the new trip and gets back its inner database id
+			# it means to save headsign, historical data, trip itself and timetable
+			# for data consistence protection those commands are wrapped by transaction
 			database_connection.execute('START TRANSACTION;')
-			vehicle.id_trip = database_connection.execute_fetchall(
-				'SELECT insert_new_trip_to_trips_and_coordinates_and_return_id(%s, %s, %s, %s, %s, %s, %s, %s, %s)',
+
+			vehicle.id_trip = database_connection.execute_fetchall("""
+				SELECT insert_new_trip_to_trips_and_coordinates_and_return_id(%s, %s, %s, %s, %s, %s, %s, %s, %s)""",
 				vehicle.get_tuple_new_trip(args.static_demo))[0][0]
+
 			Stops.insert_ride_by_trip(database_connection, vehicle)
-			database_connection.execute('COMMIT;')
+
+			database_connection.commit() # COMMIT
+
+			# Saves shape of current trip into specific folder
+			vehicle.save_shape_file()
 
 		# if any exception occurs rollback and save trip to blacklist
 		except Exception as e:
-			database_connection.execute('ROLLBACK;')
+			database_connection.rollback() # ROLLBACK
+
 			if isinstance(e, mysql.connector.errors.IntegrityError):
 				print(vehicle.trip_id + " has null delay last stop")
-			# raise Exception(e)
+			else:
+				logging.warning("Trip insertion failed:", e)
 
+# creates async methods
+# speed up downloading trip files
+# database is protected because it does not use multithreading
 async def process_async_vehicles(all_vehicle_positions, database_connection, args):
-	# Iterates for all vehicles found in source file
+
 	gather = []
+
+	# Iterates for all vehicles found in source file
 	for vehicle in all_vehicle_positions.iterate_vehicles():
 		try:
-			# if vehicle.trip_no == "317" or vehicle.trip_no == "303":
 			gather.append(update_or_insert_trip(vehicle, database_connection, args))
+
 		except Exception as e:
 			logging.warning("Trip update failed " + vehicle.trip_id + ". Exception: " + str(e))
 
+	# runs async functions
 	await asyncio.gather(*gather)
 
 
 def main(database_connection, args):
 
+	# loads all models from model directory
 	models = File_system.load_all_models()
 
 	# For static data source only
@@ -115,7 +117,7 @@ def main(database_connection, args):
 		static_all_vehicle_positions = Static_all_vehicle_positions()
 		static_iterator = static_all_vehicle_positions.static_get_all_vehicle_positions_json()
 
-	# The main loop
+	# The main project loop
 	while True:
 		req_start = time.time()  # Time of beginning of a new iteration
 		all_vehicle_positions = All_vehicle_positions()  # Class for managing source file data
@@ -123,25 +125,39 @@ def main(database_connection, args):
 		# Chooses source file (demo/production)
 		if args.static_data:
 			try:
+				# reads data from directory of historical vehicles positions
 				all_vehicle_positions.json_file = next(static_iterator)
+
+			# this exception occurs in the end of program
 			except StopIteration:
 				break
+
 		else:
+			# downloads realtime data
 			all_vehicle_positions.get_all_vehicle_positions_json()
 
-		all_vehicle_positions.construct_all_trips(database_connection)  # Creates class for each trip in current source file
+		# Creates class for each trip in current source file
+		all_vehicle_positions.construct_all_trips(database_connection)
 
-		estimate_delays(all_vehicle_positions, models, database_connection)
+		# estimate delays based on models created
+		lib.estimate_delays(all_vehicle_positions, models)
 
+		# this is deprecated solution of creating output vehicle position file,
+		# in current version it needs to read all data from database for each server request
 		# all_vehicle_positions.get_all_vehicle_positions_json()
 
-		# asyncio.run(as_print([1,2,3]))
-
+		# runs trips insertion and update
+		# async uses for trip file downloading only
 		asyncio.run(process_async_vehicles(all_vehicle_positions, database_connection, args))
 
+		# sleeps the remaining time (processing of all vehicles can take several seconds)
 		try:
+			# sleeps in production or demo else fills database as fast as possible
 			if args.static_demo or not args.static_data:
 				time.sleep(args.update_time - (time.time() - req_start))
+
+		# in extreme case processing lot of vehicles it can take more than maximum sleep time
+		# if this occurs it keeps running the main loop and creates warning message
 		except Exception as e:
 			print(e)
 			logging.warning("Sleep failed, " + str(e))
@@ -154,17 +170,25 @@ if __name__ == "__main__":
 	# updata_* says update interval, recommended 20 s
 	# if clean old or build models set the main procedure is skipped
 	# if running build_models make sure there is enough historical data in database
+	# if static demo running it does not show all passing trips throw a stop correctly
 	parser = argparse.ArgumentParser()
-	parser.add_argument("--static_data", default=True, type=bool, help="Fill with static data or dynamic real-time data.")
+	parser.add_argument("--static_data", default=False, type=bool,
+		help="Fill with static data or dynamic real-time data.")
 	parser.add_argument("--static_demo", default=False, type=bool,
-						help="Use only if static data in use, time of insert sets now and wait 20 s for next file.")
-	parser.add_argument("--update_time", default=20, type=int, help="Time to next request")
-	parser.add_argument("--update_error", default=20, type=int, help="Update time if network error occurred")
-	parser.add_argument("--clean_old", default=-1, type=int, help="Deletes all trips inactive for more than set minutes")
-	parser.add_argument("--build_models", default=-1, type=int, help="Rebuild all models")
+		help="Use only if static data in use, time of insert sets now and wait 20 s for next file.")
+	parser.add_argument("--update_time", default=20, type=int,
+		help="Time to next request")
+	parser.add_argument("--update_error", default=20, type=int,
+		help="Update time if network error occurred")
+	parser.add_argument("--clean_old", default=-1, type=int,
+		help="Deletes all trips inactive for more than set minutes")
+	parser.add_argument("--build_models", default=-1, type=int,
+		help="Rebuild all models")
+	parser.add_argument("--database", default='vehicle_positions_test_database', type=str,
+		help='Name of database to use')
 	args = parser.parse_args([] if "__file__" not in globals() else None)
 
-	database_connection = Database()
+	database_connection = Database(args.database)
 
 	# if clean old option is set
 	if args.clean_old != -1:
@@ -179,4 +203,5 @@ if __name__ == "__main__":
 		bm.get_data()
 		bm.main()
 
+	# this runs the main project features
 	main(database_connection, args)
