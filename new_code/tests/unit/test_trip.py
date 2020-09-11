@@ -1,6 +1,6 @@
 import json
 import unittest
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from file_system import File_system
 from trip import Trip
@@ -119,16 +119,16 @@ class TestTrip(unittest.TestCase):
 		trip = Trip()
 		trip.shape_traveled = 1000
 		trip.last_stop_shape_dist_trav = 100
-		trip.last_updated = 'upd'
-		trip.departure_time = 'dep'
-		trip.arrival_time = 'arr'
+		trip.last_updated = datetime(2020, 2, 23, 21, 55, 42)
+		trip.departure_time = timedelta(seconds=1)
+		trip.arrival_time = timedelta(seconds=2)
 
 		trip_tuple = trip.get_tuple_for_predict()
 
 		self.assertEqual(trip_tuple[0], 900)
-		self.assertEqual(trip_tuple[1], 'upd')
-		self.assertEqual(trip_tuple[2], 'dep')
-		self.assertEqual(trip_tuple[3], 'arr')
+		self.assertEqual(trip_tuple[1], 78942)
+		self.assertEqual(trip_tuple[2], 1)
+		self.assertEqual(trip_tuple[3], 2)
 
 if __name__ == '__main__':
 	unittest.main()

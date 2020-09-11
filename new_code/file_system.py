@@ -13,11 +13,15 @@ from pathlib import Path
 
 class File_system:
 
-	static_vehicle_positions = Path("/Users/filipcizmar/Documents/rocnikac/rocnikac_source/new_code/tests/input_data/raw_vehicle_positions_all/")
-	static_trips = Path("/Users/filipcizmar/Documents/rocnikac/rocnikac_source/new_code/tests/input_data/raw_trips/")
-	all_shapes = Path("/Users/filipcizmar/Documents/rocnikac/rocnikac_source/new_code/data/shapes/")
-	all_vehicle_positions_real_time_geojson = Path("/Users/filipcizmar/Documents/rocnikac/rocnikac_source/new_code/data/vehicle_positions")
-	all_models = Path("/Users/filipcizmar/Documents/rocnikac/rocnikac_source/new_code/data/models/") # TODO change to new dir
+	cwd = Path("/Users/filipcizmar/Documents/rocnikac/rocnikac_source/new_code/")
+
+	static_vehicle_positions = 	cwd / Path("tests/input_data/raw_vehicle_positions_all/")
+	static_trips = 				cwd / Path("data/raw_trips/")
+	all_shapes = 				cwd / Path("data/shapes/")
+	all_models = 				cwd / Path("data/models/")
+
+	# deprecate
+	# all_vehicle_positions_real_time_geojson = cwd / Path("data/vehicle_positions/vehicle_positions.json")
 
 	@staticmethod
 	def get_tar_file_content(path) ->bytes:

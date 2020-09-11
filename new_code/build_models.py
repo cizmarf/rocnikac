@@ -25,7 +25,7 @@ class Build_models:
 			self.business_day_model.add_row(
 				sts_row[7],  # shape distance traveled from dep stop
 				sts_row[3].seconds,  # departure time
-				lib.time_to_sec(sts_row[6]),  # day time
+				sts_row[6],  # day time
 				sts_row[0],  # id trip
 				sts_row[4].seconds,  # arr time
 				sts_row[8])  # last_stop_delay
@@ -33,7 +33,7 @@ class Build_models:
 			self.nonbusiness_day_model.add_row(
 				sts_row[7],
 				sts_row[3].seconds,
-				lib.time_to_sec(sts_row[6]),
+				sts_row[6],
 				sts_row[0],
 				sts_row[4].seconds,
 				sts_row[8])

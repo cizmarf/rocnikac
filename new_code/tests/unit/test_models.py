@@ -10,16 +10,17 @@ from two_stops_model import *
 
 class TestNormData(unittest.TestCase):
 	def test_init_and_basics(self):
-		dt_morning = timedelta(2020, 2, 20, 1, 0, 0)
+		dt_morning = datetime(2020, 2, 20, 1, 0, 0)
 		hour = timedelta(hours=1)
 		minute = timedelta(minutes=1)
 
 		shapes = [1, 2, 3, 4, 5, 6]
 		coor_times = [minute, minute * 2, minute * 3, minute * 4, minute * 5, minute * 6]
-		day_times = [dt_morning, dt_morning + hour, dt_morning + 2 * hour, dt_morning + 3 * hour, dt_morning + 4 * hour, dt_morning + 5 * hour]
+		day_times = [lib.time_to_sec(dt_morning), lib.time_to_sec(dt_morning + hour), lib.time_to_sec(dt_morning + 2 * hour), lib.time_to_sec(dt_morning + 3 * hour), lib.time_to_sec(dt_morning + 4 * hour), lib.time_to_sec(dt_morning + 5 * hour)]
 		ids_trip = [1, 1, 1, 2, 3, 3]
+		timestamps = [dt_morning, dt_morning + hour, dt_morning + 2 * hour, dt_morning + 3 * hour, dt_morning + 4 * hour, dt_morning + 5 * hour]
 
-		nd = Norm_data(shapes, coor_times, day_times, ids_trip)
+		nd = Norm_data(shapes, coor_times, day_times, ids_trip, timestamps)
 
 		self.assertListEqual(shapes, nd.get_shapes().tolist())
 		self.assertListEqual(day_times, nd.get_day_times().tolist())
@@ -32,10 +33,11 @@ class TestNormData(unittest.TestCase):
 
 		shapes = [1, 2, 3, 4, 5, 6]
 		coor_times = [minute, minute * 2, minute * 3, minute * 4, minute * 5, minute * 6]
-		day_times = [dt_morning, dt_morning + hour, dt_morning + 2 * hour, dt_morning + 3 * hour, dt_morning + 4 * hour, dt_morning + 5 * hour]
+		day_times = [lib.time_to_sec(dt_morning), lib.time_to_sec(dt_morning + hour), lib.time_to_sec(dt_morning + 2 * hour), lib.time_to_sec(dt_morning + 3 * hour), lib.time_to_sec(dt_morning + 4 * hour), lib.time_to_sec(dt_morning + 5 * hour)]
 		ids_trip = [1, 1, 1, 2, 3, 3]
+		timestamps = [dt_morning, dt_morning + hour, dt_morning + 2 * hour, dt_morning + 3 * hour, dt_morning + 4 * hour, dt_morning + 5 * hour]
 
-		nd = Norm_data(shapes, coor_times, day_times, ids_trip)
+		nd = Norm_data(shapes, coor_times, day_times, ids_trip, timestamps)
 
 		iterator = iter(nd)
 		first = next(iterator)
@@ -55,14 +57,15 @@ class TestNormData(unittest.TestCase):
 
 		shapes = [1, 2, 3, 4, 5, 6]
 		coor_times = [minute, minute * 2, minute * 3, minute * 4, minute * 5, minute * 6]
-		day_times = [dt_morning, dt_morning + hour, dt_morning + 2 * hour, dt_morning + 3 * hour, dt_morning + 4 * hour, dt_morning + 5 * hour]
-		ids_trip = [1, 1, 2, 2, 3, 3]
+		day_times = [lib.time_to_sec(dt_morning), lib.time_to_sec(dt_morning + hour), lib.time_to_sec(dt_morning + 2 * hour), lib.time_to_sec(dt_morning + 3 * hour), lib.time_to_sec(dt_morning + 4 * hour), lib.time_to_sec(dt_morning + 5 * hour)]
+		ids_trip = [1, 1, 1, 2, 3, 3]
+		timestamps = [dt_morning, dt_morning + hour, dt_morning + 2 * hour, dt_morning + 3 * hour, dt_morning + 4 * hour, dt_morning + 5 * hour]
 
-		nd = Norm_data(shapes, coor_times, day_times, ids_trip)
+		nd = Norm_data(shapes, coor_times, day_times, ids_trip, timestamps)
 
-		nd.remove_items_by_id_trip({2})
+		nd.remove_items_by_id_trip({2}, dict([(2, [dt_morning + 3 * hour])]))
 
-		self.assertEqual(5, nd.get_shapes()[2])
+		self.assertEqual(5, nd.get_shapes()[3])
 
 	def test_more_remove_item_by_id_trip(self):
 		dt_morning = datetime(2020, 2, 20, 1, 0, 0)
@@ -71,16 +74,17 @@ class TestNormData(unittest.TestCase):
 
 		shapes = [1, 2, 3, 4, 5, 6]
 		coor_times = [minute, minute * 2, minute * 3, minute * 4, minute * 5, minute * 6]
-		day_times = [dt_morning, dt_morning + hour, dt_morning + 2 * hour, dt_morning + 3 * hour, dt_morning + 4 * hour, dt_morning + 5 * hour]
-		ids_trip = [1, 3, 2, 2, 4, 4]
+		day_times = [lib.time_to_sec(dt_morning), lib.time_to_sec(dt_morning + hour), lib.time_to_sec(dt_morning + 2 * hour), lib.time_to_sec(dt_morning + 3 * hour), lib.time_to_sec(dt_morning + 4 * hour), lib.time_to_sec(dt_morning + 5 * hour)]
+		ids_trip = [1, 1, 1, 2, 3, 3]
+		timestamps = [dt_morning, dt_morning + hour, dt_morning + 2 * hour, dt_morning + 3 * hour, dt_morning + 4 * hour, dt_morning + 5 * hour]
 
-		nd = Norm_data(shapes, coor_times, day_times, ids_trip)
+		nd = Norm_data(shapes, coor_times, day_times, ids_trip, timestamps)
 
-		nd.remove_items_by_id_trip({2, 3})
+		nd.remove_items_by_id_trip({2, 1}, dict([(2, [dt_morning]), (1, [dt_morning - timedelta(days=1), dt_morning + 3 * hour, dt_morning + 4 * hour])]))
 
-		self.assertEqual(5, nd.get_shapes()[1])
-		self.assertEqual(6, nd.get_shapes()[2])
-		self.assertEqual(3, len(nd))
+		self.assertEqual(2, nd.get_shapes()[1])
+		self.assertEqual(4, nd.get_shapes()[2])
+		self.assertEqual(5, len(nd))
 
 
 class TestModels(unittest.TestCase):
@@ -149,8 +153,8 @@ class TestModels(unittest.TestCase):
 
 		# poly model should always give lower mean and variance than linear model
 
-		self.assertAlmostEqual(7.4, mean(diff_model), delta=1.0)
-		self.assertAlmostEqual(3051.9, variance(diff_model), delta=1.0)
+		self.assertAlmostEqual(3.9, mean(diff_model), delta=5.0)
+		self.assertAlmostEqual(3067.9, variance(diff_model), delta=50.0)
 
 		self.assertAlmostEqual(-69.2, mean(diff_linear), delta=1.0)
 		self.assertAlmostEqual(4973.9, variance(diff_linear), delta=1.0)
@@ -165,65 +169,65 @@ class TestModels(unittest.TestCase):
 
 class TestTwo_stops_models(unittest.TestCase):
 	def test_add_row_a(self):
-		database_connection = Database('vehicle_positions_database')
-
-		# demo app needs aprox 30 secs to fetch
-		# in production it may takes longer time to fetch all data
-		database_connection.execute('SET GLOBAL connect_timeout=600')
-		database_connection.execute('SET GLOBAL wait_timeout=600')
-		database_connection.execute('SET GLOBAL interactive_timeout=600')
-
-		stop_to_stop_data = database_connection.execute_procedure_fetchall(
-			'get_all_pairs_of_stops', (0, 0, 1500))
-
-		res_list = []
-		shapes = []
-		coor_times = []
-
-		cur_dep_stop = stop_to_stop_data[0][1]
-		cur_arr_stop = stop_to_stop_data[0][2]
-		no_of_samples = 0
-		rows_to_save = []
-
-		for row in stop_to_stop_data:
-			if row[1] == 230571 and row[2] == 226625:
-				rows_to_save.append(row)
-			if cur_dep_stop == row[1] and cur_arr_stop == row[2]:
-				if row[7] != 0:
-					no_of_samples += 1
-					shapes.append(row[7])
-					coor_times.append(Two_stops_model._get_coor_time(lib.time_to_sec(row[6]), row[3].seconds, row[8]))
-
-			else:
-				rate = np.divide(coor_times, np.divide(shapes, 10))
-
-				res_list.append([cur_dep_stop, cur_arr_stop, np.nanmean(rate), no_of_samples])
-				# high_variable = np.where(abs(rate - rate.mean()) > rate.std() is True)
-				if row[7] != 0:
-					coor_times=[]
-					shapes=[]
-					shapes.append(row[7])
-					coor_times.append(Two_stops_model._get_coor_time(lib.time_to_sec(row[6]), row[3].seconds, row[8]))
-
-					no_of_samples = 1
-
-				cur_dep_stop = row[1]
-				cur_arr_stop = row[2]
-
-		rate = np.divide(coor_times, np.divide(shapes, 10))
-
-		res_list.append([cur_dep_stop, cur_arr_stop, np.nanmean(rate), no_of_samples])
-
-		res_arr = np.array(res_list)
-
-		File_system.pickle_object(rows_to_save, '../input_data/test_two_stops_model_data.list')
+		# database_connection = Database('vehicle_positions_database')
+		#
+		# # demo app needs aprox 30 secs to fetch
+		# # in production it may takes longer time to fetch all data
+		# database_connection.execute('SET GLOBAL connect_timeout=600')
+		# database_connection.execute('SET GLOBAL wait_timeout=600')
+		# database_connection.execute('SET GLOBAL interactive_timeout=600')
+		#
+		# stop_to_stop_data = database_connection.execute_procedure_fetchall(
+		# 	'get_all_pairs_of_stops', (0, 0, 1500))
+		#
+		# res_list = []
+		# shapes = []
+		# coor_times = []
+		#
+		# cur_dep_stop = stop_to_stop_data[0][1]
+		# cur_arr_stop = stop_to_stop_data[0][2]
+		# no_of_samples = 0
+		# rows_to_save = []
+		#
+		# for row in stop_to_stop_data:
+		# 	if row[1] == 230571 and row[2] == 226625:
+		# 		rows_to_save.append(row)
+		# 	if cur_dep_stop == row[1] and cur_arr_stop == row[2]:
+		# 		if row[7] != 0:
+		# 			no_of_samples += 1
+		# 			shapes.append(row[7])
+		# 			coor_times.append(Two_stops_model._get_coor_time(lib.time_to_sec(row[6]), row[3].seconds, row[8]))
+		#
+		# 	else:
+		# 		rate = np.divide(coor_times, np.divide(shapes, 10))
+		#
+		# 		res_list.append([cur_dep_stop, cur_arr_stop, np.nanmean(rate), no_of_samples])
+		# 		# high_variable = np.where(abs(rate - rate.mean()) > rate.std() is True)
+		# 		if row[7] != 0:
+		# 			coor_times=[]
+		# 			shapes=[]
+		# 			shapes.append(row[7])
+		# 			coor_times.append(Two_stops_model._get_coor_time(lib.time_to_sec(row[6]), row[3].seconds, row[8]))
+		#
+		# 			no_of_samples = 1
+		#
+		# 		cur_dep_stop = row[1]
+		# 		cur_arr_stop = row[2]
+		#
+		# rate = np.divide(coor_times, np.divide(shapes, 10))
+		#
+		# res_list.append([cur_dep_stop, cur_arr_stop, np.nanmean(rate), no_of_samples])
+		#
+		# res_arr = np.array(res_list)
+		#
+		# File_system.pickle_object(rows_to_save, '../input_data/test_two_stops_model_data.list')
 
 		rows = File_system.pickle_load_object('../input_data/test_two_stops_model_data.list')
 
-		model = Two_stops_model(rows[1], rows[2], rows[5], 'bss')
+		model = Two_stops_model(rows[0][1], rows[0][2], rows[0][5], 'bss')
 
 		for row in rows:
-			model.add_row(row[7], row[3].seconds, lib.time_to_sec(row[6]), row[0], row[4].seconds, row[8])
+			model.add_row(row[7], row[3].seconds, row[6], row[0], row[4].seconds, row[8])
 			print(row[4].seconds - row[3].seconds)
 
 		self.assertEqual(240, model.max_travel_time)
@@ -236,10 +240,10 @@ class TestTwo_stops_models(unittest.TestCase):
 		# midnight bus
 		rows.append((47891, 230571, 226625, timedelta(hours=23, minutes=57, seconds=0), timedelta(hours=0, minutes=3, seconds=0), 1914, datetime(2020, 2, 20, 23, 59, 0), 96, 111, 113))
 
-		model = Two_stops_model(rows[1], rows[2], rows[5], 'bss')
+		model = Two_stops_model(rows[0][1], rows[0][2], rows[0][5], 'bss')
 
 		for row in rows:
-			model.add_row(row[7], row[3].seconds, lib.time_to_sec(row[6]), row[0], row[4].seconds, row[8])
+			model.add_row(row[7], row[3].seconds, row[6], row[0], row[4].seconds, row[8])
 			print(row[4].seconds - row[3].seconds)
 
 		self.assertEqual(360, model.max_travel_time)
@@ -252,10 +256,10 @@ class TestTwo_stops_models(unittest.TestCase):
 		# midnight bus
 		rows.append((47891, 230571, 226625, timedelta(hours=23, minutes=57, seconds=0), timedelta(hours=0, minutes=3, seconds=0), 1914, datetime(2020, 2, 20, 0, 1, 0), 96, 111, 113))
 
-		model = Two_stops_model(rows[1], rows[2], rows[5], 'bss')
+		model = Two_stops_model(rows[0][1], rows[0][2], rows[0][5], 'bss')
 
 		for row in rows:
-			model.add_row(row[7], row[3].seconds, lib.time_to_sec(row[6]), row[0], row[4].seconds, row[8])
+			model.add_row(row[7], row[3].seconds, row[6], row[0], row[4].seconds, row[8])
 			print(row[4].seconds - row[3].seconds)
 
 		self.assertEqual(360, model.max_travel_time)
@@ -267,10 +271,10 @@ class TestTwo_stops_models(unittest.TestCase):
 		# midnight bus
 		rows.append((47891, 230571, 226625, timedelta(hours=23, minutes=57, seconds=0), timedelta(hours=0, minutes=3, seconds=0), 1914, datetime(2020, 2, 20, 23, 56, 0), 96, 111, 113))
 
-		model = Two_stops_model(rows[1], rows[2], rows[5], 'bss')
+		model = Two_stops_model(rows[0][1], rows[0][2], rows[0][5], 'bss')
 
 		for row in rows:
-			model.add_row(row[7], row[3].seconds, lib.time_to_sec(row[6]), row[0], row[4].seconds, row[8])
+			model.add_row(row[7], row[3].seconds, row[6], row[0], row[4].seconds, row[8])
 			print(row[4].seconds - row[3].seconds)
 
 		self.assertEqual(360, model.max_travel_time)
@@ -286,12 +290,12 @@ class TestTwo_stops_models(unittest.TestCase):
 
 	def test_reduce_errors(self):
 		rows: list = File_system.pickle_load_object('../input_data/test_two_stops_model_data.list')
-		model = Two_stops_model(rows[1], rows[2], rows[5], 'bss')
+		model = Two_stops_model(rows[0][1], rows[0][2], rows[0][5], 'bss')
 
 		for row in rows:
-			model.add_row(row[7], row[3].seconds, lib.time_to_sec(row[6]), row[0], row[4].seconds, row[8])
+			model.add_row(row[7], row[3].seconds, row[6], row[0], row[4].seconds, row[8])
 
-		model.norm_data = Norm_data(model.shapes, model.coor_times, model.day_times, model.ids_trip)
+		model.norm_data = Norm_data(model.shapes, model.coor_times, model.day_times, model.ids_trip, model.timestamps)
 
 		self.assertEqual(33, len(model.norm_data))
 
@@ -301,14 +305,34 @@ class TestTwo_stops_models(unittest.TestCase):
 
 		# super delayed row
 		row = (47891, 230571, 226625, timedelta(seconds=49260), timedelta(seconds=49500), 1914, datetime(2020, 2, 23, 13, 45, 5), 1196, 2000, 104)
-		model.add_row(row[7], row[3].seconds, lib.time_to_sec(row[6]), row[0], row[4].seconds, row[8])
-		model.norm_data = Norm_data(model.shapes, model.coor_times, model.day_times, model.ids_trip)
+		model.add_row(row[7], row[3].seconds, row[6], row[0], row[4].seconds, row[8])
+		model.norm_data = Norm_data(model.shapes, model.coor_times, model.day_times, model.ids_trip, model.timestamps)
 
+		# deletes one sample
 		model._reduce_errors()
 
-		self.assertEqual(22, len(model.norm_data))
+		self.assertEqual(33, len(model.norm_data))
 
-		# print(len(model.norm_data))
+	def test_create_model(self):
+		rows: list = File_system.pickle_load_object('../input_data/test_two_stops_model_data.list')
+		model = Two_stops_model(rows[0][1], rows[0][2], rows[0][5], 'bss')
+
+		for row in rows:
+			model.add_row(row[7], row[3].seconds, row[6], row[0], row[4].seconds, row[8])
+
+		# creates linear model because not enough data samples
+		model.create_model()
+
+		self.assertIsInstance(model.model, Two_stops_model.Linear_model)
+
+		# add more data samples
+		for _ in range(4):
+			for row in rows:
+				model.add_row(row[7], row[3].seconds, row[6], row[0], row[4].seconds, row[8])
+
+		model.create_model()
+
+		self.assertIsInstance(model.model, Two_stops_model.Polynomial_model)
 
 
 

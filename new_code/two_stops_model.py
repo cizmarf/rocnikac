@@ -6,7 +6,10 @@ import pickle
 import warnings
 from collections import namedtuple, Set
 from pathlib import Path
+from datetime import datetime, timedelta
+from typing import List
 
+import lib
 from file_system import File_system
 import numpy as np
 import alphashape
@@ -18,11 +21,11 @@ from sklearn.preprocessing import PolynomialFeatures
 
 class Norm_data:
 
-	# shape_dist_trav from departure stop, time since departure stop, timestamp of data creation, it trip
-	def __init__(self, shapes, coor_times, day_times, ids_trip):
-		if not len(shapes) == len(day_times) == len(coor_times) == len(ids_trip):
+	# shape_dist_trav from departure stop, time since departure stop, no of sec since midnight, it trip, timestamp of sample creation
+	def __init__(self, shapes, coor_times, day_times, ids_trip, timestamps):
+		if not len(shapes) == len(day_times) == len(coor_times) == len(ids_trip) == len(timestamps):
 			raise IOError("Norm_data request same length lists")
-		self.data = np.array([shapes, coor_times, day_times, ids_trip])
+		self.data = np.array([shapes, coor_times, day_times, ids_trip, timestamps])
 
 	def get_shapes(self):
 		return self.data[0]
@@ -36,27 +39,41 @@ class Norm_data:
 	def get_ids_trip(self):
 		return self.data[3]
 
+	def get_timestamps(self):
+		return self.data[4]
+
 	def __len__(self):
 		return self.data.shape[1]
 
 	def __iter__(self):
-		row = namedtuple('Row', 'shape coor_time day_time id_trip')
+		row = namedtuple('normDataRow', 'shape coor_time day_time id_trip timestamp')
 		for i in range(self.data.shape[1]):
 			yield row(shape=self.get_shapes()[i],
 					  coor_time=self.get_coor_times()[i],
 					  day_time=self.get_day_times()[i],
-					  id_trip=self.get_ids_trip()[i])
+					  id_trip=self.get_ids_trip()[i],
+					  timestamp=self.get_timestamps()[i])
 
-	def remove_items_by_id_trip(self, ids_trip: Set):
-		bo = np.isin(self.get_ids_trip(), list(ids_trip))
-		indices = list(np.where(bo == True))
-		# for i in range(self.data.shape[1]):
-		# 	if self.get_ids_trip()[i] in ids_trip:
-		# 		indices.append(i)
+	def remove_items_by_id_trip(self, trip_id_time: Set, id_to_time_map: dict):
 
-		# transp = self.data.transpose()
-		self.data = np.delete(self.data, indices, 1)
-		# self.data = clean.transpose()
+		indices = list(np.where(np.isin(self.get_ids_trip(), list(trip_id_time)) == True)[0])
+		indices_out = []
+		# indices = set(indices)
+		two_hours_sec = 60 * 60 * 2
+
+		for idx in indices:
+			id_trip = self.get_ids_trip()[idx]
+			time_of_sample = self.get_timestamps()[idx].timestamp()
+
+			for error_time in id_to_time_map[id_trip]:
+				error_time = error_time.timestamp()
+				if error_time - two_hours_sec < time_of_sample < error_time + two_hours_sec:
+					indices_out.append(idx)
+
+		self.data = np.delete(self.data, indices_out, 1)
+
+		print()
+
 
 
 class Super_model:
@@ -323,19 +340,20 @@ class Two_stops_model:
 		self.shapes = []
 		self.coor_times = []
 		self.day_times = []
+		self.timestamps: List[datetime] = []
 		self.ids_trip = []
 		self.bss_or_hol = bss_or_hol
 
-	def add_row(self, shape: int, dep_time: int, day_time: int, id_trip: int, arr_time: int, last_stop_delay: int):
+	def add_row(self, shape: int, dep_time: int, day_time: datetime, id_trip: int, arr_time: int, last_stop_delay: int):
 
 		# ignores data if a bus is much more longer time on its way than usual
 		# if day_time - dep_time < Two_stops_model.TRAVEL_TIME_LIMIT:
 		self.shapes.append(shape)
-
-		self.coor_times.append(Two_stops_model._get_coor_time(day_time, dep_time, last_stop_delay))
-
-		self.day_times.append(day_time)
+		self.day_times.append(lib.time_to_sec(day_time))
+		self.timestamps.append(day_time)
 		self.ids_trip.append(id_trip)
+
+		self.coor_times.append(Two_stops_model._get_coor_time(lib.time_to_sec(day_time), dep_time, last_stop_delay))
 
 		if arr_time - dep_time > self.max_travel_time and arr_time > dep_time:
 			self.max_travel_time = arr_time - dep_time
@@ -347,11 +365,11 @@ class Two_stops_model:
 
 
 	def create_model(self):
-		self.norm_data = Norm_data(self.shapes, self.coor_times, self.day_times, self.ids_trip)
+		self.norm_data = Norm_data(self.shapes, self.coor_times, self.day_times, self.ids_trip, self.timestamps)
 		self._reduce_errors()
 
 		# more than 10 x 4 data samples per km needed, distance between stops is already filtered by sql query
-		if len(self.norm_data) >= self.distance * 0.001 * 10 * 4:
+		if len(self.norm_data) < self.distance * 0.001 * 10 * 4:
 			self.model = Two_stops_model.Linear_model(self.distance)
 			return
 
@@ -380,6 +398,7 @@ class Two_stops_model:
 	def _reduce_errors(self):
 		# removes trips delayed more then alpha times
 		trips_to_remove = set()
+		trip_times_to_remove = dict()
 		coor_times = self.norm_data.get_coor_times()
 		shapes = self.norm_data.get_shapes()
 
@@ -390,9 +409,14 @@ class Two_stops_model:
 		high_variable = np.where((abs(rate - rate.mean()) > rate.std() * Two_stops_model.REDUCE_VARIANCE_RATE).astype(int) == 1)[0]
 
 		for hv in high_variable:
-			trips_to_remove.add(self.norm_data.get_ids_trip()[hv])
+			trip_id = self.norm_data.get_ids_trip()[hv]
+			trips_to_remove.add(trip_id)
+			if trip_id in trip_times_to_remove:
+				trip_times_to_remove[trip_id].append(self.norm_data.get_timestamps()[hv])
+			else:
+				trip_times_to_remove[trip_id] = [self.norm_data.get_timestamps()[hv]]
 
-		self.norm_data.remove_items_by_id_trip(trips_to_remove)
+		self.norm_data.remove_items_by_id_trip(trips_to_remove, trip_times_to_remove)
 
 	@staticmethod
 	def _get_coor_time(day_time, dep_time, last_stop_delay):

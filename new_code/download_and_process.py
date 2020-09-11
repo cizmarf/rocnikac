@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 
+# main controler of the project
+# downloads all data and inserts it
+
 import argparse
 import asyncio
 import logging
@@ -13,6 +16,7 @@ import mysql.connector
 
 from all_vehicle_positions import All_vehicle_positions, Static_all_vehicle_positions
 # from all_vehicle_positions import All_vehicle_positions
+from build_models import Build_models
 from database import Database
 from stops import Stops
 from trip import Trip
@@ -144,6 +148,12 @@ def main(database_connection, args):
 			continue
 
 if __name__ == "__main__":
+
+	# options parsing and setting
+	# for production set static_data and static_demo to false
+	# updata_* says update interval, recommended 20 s
+	# if clean old or build models set the main procedure is skipped
+	# if running build_models make sure there is enough historical data in database
 	parser = argparse.ArgumentParser()
 	parser.add_argument("--static_data", default=True, type=bool, help="Fill with static data or dynamic real-time data.")
 	parser.add_argument("--static_demo", default=False, type=bool,
@@ -151,14 +161,22 @@ if __name__ == "__main__":
 	parser.add_argument("--update_time", default=20, type=int, help="Time to next request")
 	parser.add_argument("--update_error", default=20, type=int, help="Update time if network error occurred")
 	parser.add_argument("--clean_old", default=-1, type=int, help="Deletes all trips inactive for more than set minutes")
+	parser.add_argument("--build_models", default=-1, type=int, help="Rebuild all models")
 	args = parser.parse_args([] if "__file__" not in globals() else None)
 
 	database_connection = Database()
 
+	# if clean old option is set
 	if args.clean_old != -1:
 		ids_to_delete = database_connection.execute_procedure_fetchall("delete_trips_older_than_and_return_their_trip_id", (args.clean_old,))
 		for id in ids_to_delete:
 			File_system.delete_file(File_system.all_shapes / (id[0] + '.shape'))
 		sys.exit(0)
+
+	# if build models option is set
+	if args.build_models != -1:
+		bm = Build_models()
+		bm.get_data()
+		bm.main()
 
 	main(database_connection, args)

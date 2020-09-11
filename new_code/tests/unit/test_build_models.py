@@ -8,7 +8,7 @@ from two_stops_model import Two_stops_model
 
 
 class TestBuil_models(unittest.TestCase):
-	def test_save_specify_model(self, dep = 226538, arr = 229256):
+	def test_save_specify_model(self, dep = 221406, arr = 223778):
 		## this function is designet for easy save a model specify by stops ids
 		bm = Build_models()
 		# bm.database_connection = None
@@ -39,18 +39,20 @@ class TestBuil_models(unittest.TestCase):
 
 		if len(bm.business_day_model) > 0:
 			bm.business_day_model.create_model()
+			# print(bm.business_day_model.model.model.get_params())
 
-			bm.business_day_model.model.save_model('../input_data/')
-			File_system.pickle_object(rows_to_save_hol, '../input_data/' + str(dep) + '_' + str(arr) + '_bss.data')
+			# bm.business_day_model.model.save_model('../input_data/')
+			# File_system.pickle_object(rows_to_save_hol, '../input_data/' + str(dep) + '_' + str(arr) + '_bss.data')
 		if len(bm.nonbusiness_day_model) > 0:
 			bm.nonbusiness_day_model.create_model()
+			# print(bm.nonbusiness_day_model.model.model.get_params())
 
-			bm.nonbusiness_day_model.model.save_model('../input_data/')
-			File_system.pickle_object(rows_to_save_hol, '../input_data/' + str(dep) + '_' + str(arr) + '_hol.data')
+			# bm.nonbusiness_day_model.model.save_model('../input_data/')
+			# File_system.pickle_object(rows_to_save_hol, '../input_data/' + str(dep) + '_' + str(arr) + '_hol.data')
 
 		# for default parameters
-		# self.assertEqual(5649, len(rows_to_save_bss))
-		# self.assertEqual(4222, len(rows_to_save_hol))
+		self.assertEqual(5649, len(rows_to_save_bss))
+		self.assertEqual(4222, len(rows_to_save_hol))
 
 	def test_main(self):
 		bm = Build_models()

@@ -1,8 +1,18 @@
+-- SQL queries set the database up
+-- main database is called vehicle_positions_database
+-- test database is called vehicle_positions_test_database
+-- the reason for separated test database is to keep all rich data untouched and perform the tests faster
+-- sql procedure and functions needs to be create separately
+
 CREATE DATABASE `vehicle_positions_database`;
+USE `vehicle_positions_database`;
+
+-- CREATE DATABASE `vehicle_positions_test_database`;
+-- USE `vehicle_positions_test_database`;
 
 -- SET @@global.time_zone = '+00:00';
 
-CREATE TABLE `vehicle_positions_database`.`stops` (
+CREATE TABLE `stops` (
   `id_stop` INT(32) NOT NULL AUTO_INCREMENT,
   `stop_source_id` VARCHAR(31) NOT NULL COMMENT 'ID used in golemio API',
   `parent_id_stop` INT(32) NULL,
@@ -17,16 +27,16 @@ CREATE TABLE `vehicle_positions_database`.`stops` (
 );
 
 
-ALTER TABLE `vehicle_positions_database`.`stops`
+ALTER TABLE `stops`
   ADD CONSTRAINT `parent_stop`
     FOREIGN KEY (`parent_id_stop`)
-    REFERENCES `vehicle_positions_database`.`stops` (`id_stop`)
+    REFERENCES `stops` (`id_stop`)
     ON DELETE CASCADE
     ON UPDATE NO ACTION;
 ;
 
 
-CREATE TABLE `vehicle_positions_database`.`headsigns` (
+CREATE TABLE `headsigns` (
   `id_headsign` INT(32) NOT NULL AUTO_INCREMENT,
   `headsign` VARCHAR(123) NOT NULL,
   PRIMARY KEY (`id_headsign`),
@@ -34,7 +44,7 @@ CREATE TABLE `vehicle_positions_database`.`headsigns` (
 );
 
 
-CREATE TABLE `vehicle_positions_database`.`trips` (
+CREATE TABLE `trips` (
   `id_trip` INT(32) NOT NULL AUTO_INCREMENT,
   `trip_source_id` VARCHAR(31) NOT NULL COMMENT 'ID used in golemio API',
   `id_headsign` INT(32) NOT NULL COMMENT 'Link into headsigns table',
@@ -42,19 +52,21 @@ CREATE TABLE `vehicle_positions_database`.`trips` (
   `shape_dist_traveled` INT(32) NOT NULL,
   `last_updated` DATETIME NOT NULL, -- DEFAULT NOW() ON UPDATE CURRENT_TIMESTAMP, COMMENT 'Time of last change or insertirion of a row'
   `trip_no` VARCHAR(7) NOT NULL COMMENT 'Unique number for a bus line.',
+  `lat` DECIMAL(9,6) NOT NULL,
+  `lon` DECIMAL(9,6) NOT NULL,
   PRIMARY KEY (`id_trip`),
   UNIQUE INDEX `id_trip_UNIQUE` (`id_trip` ASC) VISIBLE,
   INDEX `id_headsign_x` (`id_headsign` ASC) VISIBLE,
   UNIQUE INDEX `trip_source_id_x` (`trip_source_id` ASC) VISIBLE,
   CONSTRAINT `id_headsign_from_trips_to_headsigns`
 	FOREIGN KEY (`id_headsign`)
-	REFERENCES `vehicle_positions_database`.`headsigns` (`id_headsign`)
+	REFERENCES `headsigns` (`id_headsign`)
 	ON DELETE CASCADE
   	ON UPDATE NO ACTION
 );
 
 
-CREATE TABLE `vehicle_positions_database`.`rides` (
+CREATE TABLE `rides` (
   `id_trip` INT(32) NOT NULL,
   `id_stop` INT(32) NOT NULL,
   `arrival_time` TIME NOT NULL,
@@ -64,16 +76,16 @@ CREATE TABLE `vehicle_positions_database`.`rides` (
   INDEX `shape_dist_traveled_x` (`shape_dist_traveled` ASC) VISIBLE,
   CONSTRAINT `id_trip_from_rides_to_trips`
     FOREIGN KEY (`id_trip`)
-    REFERENCES `vehicle_positions_database`.`trips` (`id_trip`)
+    REFERENCES `trips` (`id_trip`)
     ON DELETE CASCADE,
   CONSTRAINT `id_stop_from_rides_to_stops`
       FOREIGN KEY (`id_stop`)
-      REFERENCES `vehicle_positions_database`.`stops` (`id_stop`)
+      REFERENCES `stops` (`id_stop`)
       ON DELETE CASCADE
   );
 
 
-  CREATE TABLE `vehicle_positions_database`.`trip_coordinates` (
+  CREATE TABLE `trip_coordinates` (
       `id_trip` INT(32) NOT NULL,
       `lat` DECIMAL(9,6) NOT NULL,
       `lon` DECIMAL(9,6) NOT NULL,
@@ -85,13 +97,12 @@ CREATE TABLE `vehicle_positions_database`.`rides` (
   	INDEX `shape_dist_traveled_x` (`shape_dist_traveled` ASC) VISIBLE,
   	CONSTRAINT `id_trip_from_trip_coordinates_to_trips`
   	  FOREIGN KEY (`id_trip`)
-  	  REFERENCES `vehicle_positions_database`.`trips` (`id_trip`)
+  	  REFERENCES `trips` (`id_trip`)
   	  ON DELETE CASCADE
   );
 
 
 -- shows trips with its headsigns instend of headsigns internal id
-USE `vehicle_positions_database`;
 CREATE OR REPLACE VIEW `trip_number_on_headsign` AS
 	SELECT trips.trip_no, headsigns.headsign
 	FROM trips
@@ -141,19 +152,23 @@ BEGIN
     LIMIT 1;
 
 	INSERT INTO trips (
-	    trip_source_id,
-	    id_headsign,
-	    current_delay,
-	    shape_dist_traveled,
-	    trip_no,
-        last_updated)
+        trip_source_id,
+        id_headsign,
+        current_delay,
+        shape_dist_traveled,
+        trip_no,
+        last_updated,
+        lat,
+        lon)
 	VALUES (
         trip_source_id_to_insert,
         @id_headsign_to_insert,
         current_delay_to_insert,
         shape_dist_traveled_to_insert,
         trip_no_to_insert,
-        last_updated_to_insert);
+        last_updated_to_insert,
+	    lat_to_insert,
+	    lon_to_insert);
 
     SELECT LAST_INSERT_ID()
     INTO @id_trip;
@@ -329,7 +344,9 @@ BEGIN
 		UPDATE trips
 		SET trips.last_updated = last_updated_to_insert,
 		    trips.current_delay = current_delay_to_insert,
-		    trips.shape_dist_traveled = shape_dist_traveled_to_insert
+		    trips.shape_dist_traveled = shape_dist_traveled_to_insert,
+            trips.lat = lat_to_insert,
+            trips.lon = lon_to_insert
 		WHERE trips.id_trip = @id_trip;
         RETURN 1;
 	ELSE

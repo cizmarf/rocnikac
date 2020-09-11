@@ -103,6 +103,7 @@ class All_vehicle_positions():
 	def get_all_vehicle_positions_json(self):
 		self.json_file = Network.download_URL_to_json(Network.vehicles_positions)
 
+	# finds ride for given trip id
 	@staticmethod
 	def get_trip_rides_sublist(trip_rides, trip_ids, trip_id):
 		return All_vehicle_positions.get_sublist(trip_rides,
@@ -163,6 +164,7 @@ class All_vehicle_positions():
 
 	def get_trip_source_id_by_vehicle(self, vehicle) -> str:
 		return vehicle.trip_id
+
 
 
 # if __name__ == "__main__":
