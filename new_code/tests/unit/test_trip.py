@@ -36,10 +36,12 @@ class TestTrip(unittest.TestCase):
 			if vehicle["properties"]["trip"]["gtfs_trip_id"] == "421_225_191114":
 				trip = Trip()
 				trip.set_attributes_by_vehicle(vehicle)
-				trip.json_trip = json.loads(File_system.get_file_content("../input_data/421_225_191114.json"))
+				trip.json_trip = json.loads(File_system.get_tar_file_content("../input_data/raw_trips/421_225_191114.json"))
 				trip._fill_attributes_from_trip_file()
 				trip.save_shape_file('../output_data/')
 				break
+
+				# File_system.pickle_object(trip, '../input_data/vehicle_test_insert_ride_by_trip.obj')
 
 		shape_json = json.loads(File_system.get_file_content('../output_data/421_225_191114.shape'))
 		File_system.delete_file('../output_data/421_225_191114.shape')
