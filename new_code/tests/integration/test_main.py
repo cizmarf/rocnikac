@@ -10,7 +10,7 @@ from download_and_process import main
 # start simulation of vehicles flow
 # uses data captured in half of hour
 # between 2020-02-23 20.30.14 and 2020-02-23 20.59.52
-# but do the database it save last update attribute now
+# however to the database it saves last update attribute now
 class TestMainDemo(unittest.TestCase):
 	def test_demo(self):
 		lib_tests.drop_all_tables()

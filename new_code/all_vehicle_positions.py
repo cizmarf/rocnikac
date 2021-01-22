@@ -20,6 +20,7 @@ class Static_all_vehicle_positions:
 			content = File_system.get_tar_file_content(file)
 
 			json_file = json.loads(content)
+			json_file['name'] = file
 			yield json_file
 
 

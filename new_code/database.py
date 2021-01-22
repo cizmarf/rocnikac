@@ -33,8 +33,8 @@ class Database:
 		self.cursor.execute(sql_query, params)
 		return self.cursor.fetchall()
 
-	def execute(self, sql_query, params=()):
-		self.cursor.execute(sql_query, params)
+	def execute(self, sql_query, params=(), **kwargs):
+		self.cursor.execute(sql_query, params, kwargs)
 
 	def execute_many(self, sql_query, params=()):
 		# try:

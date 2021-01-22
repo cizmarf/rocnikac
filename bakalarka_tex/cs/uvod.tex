@@ -5,23 +5,25 @@ Městská hromadná doprava v Praze a Středočeském kraji je jeden z hlavním 
 
 \bigbreak
 
-Každého cestujícího v přepravě jistě někdy trápilo zpoždění svého spoje. To člověka přivádí k myšlenkám jestli by nebylo možné určit s jakou pravidelností, pokud s nějakou, takové zpoždění vznikají. A jestli by nemohl být informován za včasu o vzniklé anomálii.
+Každého cestujícího v přepravě jistě někdy trápilo zpoždění svého spoje. To člověka přivádí k myšlenkám jestli by nebylo možné určit s jakou pravidelností, pokud s nějakou, takové zpoždění vznikají. A jestli by nemohl být informován za včasu o vzniklé anomálii a vzniklém zpoždění.
 
 \bigbreak
 
-Ve vymezené oblasti operuje spousta soukromých i městských dopravců. Ti kteří spadají do naší zájmové oblasti zastřešuje organizace \gls{ropid}, která objednává jednotlivé spoje. Pro tuto práci je však důležité, že tato organizace zadala jednotlivým dopravcům vysílat aktuálním polohy jejich vozů. Tato data jsou přes zprostředkovatele zveřejňována na pražské datové platformě zvané Golemio, jež je ve správě společností Operátor ICT, a. s., která je vlastněná hlavním městem Praha.
+Cílem této práce je zpřesnit odhad zpoždění vozidel VHD, zejména autobusů, na trase mezi dvěma sousedícími zastávkami. Dále pak tyto výsledky vizualizovat v mapových podkladech.
 
 \bigbreak
 
-Nicméně v době návrhu práce, kvůli právním komplikacím, nebyly k dispozici real-time data z majoritního dopravce na území Prahy Dopravní podnik hl. m. Prahy. Vzhledem k povaze této práce avšak tyto data nenabývají takové důležitosti jako data od dopravců operujících mimo Prahu. Vzhledem k tomu, že zbylí dopravci využívají převážně autobusy k přepravě cestujících, bude práce vypracována pouze s ohledem na autobusovou dopravu.
+Ve vymezené oblasti operuje spousta soukromých i městských dopravců. Ti kteří spadají do naší zájmové oblasti zastřešuje organizace \gls{ropid}, která objednává jednotlivé spoje. Pro naši práci je důležité, že organizace \gls{ropid} zadala jednotlivým dopravcům vysílat aktuální polohy jejich vozů. Tato data o polohách jsou přes zprostředkovatele zveřejňována na pražské datové platformě zvané Golemio\footnote{www.golemio.cz}, jež je ve správě společností Operátor ICT, a. s., která je vlastněná hlavním městem Praha.
+Takových spojů, o kterých máme všechna požadovaná data je v pracovní den vypraveno přes jedenáct tisíc.\footnote{ze dne 20. 2. 2020 podle testovacích dat}
 
 \bigbreak
 
-Práce se tedy pokusí využít dostupná otevřená data k získání infomarcí o zpoždění spojů na trase. Řešení ovšem není pouze založeno na real-tim datach, ale využívá také statická data o jízdních řádech nebo zastávkách hromadné dopravy a také mapové podklady.
+V době návrhu práce, kvůli právním komplikacím a složitost informačního systému\footnote{www.irozhlas.cz/zpravy-domov/data-o-poloze-vozidel-dpp-mhd-tramvaje-autobusy-praha-hrib-soud-informace_1904290600_kno}, nebyly k dispozici real-time data z majoritního dopravce na území Prahy Dopravního podniku Prahy. Avšak protože je práce zaměřená na odhad zpoždění spoje mezi dvěma sousedícími zastávkami na trase, má tedy větší význam odhadovat zpoždění mezi zastávkami, mezi kterýma je větší vzdálenost. A to jsou převážně spoje jednoucí mimo Prahu. Proto tato data z DPP nenabývají takové důležitosti, jako data od dopravců operujících mimo Prahu. Vzhledem k tomu, že zbylí dopravci využívají převážně autobusy k přepravě cestujících, bude práce vypracována pouze s ohledem na autobusovou dopravu.
 
 \bigbreak
 
-Vzhledem k disponování daty o aktuálních polohách vozidel \gls{mhd} se nabízí jejich využití tak, že budou vynesena do mapy a tím vznikne vizuálně přívětivé uživatelské prostředí pro prohlížení aktuálního stavu sítě vozidel. Proto práce navrhuje a implementuje uživatelskou aplikaci, která tyto vozidla zobrazí a bude itergagovat s uživatelem tak, že po na uživatelskou žádost zobrazí additivní infomace o daném spoji nebo vybvrané zastávce.
+V práci se tedy pokusíme využít dostupná otevřená real-time data k získání infomarcí o zpoždění spojů na trase a využít je k lepším odhadům zpoždění. Řešení ovšem není pouze založeno na real-time datach, ale využívá také statická data o jízdních řádech nebo zastávkách hromadné dopravy, jejichž zdojem je přímo ROPID\footnote{pid.cz/o-systemu/opendata/}, a také mapové podklady. Ty jsou potřeba zejména pro vizualizaci zastávek a jízdních řádů nebo vykreslní tras spoj¬ přímo do mapy. Avšak i tyto statická data jsou dostupná přímo z datové platformy pomocí stejného rozhraní jako data real-timová.
 
+\bigbreak
 
-TODO zapracovat odstavec: podle získaných dat se v pracovní den vypravý přibližně (TODO spocitat pocet autobusu denne) autobusových spojů.
+Protože disponujeme daty o aktuálních polohách vozidel \gls{mhd},  která navíc rozšíříme o lepší odhady zpoždění. Nabízí se jejich využití tak, že budou vynesena do mapy a tím vznikne vizuálně přívětivé uživatelské prostředí pro prohlížení aktuálního stavu sítě vozidel. V práci tedy navrhujeme a implementujeme uživatelskou aplikaci, která vozidla zobrazí a bude komunikovat s uživatelem tak, že na žádost zobrazí více infomací o daném spoji nebo vybrané zastávce.

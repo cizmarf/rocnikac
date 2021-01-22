@@ -17,6 +17,18 @@ class testStatic_all_vehicle_positions(unittest.TestCase):
 			self.assertIsInstance(file, dict)
 			break
 
+	def test_number_of_static_trips(self):
+		savp = Static_all_vehicle_positions()
+		trip_ids = set()
+
+		for json_file in savp.static_get_all_vehicle_positions_json():
+			if '2020-02-20' in json_file['name']:
+				for vehicle in json_file["features"]:
+					trip_ids.add(vehicle["properties"]["trip"]["gtfs_trip_id"])
+
+		self.assertEqual(11785, len(trip_ids))
+
+
 
 class testAll_vehicle_positions(unittest.TestCase):
 	def test_findFirstOccurrence(self):

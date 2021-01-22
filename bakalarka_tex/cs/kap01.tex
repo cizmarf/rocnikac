@@ -6,11 +6,13 @@ V této kapitole je detailně popsán problém a způsoby jeho navrženého a so
 
 \section{Popis problému odhadu zpoždění}
 
-Spoje které zajištˇují hromadnou dopravu se řídí jízdními řády, které určují jejich trasu a udávají časy příjezdu a odjezdu do daných zastávek. Toto jsou zpravidla jediné refenční body u kterých je možno zjistit skutečné zpoždění, nebo předjetí (dále uvažováno jako zpoždění se zápornou hodnotou).
+Spoje které zajištˇují hromadnou dopravu jezdí podle jízdních řádů, které definují jejich trasu. Trasa se udává sekvencí projíždících zastávek, časy příjezdu a odjezdu do, resp. z těchto zastávek a vzdáleností zastávek od výchozího bodu spoje. Tyto zastávky jsou zpravidla jediné refenční body u kterých je možno zjistit skutečné zpoždění, nebo předjetí (dále uvažováno jako zpoždění se zápornou hodnotou). Dále jsou součástí jízdních řádů také velice detailní nákresy tras každého spoje, formou lomené čáry definovanou posloupností souřadnic, kde každý bod je doplněn o jeho vzdálenost od výchozího bodu spoje.
 
 \bigbreak
 
 Vzhledem k tom, že délka trasy mezi dvěma refernčními body nezříka dosahuje i několika desítek kilometrů (TODO spocitat prumer a median), kde sice mohou vznikat mimořáné události, ale ve většině případů je ovlivněna pouze obvyklým provozem v dané denní době, je potřeba navrhnout systém na odhat zpoždění v půběhu jízdy mezi těmito body.
+
+TODO histogram prujezdy zatavek / vzdalenost mezi nima
 
 \bigbreak
 
