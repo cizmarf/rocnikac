@@ -133,7 +133,7 @@ def main(database_connection, args):
 	# For static data source only
 	static_iterator = None
 	if args.static_data:
-		static_all_vehicle_positions = Static_all_vehicle_positions()
+		static_all_vehicle_positions = Static_all_vehicle_positions(args)
 		static_iterator = static_all_vehicle_positions.static_get_all_vehicle_positions_json()
 
 	# The main project loop
@@ -190,8 +190,10 @@ if __name__ == "__main__":
 	# if running build_models make sure there is enough historical data in database
 	# if static demo running it does not show all passing trips throw a stop correctly
 	parser = argparse.ArgumentParser()
-	parser.add_argument("--static_data", default=False, type=bool,
+	parser.add_argument("--static_data", default=False, type=bool, action='store_true',
 		help="Fill with static data or dynamic real-time data.")
+	parser.add_argument("--thu_only", default=False, type=bool,
+		help='If static data used it will fill the database with Thursday 20/2/2020 data only. For statistic purpose only.')
 	parser.add_argument("--static_demo", default=False, type=bool,
 		help="Use only if static data in use, time of insert sets now and wait 20 s for next file.")
 	parser.add_argument("--update_time", default=20, type=int,

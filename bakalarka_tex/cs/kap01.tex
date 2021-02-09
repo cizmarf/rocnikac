@@ -4,25 +4,49 @@
 
 V této kapitole je detailně popsán problém a způsoby jeho navrženého a současného řešení.
 
+\section{Úvod}
+
+Spoje které zajišťují hromadnou dopravu jezdí podle jízdních řádů, které definují jejich trasu. Trasa se udává sekvencí projíždících zastávek, časy příjezdu a odjezdu do, resp. z těchto zastávek a vzdáleností zastávek od výchozího bodu spoje. Tyto zastávky jsou zpravidla jediné refenční body u kterých je možno zjistit skutečné zpoždění, nebo předjetí (dále uvažováno jako zpoždění se zápornou hodnotou). Dále jsou součástí jízdních řádů také velice detailní nákresy tras každého spoje, formou lomené čáry definovanou posloupností souřadnic, kde každý bod je doplněn o jeho vzdálenost od výchozího bodu spoje.
+
+\bigbreak
+
+Délka trasy mezi dvěma refernčními body nezříka dosahuje i několika desítek kilometrů\footnote{Podle dat pro spoje jedoucí v 20. 2. 2020 je medián vzdálesnotí mezi zastávkama, mezi kterýma projede alesponˇ jeden spoj denně 943 m. Průjezdů mezi zatávkami ve vzdálenosti více než 10 kilometrů je 784, přiřičemž průjezdů mezi zastávkami ve vzdálenosti alesponˇ 2 km je přibližně 15000}. Na těchto úsecích mohou vznikat mimořáné události, které se dají predikovat jen s těží. Nicméně ve většině případů je průběh jízdy ovlivněn pouze obvyklým provozem v dané denní době.
+
+Detailní rozbor počtu průjezdů mezi zastávkami v daných vzdálenostech je vidět na grafu \ref{fig:stop_distances_result}. Kde průjezdem se myslí každý jednotlivý průjezd vozidla mezi danou dvojcí zastávek v daný den. Data jsou platná pro spoje jedoucí v 20. 2. 2020.
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{../img/stop_distances_plot_2020-02-20.png}
+  \caption{Graf počtu úseků mezi následujícími zastávkami a vzdálenotí mezi nimi.}
+  \label{fig:stop_distances_result}
+\end{figure}
+
 \section{Popis problému odhadu zpoždění}
 
-Spoje které zajištˇují hromadnou dopravu jezdí podle jízdních řádů, které definují jejich trasu. Trasa se udává sekvencí projíždících zastávek, časy příjezdu a odjezdu do, resp. z těchto zastávek a vzdáleností zastávek od výchozího bodu spoje. Tyto zastávky jsou zpravidla jediné refenční body u kterých je možno zjistit skutečné zpoždění, nebo předjetí (dále uvažováno jako zpoždění se zápornou hodnotou). Dále jsou součástí jízdních řádů také velice detailní nákresy tras každého spoje, formou lomené čáry definovanou posloupností souřadnic, kde každý bod je doplněn o jeho vzdálenost od výchozího bodu spoje.
+Řešený problém se týká případu, kdy vozidlo projíždí mezi dvěma referenčními body a tato trasa má části, ve kterých vozidlo jede různou rychlostí. Např. vozidlo při vyjíždění z města jede mnohem pomaleji než při jízdě mezi městy. Takových úseků, na kterých se rychlost jízdy liší může být na trase více a nedají se všechny jednoduše detekovat.
 
 \bigbreak
 
-Vzhledem k tom, že délka trasy mezi dvěma refernčními body nezříka dosahuje i několika desítek kilometrů (TODO spocitat prumer a median), kde sice mohou vznikat mimořáné události, ale ve většině případů je ovlivněna pouze obvyklým provozem v dané denní době, je potřeba navrhnout systém na odhat zpoždění v půběhu jízdy mezi těmito body.
-
-TODO histogram prujezdy zatavek / vzdalenost mezi nima
+Tato Práce tedy modeluje profily jízd mezi referenčními body. A na základě toho zpřesnit odhad zpoždění. Tento odhad by měl být mnohem přesnější než současné odhady, které odpovídají tomu, že vozidlo jede konstantní rychlostí po celou dobu jízdy. Nebo je takové možné brát jako aktuální zpoždění spoje poslední změřené zpoždění při průjezdu nějak7ch referenčním bodem (zastávkou, nebo např. pro tramvaje se používají návěstidla).
 
 \bigbreak
 
-Tento odhad je nutné počítat v reálném čase, tak aby uživatelé byli dobře informování o stavu jejich spoje. A proto je potřeba zpracovávat data okamžitě po jejich vydání, spočítat odhad zpoždění a vystavit tyto data veřejně. Vzhledem k tomu, že tyto data velmi rychle zastarávají je nutné provádět tento proces co možná nejrychleji.
+Přidaná hodnota je tedy v tom, že Práce navrhne takové modely, které nebudou penezalizovat zvyšováním zpožděním za pomalou jízdu v úsecích, které se pomaleji projždějí vždy. A také naopak zvýhodnˇovat snížením zpožděním za rychlou jízdu v úsecích, které se projíždějí rychle. Pokud bychom se tedy podívali na změny zpoždění na trase mezi dvěma referečními body, v ideálním případně by měli být nulové.
 
 \bigbreak
 
-Pro vyjasnění je potřeba uvést, že se systém nesnaží předpovědět zpoždění, které spoj může nabrat vzhledem k dosavadnímu průběhy trasy. Ale snaží se odhadnou zpoždění v danném bodě na trase vzhledem k obvyklému profilu jízdy.
+Celé ilustrováno na příkladě.
 
-TODO obrazek nelinearni trasy
+\bigbreak
+
+Pro řešení toho typu spoždění stačí navrhnout systém na odhat zpoždění v půběhu jízdy mezi referenčními body z historikých dat jízd.
+
+\bigbreak
+
+Tento odhad změny zpoždění na trase mezi dvěma referenčními body je nutné počítat v co nejkratším čase tak, aby cestující byli dobře informování o stavu jejich spoje a mohli tyto informace využít např. při dobíhání spoje. A proto je potřeba zpracovávat data okamžitě po jejich vydání, spočítat odhad zpoždění a vystavit tato data veřejně. Vzhledem k tomu, že tato data velmi rychle zastarávají je nutné provádět tento proces co možná nejrychleji\footnote{Průměrná doba jízdy spoje mezi zastávkami je cca 5 min. Rozložení počtu úseků mezi zastávekami k délce jízdy mezi nimi je závislé a podobné rozložení vůči vzdálenosti ilustrované na grafu\ref{fig:stop_distances_result}.}.
+
+\bigbreak
+
+Pro vyloučení všech pochybností je hodno uvést, že se naše Práce nesnaží předpovědět zpoždění, které spoj může nabrat vzhledem k dosavadnímu průběhu trasy. Tedy např. nijak nezohlednˇuje to, že spoj právě stojí v mimořádné koloně a dalo by se tedy předpokládat, že zpoždění bude rychle růst i v následujících minutách. Ale naopak Práce se snaží odhadnou zpoždění v danném bodě na trase vzhledem k obvyklému profilu jízdy. Tedy např. pokud by výše uvažavaná kolona byla pravidelná Práce ji zohlední ve statistických modelech.
 
 \subsection{Současná řešení}
 

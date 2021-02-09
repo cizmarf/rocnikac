@@ -4,11 +4,14 @@
 -- the reason for separated test database is to keep all rich data untouched and perform the tests faster
 -- sql procedure and functions needs to be create separately
 
-CREATE DATABASE `vehicle_positions_database`;
-USE `vehicle_positions_database`;
+-- CREATE DATABASE `vehicle_positions_database`;
+-- USE `vehicle_positions_database`;
 
 -- CREATE DATABASE `vehicle_positions_test_database`;
 -- USE `vehicle_positions_test_database`;
+
+CREATE DATABASE `vehicle_positions_statistic_database`;
+USE `vehicle_positions_statistic_database`;
 
 -- SET @@global.time_zone = '+00:00';
 

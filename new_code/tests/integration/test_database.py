@@ -19,6 +19,19 @@ class FillDatabase():
 
 		main(database_connection, args)
 
+	@staticmethod
+	def testInsertThursdayDataOnly():
+		# takes extremely long to time to do
+		tests.lib_tests.drop_all_tables("vehicle_positions_statistic_database")
+
+		database_connection = Database("vehicle_positions_statistic_database")
+		args = tests.lib_tests.get_args_thu_only()
+
+		from download_and_process import main
+
+		main(database_connection, args)
+
+
 class TestDatabase(unittest.TestCase):
 
 	# this method should run first because it fills data
@@ -165,5 +178,5 @@ class TestDatabase(unittest.TestCase):
 		self.assertEqual(0, len(trip_coordinates))
 
 if __name__ == '__main__':
-	# FillDatabase.testInsertData()
-	unittest.main()
+	FillDatabase.testInsertData()
+	# unittest.main()

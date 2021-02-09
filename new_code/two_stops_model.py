@@ -370,6 +370,11 @@ class Two_stops_model:
 
 	def create_model(self):
 		self.norm_data = Norm_data(self.shapes, self.coor_times, self.day_times, self.ids_trip, self.timestamps)
+
+		if len(self.norm_data) == 0:
+			self.model = Two_stops_model.Linear_model(self.distance)
+			return
+
 		self._reduce_errors()
 
 		# more than 10 x 4 data samples per km needed, distance between stops is already filtered by sql query
@@ -398,10 +403,11 @@ class Two_stops_model:
 		trips_to_remove = set()
 		trip_times_to_remove = dict()
 		coor_times = self.norm_data.get_coor_times()
-		shapes = self.norm_data.get_shapes()
+		norm_shapes = np.divide(self.norm_data.get_shapes(), 10)
 
 		# coordinates times and distance are semi linear dependent
-		rate = np.divide(coor_times, np.divide(shapes, 10))
+
+		rate = np.divide(coor_times, np.divide(norm_shapes, 10), where=norm_shapes!=0)
 
 		# print("mena:", abs(rate - rate.mean()))
 		# print("std:", rate.std())

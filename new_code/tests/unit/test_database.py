@@ -5,18 +5,18 @@ import os
 import pickle
 import unittest
 from pathlib import Path
-
+import matplotlib.pyplot as plt
 import tests.lib_tests
 from database import Database
 from download_and_process import main
 from file_system import File_system
 
 
-# make sure the production database is filled with static data
+# make sure the production database is filled with static data for Thu 20/02/2020
 class TestData(unittest.TestCase):
 
 	def test_mean_stop_distance(self):
-		database_connection = Database("vehicle_positions_database")
+		database_connection = Database("vehicle_positions_statistic_database")
 
 		database_connection.cursor.execute("""
 		SELECT AVG(data_table.diff_shape_trav) 
@@ -33,10 +33,10 @@ class TestData(unittest.TestCase):
 			WHERE schedule.lead_stop IS NOT NULL -- ignores final stop
 			GROUP BY schedule.id_stop, schedule.lead_stop) AS data_table;""", )
 		result = database_connection.cursor.fetchall()
-		self.assertAlmostEqual(float(result[0][0]), 1349.63849181)
+		self.assertAlmostEqual(float(result[0][0]), 1343.37758671)
 
 	def test_mean_stop_distance_for_all_rides(self):
-		database_connection = Database("vehicle_positions_database")
+		database_connection = Database("vehicle_positions_statistic_database")
 
 		database_connection.cursor.execute("""
 		SELECT AVG(data_table.diff_shape_trav) 
@@ -53,12 +53,12 @@ class TestData(unittest.TestCase):
 			WHERE schedule.lead_stop IS NOT NULL -- ignores final stop
 			) AS data_table;""", )
 		result = database_connection.cursor.fetchall()
-		self.assertAlmostEqual(float(result[0][0]), 1097.6306)
+		self.assertAlmostEqual(float(result[0][0]), 1111.3123)
 
 	def test_median_stop_distance(self):
-		database_connection = Database("vehicle_positions_database")
+		database_connection = Database("vehicle_positions_statistic_database")
 
-		for result in database_connection.cursor.execute("""
+		result = database_connection.cursor.execute("""
 			SET @rowindex := -1;
 			SELECT AVG(deriv.diff_shape_trav) AS median
 				FROM (
@@ -81,16 +81,14 @@ class TestData(unittest.TestCase):
 					) AS data_table
 					ORDER BY data_table.diff_shape_trav
 				) AS deriv
-				WHERE deriv.rowindex IN (FLOOR(@rowindex / 2), CEIL(@rowindex / 2));""", multi=True):
-			if result.statement == 'SET @rowindex := -1':  # skips first query, there is nothing to fetch
-				continue
-			self.assertAlmostEqual(float(result.fetchall()[0][0]), 942.98485)
+				WHERE deriv.rowindex IN (FLOOR(@rowindex / 2), CEIL(@rowindex / 2));""", multi=True)
 
+		self.assertAlmostEqual(float(list(result)[1].fetchall()[0][0]), 943.0)
 
 	def test_median_stop_distance_for_all_rides(self):
-		database_connection = Database("vehicle_positions_database")
+		database_connection = Database("vehicle_positions_statistic_database")
 
-		for result in database_connection.cursor.execute("""
+		result = database_connection.cursor.execute("""
 			SET @rowindex := -1;
 			SELECT AVG(deriv.diff_shape_trav) AS median
 				FROM (
@@ -111,11 +109,85 @@ class TestData(unittest.TestCase):
 						WHERE schedule.lead_stop IS NOT NULL -- ignores final stop
 					) AS data_table
 				) AS deriv
-				WHERE deriv.rowindex IN (FLOOR(@rowindex / 2), CEIL(@rowindex / 2));""", multi=True):
-			if result.statement == 'SET @rowindex := -1':  # skips first query, there is nothing to fetch
-				continue
-			self.assertAlmostEqual(float(result.fetchall()[0][0]), 718.0)
+				WHERE deriv.rowindex IN (FLOOR(@rowindex / 2), CEIL(@rowindex / 2));""", multi=True)
 
+		self.assertAlmostEqual(float(list(result)[1].fetchall()[0][0]), 740.0)
+
+	def test_histogram_of_stop_distance_for_all_rides(self):
+		database_connection = Database("vehicle_positions_statistic_database")
+
+		database_connection.cursor.execute("""			
+		SELECT (schedule.lead_stop_shape_dist_traveled - schedule.shape_dist_traveled) AS diff_shape_trav
+		FROM (
+			SELECT id_trip, id_stop, shape_dist_traveled,
+			LEAD(id_stop, 1) OVER (
+				PARTITION BY id_trip ORDER BY shape_dist_traveled) lead_stop,
+			LEAD(shape_dist_traveled, 1) OVER (
+				PARTITION BY id_trip ORDER BY shape_dist_traveled) lead_stop_shape_dist_traveled
+			FROM rides
+		) AS schedule
+		WHERE schedule.lead_stop IS NOT NULL -- ignores final stop
+		ORDER BY diff_shape_trav""")
+
+		result = database_connection.cursor.fetchall()
+		no_of_stops_in_distances = []
+		current_count = 0
+		index = 0
+
+		step = 2000
+		current_min_border = 0
+		top_border = 36000
+
+		assert (top_border % step == 0)
+
+		for i in range(top_border // step + 1):
+			while index < len(result) and current_min_border <= result[index][0] < current_min_border + step:
+				current_count += 1
+				index += 1
+			if index < len(result) and i == top_border // step and result[index][0] >= top_border:
+				current_count += len(result[index:])
+			no_of_stops_in_distances.append(current_count)
+			current_min_border += step
+			current_count = 0
+
+		self.assertEqual(no_of_stops_in_distances[0], 133575)
+		self.assertEqual(no_of_stops_in_distances[8], 173)
+
+		names = [str(int(i * step // 1000)) + '-' + str(int((i + 1) * step // 1000)) for i in range(top_border // step)]
+		names.append(str(top_border // 1000) + ' <')
+		print(names)
+		print(no_of_stops_in_distances)
+
+		plt.figure(figsize=(10, 8))
+		plt.subplot()
+		plt.bar(names, no_of_stops_in_distances)
+		plt.title('Počet úseků mezi bezprostředně následujícími zastávkami a vzdálenost mezi nimi. \n Každý průjezd úsekem je započítán zvlášť.')
+		plt.xlabel('Vzdálenost v km')
+		plt.ylabel('Počet úseků')
+		plt.yscale('log')
+		plt.show()
+
+	def test_mean_stop_travel_time(self):
+		database_connection = Database("vehicle_positions_statistic_database")
+
+		database_connection.cursor.execute("""
+		SELECT AVG(data_table.diff_time) 
+		FROM (
+		SELECT (schedule.lead_stop_arrival_time - schedule.departure_time) AS diff_time
+			FROM (
+				SELECT id_trip, id_stop, departure_time,
+				LEAD(id_stop, 1) OVER (
+					PARTITION BY id_trip ORDER BY arrival_time) lead_stop,
+				LEAD(arrival_time, 1) OVER (
+					PARTITION BY id_trip ORDER BY arrival_time) lead_stop_arrival_time
+			FROM rides
+            ) AS schedule
+			WHERE schedule.lead_stop IS NOT NULL -- ignores final stop
+			-- GROUP BY schedule.id_stop, schedule.lead_stop
+            ORDER BY schedule.id_stop, schedule.lead_stop
+            ) AS data_table""", )
+		result = database_connection.cursor.fetchall()
+		self.assertAlmostEqual(float(result[0][0]), 331.9068)
 
 class TestDatabaseClass(unittest.TestCase):
 	# def test_something(self):
