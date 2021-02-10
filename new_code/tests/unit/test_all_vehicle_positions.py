@@ -8,17 +8,17 @@ from database import Database
 
 class testStatic_all_vehicle_positions(unittest.TestCase):
 	def test_init(self):
-		savp = Static_all_vehicle_positions()
+		savp = Static_all_vehicle_positions(tests.lib_tests.get_args())
 		self.assertGreater(len(savp.files), 10000)
 
 	def test_static_get_all_vehicle_positions_json(self):
-		savp = Static_all_vehicle_positions()
+		savp = Static_all_vehicle_positions(tests.lib_tests.get_args_thu_only())
 		for file in savp.static_get_all_vehicle_positions_json():
 			self.assertIsInstance(file, dict)
 			break
 
 	def test_number_of_static_trips(self):
-		savp = Static_all_vehicle_positions()
+		savp = Static_all_vehicle_positions(tests.lib_tests.get_args_thu_only())
 		trip_ids = set()
 
 		for json_file in savp.static_get_all_vehicle_positions_json():

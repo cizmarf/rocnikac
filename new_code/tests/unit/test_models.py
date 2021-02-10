@@ -106,8 +106,8 @@ class TestModels(unittest.TestCase):
 		self.assertEqual(480, lin_model.predict(0, timedelta(hours=23, minutes=58, seconds=0).seconds, timedelta(hours=23, minutes=50, seconds=0).seconds, timedelta(hours=0, minutes=10, seconds=0).seconds))
 
 	def test_poly_model_a(self):
-		model = File_system.pickle_load_object(Path('../input_data') / Path("221406_223778_hol.model"))
-		data = File_system.pickle_load_object(Path('../input_data') / Path("221406_223778_hol.data"))
+		model = File_system.pickle_load_object(Path('../input_data') / Path("2_2374_hol.model"))
+		data = File_system.pickle_load_object(Path('../input_data') / Path("2_2374_hol.data"))
 
 		linear_delay = []
 		last_stop_delay = []
@@ -190,7 +190,7 @@ class TestTwo_stops_models(unittest.TestCase):
 		rows_to_save = []
 
 		for row in stop_to_stop_data:
-			if row[1] == 230571 and row[2] == 226625:
+			if row[1] == 9167 and row[2] == 5221:
 				rows_to_save.append(row)
 			if cur_dep_stop == row[1] and cur_arr_stop == row[2]:
 				if row[7] != 0:
@@ -228,10 +228,10 @@ class TestTwo_stops_models(unittest.TestCase):
 
 		for row in rows:
 			model.add_row(row[7], row[3].seconds, row[6], row[0], row[4].seconds, row[8])
-			print(row[4].seconds - row[3].seconds)
+			# print(row[4].seconds - row[3].seconds)
 
 		self.assertEqual(240, model.max_travel_time)
-		self.assertEqual(33, len(model.shapes))
+		self.assertEqual(36, len(model.shapes))
 
 
 	def test_add_row_b(self):
@@ -244,10 +244,10 @@ class TestTwo_stops_models(unittest.TestCase):
 
 		for row in rows:
 			model.add_row(row[7], row[3].seconds, row[6], row[0], row[4].seconds, row[8])
-			print(row[4].seconds - row[3].seconds)
+			# print(row[4].seconds - row[3].seconds)
 
 		self.assertEqual(360, model.max_travel_time)
-		self.assertEqual(34, len(model.shapes))
+		self.assertEqual(37, len(model.shapes))
 
 
 	def test_add_row_c(self):
@@ -263,7 +263,7 @@ class TestTwo_stops_models(unittest.TestCase):
 
 
 		self.assertEqual(360, model.max_travel_time)
-		self.assertEqual(34, len(model.shapes))
+		self.assertEqual(37, len(model.shapes))
 
 	def test_add_row_d(self):
 		rows: list = File_system.pickle_load_object('../input_data/test_two_stops_model_data.list')
@@ -275,10 +275,10 @@ class TestTwo_stops_models(unittest.TestCase):
 
 		for row in rows:
 			model.add_row(row[7], row[3].seconds, row[6], row[0], row[4].seconds, row[8])
-			print(row[4].seconds - row[3].seconds)
+			# print(row[4].seconds - row[3].seconds)
 
 		self.assertEqual(360, model.max_travel_time)
-		self.assertEqual(34, len(model.shapes))
+		self.assertEqual(37, len(model.shapes))
 
 	def test_get_coor_time(self):
 		dep = timedelta(hours=23, minutes=57, seconds=0).seconds
@@ -297,11 +297,11 @@ class TestTwo_stops_models(unittest.TestCase):
 
 		model.norm_data = Norm_data(model.shapes, model.coor_times, model.day_times, model.ids_trip, model.timestamps)
 
-		self.assertEqual(33, len(model.norm_data))
+		self.assertEqual(36, len(model.norm_data))
 
 		model._reduce_errors()
 
-		self.assertEqual(33, len(model.norm_data))
+		self.assertEqual(36, len(model.norm_data))
 
 		# super delayed row
 		row = (47891, 230571, 226625, timedelta(seconds=49260), timedelta(seconds=49500), 1914, datetime(2020, 2, 23, 13, 45, 5), 1196, 2000, 104)
@@ -311,7 +311,7 @@ class TestTwo_stops_models(unittest.TestCase):
 		# deletes one sample
 		model._reduce_errors()
 
-		self.assertEqual(33, len(model.norm_data))
+		self.assertEqual(36, len(model.norm_data))
 
 	def test_create_model(self):
 		rows: list = File_system.pickle_load_object('../input_data/test_two_stops_model_data.list')

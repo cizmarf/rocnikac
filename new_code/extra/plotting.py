@@ -19,7 +19,7 @@ from file_system import File_system
 
 from two_stops_model import Two_stops_model, Norm_data
 
-database_connection = Database(database="vehicle_positions_statistic_database")
+database_connection = Database(database="vehicle_positions_database")
 
 
 def timediff_to_sec(timed):
@@ -96,12 +96,13 @@ for e in num:
 		"all")
 
 	for sts_row in result:
-		model.add_row(sts_row[7],  # shape distance traveled from dep stop
-					  sts_row[3].seconds,  # departure time
-					  sts_row[6],  # day time
-					  sts_row[0],  # id trip
-					  sts_row[4].seconds,  # arr time
-					  sts_row[8])
+		if is_business_day(sts_row[6]):
+			model.add_row(sts_row[7],  # shape distance traveled from dep stop
+						  sts_row[3].seconds,  # departure time
+						  sts_row[6],  # day time
+						  sts_row[0],  # id trip
+						  sts_row[4].seconds,  # arr time
+						  sts_row[8])
 
 	if len(model) > 0:
 		model.create_model()

@@ -17,7 +17,7 @@ class Static_all_vehicle_positions:
 			sufix = '/*.tar.gz'
 
 		self.files = glob.glob(str(File_system.static_vehicle_positions) + sufix)
-		self.files.sort(key=getmtime)
+		self.files = sorted(self.files)
 
 	def static_get_all_vehicle_positions_json(self):
 

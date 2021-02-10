@@ -83,6 +83,7 @@ class TestData(unittest.TestCase):
 				) AS deriv
 				WHERE deriv.rowindex IN (FLOOR(@rowindex / 2), CEIL(@rowindex / 2));""", multi=True)
 
+		# bug in python 3.7
 		self.assertAlmostEqual(float(list(result)[1].fetchall()[0][0]), 943.0)
 
 	def test_median_stop_distance_for_all_rides(self):
