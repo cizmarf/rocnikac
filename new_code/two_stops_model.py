@@ -378,7 +378,7 @@ class Two_stops_model:
 		self._reduce_errors()
 
 		# more than 10 x 4 data samples per km needed, distance between stops is already filtered by sql query
-		if len(self.norm_data) < self.distance * 0.001 * 10 * 4:
+		if len(self.norm_data) < self.distance * 0.001 * 10 * 6:
 			self.model = Two_stops_model.Linear_model(self.distance)
 			return
 
@@ -407,7 +407,7 @@ class Two_stops_model:
 
 		# coordinates times and distance are semi linear dependent
 
-		rate = np.divide(coor_times, np.divide(norm_shapes, 10), where=norm_shapes!=0)
+		rate = np.divide(coor_times, np.divide(norm_shapes, 10), where=norm_shapes!=0,) != np.array(None)
 
 		# print("mena:", abs(rate - rate.mean()))
 		# print("std:", rate.std())

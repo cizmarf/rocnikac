@@ -15,7 +15,8 @@ Délka trasy mezi dvěma refernčními body nezříka dosahuje i několika desí
 Detailní rozbor počtu průjezdů mezi zastávkami v daných vzdálenostech je vidět na grafu \ref{fig:stop_distances_result}. Kde průjezdem se myslí každý jednotlivý průjezd vozidla mezi danou dvojcí zastávek v daný den. Data jsou platná pro spoje jedoucí v 20. 2. 2020.
 
 \begin{figure}
-  \includegraphics[width=\linewidth]{../img/stop_distances_plot_2020-02-20.png}
+	\centering
+  \includegraphics[width=0.6\linewidth]{../img/stop_distances_plot_2020-02-20.png}
   \caption{Graf počtu úseků mezi následujícími zastávkami a vzdálenotí mezi nimi.}
   \label{fig:stop_distances_result}
 \end{figure}
@@ -34,113 +35,54 @@ Přidaná hodnota je tedy v tom, že Práce navrhne takové modely, které nebud
 
 \bigbreak
 
-Celé ilustrováno na příkladě.
-
-\bigbreak
-
 Pro řešení toho typu spoždění stačí navrhnout systém na odhat zpoždění v půběhu jízdy mezi referenčními body z historikých dat jízd.
-
-\bigbreak
-
-Tento odhad změny zpoždění na trase mezi dvěma referenčními body je nutné počítat v co nejkratším čase tak, aby cestující byli dobře informování o stavu jejich spoje a mohli tyto informace využít např. při dobíhání spoje. A proto je potřeba zpracovávat data okamžitě po jejich vydání, spočítat odhad zpoždění a vystavit tato data veřejně. Vzhledem k tomu, že tato data velmi rychle zastarávají je nutné provádět tento proces co možná nejrychleji\footnote{Průměrná doba jízdy spoje mezi zastávkami je cca 5 min. Rozložení počtu úseků mezi zastávekami k délce jízdy mezi nimi je závislé a podobné rozložení vůči vzdálenosti ilustrované na grafu\ref{fig:stop_distances_result}.}.
 
 \bigbreak
 
 Pro vyloučení všech pochybností je hodno uvést, že se naše Práce nesnaží předpovědět zpoždění, které spoj může nabrat vzhledem k dosavadnímu průběhu trasy. Tedy např. nijak nezohlednˇuje to, že spoj právě stojí v mimořádné koloně a dalo by se tedy předpokládat, že zpoždění bude rychle růst i v následujících minutách. Ale naopak Práce se snaží odhadnou zpoždění v danném bodě na trase vzhledem k obvyklému profilu jízdy. Tedy např. pokud by výše uvažavaná kolona byla pravidelná Práce ji zohlední ve statistických modelech.
 
-\subsection{Současná řešení}
 
-Takový algoritmus na odhat aktuálního zpoždění mezi dvěma referenčními body již exituje a je zakomponován v systému, ze kterého se čerpají data pro tuto práci. (Detailní popis dat uveden v kapitole ~\ref{chapter:TODO later}.) Nicméně nezohledňuje základní parametry průběhu trasy. Tento algoritmus nahlíží na postup vozidla na trase jako na lineární funkci vůči času. Je ovšem zřejmé, že rychlost vozidel není konstantní, neboli doba jízdy není linárně závislá na ujeté vzdálenosti.
+\subsection{Příklad nelineárního profilu trasy}
 
-\section{Analýza požadavků na uživatelskou aplikaci}
-
-Součástí práce je i vizualizace spočítaných dat. Jinými slovy nástroj umožňující přístup uživatelů ke spočítaným datům.
-
-\subsubsection{Funkční požadavky}
-
-\begin{itemize}
-	\item Aplikace vykreslí interaktivní mapu Prahy a širšího okolí, kterou bude možné posouvat či zoomovat. V této mapě budou zobrazeny jednotlivé vozidla na aktuálních pozicích a budou se automaticky posouvat po mapě, tak jak se pohybují ve skutečnosti.
-
-	\item Po kliknutí na vozidlo se zobrazí jeho celá trasa včetně zastávek a jeho dopočítaného zpoždění.
-
-	\item Po kliknutí na zastávku se zobrazí seznam spojů, které budou projíždět vybranou zastávkou a jejich trasy se vykreslí do mapy.
-
-	\item Celá aplikace bude postavena na principu server -- client. Tedy serverová strana se postará o přístup k otevřeným datům o vozidlech a jejich uložení a také obsluhu požadavků klienta. Klientská část bude webová stránka poskytující služby popsané výše. Měla by být schopná zobrazit řádově tisíce vozidel.
-\end{itemize}
-
-\subsubsection{Nefunkční požadavky}
-
-\begin{itemize}
-	\item Serverová část bude napsaná v jazyce Python 3.
-
-	\item Webová část bude napsaná pomocí jazyků pro webové technologie, převážně v JavaScriptu.
-
-	\item Pro vykleslení mapy bude využita služba Mapbox.
-
-	\item Ukládání dat na serverové straně bude řešeno MySQL databází.
-
-	\item Pro algoritmus odhadu zpoždění na zákldě historických dat budou využity různé knihovny pro jazyk Python 3. Zejména pak scikit-learn a alphashape.
-
-\end{itemize}
-
-\subsubsection{Proces běhu aplikace}
-
-Jak je již zmíněno aplikace bude využívat historická data, tedy bude nutné nechat aplikaci tato data nějakou dobu sbírat. Pro efektivní odhady by bylo vhodné mít uložené historické polohy vozidel alespoň z uplynulých několika týdnů.
+Celé ilustrováno na příkladě jízd mezi dvěma zastávkama K letišti a ZLičín, kde je nelineární profil jízdy vidět velice dobře. Jedná se totiž o trasu přesně odpovídající popisu problému.
 
 \bigbreak
 
-Avšak již v průběhu sběru dat může aplikace poskytovat základní službu a to vizualizování vozidel v mapě.
+Popsané rozdíly v rychlosti a nelineární profil trasy je patrný na grafu \ref{fig:k_letisti_to_zlicin_3d}. Za povšimnutí táké stojí viditelné spomalení průjezdů v ranní špičce, 7--9 hodina ráno.
 
-\subsection{Poskytovatelé mapových podkladů}
-
-K takovému účelu nejlépe poslouží vykreslení aktuálních poloh vozidel do mapy, kde se po vyžádání uživatelem tyto data zobrazí.
-
-\bigbreak
-
-Za účelem vytvoření dostatečně přívětivé uživatelské aplikace je nezbytné využít některého z poskytovatelů mapových podkladů a zanést do něj získané informace.
+\begin{figure}
+  \includegraphics[width=\linewidth]{../img/k_letisti_to_zlicin_3d.png}
+  \caption{Modrá plocha značí vymodelovaný profil trasy. Oražové body jsou jednotlivé vzorky polohy vozidel. Data pro graf jsou ze dnů 20.--21. 2. 2020}
+  \label{fig:k_letisti_to_zlicin_3d}
+\end{figure}
 
 \bigbreak
 
-Jedním z těchto poskytovatelů je společnost Google, která má propracované mapové podklady a prostřednictvím služby Google Maps poskytuje pro tuto práci požadovanou službu. Další platformou je Mapbox, který poskytuje velmi podobné služby jako Google Maps. Nicméně narozdíl od Googlu využívá jako mapový podklad \gls{osm} {otevřená geografické data}. Protože smyslem práce je v co největší míře využít otevřená data je žádoucí využít právě Mapbox.
+Na obrázku \ref{fig:k_letisti_to_zlicin_map} je pro bližší představu popsané trasy vidět trasa spoje vykreslená do mapy.
+
+\begin{figure}
+	\centering
+  \includegraphics[width=0.3\linewidth]{../img/k_letisti_to_zlicin_map.png}
+  \caption{Trasa mezi zastávkama K Letišti a Zličín. Zdroj: mapy.cz}
+  \label{fig:k_letisti_to_zlicin_map}
+\end{figure}
+
+\subsubsection{Rozbor trasy}
+
+Celá tato trasa má necelých 7 km a její průjezd spojem VHD trvá 10 minut. Prvních 600 metrů je vedeno po obecní komunikaci, přes křižovatku a nájezd na Pražský okruh. Průměrná rychlost vozidel byla 35 km/h\footnote{Počítáno podle vozidel, které poslaly polohu v 600m (resp. 4.9km, resp. 6.6km pro další údaje o rychlosti) vzdálenosti od zastávky. Počet záznamů o poloze vozidel se v různých vzdálenostech liší.}.
 
 \bigbreak
 
-TODO dokumentace mapbox, zeptat se jestli je to vubec nutne rozebirat
+Dále trasa pokračuje přes Pražský okruh rovně až do vzdálenosti 4.9 km od zastávky K Letišti, kde začíná nájezd na ulici Na Radost. Dá se předpokládat, že vozidla se na komunikaci vyšší třídy pohybují rychleji což dokazuje, že na tomto úseku trasy se průměrná rychlost vozidel zvýšila na 63 km/h.
+
+\bigbreak
+
+Poslední úsek se tedy skládá z výjezdu z Pražského okruhu, průjezdu křižovatkou, jízdy po obecní komunikaci a vjezdu do stanice Zličín. Délka úseku je 2 km. Průměrná rychlost za celou trasu se na tomto úseku snížila na 55 km/h.
 
 \subsection{Současná řešení}
 
-Vizualizaci vozidel \gls{vhd} do mapy již nabízí několik portálů. Všechny jsou však poměrně strohé.
-
-\subsubsection{Golemio}
-
-Takovou mapu zobrazuje i samotný provozavatel datové platformy. Nicméně nejsou zde vidět ani čísla linek zobrazených autobusů, natož pak nějaké další informace.
-
-\begin{figure}
-  \includegraphics[width=\linewidth]{../img/golemio_mapa.png}
-  \caption{Mapa z golemio.cz.}
-  \label{fig:golemio_result}
-\end{figure}
-
-\subsubsection{Tram-bus}
-
-Dalším poskytovatelem je portál tram-bus, který si vede o něco lépe. Ukazuje směr jízdy vozidel, čísla linek a po kliknutí informace o zpoždění a nejbližší zastávky. Pozn.: na mapě již jsou vidět spoje \gls{dpp}, protože v době psaní této práce již byly data veřejné.
-
-\begin{figure}
-  \includegraphics[width=\linewidth]{../img/tram-bus_mapa.png}
-  \caption{Mapa z www.tram-bus.cz.}
-  \label{fig:tram-bus_result}
-\end{figure}
-
-\subsubsection{\gls{idsjmk}}
-
-Mimo Prahu je velice pěkně udělaná aplikace pro zobrazení vozidel \gls{idsjmk} (Integrovaný dopravní systém Jihomoravského kraje). Ten ihned po načtení stránky zobrazuje všechny dobravní prostředky, tedy tramvaje, autobusy a vlaky vše s čísly linek. Dále pak umožňuje po kliknutí na vybraný spoj zobrazit více informací včetně jízdního řádu.
+Takový algoritmus na odhat aktuálního zpoždění mezi dvěma referenčními body již exituje a je součástí Datové Platformy -- Golemio, ze kterého se čerpají data pro tuto práci. (Detailní popis dat uveden v kapitole ~\ref{chapter:TODO later}.) Nicméně nezohledňuje variabilitu profilu trasy. Tento algoritmus totiž nahlíží na postup vozidla na trase jako na lineární funkci vůči času. Je ovšem zřejmé, že rychlost vozidel není konstantní, neboli doba jízdy není linárně závislá na ujeté vzdálenosti.
 
 \bigbreak
 
-Tato aplikace je po vizuální i funkční stránce dobrou inspirací pro tvorbu aplikace v této práci.
-
-\begin{figure}
-  \includegraphics[width=\linewidth]{../img/idsjmk_mapa.png}
-  \caption{Mapa z mapa.idsjmk.cz.}
-  \label{fig:idsjmk_result}
-\end{figure}
+Proto je potřeba tento odhad zpřesnit, což je cílem naší práce.
