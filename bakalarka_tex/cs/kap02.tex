@@ -1,12 +1,13 @@
 \newcommand{\documentationAtt}[2] {#1 #2}
 
-\chapter{Analýza zdroje dat}
+\chapter{Analýza zdroje dat} \label{chapter:analyza_zdroje}
+}
 
 V této kapitole je popsán zdroj real-timových dat o polohách vozidel využívané v této práci.
 
 \section{Přístup k datům}
 
-Na mnohých jednáních s kolegy ze společnosti Operator ICT bylo řečeno, že využívané vozidla vysílají data o své poleze při různých událostech. Zejména pak při brždění, rozjezdu, ale také, pro účely této práce nejdůležitější, při vyhlášení zastávky, nebo jinak každých 20 sekund.
+Vozidla vysílají data o své poleze při různých událostech. Zejména pak při brždění, rozjezdu, vyhlášení zastávky, nebo jinak každých 20 sekund\footnote{Řečeno zaměstnancem OICT na schůzce 4. 5. 2019}.
 
 \bigbreak
 
@@ -15,6 +16,10 @@ Taková data pak přímo putují k provozavoateli systému na monitorování voz
 \bigbreak
 
 Po té co jsou tyto data přeneseny do společnosti Operátor ICT by měla být zveřejněna, nicméně data ve výše popsané podobě jsou poměrně chudá, proto je k nim přidáno více atributů. Z pohledu této práce je nejzajímavější informace o vzdálenosti, kterou vozidlo urazilo od jeho výchozí zastávky. Dále jsou přidána data o jízdních řádech a zastávkách jejichž původcem je \gls{ropid}.
+
+\bigbreak
+
+Real-time data o polohách, která jsou již neplatná (zastaralá) se neposílají (posílá vždy pouze nejaktuálnší informace) a i z Datové platformy jsou data po pár minutách nenávratně smazány.
 
 \subsection{Dokumentace}
 
