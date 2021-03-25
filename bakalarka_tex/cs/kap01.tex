@@ -80,8 +80,17 @@ Dále trasa pokračuje přes Pražský okruh rovně až do vzdálenosti 4.9 km o
 Poslední úsek se tedy skládá z výjezdu z Pražského okruhu, průjezdu křižovatkou, jízdy po obecní komunikaci a vjezdu do stanice Zličín. Délka úseku je 2 km. Průměrná rychlost za celou trasu se na tomto úseku snížila na 55 km/h.
 
 
+\subsection{Současná řešení}
 
+Algoritmus na odhat aktuálního zpoždění mezi dvěma referenčními body již exituje a je součástí Datové Platformy -- Golemio, ze kterého se čerpají data pro tuto práci. (Detailní popis dat uveden v kapitole ~\ref{chapter:TODO later}.)
 
+\bigbreak
+
+Nicméně tento algoritmus nijak nezohledňuje variabilitu profilu trasy. Totiž v tomto řešení je nahlíženo na postup vozidla na trase jako na lineární funkci vůči času. Je ovšem zřejmé, že rychlost vozidel není konstantní, neboli doba jízdy není linárně závislá na ujeté vzdálenosti.
+
+\bigbreak
+
+Proto je potřeba tento odhad zpřesnit, což je cílem naší práce. K tomuto cíli jsme byli nasměrování v rámci schůzky s pracvoníky společnosti OICT, kde bylo řečeno, že toto je problém současného řešení, který je potřeba vyřešit.
 
 
 
@@ -335,14 +344,63 @@ Sběr dat probíhal ve dnech 20.--24. 2. 2020.
 
 \bigbreak
 
-Data byla přebírána pouze z dat o každé jednotlivé jízdě a aktuálních poloh vozidel stahovaných každých 20 sekund. Tedy pokud určitou zastávkou žádný spoj neprojel nebo se uložení spoje z důvodu neúplných dat nezdařilo, může nějaká zastávka v databázi chybět. Stejně tak mohou chybět i nějaké spoje. Nicméně jedná se zanedbatelné množství a navíc práce nemůže počítat s poškozenými daty a není jejím úkolem držet všechny zastávky, ale pouze ty kterými nějaký spoj projíždí. To z důvodu přehlednosti zastávek při vizualizaci, kde ukazovat nepoužívané zastávky nemá smysl a také pro odhady zpoždění nedává smysl počítat něco pro zastávku, která není obsluhovaná.
+Data byla přebírána pouze z dat o každé jednotlivé jízdě a aktuálních poloh vozidel stahovaných každých 20 sekund. Tedy pokud určitou zastávkou žádný spoj neprojel nebo se uložení spoje z důvodu neúplných dat nezdařilo, může nějaká zastávka v databázi chybět. Stejně tak mohou chybět i nějaké spoje. Nejčastěji chybějící požadovaná data jsou informace o spoždění spoje v poslední zastávce, zcela nenalezený spoj ve zdroji dat a tedy chybějící jízdní řád. Nicméně jedná se zanedbatelné množství. Práce totiž nemůže počítat s poškozenými daty a není jejím úkolem držet všechny zastávky, ale pouze ty kterými nějaký spoj projíždí. To z důvodu přehlednosti zastávek při vizualizaci, kde ukazovat nepoužívané zastávky nemá smysl a také pro odhady zpoždění nedává smysl počítat něco pro zastávku, která není obsluhovaná.
 
 \subsubsection{Zastávky}
 
 Do databáze bylo celkem vloženo 5820 nástupištˇ, které náleží celkem 2961 zastávkám. Ale naprostá většina (74 \%) zastávek jsou párová, tedy mají pouze 2 nástupiště. Jednosměrných zastávek je 18 \%, zastávek se 3 nástupišti jsou 3 \%. Nejvíce nástupištˇ mají stanice Slaný Aut. nádr. (14), Černý Most (12), Kladno Autobusové nádraží (11).
 
-\subsection{Jízdy}
+\subsubsection{Jízdy}
 
-Celkem bylo nalezeno 12788 spojů, bytˇ některé z nich mohly vyjet vícekrát (v jiný den) v datech se nepodařilo jediný takový spoj najít.
+Celkem bylo nalezeno 12788 spojů, z nich naprostá většina vyjela opakovaně v následující den\footnote{Ze všech vypravených jízd ve dnech 20. 2. 2020 (9334) a 21. 2. 2020 (9428) jich 9051 bylo označeno ve zdrojových datech stejným identifikátorem, tedy z našeho pohledu sdílely jízdní řád a cestu.}.
 
-Další rozbor dat na grafu \ref{fig:stop_distances_result}
+Další rozbor dat na grafu \ref{fig:stop_distances_result} a v kapitole \ref{TODO:statistika}.
+
+
+
+
+\section{Analýza vizualizačních nástrojů}
+
+Jak bylo řečeno v úvodu, součástí práce je i vizualizace spočítaných dat.
+
+\bigbreak
+
+To bude provedeno formou front endové aplikace, která zobrazuje mapu a do ní zanáší data o vozidlech VHD. Funkční požadavky této aplikace jsou inspirované již existujícími řešeními tohoto problému.
+
+\subsection{Současná řešení} \label{chapter:soucasna_reseni_front_end}
+
+Vizualizaci vozidel \gls{vhd} do mapy již nabízí několik portálů. Všechny jsou však poměrně strohé.
+
+\subsubsection{Golemio}
+
+Takovou mapu zobrazuje i samotný provozavatel datové platformy. Nicméně nejsou zde vidět ani čísla linek zobrazených autobusů, natož pak nějaké další informace.
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{../img/golemio_mapa.png}
+  \caption{Mapa z golemio.cz.}
+  \label{fig:golemio_result}
+\end{figure}
+
+\subsubsection{Tram-bus}
+
+Dalším poskytovatelem je portál tram-bus, který si vede o něco lépe. Ukazuje směr jízdy vozidel, čísla linek a po kliknutí informace o zpoždění a nejbližší zastávky. Pozn.: na mapě již jsou vidět spoje \gls{dpp}, protože v době psaní této práce již byly data veřejné.
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{../img/tram-bus_mapa.png}
+  \caption{Mapa z www.tram-bus.cz.}
+  \label{fig:tram-bus_result}
+\end{figure}
+
+\subsubsection{\gls{idsjmk}}
+
+Mimo Prahu je velice pěkně udělaná aplikace pro zobrazení vozidel \gls{idsjmk} (Integrovaný dopravní systém Jihomoravského kraje). Ten ihned po načtení stránky zobrazuje všechny dobravní prostředky, tedy tramvaje, autobusy a vlaky vše s čísly linek. Dále pak umožňuje po kliknutí na vybraný spoj zobrazit více informací včetně jízdního řádu.
+
+\bigbreak
+
+Tato aplikace je po vizuální i funkční stránce dobrou inspirací pro tvorbu aplikace v této práci.
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{../img/idsjmk_mapa.png}
+  \caption{Mapa z mapa.idsjmk.cz.}
+  \label{fig:idsjmk_result}
+\end{figure}
