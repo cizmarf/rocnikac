@@ -22,7 +22,7 @@ Schéma návrhu celé aplikace a komunikační mapa jednotlivých komponent je 
 
 \begin{figure}
 	\centering
-  \includegraphics[width=140]{../img/design_diagram}
+  \includegraphics[width=\linewidth]{../img/design_diagram}
   \caption{UML diagram návrhu aplikace}
   \label{fig:design_diagram}
 \end{figure}
@@ -30,7 +30,7 @@ Schéma návrhu celé aplikace a komunikační mapa jednotlivých komponent je 
 \subsection{Funkční a kvalitativní požadavky}
 
 Nejprve specifikujme požadavky systému, na kterém se pak bude zakládat
-konkrétní návrh řešení backendu celé aplikace (bez vizualizace).
+konkrétní návrh řešení jádra celé aplikace (bez backendu vizualizace).
 
 \subsubsection{Funkční požadavky}
 
@@ -44,15 +44,15 @@ Data o polohách vozidel VHD v Datové platfomě jsou aktualizována nejpozději
 
 \item
 
-Odhad zpoždění se bude provádět na základě historických dat z posledních vyšších jednotek dnů\footnote{Pro demonstrativní účely této práce jsou využívány historická data pouze ze 4 dnů (2 pracovní a 2 víkendové).}. Tím se sníží dopad mimořádné události na předpovědní model, která může na trase vzniknout. Zárovenˇ by však neměla být započítávána data starší několik týdnů, protože dopravní situace se mění v závislosti na ročním období nebo také pokud je na trase delší omezení dopravy je požadováno, aby se takové omezení projevilo co možná nejdříve. Navíc se bude rozlišovat mezi daty z pracovních dnů a nepracovních dnů, to protože samotné jízdní řády se mohou lišit (doba jízdy mezi mezastávkama) a také se do velké míry liší hustota dopravy, která ma velký vliv na profil jízdy. TODO do navrhy na zlepseni: Pro zpřesnění výsledků by bylo lepsi respektovat svatky, kazdy den v tydnu zvlast atp.
+Odhad zpoždění se bude provádět na základě historických dat z posledních vyšších jednotek dnů\footnote{Pro demonstrativní účely této práce jsou využívány historická data pouze ze 4 dnů (2 pracovní a 2 víkendové).}. Tím se sníží dopad mimořádné události na předpovědní model, která může na trase vzniknout. Zárovenˇ by však neměla být započítávána data starší několik týdnů, protože dopravní situace se mění v závislosti na ročním období nebo také pokud se na trase vyskytne delší omezení dopravy. Pak je požadováno, aby se takové omezení projevilo v modelu profilu jízdy co možná nejdříve. Navíc se bude rozlišovat mezi daty z pracovních dnů a nepracovních dnů, to protože samotné jízdní řády se mohou lišit\footnote{Ve dnech pacovního volna se v některých případech liší doba jízdy mezi mezastávkama pro stejnou dvojci zastávek. A to je porušení základního předpokladu z kapitoly \ref{section:zakladni_predpoklady} Základní předpoklady.} a také se do velké míry liší hustota dopravy, která ma velký vliv na profil jízdy. TODO do navrhy na zlepseni: Pro zpřesnění výsledků by bylo lepsi respektovat svatky, kazdy den v tydnu zvlast atp.
 
 \item
 
-Zpracování historických dat bude probíhat vždy po delší době, nejlépe jednou za den. To umožní provádět náročnější výpočty, které by za normálního provozu neúměrně přetížily systém. Navíc vzhledem k povaze cíle práce ani není žádoucí zpracování historických dat provádět častěji než jednou denně, protože se nepokoušíme okamžitě reagovat na změnu dopravní situace.
+Zpracování historických dat bude probíhat vždy po delší době, nejlépe jednou za den. To umožní provádět náročnější výpočty, které by za normálního provozu neúměrně přetížily systém. Navíc vzhledem k povaze cíle práce ani není žádoucí zpracování historických dat provádět častěji než jednou denně, protože se nepokoušíme okamžitě reagovat na změnu dopravní situace, ale modelovat profil jízdy vždy až pro celý den.
 
 \item
 
-Uložená historická data budou struktorovaná tak, aby nad nimi šly provádět statistické výpočty minimálně o frekvencích spojů, vzdálenostech tras, zpoždění spojů.
+Uložená historická data budou struktorovaná tak, aby nad nimi mohly být prováděny statistické výpočty minimálně o frekvencích jízd spojů, vzdálenostech tras a zpoždění spojů.
 \end{itemize}
 
 \subsubsection{Kvalitativní požadavky}
@@ -60,10 +60,13 @@ Uložená historická data budou struktorovaná tak, aby nad nimi šly provádě
 \begin{itemize}
 
 	\item
-	Řešení bude schopno při jedné aktualizaci zpracovat alesponˇ 1000\footnote{20. 2. 2020 mezi 7:00 a 7:10 bylo na trase přes 600 vozidel} vzorků poloh vozidel, kde 10 \% vzorků může být o dosut neznámých jízdách. V tomto případě je potřeba stáhnout jízdní řád konkrátní jízdy a její jízdní profil, což navíc dotaz na zdroj dat.
+	Řešení bude schopno při jedné aktualizaci zpracovat alesponˇ 1000\footnote{20. 2. 2020 mezi 7:00 a 7:10 bylo na trase přes 600 vozidel} vzorků poloh vozidel, kde 10 \% vzorků může být o dosut neznámých jízdách. V tomto případě je potřeba stáhnout jízdní řád konkrétní jízdy a její jízdní profil, což představuje navíc dotaz na Datovou platformu jakožto zdroje dat pro tuto práci.
 
 	\item
-	Vypočítané modely profilů jízd budou dávat odhat zpoždění lepší, než je lineární odhad. To znamená, že zpoždění vypočítaná pro každý přijatý vzorek polohy vozidla mezi dvěma referenčními body na trase bude mít menší rozptyl než lineární odhad zpoždění.
+	Vypočítané modely profilů jízd budou dávat odhat zpoždění lepší (až na vyjimku popsanou níže), než je lineární odhad. To znamená, že zpoždění vypočítaná pro každý přijatý vzorek polohy vozidla mezi dvěma referenčními body na trase bude mít menší rozptyl než lineární odhad zpoždění.
+
+	\item
+	V případě, že spočítaný odhad zpoždění vozidla by zastaral natolik rychle, že v okamžik zveřejnění by již nebyl platný, nedává smysl zpoždění odhadovat pokročilejší metodou.
 
 \end{itemize}
 
@@ -82,7 +85,7 @@ Za tímto účelem tato práce využívá relační databázi obsluhovanou dotaz
 
 
 \begin{figure}[p]\centering
-\includegraphics[width=140mm]{../img/eer_database}
+\includegraphics[width=\linewidth]{../img/eer_database}
 % Příponu není potřeba explicitně uvádět, pdflatex automaticky hledá pdf.
 % Rozměry také není nutné uvádět.
 \caption{EER diagram databáze.}
@@ -151,16 +154,16 @@ Za tímto účelem tato práce využívá relační databázi obsluhovanou dotaz
 
 		\end{itemize}
 
-	\item \verb-rides- trasa každého tripu, seznam zastávek s časy odjezdů a příjezd tvořící jízdní řád
+	\item \verb-rides- trasa každého tripu, seznam zastávek s časy odjezdů a příjezd tvořící jízdní řád, relační tabulka mezi spoji a zastávkami, pořadí zastávek v jakém jsou spojem obslouženy je určeno časem příjezdu resp. odjezdu tak i atributem \verb-shape_dist_traveled-
 
 	\begin{itemize}
-		\item \verb-id_stop- identifikátor tripu
+		\item \verb-id_trip- identifikátor tripu
 
 		\item \verb-id_stop- identifikátor zastávky
 
 		\item \verb-arrival_time- čas příjezdu tripu do zastávky
 
-		\item \verb-departure_time- časodjezduu tripu ze zastávky
+		\item \verb-departure_time- čas odjezduu tripu ze zastávky
 
 		\item \verb-shape_dist_traveled- vzdálenost zastávky od výchozí zastávky tripu
 
@@ -176,7 +179,7 @@ Každá tabulka má několik indexů, které zlepšují výkon databáze při vk
 
 \bigbreak
 
-Databáza je nastavená tak, aby umožňovala získat všechny potřebné informace o vozidlech, ale hlavně přístup k historickým real-time datům a to separovaně pro dvojci refenčních bodů.
+Databáza je nastavená tak, aby umožňovala získat všechny potřebné informace o vozidlech, ale hlavně přístup k historickým real-time datům a to separovaně pro dvojci refenčních bodů. K tomu se zejména využívá atribut \verb-shape_dist_traveled-, který označuje vzdálenost na trase od výchozí zastávky a je součástí vstupních dat jízdních řádů i aktuálních poloh vozidel.
 
 \subsection{Plnění databáze}
 
@@ -220,54 +223,49 @@ Mimo popsanou databázi se do určeného adresáře ukládají trasy jednotlivý
 
 \section{Vizualizace dat}
 
+ Aplikace vizualizace dat bude postavena z částí server -- client. Tedy serverová strana se postará o přístup k otevřeným datům z databáze na základě požadavků klienta.
+
 \subsection{Funkční požadavky}
 
+Funkční požadavky vyplývají z rozboru existujících řešení v kapitole \ref{subsection:soucasna_reseni_front_end}. Konkrétně z jejich uživatelké přívětivosti a užitečnosti zobrazovaných informací.
+
 \begin{itemize}
-	\item
 
-	\item Aplikace vykreslí interaktivní mapu Prahy a širšího okolí, kterou bude možné posouvat či zoomovat. V této mapě budou zobrazeny vozidla na aktuálních pozicích a budou se automaticky posouvat po mapě, tak jak se pohybují ve skutečnosti.
+	\item Aplikace vykreslí interaktivní mapu Prahy, Středočeského kraje a širšího okolí obsluhovaného \gls{pid}em, kterou bude možné posouvat či zoomovat.
 
-	\item Po kliknutí na vozidlo se zobrazí jeho celá trasa včetně zastávek a jeho dopočítaného zpoždění.
+	\item V této mapě budou zobrazeny vozidla na aktuálních pozicích a budou se automaticky posouvat po mapě, tak jak se pohybují ve skutečnosti.
+
+	\item Po kliknutí na vozidlo se zobrazí jeho celá trasa včetně zastávek a časů průjezdů a jeho dopočítaného zpoždění.
 
 	\item Po kliknutí na zastávku se zobrazí seznam spojů, které budou projíždět vybranou zastávkou a jejich trasy se vykreslí do mapy.
 
 	\item Celá aplikace bude postavena na principu server -- client. Tedy serverová strana se postará o přístup k otevřeným datům o vozidlech a jejich uložení a také obsluhu požadavků klienta. Klientská část bude webová stránka poskytující služby popsané výše. Měla by být schopná zobrazit řádově tisíce vozidel.
-\end{itemize}
-
-\subsubsection{Nefunkční požadavky}
-
-\begin{itemize}
-	\item Serverová část bude napsaná v jazyce Python 3.
-
-	\item Webová část bude napsaná pomocí jazyků pro webové technologie, převážně v JavaScriptu.
-
-	\item Pro vykleslení mapy bude využita služba Mapbox.
-
-	\item Ukládání dat na serverové straně bude řešeno MySQL databází.
-
-	\item Pro algoritmus odhadu zpoždění na zákldě historických dat budou využity různé knihovny pro jazyk Python 3. Zejména pak scikit-learn a alphashape.
 
 \end{itemize}
 
-\subsubsection{Proces běhu aplikace}
+\subsection{Kvalitativní požadavky}
 
-Jak je již zmíněno aplikace bude využívat historická data, tedy bude nutné nechat aplikaci tato data nějakou dobu sbírat. Pro efektivní odhady by bylo vhodné mít uložené historické polohy vozidel alespoň z uplynulých několika týdnů.
-
-\bigbreak
-
-Avšak již v průběhu sběru dat může aplikace poskytovat základní službu a to vizualizování vozidel v mapě.
-
-\subsection{Poskytovatelé mapových podkladů}
-
-K takovému účelu nejlépe poslouží vykreslení aktuálních poloh vozidel do mapy, kde se po vyžádání uživatelem tyto data zobrazí.
+Front-end aplikace musí být schopný zobrazit v mapě řádově tisíce vozidel. Nebo je v případě velké hustoty vozidel na malém prostoru skrýt tak, aby nedošlo k matení uživatele.
 
 \bigbreak
 
-Za účelem vytvoření dostatečně přívětivé uživatelské aplikace je nezbytné využít některého z poskytovatelů mapových podkladů a zanést do něj získané informace.
+Servoravá část včetně databáze bude schopná obsloužit jeden dotaz za sekundu a to pouze pro demonstrační účely. Účelem práce tedy není budování rozbustního backe-endového řešení schoného produkčního nasazení.
+
+\subsection{Mapové podklady}
+
+Jak vyplývá z funkčních požadavků data budou zobrazována v mapě. Mapu si samozřejmě nebudeme kreslit sami, ale využijeme jedno z již existujcích řešení, které umožnˇuje zobrazení mapy a do ní zanést vlastní data. Takové služby mohou být provozovatelem zpoplatněny, ale pro naše demonstrační účely, kdy budeme využívat tuto službu velmi málo bývá od poplatků upoštěno.
 
 \bigbreak
 
-Jedním z těchto poskytovatelů je společnost Google, která má propracované mapové podklady a prostřednictvím služby Google Maps poskytuje pro tuto práci požadovanou službu. Další platformou je Mapbox, který poskytuje velmi podobné služby jako Google Maps. Nicméně narozdíl od Googlu využívá jako mapový podklad \gls{osm} {otevřená geografické data}. Protože smyslem práce je v co největší míře využít otevřená data je žádoucí využít právě Mapbox.
+Jedním z těchto poskytovatelů je společnost Google, která má propracované mapové podklady a prostřednictvím služby Google Maps poskytuje pro tuto práci požadovanou službu.
+
+\bigbreak
+
+Další platformou je Mapbox, který poskytuje s využitím dalších knihovem velmi podobné služby jako Google Maps. Nicméně narozdíl od Googlu využívá jako mapový podklad \gls{osm} {otevřená geografické data}.
+
+\bigbreak
+
+Protože smyslem práce je v co největší míře využít otevřená data je žádoucí využít právě službu Mapbox.
 
 \bigbreak
 

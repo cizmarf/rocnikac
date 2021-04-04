@@ -128,21 +128,19 @@ Současně s využívanou verzí \gls{api}, je nasazená i pokročilejší \gls{
 
 \bigbreak
 
-Oficiální dokumnetace datové platformy\footnote{Golemio: https://golemioapi.docs.apiary.io} je poměrně zastaralá sama o sobě tak, že aktuální sada parametrů jí neodpovídá a neobsahuje žádné popisy nebo vysvětlení dat. Proto vysvětlení jednotlivých atributů se zakládá na intuitivním pochopení nebo vyplynulo z jednání se správci platformy. V následujících kapitolách bude popsán formát dat, tak jak přichází ze zdroje. Ten se může od oficiálně vystavené dokumentace lišit. A také budou popsány pouze atributy využívané v této práci nebo zajímavé pro její budoucí rozvoj.
+Oficiální uživatelská dokumentace datové platformy\footnote{Golemio: https://golemioapi.docs.apiary.io} je poměrně zastaralá sama o sobě tak, že aktuální sada parametrů jí neodpovídá a neobsahuje žádné popisy nebo vysvětlení dat. Proto vysvětlení jednotlivých atributů se zakládá na intuitivním pochopení nebo vyplynulo z jednání se správci platformy. V následujících kapitolách bude popsán formát dat, tak jak přichází ze zdroje. Ten se může od oficiálně vystavené dokumentace lišit. A také budou popsány pouze atributy využívané v této práci nebo zajímavé pro její budoucí rozvoj.
 
 \bigbreak
 
 Každá datová sada je exportována ve formátu \gls{geojson} pokud se jedná o geografická data, nebo jinak ve formátu \gls{json}. Přistupuje se k nim přes jednotné webové rozhraní pomocí \gls{http} požadavku daného \gls{url} adresou a jeho hlavičkou.
 
-TODO reference na specifikace geojson??? detailnejsi popis pristupoveho api??? https://tools.ietf.org/html/rfc7946
+\bigbreak
+
+Ačkoli se dokumentace tváří tak, že data jsou exportována ve formátech \gls{json} nebo \gls{geojson}, většinou formát dat není přesně podle specifikace těchto formátů. Například může být uveden atribut \verb"wheelchair_accessible", který je typu \verb"bool" a je nastaven na hodnotu \verb"True", nicmně podle specifikace se tyto hodnoty píší s malým písmenem\footnote{V průběhu tvorby této práce byla chyba opravena.}. Pro tuto práci to sice nepředstavuje komplikaci, protože tento atribut není potřeba, ale mohlo by se stát, že některé parsery \gls{json}u vyhodnotí řetězec jako nevalidní a skončí chybou.
 
 \bigbreak
 
-Ačkoli se dokumentace tváří tak, že data jsou exportována ve formátech \gls{json} nebo \gls{geojson}, většinou formát dat není přesně podle specifikace těchto formátů. Například může být uveden atribut \verb"wheelchair_accessible", který je typu \verb"bool" a je nastaven na hodnotu \verb"True", nicmně podle specifikace se tyto hodnoty píší s malým písmenem. Pro tuto práci to sice nepředstavuje komplikaci, protože tento atribut není potřeba, ale mohlo by se stát, že některé parsery \gls{json}u vyhodnotí řetězec jako nevalidní a skončí chybou.
-
-\bigbreak
-
-TODO rozepsat: Celá datová platforma Golemio je pojatá jako Open Source projekt.
+Celá datová platforma Golemio je pojatá jako Open Source projekt\footnote{Programátorská dokumentace je dostupná na https://operator-ict.gitlab.io/golemio/documentation/}. Tedy je možné její zdrojový ko'd vylepšit či opravit nebo také čtením ko'du detailně porozumnět jak zde popisované zpracování dat funguje. Avšak takový rozbor zdrojového ko'du je mimo rozsah této práce.
 
 \subsubsection{Pozice vozidel}
 
@@ -367,13 +365,13 @@ Jak bylo řečeno v úvodu, součástí práce je i vizualizace spočítaných d
 
 To bude provedeno formou front endové aplikace, která zobrazuje mapu a do ní zanáší data o vozidlech VHD. Funkční požadavky této aplikace jsou inspirované již existujícími řešeními tohoto problému.
 
-\subsection{Současná řešení} \label{chapter:soucasna_reseni_front_end}
+\subsection{Současná řešení} \label{subsection:soucasna_reseni_front_end}
 
 Vizualizaci vozidel \gls{vhd} do mapy již nabízí několik portálů. Všechny jsou však poměrně strohé.
 
 \subsubsection{Golemio}
 
-Takovou mapu zobrazuje i samotný provozavatel datové platformy. Nicméně nejsou zde vidět ani čísla linek zobrazených autobusů, natož pak nějaké další informace.
+Takovou mapu zobrazuje i samotný provozavatel datové platformy. Nicméně nejsou zde vidět ani čísla linek zobrazených autobusů, natož pak nějaké další informace. Příklad vizualizace je uveden na obrázku \ref{fig:golemio_result}.
 
 \begin{figure}
   \includegraphics[width=\linewidth]{../img/golemio_mapa.png}
@@ -383,7 +381,7 @@ Takovou mapu zobrazuje i samotný provozavatel datové platformy. Nicméně nejs
 
 \subsubsection{Tram-bus}
 
-Dalším poskytovatelem je portál tram-bus, který si vede o něco lépe. Ukazuje směr jízdy vozidel, čísla linek a po kliknutí informace o zpoždění a nejbližší zastávky. Pozn.: na mapě již jsou vidět spoje \gls{dpp}, protože v době psaní této práce již byly data veřejné.
+Dalším poskytovatelem je portál tram-bus, který si vede o něco lépe. Ukazuje směr jízdy vozidel, čísla linek a po kliknutí informace o zpoždění a nejbližší zastávky. Pozn.: na mapě již jsou vidět spoje \gls{dpp}, protože v době psaní této práce již byly data veřejné. Příklad vizualizace je uveden na obrázku \ref{fig:tram-bus_result}.
 
 \begin{figure}
   \includegraphics[width=\linewidth]{../img/tram-bus_mapa.png}
@@ -393,7 +391,7 @@ Dalším poskytovatelem je portál tram-bus, který si vede o něco lépe. Ukaz
 
 \subsubsection{\gls{idsjmk}}
 
-Mimo Prahu je velice pěkně udělaná aplikace pro zobrazení vozidel \gls{idsjmk} (Integrovaný dopravní systém Jihomoravského kraje). Ten ihned po načtení stránky zobrazuje všechny dobravní prostředky, tedy tramvaje, autobusy a vlaky vše s čísly linek. Dále pak umožňuje po kliknutí na vybraný spoj zobrazit více informací včetně jízdního řádu.
+Mimo Prahu je velice pěkně udělaná aplikace pro zobrazení vozidel \gls{idsjmk} (Integrovaný dopravní systém Jihomoravského kraje). Ten ihned po načtení stránky zobrazuje všechny dobravní prostředky, tedy tramvaje, autobusy a vlaky vše s čísly linek. Dále pak umožňuje po kliknutí na vybraný spoj zobrazit více informací včetně jízdního řádu. Příklad vizualizace je uveden na obrázku \ref{fig:idsjmk_result}.
 
 \bigbreak
 
