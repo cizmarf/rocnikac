@@ -27,7 +27,7 @@ Detailní rozbor počtu průjezdů mezi zastávkami v daných vzdálenostech je 
 
 \bigbreak
 
-Tato Práce tedy modeluje profily jízd mezi referenčními body. A na základě toho zpřesnit odhad zpoždění. Tento odhad by měl být mnohem přesnější než současné odhady, které odpovídají tomu, že vozidlo jede konstantní rychlostí po celou dobu jízdy. Nebo je takové možné brát jako aktuální zpoždění spoje poslední změřené zpoždění při průjezdu nějak7ch referenčním bodem (zastávkou, nebo např. pro tramvaje se používají návěstidla).
+Tato Práce tedy modeluje profily jízd mezi referenčními body. A na základě toho zpřesnit odhad zpoždění. Tento odhad by měl být mnohem přesnější než současné odhady, které odpovídají tomu, že vozidlo jede konstantní rychlostí po celou dobu jízdy. Nebo je takové možné brát jako aktuální zpoždění spoje poslední změřené zpoždění při průjezdu nějakých referenčním bodem (zastávkou, nebo např. pro tramvaje se používají návěstidla).
 
 \bigbreak
 
@@ -42,13 +42,17 @@ Pro řešení odhadu toho typu spoždění stačí navrhnout systém na odhat zp
 Pro vyloučení všech pochybností je hodno uvést, že se naše Práce nesnaží předpovědět zpoždění, které spoj může nabrat vzhledem k dosavadnímu průběhu trasy. Tedy např. nijak nezohlednˇuje to, že spoj právě stojí v mimořádné koloně a dalo by se tedy předpokládat, že zpoždění bude rychle růst i v následujících minutách. Ale naopak Práce se snaží odhadnou zpoždění v danném bodě na trase vzhledem k obvyklému profilu jízdy. Tedy např. pokud by výše uvažavaná kolona byla pravidelná Práce ji zohlední ve statistických modelech.
 
 
-\subsection{Příklad nelineárního profilu trasy}
+\subsection{Příklad nelineárního profilu trasy} \label{subsection:priklad_nelinearni_trasa}
 
 Celé ilustrováno na příkladě jízd mezi dvěma zastávkama K letišti a ZLičín, kde je nelineární profil jízdy vidět velice dobře. Jedná se totiž o trasu přesně odpovídající popisu problému.
 
 \bigbreak
 
-Popsané rozdíly v rychlosti a nelineární profil trasy je patrný na grafu \ref{fig:k_letisti_to_zlicin_3d}. Za povšimnutí táké stojí viditelné spomalení průjezdů v ranní špičce, 7--9 hodina ráno.
+Popsané rozdíly v rychlosti a nelineární profil trasy je patrný na grafu \ref{fig:k_letisti_to_zlicin_3d}. Za povšimnutí táké stojí viditelné spomalení průjezdů v ranní špičce, 7--9 \footnote{časy jsou v UTC} hodina ráno.
+
+\bigbreak
+
+Tento příklad dále podrobněji analyzován v kapitole \ref{subsubsection:analyza_dat}.
 
 \begin{figure}
   \includegraphics[width=\linewidth]{../img/k_letisti_to_zlicin_3d.png}
@@ -344,7 +348,7 @@ Sběr dat probíhal ve dnech 20.--24. 2. 2020.
 
 Data byla přebírána pouze z dat o každé jednotlivé jízdě a aktuálních poloh vozidel stahovaných každých 20 sekund. Tedy pokud určitou zastávkou žádný spoj neprojel nebo se uložení spoje z důvodu neúplných dat nezdařilo, může nějaká zastávka v databázi chybět. Stejně tak mohou chybět i nějaké spoje. Nejčastěji chybějící požadovaná data jsou informace o spoždění spoje v poslední zastávce, zcela nenalezený spoj ve zdroji dat a tedy chybějící jízdní řád. Nicméně jedná se zanedbatelné množství. Práce totiž nemůže počítat s poškozenými daty a není jejím úkolem držet všechny zastávky, ale pouze ty kterými nějaký spoj projíždí. To z důvodu přehlednosti zastávek při vizualizaci, kde ukazovat nepoužívané zastávky nemá smysl a také pro odhady zpoždění nedává smysl počítat něco pro zastávku, která není obsluhovaná.
 
-\subsubsection{Zastávky}
+\subsubsection{Zastávky} \label{subsubsection:zastavky}
 
 Do databáze bylo celkem vloženo 5820 nástupištˇ, které náleží celkem 2961 zastávkám. Ale naprostá většina (74 \%) zastávek jsou párová, tedy mají pouze 2 nástupiště. Jednosměrných zastávek je 18 \%, zastávek se 3 nástupišti jsou 3 \%. Nejvíce nástupištˇ mají stanice Slaný Aut. nádr. (14), Černý Most (12), Kladno Autobusové nádraží (11).
 
