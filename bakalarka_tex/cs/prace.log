@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  9 APR 2021 18:20
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  10 APR 2021 12:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -931,7 +931,7 @@ LaTeX Info: Redefining \nameref on input line 244.
 
  (./titulka.tex
 Package hyperref Info: Option `pageanchor' set `false' on input line 6.
-<../img/logo-cs.pdf, id=171, 506.4591pt x 156.49065pt>
+<../img/logo-cs.pdf, id=175, 506.4591pt x 156.49065pt>
 File: ../img/logo-cs.pdf Graphic file (type pdf)
 <use ../img/logo-cs.pdf>
 Package pdftex.def Info: ../img/logo-cs.pdf  used on input line 10.
@@ -1026,7 +1026,7 @@ File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 
 (./kap01.tex
 Kapitola 1.
-<../img/stop_distances_plot_2020-02-20.png, id=286, 1003.75pt x 803.0pt>
+<../img/stop_distances_plot_2020-02-20.png, id=291, 1003.75pt x 803.0pt>
 File: ../img/stop_distances_plot_2020-02-20.png Graphic file (type png)
 <use ../img/stop_distances_plot_2020-02-20.png>
 Package pdftex.def Info: ../img/stop_distances_plot_2020-02-20.png  used on inp
@@ -1037,13 +1037,13 @@ ut line 19.
 
 
 ]
-<../img/k_letisti_to_zlicin_3d.png, id=297, 1214.136pt x 732.8178pt>
+<../img/k_letisti_to_zlicin_3d.png, id=302, 1214.136pt x 732.8178pt>
 File: ../img/k_letisti_to_zlicin_3d.png Graphic file (type png)
 <use ../img/k_letisti_to_zlicin_3d.png>
 Package pdftex.def Info: ../img/k_letisti_to_zlicin_3d.png  used on input line 
 58.
 (pdftex.def)             Requested size: 412.56496pt x 249.00938pt.
-<../img/k_letisti_to_zlicin_map.png, id=300, 351.3125pt x 656.4525pt>
+<../img/k_letisti_to_zlicin_map.png, id=305, 351.3125pt x 656.4525pt>
 File: ../img/k_letisti_to_zlicin_map.png Graphic file (type png)
 <use ../img/k_letisti_to_zlicin_map.png>
 Package pdftex.def Info: ../img/k_letisti_to_zlicin_map.png  used on input line
@@ -1229,13 +1229,13 @@ and I'll forget about whatever was undefined.
 LaTeX Warning: Reference `TODO:statistika' on page 14 undefined on input line 3
 59.
 
-<../img/golemio_mapa.png, id=387, 1063.975pt x 723.70375pt>
+<../img/golemio_mapa.png, id=392, 1063.975pt x 723.70375pt>
 File: ../img/golemio_mapa.png Graphic file (type png)
 <use ../img/golemio_mapa.png>
 Package pdftex.def Info: ../img/golemio_mapa.png  used on input line 381.
 (pdftex.def)             Requested size: 412.56496pt x 280.62003pt.
 [14]
-<../img/tram-bus_mapa.png, id=398, 928.46875pt x 783.92876pt>
+<../img/tram-bus_mapa.png, id=403, 928.46875pt x 783.92876pt>
 File: ../img/tram-bus_mapa.png Graphic file (type png)
 <use ../img/tram-bus_mapa.png>
 Package pdftex.def Info: ../img/tram-bus_mapa.png  used on input line 391.
@@ -1246,7 +1246,7 @@ Overfull \hbox (6.94542pt too wide) in paragraph at lines 398--399
  ihned po na-£tenÌ str·nky|
  []
 
-<../img/idsjmk_mapa.png, id=402, 1179.40625pt x 932.48375pt>
+<../img/idsjmk_mapa.png, id=407, 1179.40625pt x 932.48375pt>
 File: ../img/idsjmk_mapa.png Graphic file (type png)
 <use ../img/idsjmk_mapa.png>
 Package pdftex.def Info: ../img/idsjmk_mapa.png  used on input line 405.
@@ -1265,7 +1265,7 @@ Kapitola 2.
 
 pdfTeX warning: pdflatex (file ../img/design_diagram.pdf): PDF inclusion: found
  PDF version <1.7>, but at most version <1.5> allowed
-<../img/design_diagram.pdf, id=427, 598.15468pt x 421.575pt>
+<../img/design_diagram.pdf, id=432, 598.15468pt x 421.575pt>
 File: ../img/design_diagram.pdf Graphic file (type pdf)
 <use ../img/design_diagram.pdf>
 Package pdftex.def Info: ../img/design_diagram.pdf  used on input line 25.
@@ -1281,7 +1281,7 @@ LaTeX Warning: Reference `chapter:analyza_zdroje' on page 18 undefined on input
 
 
 ] [19 <../img/design_diagram.pdf>]
-<../img/eer_database.pdf, id=467, 560.96056pt x 785.65768pt>
+<../img/eer_database.pdf, id=472, 560.96056pt x 785.65768pt>
 File: ../img/eer_database.pdf Graphic file (type pdf)
 <use ../img/eer_database.pdf>
 Package pdftex.def Info: ../img/eer_database.pdf  used on input line 88.
@@ -1293,64 +1293,194 @@ tri-but [][]\T1/lmtt/m/n/12 shape_dist_traveled[]\T1/lmr/m/n/12 ,|
  []
 
 [22] [23] [24]
-<../img/dojezd_ve_fazich_dne.png, id=543, 1042.8561pt x 682.2288pt>
+<../img/dojezd_ve_fazich_dne.png, id=548, 1042.8561pt x 682.2288pt>
 File: ../img/dojezd_ve_fazich_dne.png Graphic file (type png)
 <use ../img/dojezd_ve_fazich_dne.png>
-Package pdftex.def Info: ../img/dojezd_ve_fazich_dne.png  used on input line 27
-3.
+Package pdftex.def Info: ../img/dojezd_ve_fazich_dne.png  used on input line 28
+6.
 (pdftex.def)             Requested size: 412.56496pt x 269.89902pt.
-<../img/dojezd_podle_vzdalenosti.png, id=545, 975.645pt x 702.4644pt>
+<../img/dojezd_podle_vzdalenosti.png, id=550, 975.645pt x 702.4644pt>
 File: ../img/dojezd_podle_vzdalenosti.png Graphic file (type png)
 <use ../img/dojezd_podle_vzdalenosti.png>
 Package pdftex.def Info: ../img/dojezd_podle_vzdalenosti.png  used on input lin
-e 282.
+e 295.
 (pdftex.def)             Requested size: 412.56496pt x 297.04816pt.
-<../img/cerny_most_chvaly.png, id=547, 890.3664pt x 628.0263pt>
+ [25] [26 <../img/dojezd_ve_fazich_dne.png> <../img/dojezd_podle_vzdalenosti.pn
+g>]
+<../img/cerny_most_chvaly.png, id=568, 890.3664pt x 628.0263pt>
 File: ../img/cerny_most_chvaly.png Graphic file (type png)
 <use ../img/cerny_most_chvaly.png>
-Package pdftex.def Info: ../img/cerny_most_chvaly.png  used on input line 303.
+Package pdftex.def Info: ../img/cerny_most_chvaly.png  used on input line 322.
 (pdftex.def)             Requested size: 412.56496pt x 291.00385pt.
 
 
-LaTeX Warning: Reference `' on page 25 undefined on input line 308.
+LaTeX Warning: Reference `' on page 27 undefined on input line 327.
 
-[25] [26 <../img/dojezd_ve_fazich_dne.png> <../img/dojezd_podle_vzdalenosti.png
->]
-<../img/divoka_sarka_veleslavin.png, id=564, 997.326pt x 643.9257pt>
+[27 <../img/cerny_most_chvaly.png>]
+<../img/divoka_sarka_veleslavin.png, id=577, 997.326pt x 643.9257pt>
 File: ../img/divoka_sarka_veleslavin.png Graphic file (type png)
 <use ../img/divoka_sarka_veleslavin.png>
 Package pdftex.def Info: ../img/divoka_sarka_veleslavin.png  used on input line
- 312.
+ 331.
 (pdftex.def)             Requested size: 412.56496pt x 266.36937pt.
-<../img/nepredvidatelne_zdrzeni.png, id=566, 913.4928pt x 608.5134pt>
+<../img/nepredvidatelne_zdrzeni.png, id=579, 913.4928pt x 608.5134pt>
 File: ../img/nepredvidatelne_zdrzeni.png Graphic file (type png)
 <use ../img/nepredvidatelne_zdrzeni.png>
 Package pdftex.def Info: ../img/nepredvidatelne_zdrzeni.png  used on input line
- 323.
+ 342.
 (pdftex.def)             Requested size: 412.56496pt x 274.8313pt.
- [27 <../img/cerny_most_chvaly.png>] [28 <../img/divoka_sarka_veleslavin.png> <
-../img/nepredvidatelne_zdrzeni.png>]
-<../img/konkavni_obal_nejednoznacny.png, id=589, 696.6025pt x 531.9875pt>
+ [28 <../img/divoka_sarka_veleslavin.png>]
+<../img/konkavni_obal_nejednoznacny.png, id=595, 696.6025pt x 531.9875pt>
 File: ../img/konkavni_obal_nejednoznacny.png Graphic file (type png)
 <use ../img/konkavni_obal_nejednoznacny.png>
 Package pdftex.def Info: ../img/konkavni_obal_nejednoznacny.png  used on input 
-line 340.
+line 359.
 (pdftex.def)             Requested size: 330.05322pt x 252.0554pt.
- [29 <../img/konkavni_obal_nejednoznacny.png>] [30]
-Overfull \hbox (1.39368pt too wide) in paragraph at lines 410--411
-[]\T1/lmr/m/n/12 TODO ob-razky kratka trasa s moc ne-kon-zis-tent-nimi daty, dl
-ouha trasa hladka,|
+
+[29 <../img/nepredvidatelne_zdrzeni.png>] [30 <../img/konkavni_obal_nejednoznac
+ny.png>] [31]
+! Missing $ inserted.
+<inserted text> 
+                $
+l.483 ...hoz√≠ stanice spoje (atribut -verb-shape_
+                                                  dist_traveled-). Tedy zvoj...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 483.
+
+
+LaTeX Warning: Command \v invalid in math mode on input line 483.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 483.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 483.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 483.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 483.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 483.
+
+
+LaTeX Warning: Command \v invalid in math mode on input line 483.
+
+
+LaTeX Warning: Command \v invalid in math mode on input line 483.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 483.
+
+
+LaTeX Warning: Command \v invalid in math mode on input line 483.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 483.
+
+
+LaTeX Warning: Command \v invalid in math mode on input line 483.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 483.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 483.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 483.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 483.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 483.
+
+
+LaTeX Warning: Command \v invalid in math mode on input line 483.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 483.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 483.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 483.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 483.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 483.
+
+
+LaTeX Warning: Command \v invalid in math mode on input line 483.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 483.
+
+
+LaTeX Warning: Command \v invalid in math mode on input line 483.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 483.
+
+
+LaTeX Warning: Command \v invalid in math mode on input line 483.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 483.
+
+
+LaTeX Warning: Command \v invalid in math mode on input line 483.
+
+
+LaTeX Warning: Command \v invalid in math mode on input line 483.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 483.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.484 
+      
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+
+Overfull \hbox (506.56052pt too wide) in paragraph at lines 483--484
+\T1/lmr/m/n/12 trase spoje od v˝-chozÌ sta-nice spoje (atri-but -verb-shape$[]\
+OML/lmm/m/it/12 ist[]raveled\OMS/lmsy/m/n/12 ^^@\OT1/lmr/m/n/12 )\OML/lmm/m/it/
+12 :Tedyzvojcezast\OT1/lmr/m/n/12 ·\OML/lmm/m/it/12 vekposob\OT1/lmr/m/n/12 •\O
+ML/lmm/m/it/12 n\OT1/lmr/m/n/12 ·\OML/lmm/m/it/12 sleduj\OT1/lmr/m/n/12 Ì\OML/l
+mm/m/it/12 c\OT1/lmr/m/n/12 Ì\OML/lmm/m/it/12 sez\OT1/lmr/m/n/12 Ì\OML/lmm/m/it
+/12 skaj\OT1/lmr/m/n/12 Ì\OML/lmm/m/it/12 tak; \OT1/lmr/m/n/12 ∫\OML/lmm/m/it/1
+2 esese\OT1/lmr/m/n/12 ∞\OML/lmm/m/it/12 ad\OT1/lmr/m/n/12 Ì\OML/lmm/m/it/12 v\
+OT1/lmr/m/n/12 ≤\OML/lmm/m/it/12 echnyzast\OT1/lmr/m/n/12 ·\OML/lmm/m/it/12 vky
+proka\OT1/lmr/m/n/12 ∫\OML/lmm/m/it/12 d\OT1/lmr/m/n/12 ˝ \OML/lmm/m/it/12 spoj
+podleatributu \OMS/lmsy/m/n/12 ^^@|
  []
 
-[31]
-! Undefined control sequence.
-l.457 \subsubsubsection
-                       {Probl√©my}
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
+
+Overfull \hbox (302.70262pt too wide) in paragraph at lines 483--484
+\OML/lmm/m/it/12 verb \OMS/lmsy/m/n/12 ^^@ \OML/lmm/m/it/12 shape[]ist[]raveled
+ \OMS/lmsy/m/n/12 ^^@ \OML/lmm/m/it/12 :N\OT1/lmr/m/n/12 ·\OML/lmm/m/it/12 sled
+uj\OT1/lmr/m/n/12 Ì\OML/lmm/m/it/12 c\OT1/lmr/m/n/12 Ì\OML/lmm/m/it/12 zast\OT1
+/lmr/m/n/12 ·\OML/lmm/m/it/12 vkapakjetale\OT1/lmr/m/n/12 ∫Ì\OML/lmm/m/it/12 c\
+OT1/lmr/m/n/12 Ì \OML/lmm/m/it/12 nan\OT1/lmr/m/n/12 ·\OML/lmm/m/it/12 sleduj\O
+T1/lmr/m/n/12 Ì\OML/lmm/m/it/12 c\OT1/lmr/m/n/12 Ì\OML/lmm/m/it/12 m\OT1/lmr/m/
+n/12 ∞·\OML/lmm/m/it/12 dkuvse\OT1/lmr/m/n/12 ∞\OML/lmm/m/it/12 azen\OT1/lmr/m/
+n/12 È\OML/lmm/m/it/12 tabulce; tento\OT1/lmr/m/n/12 ∞·\OML/lmm/m/it/12 deksep\
+OT1/lmr/m/n/12 ∞\OML/lmm/m/it/12 e\OT1/lmr/m/n/12 £\OML/lmm/m/it/12 tepomoc\OT1
+/lmr/m/n/12 Ì\OML/lmm/m/it/12 funkce[]:$ |
+ []
 
 [32]
 
@@ -1360,7 +1490,7 @@ See the glossaries package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.529 ...ir≈°√≠ho okol√≠ obsluhovan√©ho \gls{pid}e
+l.502 ...ir≈°√≠ho okol√≠ obsluhovan√©ho \gls{pid}e
                                                   m, kterou bude mo≈æn√© pos...
 
 You need to define a glossary entry before you can use it.
@@ -1473,43 +1603,54 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 295.
 (./zaver.aux) (./literatura.aux))
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 295.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 295.
-Package rerunfilecheck Info: File `prace.out' has not changed.
-(rerunfilecheck)             Checksum: 62ABE1872575729C536E241F2396FDEA;6019.
 
+
+Package rerunfilecheck Warning: File `prace.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `prace.out':
+(rerunfilecheck)             Before: 0C343BE77A68E40116DE98BB64D75F97;6104
+(rerunfilecheck)             After:  1A6F880D2E07C32A4C4D2C719220648E;5976.
 
 LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 295.
  ) 
 Here is how much of TeX's memory you used:
- 22502 strings out of 492616
- 342199 string characters out of 6129482
- 456065 words of memory out of 5000000
- 25747 multiletter control sequences out of 15000+600000
+ 22504 strings out of 492616
+ 342223 string characters out of 6129482
+ 456076 words of memory out of 5000000
+ 25748 multiletter control sequences out of 15000+600000
  94277 words of font info for 84 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  45i,8n,57p,1970b,2327s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/lo
-cal/texlive/2019/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/20
-19/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/usr/local/texlive/2019/texmf-dist/
-fonts/enc/dvips/lm/lm-ts1.enc}</usr/local/texlive/2019/texmf-dist/fonts/type1/p
-ublic/lm/lmbx12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/lm/l
-mmi10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/lm/lmmi12.pfb>
-</usr/local/texlive/2019/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></usr/local
-/texlive/2019/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></usr/local/texlive/20
-19/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/local/texlive/2019/texmf-di
-st/fonts/type1/public/lm/lmr12.pfb></usr/local/texlive/2019/texmf-dist/fonts/ty
-pe1/public/lm/lmr17.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/
-lm/lmr7.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/lm/lmr8.pfb>
-</usr/local/texlive/2019/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/loca
-l/texlive/2019/texmf-dist/fonts/type1/public/lm/lmtt12.pfb>
-Output written on prace.pdf (54 pages, 11965626 bytes).
+pdfTeX warning (dest): name{chapter*.31} has been referenced but does not exi
+st, replaced by a fixed one
+
+pdfTeX warning (dest): name{subsection.2.3.2} has been referenced but does not 
+exist, replaced by a fixed one
+
+{/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/loca
+l/texlive/2019/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/texlive/
+2019/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/2019/texmf-dis
+t/fonts/enc/dvips/lm/lm-ec.enc}{/usr/local/texlive/2019/texmf-dist/fonts/enc/dv
+ips/lm/lm-ts1.enc}</usr/local/texlive/2019/texmf-dist/fonts/type1/public/lm/lmb
+x12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></
+usr/local/texlive/2019/texmf-dist/fonts/type1/public/lm/lmmi12.pfb></usr/local/
+texlive/2019/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></usr/local/texlive/201
+9/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></usr/local/texlive/2019/texmf-dis
+t/fonts/type1/public/lm/lmr10.pfb></usr/local/texlive/2019/texmf-dist/fonts/typ
+e1/public/lm/lmr12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/l
+m/lmr17.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/lm/lmr7.pfb>
+</usr/local/texlive/2019/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/local/
+texlive/2019/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local/texlive/20
+19/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/local/texlive/2019/texmf-d
+ist/fonts/type1/public/lm/lmtt12.pfb>
+Output written on prace.pdf (54 pages, 11973824 bytes).
 PDF statistics:
- 889 PDF objects out of 1000 (max. 8388607)
- 747 compressed objects within 8 object streams
- 178 named destinations out of 1000 (max. 500000)
- 416 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 901 PDF objects out of 1000 (max. 8388607)
+ 757 compressed objects within 8 object streams
+ 179 named destinations out of 1000 (max. 500000)
+ 424 words of extra memory for PDF output out of 10000 (max. 10000000)
 

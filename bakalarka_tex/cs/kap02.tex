@@ -264,9 +264,22 @@ Na úvod uvedˇme, že ve všech grafech a následně pro počítání modelů b
 
 Z dat je však patrné, že né vždy se zarovnání do nuly podařilo. Takové případy jsou pak způsobeny chybamy v datech vysílaných z vozidel nebo špatně určeným zpožděním v poslední projeté stanici na straně dodavatele dat. Takové chyby však vznikají spíše vyjímečně a proto ovlivnˇují statistické výpočty jen málo. Pro eliminaci těchto chyb je pak v implementován modul, který se pokouší očividně chybné vzroky najít a smazat. To primárně z důvodů vizualize vzorků v grafech, kde jeden vzorek zcela mimo škálu jiných vzorků rozhodí celý graf a graf se tak stává nepřehledným.
 
+\subsubsection{Lineární model}
+
+
+Odhad zpoždění vozidla na trase se v současné době provádí pomocí lineárního modelu. Tedy s předpokladem, že vozidlo jede konstatní rychlostí po celou dobu jízdy mezi dvojcí zastávek $a$ a $b$.
+
+\bigbreak
+
+Ačkoli je snaha tento model nahradit lepším, v některých situacích může jeho použití i na dále dávat smysl. Zejména pak v případech kdy není k dispozici dostatek dat a nebo je vzdálenost dvou zastávek natolik malá, že nemá smyl ani jakýkoliv odhat zpoždění dělat. (TODO do problemu: Lepší by bylo volit trasy s nejmenší dobou jízdy, ale čas jízdy je promněnlivý a težko se získá skutečná doba jízdy z dat. Navíc v praxi jsou vzdálenost a doba jízdy dostatečně závislé)
+
 \paragraph{Polynomiální profil jízdy}
 
 Po analýze dat poloh vozidel a možných vlivů ovlivnˇující profil jízdy je patrné, že v průběhu jednoho dne dochází na trase nejvýše k několika výkyvům rychlosti jízdy. Viditelné jako "vlny" v průběhu dne na grafu \ref{fig:dojezd_ve_fazich_dne}), v 8:30 hod\footnote{časy jsou uvedeny v UTC}. jízda trvala téměř 10 minut, naopak ve večerních hodinách jízda trvá kolem 7 minut.
+
+\bigbreak
+
+K tomuto dochází například v případech kdy spoj zastavuje ve městě a v následujících několika málo kilometrech jede pomaleji, poté zrychlý a dále opět vjede do města. Takový model se hodí spíše na delší trasy s plynulou jízdou.
 
 \begin{figure}
 	\centering
@@ -288,7 +301,13 @@ Podle charakteru těchto dat nejlépe budou odpovídat modely získané pomocí 
 
 \bigbreak
 
+Jako odhad zpoždění se pak vrací rozdíl skutečného počtu sekund na trase a predikce modelu. To celé se pak ještě přičítá k rozdílu predikce v modelu v čase a vzdálenosti příjezdu podle jízdního řádu a pravidelného příjezdu.
+
+\bigbreak
+
 Polynomiální model se tedy hodí pro situace kdy je průběh trasy nějak ovlivněn vždy ve stejném úseku a má vliv na každý projíždějící spoj. Nebo se v průběhu dne pozvolna mění v závislosti na dopravním vytížení projížděných úseků.
+
+Polynomiální model je pro představu vykreslen v grafu v úvodním příkladu v kapitole \ref{subsection:priklad_nelinearni_trasa}.
 
 \paragraph{Nepravidelné profily jízdy}
 
@@ -356,162 +375,116 @@ Z předchozího popisu řešení vyplývá ovšem, že pro výpočet obalu jsou 
 
 Naštěstí pro nás se v průběhu analýzy dat o polohách spojů nepodařilo najít jediný případ dvojce zastávek, mezi kterýma by došlo k popsané situaci -- výskytu dvou kritických bodů. Nebo tyto body jsou natolik nevýrazné, že by popsané řešení pomocí konkávního obalu nepřineslo žádné zlepšení odhadu zpoždění, ba naopak vzhledem k implementační náročnosti a množstvím chyb vznikajícím při tak algoritmicky náročných úkolech by přesnost odhadu zpoždění zhoršilo.
 
-
-Dále zkusíme najít funkci popisující průběh trasy pomocí neuronové sítě.
-
-Pro zkonstuování modelů popisujících profily jízd mezi všemi dvojcemi zastávek $(a, b)$ je nejprve potřeba zjistit všechny dvojce zastávek, mezi kterými jede alesponˇ jeden spoj. Tedy nejprve chceme získat celou množinu $AB$. To se dá zjistit pomocí jízdních řádů, které reprezentujeme v tabulce \verb-rides- v naší databázi popsané v kapitole \ref{subsection:databaze}
+TODO obrazek modelu
 
 \bigbreak
 
- Dále pokud máme všechny dvojce zastávek $(a, b)$ je potřeba získat všechny oznámené polohy vozidel mezi nimi pro každou dvojci zastávek zvláštˇ. To
-
-\bigbreak
-
-Toto je možné realizovat pomocí následujícího \gls{sql} dotazu.
-
-TODO upravit a vylepsit tento dotaz, do jake miry mam uvadet vsechny pouzite sql dotazy???
-\begin{code}[frame=none]
-SELECT schedule.id_trip,
-	schedule.id_stop,
-	schedule.lead_stop,
-	departure_time,
-	schedule.lead_stop_departure_time,
-	(schedule.lead_stop_shape_dist_traveled - schedule.shape_dist_traveled)
-		AS diff_shape_trav,
-	trip_coordinates.inserted,
-	(trip_coordinates.shape_dist_traveled - schedule.shape_dist_traveled)
-		AS shifted_shape_trav,
-	trip_coordinates.delay
-FROM (
-	SELECT id_trip, id_stop, shape_dist_traveled, departure_time,
-		LEAD(id_stop, 1) OVER (
-			PARTITION BY id_trip ORDER BY shape_dist_traveled) lead_stop,
-		LEAD(shape_dist_traveled, 1) OVER (
-			PARTITION BY id_trip ORDER BY shape_dist_traveled) lead_stop_shape_dist_traveled,
-		LEAD(departure_time, 1) OVER (
-			PARTITION BY id_trip ORDER BY shape_dist_traveled) lead_stop_departure_time
-	FROM rides) AS schedule
-JOIN trip_coordinates
-ON trip_coordinates.id_trip = schedule.id_trip AND
-	schedule.lead_stop_shape_dist_traveled - schedule.shape_dist_traveled > 1500 AND
-	trip_coordinates.shape_dist_traveled BETWEEN schedule.shape_dist_traveled AND
-	schedule.lead_stop_shape_dist_traveled
-ORDER BY id_stop, lead_stop, shifted_shape_trav
-\end{code}
-
-\bigbreak
-
-Nyní je pro představení si situalce uvedeno několik vizualizací těchto dat. Zejména pak s důrazem na rozlišnosti mezi průběhy tras mezi různými dvojcemi zastávek.
-
-\bigbreak
-
-Všechny diagramy níže a posléze algoritmy pracují s těmito daty jako body třírozměrného prostoru. Každý tento bod reprezentuje jedno hlášení o poloze vozidla. První dimenze bodu je denní doba (v grafech znázorněno jako počet sekund od půlnoci), druhá dimenze je vzdálenost od výchozí zastávky (znázorněno jako počet metrů) a třetí dimenze reprezentuje čas od vyjetí z výchozí stanice (počet sekund).
-
-TODO obrazky kratka trasa s moc nekonzistentnimi daty, dlouha trasa hladka, dlouha trasa s anomaliemi, trasy s nedostatkem dat, trasy kde jsou pekne videt krizovatky (cca 5 prikaldu)
-
-
-\subsection{Návrh modelu}
-
-Z výše uvedených vizualizací dat vyplývá, že hledání univerzálního modelu popisující všechny možné průběhy tras je nereálné.
-
-\bigbreak
-
-Lepší je různé průběhy tras rozdělit podle jejich vlastností do kategorií a pro každou použít jiný model. Použité dílčí modely jsou:
-
-
-\subsubsection{Lineární model}
-
-Ačkoli je snaha tento model nahradit lepším, v některých situacích může jeho použití i na dále dávat smysl. Zejména pak v případech kdy není k dispozici dostatek dat a nebo je vzdálenost dvou zastávek natolik malá, že nemá smyl ani jakýkoliv odhat zpoždění dělat. (TODO do problemu: Lepší by bylo volit trasy s nejmenší dobou jízdy, ale čas jízdy je promněnlivý a težko se získá skutečná doba jízdy z dat. Navíc v praxi jsou vzdálenost a doba jízdy dostatečně závislé)
-
-(TODO obrázek lineárního modelu)
-
-
-\subsubsection{Polynomiální model}
-
-Polynomiální model se hodí pro situace kdy je průběh trasy nějak ovlivněn vždy ve stejném úseku a má vliv na každý projíždějící spoj. Nebo se v průběhu dne pozvolna mění v závislosti na dopravním vytížení projížděných úseků.
-
-\bigbreak
-
-K tomuto dochází například v případech kdy spoj zastavuje ve městě a v následujících několika málo kilometrech jede pomaleji, poté zrychlý a dále opět vjede do města. Takový model se hodí spíše na delší trasy s plynulou jízdou.
-
-\bigbreak
-
-Pro spočítání polynomiálního modelu se využívá knihovna sklearn konkrétně algoritmus zvaný Rigde, který sám o sobě hledá linární závislosti, nicméně vstupní hodnoty jsou mezi sebou náležitě pronásobeny tak, aby simulovali polynomiální funkci. Toho se dosáhne pomocí funkce PolynomialFeatures. Optimální stupeň polynomu se zjistí spočítáním modelu pro každý stupeň v rozumných mezích a nakonec se zvolí ten s nejmenší chybou. (TODO jak moc detailně se ma toto popisovat?)
-
-(TODO obrazek poly modelu)
-
-\bigbreak
-
-Jako odhad zpoždění se pak vrací rozdíl skutečného počtu sekund na trase a predikce modelu. To celé se pak ještě přičítá k rozdílu predikce v modelu v čase a vzdálenosti příjezdu podle jízdního řádu a pravidelného příjezdu.
-
-
-\subsubsection{Model pomocí konkávního obalu}
-
-Posledním a nejkomplikovanějším modelem, zasluhující nejvíce pozornosti, je popsání trasy za pomocí konkávního obalu bodů.
-
-\bigbreak
-
-Tato metoda vznikla jako řešení situace, kdy na trase exituje bod, který určité procento projíždějících spojů zdrží o netriviální dobu. Něco takového nastane pokud spoje projíždí světelnou křižovatkou nebo místem přek kterým se tvoří kolona vozidel. Zde dochází ke skové změně průběhu bodové funkce a spojité modely by s okolím tohoto kritického místa měly problém. Pro jeden takový bod by možná šlo navrhnout jednoduší řešení, nicméně je potřeba algoritmus, který umí pracovat s více kritickými body na trase. Například je nutné poradit si se situací zobrazené na diagramu (TODO link na obrazek), kde jsou na trase takové kritické body dva. V této modelové situaci je pro jednoduchost uvažováno, že se většina projíždějících spojů zdrží v prvním kritickém bodě, nebo v druhém, nebo se lehce zdrží v obou. S takovým zdržením je počítáno v jízdním řádu a tedy vozidla, která projedou první kritický bod bez zdrření jedou na čas stejně tak, jako vozidla v něm zdržená. O snížení nebo zvýšení případného zpoždění spoje je možno rozhodnout až po projetí druhého bodu. Jinými slovy na ose uplynulého času od vyjetí ze zastávky vzniká jakýsi podprostor v němž se zpoždění nemění. Pro jeho popis se využívá právě konkávní obal všech spojů, které přijely včas.
-
-
-\subsubsubsection{Problémy}
-
-Ačkoli je myšlenka jednoduchá, při implementaci vyvstává několik technických problémů.
-
-\bigbreak
-
-
-
-
-\subsubsection{Popis algoritmu}
-
-Po popsání a vyřešení všech komplikací je možné nastínit průběh algoritmu.
-
-\bigbreak
-
-Nejprve konstrukce konkávního obalu:
+Návrh algoritmu pracující s konkávním obalem je následující. Nejprve ukažme konstrukce konkávního obalu pro dvojci zastávek $a$ a $b$:
 
 \begin{code}[frame=none]
-poslední_čas = vyber všechny poslední body podle vzdálenosti od každého spoje
-odhad_příjezdu = odhadni čas příjezdu v průběhu celého dne podle bodů v poslní_čas
-spoje_včas = prázdné pole
+poslední_vzorky = vyber všechny vzorky poloh vozidel
+  těsně před dojezdem do stanice $b$ od všech spojů;
+odhad_příjezdu = odhadni čas příjezdu v průběhu celého
+  dne podle bodů v poslní_vzorky;
+spoje_včas = prázdné pole spojů;
 
 pro každou hodinu h:
-    spoje_včas += vyber x \% spojů, které přijely nejblíže odhadu v hodině h
+  spoje_včas += vyber spoje, které přijely nejblíže
+    odhadu v hodině h;
 
 konkávní_obal = prázdné pole
 
 pro každou hodinu h:
-    body = vyber všechny body zaznamenané v hodině h a náležící kterémukili spoji v spoje_včas
-    konkávní obal += spočítej konkávní obal z body
+  vzorky_poloh = vyber všechny body zaznamenané
+    v hodině h a náležící kterémukili spoji v spoje_včas;
+  konkávní obal += spočítej konkávní obal z vzorky_poloh;
 
-Vrací: konkávní_obal
+Vrací: konkávní_obal;
 \end{code}
 
 Dále odhad zpoždění z konkávního obalu:
 
 \begin{code}[frame=none]
-Vstup: bod v prostoru vzdálenosti, průběhu dne a času na trase
+Vstup: bod v prostoru vzdálenosti, průběhu dne
+  a času na trase (vzorek polohy vozidla)
 
 pokud je bod v konkávní_obal:
-    velikost_okna = rozdíl horní hranice obalu od spodní v čase příjezdu do zastávky
-    spodek_okna = spodní hranice okna v čase příjezdu do zastávky
-    poměr = vzdálenost bodu od spodní hranice obalu / vzdálenost bodu od horní hranice obalu
-    odhad_příjezdu = velikost_okna * poměr + spodek_okna
+  velikost_okna = rozdíl horní hranice obalu od spodní
+    v čase příjezdu do zastávky;
+  spodek_okna = spodní hranice okna v čase
+    příjezdu do zastávky;
+  poměr = vzdálenost bodu od spodní hranice obalu
+	ku vzdálenost bodu od horní hranice obalu;
+  odhad_příjezdu = velikost_okna * poměr + spodek_okna;
 jinak:
-    pokud je bod pod obalem:
-        spodek_okna = spodní hranice obalu v čase příjezdu do zastávky
-        odhad_příjezdu = spodek_okna - vzdálenost bodu od obalu
-    jinak:
-        vrch_okna = horní hranice obalu v čase příjezdu do zastávky
-        odhad_příjezdu = vrch_okna + vzdálenost bodu od obalu
+  pokud je bod pod obalem:
+    spodek_okna = spodní hranice obalu
+	  v čase příjezdu do zastávky;
+    odhad_příjezdu = spodek_okna - vzdálenost bodu od obalu;
+  jinak:
+    vrch_okna = horní hranice obalu
+	  v čase příjezdu do zastávky;
+    odhad_příjezdu = vrch_okna + vzdálenost bodu od obalu;
 
-Vrací: odhad_příjezdu - pravidelný příjezd
+Vrací: odhad_příjezdu - pravidelný příjezd;
 \end{code}
 
+\paragraph{Modely neuronových sítí}
 
+Najdeme také funkci popisující průběh trasy pomocí neuronové sítě.
 
+\bigbreak
 
+Ačkoli by řešení popsané výše mělo vyřešit problém řešený v této práci, bude zajímé pozorovat rozdíly odhadů zpoždění vozidel spočítaných popsaným polynomiálním model a odhadů spočítaných nauronovou sítí. Možná se také úkáže, že nejlepší řešení je právě kombinace těchto různých přístupů.
+
+\bigbreak
+
+Vstupní data pro učení neuronové sítě budou vzorky poloh vozidel a spoždění zaznamenané v následující stanici.
+
+\subsubsection{Čtení dat}
+
+Pro zkonstuování modelů popisujících profily jízd mezi všemi dvojcemi zastávek $(a, b)$ je nejprve potřeba zjistit všechny dvojce zastávek, mezi kterými jede alesponˇ jeden spoj. Tedy nejprve chceme získat celou množinu $AB$. To se dá zjistit pomocí jízdních řádů, které reprezentujeme v tabulce \verb-rides- v naší databázi popsané v kapitole \ref{subsection:databaze}
+
+\bigbreak
+
+ Dále pokud máme všechny dvojce zastávek $(a, b)$ je potřeba získat všechny oznámené polohy vozidel mezi nimi pro každou dvojci zastávek zvláštˇ. To je možné realizovat pomocí následujícího \gls{sql} dotazu.
+
+\begin{code}[frame=none]
+SELECT schedule.id_trip,
+  schedule.id_stop,
+  schedule.lead_stop,
+  departure_time,
+  schedule.lead_stop_departure_time,
+  (schedule.lead_stop_shape_dist_traveled - schedule.shape_dist_traveled)
+    AS diff_shape_trav,
+  trip_coordinates.inserted,
+  (trip_coordinates.shape_dist_traveled - schedule.shape_dist_traveled)
+    AS shifted_shape_trav,
+  trip_coordinates.delay
+FROM (
+  SELECT id_trip, id_stop, shape_dist_traveled, departure_time,
+    LEAD(id_stop, 1) OVER (PARTITION BY
+	  id_trip ORDER BY shape_dist_traveled) lead_stop,
+    LEAD(shape_dist_traveled, 1) OVER (PARTITION BY
+	  id_trip ORDER BY shape_dist_traveled) lead_stop_shape_dist_traveled,
+    LEAD(departure_time, 1) OVER (PARTITION BY
+	  id_trip ORDER BY shape_dist_traveled) lead_stop_departure_time
+  FROM rides) AS schedule
+JOIN trip_coordinates
+ON trip_coordinates.id_trip = schedule.id_trip AND
+  schedule.lead_stop_shape_dist_traveled -
+    schedule.shape_dist_traveled > 1500 AND
+  trip_coordinates.shape_dist_traveled
+    BETWEEN schedule.shape_dist_traveled AND
+  schedule.lead_stop_shape_dist_traveled
+ORDER BY id_stop, lead_stop, shifted_shape_trav
+\end{code}
+
+Tento SQL dotaz nejprve získá všechny dvojce po sobě jdoucích zastávek z jízdních řádů v tabulce \verb-rides-. Protože v tabulce je jízda spoje uložená jako sekvence zastávek, kde každé náleží čas příjezdu resp. odjezdu a její vzdálenost na trase spoje od výchozí stanice spoje (atribut -verb-shape_dist_traveled-). Tedy zvojce zastávek po sobě následující se získají tak, že se seřadí všechny zastávky pro každý spoj podle atributu -verb-shape_dist_traveled-. Následující zastávka pak je ta ležící na následujícím řádku v seřazené tabulce, tento řádek se přečte pomocí funkce \verb-LEAD-.
+
+\bigbreak
+
+K těmto dvojcím zastávek dále získáme všechny vzorky poloh vozidel. To tak, že vezme všechny vzorky pro daný spoj, které leží mezi vybranou dvojcí zastávek. V tomto dotazu zárovenˇ vyloučíme zastávky, které jsou k sobě blíže než nebo vzdálené přesně 1500 m (v implementaci je pak vzdálenost určena parametricky), zdůvodnění této vzdálenosti je výše v návrhu modelů.
 
 
 
