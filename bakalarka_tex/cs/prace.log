@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  10 APR 2021 12:56
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  14 APR 2021 12:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -834,8 +834,8 @@ Package: paralist 2017/01/22 v2.7 Extended list environments
 \plparsep=\skip70
 \pl@lab=\toks42
 )
-Package hyperref Info: Option `unicode' set `true' on input line 237.
-Package hyperref Info: Option `breaklinks' set `true' on input line 238.
+Package hyperref Info: Option `unicode' set `true' on input line 242.
+Package hyperref Info: Option `breaklinks' set `true' on input line 243.
 
 \@input{makra.aux}
 \openout2 = `makra.aux'.
@@ -848,31 +848,31 @@ Package hyperref Info: Option `breaklinks' set `true' on input line 238.
 (./kap06.aux) (./zaver.aux) (./literatura.aux))
 \openout1 = `prace.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 244.
-LaTeX Font Info:    ... okay on input line 244.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 244.
-LaTeX Font Info:    ... okay on input line 244.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 244.
-LaTeX Font Info:    ... okay on input line 244.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 244.
-LaTeX Font Info:    ... okay on input line 244.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 244.
-LaTeX Font Info:    ... okay on input line 244.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 244.
-LaTeX Font Info:    ... okay on input line 244.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 244.
-LaTeX Font Info:    ... okay on input line 244.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 244.
-LaTeX Font Info:    ... okay on input line 244.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 244.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 244.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 249.
+LaTeX Font Info:    ... okay on input line 249.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 249.
+LaTeX Font Info:    ... okay on input line 249.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 249.
+LaTeX Font Info:    ... okay on input line 249.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 249.
+LaTeX Font Info:    ... okay on input line 249.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 249.
+LaTeX Font Info:    ... okay on input line 249.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 249.
+LaTeX Font Info:    ... okay on input line 249.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 249.
+LaTeX Font Info:    ... okay on input line 249.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 249.
+LaTeX Font Info:    ... okay on input line 249.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 249.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 249.
 
 
 (/usr/local/texlive/2019/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 244.
-LaTeX Font Info:    Try loading font information for T1+lmr on input line 244.
+LaTeX Font Info:    ... okay on input line 249.
+LaTeX Font Info:    Try loading font information for T1+lmr on input line 249.
 
 (/usr/local/texlive/2019/texmf-dist/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
@@ -909,7 +909,7 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 \AtBeginShipoutBox=\box38
-Package hyperref Info: Link coloring OFF on input line 244.
+Package hyperref Info: Link coloring OFF on input line 249.
 
 (/usr/local/texlive/2019/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
@@ -919,9 +919,9 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count159
 )
-LaTeX Info: Redefining \ref on input line 244.
-LaTeX Info: Redefining \pageref on input line 244.
-LaTeX Info: Redefining \nameref on input line 244.
+LaTeX Info: Redefining \ref on input line 249.
+LaTeX Info: Redefining \pageref on input line 249.
+LaTeX Info: Redefining \nameref on input line 249.
 
 (./prace.out) (./prace.out)
 \@outlinefile=\write5
@@ -931,7 +931,7 @@ LaTeX Info: Redefining \nameref on input line 244.
 
  (./titulka.tex
 Package hyperref Info: Option `pageanchor' set `false' on input line 6.
-<../img/logo-cs.pdf, id=175, 506.4591pt x 156.49065pt>
+<../img/logo-cs.pdf, id=183, 506.4591pt x 156.49065pt>
 File: ../img/logo-cs.pdf Graphic file (type pdf)
 <use ../img/logo-cs.pdf>
 Package pdftex.def Info: ../img/logo-cs.pdf  used on input line 10.
@@ -1026,7 +1026,7 @@ File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 
 (./kap01.tex
 Kapitola 1.
-<../img/stop_distances_plot_2020-02-20.png, id=291, 1003.75pt x 803.0pt>
+<../img/stop_distances_plot_2020-02-20.png, id=301, 1003.75pt x 803.0pt>
 File: ../img/stop_distances_plot_2020-02-20.png Graphic file (type png)
 <use ../img/stop_distances_plot_2020-02-20.png>
 Package pdftex.def Info: ../img/stop_distances_plot_2020-02-20.png  used on inp
@@ -1037,13 +1037,13 @@ ut line 19.
 
 
 ]
-<../img/k_letisti_to_zlicin_3d.png, id=302, 1214.136pt x 732.8178pt>
+<../img/k_letisti_to_zlicin_3d.png, id=312, 1214.136pt x 732.8178pt>
 File: ../img/k_letisti_to_zlicin_3d.png Graphic file (type png)
 <use ../img/k_letisti_to_zlicin_3d.png>
 Package pdftex.def Info: ../img/k_letisti_to_zlicin_3d.png  used on input line 
 58.
 (pdftex.def)             Requested size: 412.56496pt x 249.00938pt.
-<../img/k_letisti_to_zlicin_map.png, id=305, 351.3125pt x 656.4525pt>
+<../img/k_letisti_to_zlicin_map.png, id=315, 351.3125pt x 656.4525pt>
 File: ../img/k_letisti_to_zlicin_map.png Graphic file (type png)
 <use ../img/k_letisti_to_zlicin_map.png>
 Package pdftex.def Info: ../img/k_letisti_to_zlicin_map.png  used on input line
@@ -1062,197 +1062,40 @@ ator-
  []
 
 [9]
-! Undefined control sequence.
-<recently read> \documentationAtt 
-                                  
-l.158 	\item \documentationAtt
-                              {coordinates}{aktu√°ln√≠ \gls{gps} sou≈ôadnice...
+Overfull \hbox (6.52368pt too wide) in paragraph at lines 164--165
+[][][]\T1/lmtt/m/n/12 gtfs\_shape\_dist\_traveled []\T1/lmr/m/n/12 vzd·-le-nost
+ vo-zi-dla ura-∫en· od za-£·tku tripu|
+ []
 
-? r
-OK, entering \nonstopmode...
-! Undefined control sequence.
-<recently read> \documentationAtt 
-                                  
-l.160 	\item \documentationAtt
-                              {origin\_timestamp}{ƒças zachycen√≠ pozice voz...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-<recently read> \documentationAtt 
-                                  
-l.162 	\item \documentationAtt
-                              {gtfs\_trip\_id}{unik√°tn√≠ identifik√°tor tri...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-<recently read> \documentationAtt 
-                                  
-l.164 	\item \documentationAtt
-                              {gtfs\_shape\_dist\_traveled}{vzd√°lenost vozi...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-<recently read> \documentationAtt 
-                                  
-l.166 	\item \documentationAtt
-                              {delay\_stop\_departure}{zpo≈ædƒõn√≠ zachycen√...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.169 ...si pov≈°imnout atrubutu \documentationAtt
-                                                  {all\_positions}, kter√Ω o...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-[10]
-! Undefined control sequence.
-<recently read> \documentationAtt 
-                                  
-l.236 	\item \documentationAtt
-                              {trip\_headsign}{n√°pis na ƒçele vozidla, typi...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-<recently read> \documentationAtt 
-                                  
-l.238 	\item \documentationAtt
-                              {route\_id}{ƒç√≠slo linky}
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-<recently read> \documentationAtt 
-                                  
-l.240 	\item \documentationAtt
-                              {trip\_id}{unik√°tn√≠ identifik√°tor tripu pro...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-[11]
-! Undefined control sequence.
-<recently read> \documentationAtt 
-                                  
-l.250 	\item \documentationAtt
-                              {arrival\_time}{ƒças p≈ô√≠jezdu spoje do zast√...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-<recently read> \documentationAtt 
-                                  
-l.252 	\item \documentationAtt
-                              {departure\_time}{ƒças odjezdu spoje do zast√°...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-<recently read> \documentationAtt 
-                                  
-l.254 	\item \documentationAtt
-                              {shape\_dist\_traveled}{vzd√°lenost zast√°vky ...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-<recently read> \documentationAtt 
-                                  
-l.256 	\item \documentationAtt
-                              {stop\_id}{unik√°tn√≠ indetifik√°tor zast√°vky}
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-<recently read> \documentationAtt 
-                                  
-l.258 	\item \documentationAtt
-                              {coordinates}{\gls{gps} sou≈ôadnice zast√°vky,...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-<recently read> \documentationAtt 
-                                  
-l.260 	\item \documentationAtt
-                              {stop\_name}{n√°zev zast√°vky}
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-[12] [13]
+[10] [11] [12] [13]
 
 LaTeX Warning: Reference `TODO:statistika' on page 14 undefined on input line 3
 59.
 
-<../img/golemio_mapa.png, id=392, 1063.975pt x 723.70375pt>
+[14]
+<../img/golemio_mapa.png, id=411, 1063.975pt x 723.70375pt>
 File: ../img/golemio_mapa.png Graphic file (type png)
 <use ../img/golemio_mapa.png>
-Package pdftex.def Info: ../img/golemio_mapa.png  used on input line 381.
-(pdftex.def)             Requested size: 412.56496pt x 280.62003pt.
-[14]
-<../img/tram-bus_mapa.png, id=403, 928.46875pt x 783.92876pt>
+Package pdftex.def Info: ../img/golemio_mapa.png  used on input line 398.
+(pdftex.def)             Requested size: 206.28247pt x 140.31001pt.
+<../img/tram-bus_mapa.png, id=414, 928.46875pt x 783.92876pt>
 File: ../img/tram-bus_mapa.png Graphic file (type png)
 <use ../img/tram-bus_mapa.png>
-Package pdftex.def Info: ../img/tram-bus_mapa.png  used on input line 391.
-(pdftex.def)             Requested size: 412.56496pt x 348.33882pt.
+Package pdftex.def Info: ../img/tram-bus_mapa.png  used on input line 409.
+(pdftex.def)             Requested size: 206.28247pt x 174.16342pt.
 
-Overfull \hbox (6.94542pt too wide) in paragraph at lines 398--399
+Overfull \hbox (6.94542pt too wide) in paragraph at lines 416--417
 \T1/lmr/m/n/12 (In-te-gro-van˝ do-pravnÌ sys-tÈm Ji-ho-mo-rav-skÈho kraje). Ten
  ihned po na-£tenÌ str·nky|
  []
 
-<../img/idsjmk_mapa.png, id=407, 1179.40625pt x 932.48375pt>
+[15 <../img/golemio_mapa.png>]
+<../img/idsjmk_mapa.png, id=434, 1179.40625pt x 932.48375pt>
 File: ../img/idsjmk_mapa.png Graphic file (type png)
 <use ../img/idsjmk_mapa.png>
-Package pdftex.def Info: ../img/idsjmk_mapa.png  used on input line 405.
-(pdftex.def)             Requested size: 412.56496pt x 326.18922pt.
-) [15 <../img/golemio_mapa.png>] [16 <../img/tram-bus_mapa.png>] [17 <../img/id
-sjmk_mapa.png>]
+Package pdftex.def Info: ../img/idsjmk_mapa.png  used on input line 424.
+(pdftex.def)             Requested size: 206.28247pt x 163.0875pt.
+) [16 <../img/tram-bus_mapa.png> <../img/idsjmk_mapa.png>]
 \openout2 = `kap01,5.aux'.
 
 
@@ -1265,292 +1108,145 @@ Kapitola 2.
 
 pdfTeX warning: pdflatex (file ../img/design_diagram.pdf): PDF inclusion: found
  PDF version <1.7>, but at most version <1.5> allowed
-<../img/design_diagram.pdf, id=432, 598.15468pt x 421.575pt>
+<../img/design_diagram.pdf, id=443, 598.15468pt x 421.575pt>
 File: ../img/design_diagram.pdf Graphic file (type pdf)
 <use ../img/design_diagram.pdf>
 Package pdftex.def Info: ../img/design_diagram.pdf  used on input line 25.
 (pdftex.def)             Requested size: 412.56496pt x 290.78413pt.
 
-LaTeX Warning: Reference `chapter:analyza_zdroje' on page 18 undefined on input
+LaTeX Warning: Reference `chapter:analyza_zdroje' on page 17 undefined on input
  line 43.
 
-[18
+[17
 
 
 
 
 
-] [19 <../img/design_diagram.pdf>]
-<../img/eer_database.pdf, id=472, 560.96056pt x 785.65768pt>
+] [18 <../img/design_diagram.pdf>]
+<../img/eer_database.pdf, id=483, 560.96056pt x 785.65768pt>
 File: ../img/eer_database.pdf Graphic file (type pdf)
 <use ../img/eer_database.pdf>
 Package pdftex.def Info: ../img/eer_database.pdf  used on input line 88.
 (pdftex.def)             Requested size: 412.56496pt x 577.84108pt.
- [20] [21 <../img/eer_database.pdf>]
+ [19] [20 <../img/eer_database.pdf>]
 Overfull \hbox (50.14809pt too wide) in paragraph at lines 182--183
 \T1/lmr/m/n/12 van• pro dvojci re-fen£-nÌch bod∑. K tomu se zejmÈna vy-u-∫Ìv· a
 tri-but [][]\T1/lmtt/m/n/12 shape_dist_traveled[]\T1/lmr/m/n/12 ,|
  []
 
-[22] [23] [24]
-<../img/dojezd_ve_fazich_dne.png, id=548, 1042.8561pt x 682.2288pt>
+[21] [22] [23]
+<../img/dojezd_ve_fazich_dne.png, id=559, 1042.8561pt x 682.2288pt>
 File: ../img/dojezd_ve_fazich_dne.png Graphic file (type png)
 <use ../img/dojezd_ve_fazich_dne.png>
 Package pdftex.def Info: ../img/dojezd_ve_fazich_dne.png  used on input line 28
 6.
 (pdftex.def)             Requested size: 412.56496pt x 269.89902pt.
-<../img/dojezd_podle_vzdalenosti.png, id=550, 975.645pt x 702.4644pt>
+<../img/dojezd_podle_vzdalenosti.png, id=561, 975.645pt x 702.4644pt>
 File: ../img/dojezd_podle_vzdalenosti.png Graphic file (type png)
 <use ../img/dojezd_podle_vzdalenosti.png>
 Package pdftex.def Info: ../img/dojezd_podle_vzdalenosti.png  used on input lin
 e 295.
 (pdftex.def)             Requested size: 412.56496pt x 297.04816pt.
- [25] [26 <../img/dojezd_ve_fazich_dne.png> <../img/dojezd_podle_vzdalenosti.pn
-g>]
-<../img/cerny_most_chvaly.png, id=568, 890.3664pt x 628.0263pt>
+ [24]
+<../img/cerny_most_chvaly.png, id=572, 890.3664pt x 628.0263pt>
 File: ../img/cerny_most_chvaly.png Graphic file (type png)
 <use ../img/cerny_most_chvaly.png>
 Package pdftex.def Info: ../img/cerny_most_chvaly.png  used on input line 322.
 (pdftex.def)             Requested size: 412.56496pt x 291.00385pt.
 
 
-LaTeX Warning: Reference `' on page 27 undefined on input line 327.
+LaTeX Warning: Reference `' on page 25 undefined on input line 327.
 
-[27 <../img/cerny_most_chvaly.png>]
-<../img/divoka_sarka_veleslavin.png, id=577, 997.326pt x 643.9257pt>
+[25 <../img/dojezd_ve_fazich_dne.png>] [26 <../img/dojezd_podle_vzdalenosti.png
+> <../img/cerny_most_chvaly.png>]
+<../img/divoka_sarka_veleslavin.png, id=588, 997.326pt x 643.9257pt>
 File: ../img/divoka_sarka_veleslavin.png Graphic file (type png)
 <use ../img/divoka_sarka_veleslavin.png>
 Package pdftex.def Info: ../img/divoka_sarka_veleslavin.png  used on input line
  331.
 (pdftex.def)             Requested size: 412.56496pt x 266.36937pt.
-<../img/nepredvidatelne_zdrzeni.png, id=579, 913.4928pt x 608.5134pt>
+<../img/nepredvidatelne_zdrzeni.png, id=590, 913.4928pt x 608.5134pt>
 File: ../img/nepredvidatelne_zdrzeni.png Graphic file (type png)
 <use ../img/nepredvidatelne_zdrzeni.png>
 Package pdftex.def Info: ../img/nepredvidatelne_zdrzeni.png  used on input line
  342.
 (pdftex.def)             Requested size: 412.56496pt x 274.8313pt.
- [28 <../img/divoka_sarka_veleslavin.png>]
-<../img/konkavni_obal_nejednoznacny.png, id=595, 696.6025pt x 531.9875pt>
+ [27 <../img/divoka_sarka_veleslavin.png>]
+<../img/konkavni_obal_nejednoznacny.png, id=606, 696.6025pt x 531.9875pt>
 File: ../img/konkavni_obal_nejednoznacny.png Graphic file (type png)
 <use ../img/konkavni_obal_nejednoznacny.png>
 Package pdftex.def Info: ../img/konkavni_obal_nejednoznacny.png  used on input 
 line 359.
 (pdftex.def)             Requested size: 330.05322pt x 252.0554pt.
 
-[29 <../img/nepredvidatelne_zdrzeni.png>] [30 <../img/konkavni_obal_nejednoznac
-ny.png>] [31]
-! Missing $ inserted.
-<inserted text> 
-                $
-l.483 ...hoz√≠ stanice spoje (atribut -verb-shape_
-                                                  dist_traveled-). Tedy zvoj...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
+[28 <../img/nepredvidatelne_zdrzeni.png>] [29 <../img/konkavni_obal_nejednoznac
+ny.png>] [30] [31] [32]
 
+LaTeX Warning: Reference `mapbox_mapa' on page 33 undefined on input line 528.
 
-LaTeX Warning: Command \' invalid in math mode on input line 483.
+<../img/mapa_mapbox.png, id=637, 660.4675pt x 487.8225pt>
+File: ../img/mapa_mapbox.png Graphic file (type png)
+<use ../img/mapa_mapbox.png>
+Package pdftex.def Info: ../img/mapa_mapbox.png  used on input line 532.
+(pdftex.def)             Requested size: 206.28247pt x 152.36227pt.
 
+LaTeX Warning: Reference `dve_vozidla' on page 33 undefined on input line 537.
 
-LaTeX Warning: Command \v invalid in math mode on input line 483.
 
+LaTeX Warning: Reference `dve_vozidla' on page 33 undefined on input line 541.
 
-LaTeX Warning: Command \' invalid in math mode on input line 483.
-
-
-LaTeX Warning: Command \' invalid in math mode on input line 483.
-
-
-LaTeX Warning: Command \' invalid in math mode on input line 483.
-
-
-LaTeX Warning: Command \' invalid in math mode on input line 483.
-
-
-LaTeX Warning: Command \' invalid in math mode on input line 483.
-
-
-LaTeX Warning: Command \v invalid in math mode on input line 483.
-
-
-LaTeX Warning: Command \v invalid in math mode on input line 483.
-
-
-LaTeX Warning: Command \' invalid in math mode on input line 483.
-
-
-LaTeX Warning: Command \v invalid in math mode on input line 483.
-
-
-LaTeX Warning: Command \' invalid in math mode on input line 483.
-
-
-LaTeX Warning: Command \v invalid in math mode on input line 483.
-
-
-LaTeX Warning: Command \' invalid in math mode on input line 483.
-
-
-LaTeX Warning: Command \' invalid in math mode on input line 483.
-
-
-LaTeX Warning: Command \' invalid in math mode on input line 483.
-
-
-LaTeX Warning: Command \' invalid in math mode on input line 483.
-
-
-LaTeX Warning: Command \' invalid in math mode on input line 483.
-
-
-LaTeX Warning: Command \v invalid in math mode on input line 483.
-
-
-LaTeX Warning: Command \' invalid in math mode on input line 483.
-
-
-LaTeX Warning: Command \' invalid in math mode on input line 483.
-
-
-LaTeX Warning: Command \' invalid in math mode on input line 483.
-
-
-LaTeX Warning: Command \' invalid in math mode on input line 483.
-
-
-LaTeX Warning: Command \' invalid in math mode on input line 483.
-
-
-LaTeX Warning: Command \v invalid in math mode on input line 483.
-
-
-LaTeX Warning: Command \' invalid in math mode on input line 483.
-
-
-LaTeX Warning: Command \v invalid in math mode on input line 483.
-
-
-LaTeX Warning: Command \' invalid in math mode on input line 483.
-
-
-LaTeX Warning: Command \v invalid in math mode on input line 483.
-
-
-LaTeX Warning: Command \' invalid in math mode on input line 483.
-
-
-LaTeX Warning: Command \v invalid in math mode on input line 483.
-
-
-LaTeX Warning: Command \v invalid in math mode on input line 483.
-
-
-LaTeX Warning: Command \' invalid in math mode on input line 483.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.484 
-      
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-
-Overfull \hbox (506.56052pt too wide) in paragraph at lines 483--484
-\T1/lmr/m/n/12 trase spoje od v˝-chozÌ sta-nice spoje (atri-but -verb-shape$[]\
-OML/lmm/m/it/12 ist[]raveled\OMS/lmsy/m/n/12 ^^@\OT1/lmr/m/n/12 )\OML/lmm/m/it/
-12 :Tedyzvojcezast\OT1/lmr/m/n/12 ·\OML/lmm/m/it/12 vekposob\OT1/lmr/m/n/12 •\O
-ML/lmm/m/it/12 n\OT1/lmr/m/n/12 ·\OML/lmm/m/it/12 sleduj\OT1/lmr/m/n/12 Ì\OML/l
-mm/m/it/12 c\OT1/lmr/m/n/12 Ì\OML/lmm/m/it/12 sez\OT1/lmr/m/n/12 Ì\OML/lmm/m/it
-/12 skaj\OT1/lmr/m/n/12 Ì\OML/lmm/m/it/12 tak; \OT1/lmr/m/n/12 ∫\OML/lmm/m/it/1
-2 esese\OT1/lmr/m/n/12 ∞\OML/lmm/m/it/12 ad\OT1/lmr/m/n/12 Ì\OML/lmm/m/it/12 v\
-OT1/lmr/m/n/12 ≤\OML/lmm/m/it/12 echnyzast\OT1/lmr/m/n/12 ·\OML/lmm/m/it/12 vky
-proka\OT1/lmr/m/n/12 ∫\OML/lmm/m/it/12 d\OT1/lmr/m/n/12 ˝ \OML/lmm/m/it/12 spoj
-podleatributu \OMS/lmsy/m/n/12 ^^@|
- []
-
-
-Overfull \hbox (302.70262pt too wide) in paragraph at lines 483--484
-\OML/lmm/m/it/12 verb \OMS/lmsy/m/n/12 ^^@ \OML/lmm/m/it/12 shape[]ist[]raveled
- \OMS/lmsy/m/n/12 ^^@ \OML/lmm/m/it/12 :N\OT1/lmr/m/n/12 ·\OML/lmm/m/it/12 sled
-uj\OT1/lmr/m/n/12 Ì\OML/lmm/m/it/12 c\OT1/lmr/m/n/12 Ì\OML/lmm/m/it/12 zast\OT1
-/lmr/m/n/12 ·\OML/lmm/m/it/12 vkapakjetale\OT1/lmr/m/n/12 ∫Ì\OML/lmm/m/it/12 c\
-OT1/lmr/m/n/12 Ì \OML/lmm/m/it/12 nan\OT1/lmr/m/n/12 ·\OML/lmm/m/it/12 sleduj\O
-T1/lmr/m/n/12 Ì\OML/lmm/m/it/12 c\OT1/lmr/m/n/12 Ì\OML/lmm/m/it/12 m\OT1/lmr/m/
-n/12 ∞·\OML/lmm/m/it/12 dkuvse\OT1/lmr/m/n/12 ∞\OML/lmm/m/it/12 azen\OT1/lmr/m/
-n/12 È\OML/lmm/m/it/12 tabulce; tento\OT1/lmr/m/n/12 ∞·\OML/lmm/m/it/12 deksep\
-OT1/lmr/m/n/12 ∞\OML/lmm/m/it/12 e\OT1/lmr/m/n/12 £\OML/lmm/m/it/12 tepomoc\OT1
-/lmr/m/n/12 Ì\OML/lmm/m/it/12 funkce[]:$ |
- []
-
-[32]
-
-! Package glossaries Error: Glossary entry `pid' has not been defined.
-
-See the glossaries package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.502 ...ir≈°√≠ho okol√≠ obsluhovan√©ho \gls{pid}e
-                                                  m, kterou bude mo≈æn√© pos...
-
-You need to define a glossary entry before you can use it.
-
-[33]) [34]
+<../img/dve_vozidla.png, id=638, 634.37pt x 280.04625pt>
+File: ../img/dve_vozidla.png Graphic file (type png)
+<use ../img/dve_vozidla.png>
+Package pdftex.def Info: ../img/dve_vozidla.png  used on input line 545.
+(pdftex.def)             Requested size: 206.28247pt x 91.06522pt.
+) [33 <../img/mapa_mapbox.png> <../img/dve_vozidla.png>]
 \openout2 = `kap03.aux'.
 
  (./kap03.tex
 Kapitola 3.
-[35
+[34
 
 
 
-]
-Overfull \hbox (7.33485pt too wide) in paragraph at lines 97--98
-[]\T1/lmr/m/n/12 P∞ÌchozÌ po-∫a-davky od kli-neta jsou ∞e-≤eny skrip-tem na ser
--ve-rovÈ stran•. Kter˝ je|
+] [35]
+Overfull \hbox (11.81572pt too wide) in paragraph at lines 113--114
+[]\T1/lmr/m/n/12 Se ser-ve-ro-vou £·stÌ se ko-mu-ni-kuje po-mocÌ [][]\T1/lmtt/m
+/n/12 GET []\T1/lmr/m/n/12 request∑ a ser-ver vracÌ [][]JSON[]onovÈ|
  []
 
-[36]) [37]
+[36] [37] [38]) [39]
 \openout2 = `kap04.aux'.
 
- (./kap04.tex
-Kapitola 4.
-[38
-
-
-
-]
-Overfull \hbox (7.33485pt too wide) in paragraph at lines 93--94
-[]\T1/lmr/m/n/12 P∞ÌchozÌ po-∫a-davky od kli-neta jsou ∞e-≤eny skrip-tem na ser
--ve-rovÈ stran•. Kter˝ je|
- []
-
-[39]) [40]
+ (./kap04.tex)
 \openout2 = `kap05.aux'.
 
  (./kap05.tex)
 \openout2 = `kap06.aux'.
 
  (./kap06.tex
+Kapitola 4.
+[40
+
+
+
+
+
+
+
+]
 Kapitola 5.
 [41
 
-
-
-
-
 ]
 Kapitola 6.
-[42
-
-]
-Kapitola 7.
-) [43
+) [42
 
 ]
 \openout2 = `zaver.aux'.
 
- (./zaver.tex) [44
+ (./zaver.tex) [43
 
 
 
@@ -1561,7 +1257,7 @@ Kapitola 7.
 
 Package natbib Warning: Empty `thebibliography' environment on input line 8.
 
-)) [45
+)) [44
 
 
 
@@ -1569,40 +1265,40 @@ Package natbib Warning: Empty `thebibliography' environment on input line 8.
 \tf@lof=\write7
 \openout7 = `prace.lof'.
 
- [46
+ [45
 
 
 ] (./prace.lot)
 \tf@lot=\write8
 \openout8 = `prace.lot'.
 
- [47
+ [46
 
 ]
 Using TeX to sort glossary entries---this may take a while
-[48
+[47
 
 ]
-Overfull \hbox (11.3606pt too wide) in paragraph at lines 277--277
+Overfull \hbox (11.3606pt too wide) in paragraph at lines 282--282
 []\T1/lmr/m/n/12 JavaScript Ob-ject No-tation, spe-ci-fakce: https://tools.ietf
 .org/html/rfc8259.|
  []
 
-[49
+[48
 
 
 ]
 P\v {r}\'{\i }loha A.
-[50
+[49
 
 ]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 295.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 295.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 300.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 300.
  (./prace.aux (./titulka.aux) (./uvod.aux) (./kap01.aux) (./kap01,5.aux)
 (./kap02.aux) (./kap03.aux) (./kap04.aux) (./kap05.aux) (./kap06.aux)
 (./zaver.aux) (./literatura.aux))
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 295.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 295.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 300.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 300.
 
 
 Package rerunfilecheck Warning: File `prace.out' has changed.
@@ -1610,30 +1306,39 @@ Package rerunfilecheck Warning: File `prace.out' has changed.
 (rerunfilecheck)                or use package `bookmark'.
 
 Package rerunfilecheck Info: Checksums for `prace.out':
-(rerunfilecheck)             Before: 0C343BE77A68E40116DE98BB64D75F97;6104
-(rerunfilecheck)             After:  1A6F880D2E07C32A4C4D2C719220648E;5976.
+(rerunfilecheck)             Before: 64DBE66016759E2FE9741C01DE7BCF1F;6492
+(rerunfilecheck)             After:  E12EF1A218B3DFABC917E0C0DCEC82B8;6096.
 
 LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 295.
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 300.
  ) 
 Here is how much of TeX's memory you used:
- 22504 strings out of 492616
- 342223 string characters out of 6129482
- 456076 words of memory out of 5000000
- 25748 multiletter control sequences out of 15000+600000
+ 22554 strings out of 492616
+ 343046 string characters out of 6129482
+ 456728 words of memory out of 5000000
+ 25792 multiletter control sequences out of 15000+600000
  94277 words of font info for 84 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  45i,8n,57p,1970b,2327s stack positions out of 5000i,500n,10000p,200000b,80000s
-pdfTeX warning (dest): name{chapter*.31} has been referenced but does not exi
+pdfTeX warning (dest): name{chapter*.28} has been referenced but does not exi
 st, replaced by a fixed one
 
-pdfTeX warning (dest): name{subsection.2.3.2} has been referenced but does not 
-exist, replaced by a fixed one
+pdfTeX warning (dest): name{chapter.7} has been referenced but does not exist, 
+replaced by a fixed one
+
+pdfTeX warning (dest): name{section.4.2} has been referenced but does not exist
+, replaced by a fixed one
+
+pdfTeX warning (dest): name{section.4.1} has been referenced but does not exist
+, replaced by a fixed one
 
 {/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/loca
-l/texlive/2019/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/texlive/
-2019/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/2019/texmf-dis
+l/texlive/2019/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/2019
+/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/texlive/2019/texmf-dis
 t/fonts/enc/dvips/lm/lm-ec.enc}{/usr/local/texlive/2019/texmf-dist/fonts/enc/dv
 ips/lm/lm-ts1.enc}</usr/local/texlive/2019/texmf-dist/fonts/type1/public/lm/lmb
 x12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></
@@ -1647,10 +1352,10 @@ m/lmr17.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/lm/lmr7.pfb>
 texlive/2019/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local/texlive/20
 19/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/local/texlive/2019/texmf-d
 ist/fonts/type1/public/lm/lmtt12.pfb>
-Output written on prace.pdf (54 pages, 11973824 bytes).
+Output written on prace.pdf (53 pages, 12770666 bytes).
 PDF statistics:
- 901 PDF objects out of 1000 (max. 8388607)
- 757 compressed objects within 8 object streams
- 179 named destinations out of 1000 (max. 500000)
- 424 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 931 PDF objects out of 1000 (max. 8388607)
+ 783 compressed objects within 8 object streams
+ 183 named destinations out of 1000 (max. 500000)
+ 450 words of extra memory for PDF output out of 10000 (max. 10000000)
 

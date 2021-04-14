@@ -256,7 +256,7 @@ Všechny spoje $S_{ab}$ bez ohladu na linku nebo dopravce jedou ze zastávky $a$
 
 Během jízdy mohou nastat mimořádnosti, které porušují výše uvedené předpoklady, nicméně detekce mimořádností a jejich řešení je nad rámec této práce a jejich počet je zanedbatelný, proto na statistické modely nebudou mít vliv.
 
-\subsubsection{Analýza dat a návrh modelování} \label{subsubsection:analyza_dat}
+\subsection{Analýza dat a návrh modelování} \label{subsubsection:analyza_dat}
 
 Na úvod uvedˇme, že ve všech grafech a následně pro počítání modelů byly všechny zobrazené vzorky poloh vozidel v grafech zarovnány tak, aby jejich jízda ze zastávky $a$ vždy začínala se spožděním 0 sekund. To podle nahlášeného zpoždění v zastávce $a$.
 
@@ -273,7 +273,7 @@ Odhad zpoždění vozidla na trase se v současné době provádí pomocí lin
 
 Ačkoli je snaha tento model nahradit lepším, v některých situacích může jeho použití i na dále dávat smysl. Zejména pak v případech kdy není k dispozici dostatek dat a nebo je vzdálenost dvou zastávek natolik malá, že nemá smyl ani jakýkoliv odhat zpoždění dělat. (TODO do problemu: Lepší by bylo volit trasy s nejmenší dobou jízdy, ale čas jízdy je promněnlivý a težko se získá skutečná doba jízdy z dat. Navíc v praxi jsou vzdálenost a doba jízdy dostatečně závislé)
 
-\paragraph{Polynomiální profil jízdy}
+\subsubsection{Polynomiální profil jízdy}
 
 Po analýze dat poloh vozidel a možných vlivů ovlivnˇující profil jízdy je patrné, že v průběhu jednoho dne dochází na trase nejvýše k několika výkyvům rychlosti jízdy. Viditelné jako "vlny" v průběhu dne na grafu \ref{fig:dojezd_ve_fazich_dne}), v 8:30 hod\footnote{časy jsou uvedeny v UTC}. jízda trvala téměř 10 minut, naopak ve večerních hodinách jízda trvá kolem 7 minut.
 
@@ -309,7 +309,7 @@ Polynomiální model se tedy hodí pro situace kdy je průběh trasy nějak ovli
 
 Polynomiální model je pro představu vykreslen v grafu v úvodním příkladu v kapitole \ref{subsection:priklad_nelinearni_trasa}.
 
-\paragraph{Nepravidelné profily jízdy}
+\subsubsection{Nepravidelné profily jízdy}
 
 Výše popsaný příklad však ilustruje téměř ideální případ, kde je pravidelnost jízdy velmi dobře viditelná. Rozeberme si proto nyní i jiné druhy profilů jízd.
 
@@ -333,7 +333,7 @@ Pro velmi krátké trasy se zobrazené vzorky dat mohou jevit jako zcela nepravi
   \label{fig:divoka_sarka_veleslavin}
 \end{figure}
 
-\paragraph{Model konkávním obalem}
+\subsubsection{Model konkávním obalem}
 
 Na dalším grafu \ref{fig:nepredvidatelne_zdrzeni} je zobrazen příklad, kdy na trase exituje bod, který určité procento projíždějících spojů zdrží o netriviální dobu. Něco takového nastane pokud spoje projíždí světelnou křižovatkou nebo místem kde se náhodně tvoří kolona vozidel. Zde dochází ke skové změně průběhu bodové funkce a spojité modely, jakým je polynomílní model, by s okolím tohoto kritického místa měly problém. Pro případy, kdy je na trase jen jeden takový bod by použití polymoniálních modelů vyhovovovalo, ale teroreticky je potřeba algoritmus, který umí pracovat s více kritickými body na trase.
 
@@ -429,7 +429,7 @@ jinak:
 Vrací: odhad_příjezdu - pravidelný příjezd;
 \end{code}
 
-\paragraph{Modely neuronových sítí}
+\subsubsection{Modely neuronových sítí}
 
 Najdeme také funkci popisující průběh trasy pomocí neuronové sítě.
 
@@ -441,7 +441,7 @@ Ačkoli by řešení popsané výše mělo vyřešit problém řešený v této
 
 Vstupní data pro učení neuronové sítě budou vzorky poloh vozidel a spoždění zaznamenané v následující stanici.
 
-\subsubsection{Čtení dat}
+\subsection{Čtení dat}
 
 Pro zkonstuování modelů popisujících profily jízd mezi všemi dvojcemi zastávek $(a, b)$ je nejprve potřeba zjistit všechny dvojce zastávek, mezi kterými jede alesponˇ jeden spoj. Tedy nejprve chceme získat celou množinu $AB$. To se dá zjistit pomocí jízdních řádů, které reprezentujeme v tabulce \verb-rides- v naší databázi popsané v kapitole \ref{subsection:databaze}
 
@@ -480,18 +480,20 @@ ON trip_coordinates.id_trip = schedule.id_trip AND
 ORDER BY id_stop, lead_stop, shifted_shape_trav
 \end{code}
 
-Tento SQL dotaz nejprve získá všechny dvojce po sobě jdoucích zastávek z jízdních řádů v tabulce \verb-rides-. Protože v tabulce je jízda spoje uložená jako sekvence zastávek, kde každé náleží čas příjezdu resp. odjezdu a její vzdálenost na trase spoje od výchozí stanice spoje (atribut -verb-shape_dist_traveled-). Tedy zvojce zastávek po sobě následující se získají tak, že se seřadí všechny zastávky pro každý spoj podle atributu -verb-shape_dist_traveled-. Následující zastávka pak je ta ležící na následujícím řádku v seřazené tabulce, tento řádek se přečte pomocí funkce \verb-LEAD-.
+Tento SQL dotaz nejprve získá všechny dvojce po sobě jdoucích zastávek z jízdních řádů v tabulce \verb-rides-. Protože v tabulce je jízda spoje uložená jako sekvence zastávek, kde každé náleží čas příjezdu resp. odjezdu a její vzdálenost na trase spoje od výchozí stanice spoje (atribut \verb-shape_dist_traveled-). Tedy dvojce zastávek po sobě následující se získají tak, že se seřadí všechny zastávky pro každý spoj podle atributu \verb-shape_dist_traveled-. Následující zastávka pak je ta ležící na následujícím řádku v seřazené tabulce, tento řádek se přečte pomocí funkce \verb-LEAD-.
 
 \bigbreak
 
-K těmto dvojcím zastávek dále získáme všechny vzorky poloh vozidel. To tak, že vezme všechny vzorky pro daný spoj, které leží mezi vybranou dvojcí zastávek. V tomto dotazu zárovenˇ vyloučíme zastávky, které jsou k sobě blíže než nebo vzdálené přesně 1500 m (v implementaci je pak vzdálenost určena parametricky), zdůvodnění této vzdálenosti je výše v návrhu modelů.
+K těmto dvojcím zastávek dále získáme všechny vzorky poloh vozidel. To tak, že vezme všechny vzorky pro daný spoj, které leží mezi vybranou dvojcí zastávek. V tomto dotazu zárovenˇ vyloučíme zastávky, které jsou k sobě blíže než nebo vzdálené přesně 1500 m (v implementaci je pak vzdálenost určena parametricky), zdůvodnění této vzdálenosti je výše v návrhu modelů. Pro produkční nasazení je ještě potřeba omezit čtené vzroky podle času vytvoření, tedy např. nevyužívat vzorky starší několika dní, jak je popsáno v analýze problému. Nicméně toto omezení by vycházelo z reálného provozu ze skušeností jak rychle se vývíjí dopravní sítˇ nebo jak často se mění jízdní řády.
 
+\bigbreak
 
+Takto jak je SQL dotaz napsán, je jeho provedení velmi časově náročné. To nám, ale nemusí vadit protože dotaz bude volán pouze před výpočtem modelů, což je samo o sobě mnohem časově náročnější operace a navíc tato operace bude spouštěna tak, aby nepřetěžovala kapacitu stroje. Pokud by se ukázalo, že dotaz vybírá z databáze příliš velké množství dat, s kterými se poté tězce manipuluje v paměti počítače, je možné doplnit stránkování výběru dvojic zastávek klíčovým slovem s parametry \verb-LIMIT offset, limit-.
 
 
 \section{Vizualizace dat}
 
- Aplikace vizualizace dat bude postavena z částí server -- client. Tedy serverová strana se postará o přístup k otevřeným datům z databáze na základě požadavků klienta.
+ Aplikace vizualizace dat bude postavena z částí server a client. Tedy serverová strana se postará o přístup k otevřeným datům z databáze na základě požadavků klienta.
 
 \subsection{Funkční požadavky}
 
@@ -499,15 +501,13 @@ Funkční požadavky vyplývají z rozboru existujících řešení v kapitole 
 
 \begin{itemize}
 
-	\item Aplikace vykreslí interaktivní mapu Prahy, Středočeského kraje a širšího okolí obsluhovaného \gls{pid}em, kterou bude možné posouvat či zoomovat.
+	\item Aplikace vykreslí interaktivní mapu Prahy, Středočeského kraje a širšího okolí obsluhovaného \gls{pid}em do webového rozhraní, kterou bude možné posouvat či zoomovat.
 
 	\item V této mapě budou zobrazeny vozidla na aktuálních pozicích a budou se automaticky posouvat po mapě, tak jak se pohybují ve skutečnosti.
 
 	\item Po kliknutí na vozidlo se zobrazí jeho celá trasa včetně zastávek a časů průjezdů a jeho dopočítaného zpoždění.
 
 	\item Po kliknutí na zastávku se zobrazí seznam spojů, které budou projíždět vybranou zastávkou a jejich trasy se vykreslí do mapy.
-
-	\item Celá aplikace bude postavena na principu server -- client. Tedy serverová strana se postará o přístup k otevřeným datům o vozidlech a jejich uložení a také obsluhu požadavků klienta. Klientská část bude webová stránka poskytující služby popsané výše. Měla by být schopná zobrazit řádově tisíce vozidel.
 
 \end{itemize}
 
@@ -517,24 +517,34 @@ Front-end aplikace musí být schopný zobrazit v mapě řádově tisíce vozide
 
 \bigbreak
 
-Servoravá část včetně databáze bude schopná obsloužit jeden dotaz za sekundu a to pouze pro demonstrační účely. Účelem práce tedy není budování rozbustního backe-endového řešení schoného produkčního nasazení.
+Servoravá část včetně databáze bude schopná obsloužit jednotky dotazů za sekundu a to pouze pro demonstrační účely. Účelem práce tedy není budování rozbustního backe-endového řešení schoného produkčního nasazení.
 
-\subsection{Mapové podklady}
+\subsection{Návrh grafiky a UI}
 
-Jak vyplývá z funkčních požadavků data budou zobrazována v mapě. Mapu si samozřejmě nebudeme kreslit sami, ale využijeme jedno z již existujcích řešení, které umožnˇuje zobrazení mapy a do ní zanést vlastní data. Takové služby mohou být provozovatelem zpoplatněny, ale pro naše demonstrační účely, kdy budeme využívat tuto službu velmi málo, bývá od poplatků většinou upoštěno.
-
-\bigbreak
-
-Jedním z těchto poskytovatelů je společnost Google, která má propracované mapové podklady a prostřednictvím služby Google Maps poskytuje pro tuto práci požadovanou službu.
+Z výše popsaných funkčních požadavků budou vycházet grafické návrh uživatelského rozhraní. Předem je potřeba zdůraznit, že návrh do velkého detailu grafických a estetických vlastností této aplikace není předmětem této práce.
 
 \bigbreak
 
-Další platformou je Mapbox, který poskytuje s využitím dalších knihovem velmi podobné služby jako Google Maps. Nicméně narozdíl od Googlu využívá jako mapový podklad \gls{osm} {otevřená geografické data}.
+Externí mapové podklady mohou být zobrazeny v několika barevných variacích, umožn—ují zobrazení ortofoto a také zobrazení z důrazem na různé mapové vrstvy. Pro nás je nejžádoucí zobrazit vrstvu ulic a cest a dále pak určité orientační body jako jsou budovy, vodní plochy, lesy atp. Z palety barev je pak dobrou volbou neutrélní béžová barva. Příklad takové mapy je na obrázku \ref{mapbox_mapa}.
+
+\begin{figure}
+	\centering
+  \includegraphics[width=0.5\linewidth]{../img/mapa_mapbox.png}
+  \caption{Mapbox Mapa, použitý styl mapy: streets-v11}
+  \label{fig:mapbox_mapa}
+\end{figure}
+
+Zobrazení jednotlivých spojů bude pomocí bodů v mapě a to konkrétně baravným kruhem s číslem linky, vybrané vozidla se rozliší jinou barvou a velikostí kruhu. Návrh reprezentace vozidel v mapě je zobrazen na obrázku \ref{dve_vozidla}.
 
 \bigbreak
 
-Protože smyslem práce je v co největší míře využít otevřená data je žádoucí využít právě službu Mapbox.
+Pro zvolené vozidlo se vykreslí celá jeho trasa včetně všech zastávek. Trasa je reprezentována lomenou čarou a zastávky jako špendlíky v mapě, po přejetí symbolu zastávky se zobrazí i její název. Za zvoleným vozidlem je zobrazena i historie jeho jízdy za uplynulých několik minut, to pomocí barevné lomené čáry, tvořící ocas zvoleného vozidla. Rovněž k povšimnutí na obrázku \ref{dve_vozidla}.
 
-\bigbreak
+\begin{figure}
+	\centering
+  \includegraphics[width=0.5\linewidth]{../img/dve_vozidla.png}
+  \caption{Design zobrazení elementů v mapě, linka je 348 je vybrána}
+  \label{fig:dve_vozidla}
+\end{figure}
 
-TODO dokumentace mapbox, zeptat se jestli je to vubec nutne rozebirat
+Další infomace o spoji, nebo zastávce se zobrazí v tabulce, která z části překryje mapu. Tato tabulka bude obsahovat informace o zvoleném vozidle, konkrétně konečnou stanici, jeho zpoždění a celý jízdní řád. Respektivě infomace o zvolené zastávce a to název zastávky a všechny spoje, které zvolenou zastávkou budou projíždět včetně jejich pravidelného odjezdu a aktuálního zpoždění. Po kliknutí na zastávku se tedy zobrazí její odjedová tabule.

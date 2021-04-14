@@ -4,6 +4,7 @@ The top-level auxiliary file: prace.aux
 A level-1 auxiliary file: titulka.aux
 A level-1 auxiliary file: uvod.aux
 A level-1 auxiliary file: kap01.aux
+A level-1 auxiliary file: kap01,5.aux
 A level-1 auxiliary file: kap02.aux
 A level-1 auxiliary file: kap03.aux
 A level-1 auxiliary file: kap04.aux
@@ -16,7 +17,7 @@ I found no \citation commands---while reading file prace.aux
 Database file #1: literatura.bib
 You've used 0 entries,
             2828 wiz_defined-function locations,
-            616 strings with 5018 characters,
+            617 strings with 5029 characters,
 and the built_in function-call counts, 33 in all, are:
 = -- 0
 > -- 0

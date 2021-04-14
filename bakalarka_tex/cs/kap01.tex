@@ -155,18 +155,18 @@ Ze zveřejněných dat na této platformě jsou nejdůležijtější data pro tu
 Využívané atributy jsou:
 
 \begin{itemize}
-	\item \documentationAtt{coordinates}{aktuální \gls{gps} souřadnice vozidla}
+	\item \verb-coordinates- aktuální \gls{gps} souřadnice vozidla
 
-	\item \documentationAtt{origin\_timestamp}{čas zachycení pozice vozidla, v časovém pásmu \gls{utc}}
+	\item \verb-origin\_timestamp- čas zachycení pozice vozidla, v časovém pásmu \gls{utc}
 
-	\item \documentationAtt{gtfs\_trip\_id}{unikátní identifikátor tripu pro spárování s jízdním řádem}
+	\item \verb-gtfs\_trip\_id- unikátní identifikátor tripu pro spárování s jízdním řádem
 
-	\item \documentationAtt{gtfs\_shape\_dist\_traveled}{vzdálenost vozidla uražená od začátku tripu v metrech}
+	\item \verb-gtfs\_shape\_dist\_traveled- vzdálenost vozidla uražená od začátku tripu v metrech
 
-	\item \documentationAtt{delay\_stop\_departure}{zpoždění zachycené při odjezdu z poslední projeté zastávky v sekundách}
+	\item \verb-delay\_stop\_departure- zpoždění zachycené při odjezdu z poslední projeté zastávky v sekundách
 \end{itemize}.
 
-Příklad dat popisující aktuální polohu vozidla, na kterém je možno vidět strukturu dat i další atrubuty. Řada z nich je pro tuto práci zbytečná. Dále je možno si povšimnout atrubutu \documentationAtt{all\_positions}, který obsahuje všechny zaznamenané pozice daného vozdila na jeho aktuální trase, tento atribut je z důvodů objemu dat volitelný a pro tuto práci se nevyužívá.
+Příklad dat popisující aktuální polohu vozidla, na kterém je možno vidět strukturu dat i další atrubuty. Řada z nich je pro tuto práci zbytečná. Dále je možno si povšimnout atrubutu \verb-all\_positions-, který obsahuje všechny zaznamenané pozice daného vozdila na jeho aktuální trase, tento atribut je z důvodů objemu dat volitelný a pro tuto práci se nevyužívá.
 
 \begin{code}[frame=none]
 "geometry":{
@@ -233,11 +233,11 @@ Dále jsou k dispozici data o každé jízdě. To je popis trasy vozidla, včetn
  Míra unikátnosti identifikátorů těchto tripů je předmětem dohadů a zřejmě jsou pod správou plánovačů \gls{mhd}, nicméně pro účely této práce může být předpokládáno, že každá jízda má vlastní jízdní řád, který se váže na čas a každá jízda jede nejvýše jednou za den.
 
 \begin{itemize}
-	\item \documentationAtt{trip\_headsign}{nápis na čele vozidla, typicky cílová stanice}
+	\item \verb-trip\_headsign- nápis na čele vozidla, typicky cílová stanice
 
-	\item \documentationAtt{route\_id}{číslo linky}
+	\item \verb-route\_id- číslo linky
 
-	\item \documentationAtt{trip\_id}{unikátní identifikátor tripu pro spárování s real-time daty, pravděpodobně odpovídá atributu \verb"gtfs\_trip\_id"}
+	\item \verb-trip\_id- unikátní identifikátor tripu pro spárování s real-time daty, pravděpodobně odpovídá atributu \verb"gtfs\_trip\_id"
 
 
 \end{itemize}
@@ -247,17 +247,17 @@ Navíc s každým tripem může být vyžádáno zaslání seznamu zastávek, kt
 \subsubsection{Zastávky}
 
 \begin{itemize}
-	\item \documentationAtt{arrival\_time}{čas příjezdu spoje do zastávky}
+	\item \verb-arrival_time- čas příjezdu spoje do zastávky
 
-	\item \documentationAtt{departure\_time}{čas odjezdu spoje do zastávky}
+	\item \verb-departure_time- čas odjezdu spoje do zastávky
 
-	\item \documentationAtt{shape\_dist\_traveled}{vzdálenost zastávky na trase od výchozího bodu daného tripuv metrech}
+	\item \verb-shape_dist\_traveled- vzdálenost zastávky na trase od výchozího bodu daného tripuv metrech
 
-	\item \documentationAtt{stop\_id}{unikátní indetifikátor zastávky}
+	\item \verb-stop_id- unikátní indetifikátor zastávky
 
-	\item \documentationAtt{coordinates}{\gls{gps} souřadnice zastávky, často \verb"null", je třeba využít atributy \verb"stop\_lat" a \verb"stop\_lon"}
+	\item \verb-coordinates- \gls{gps} souřadnice zastávky, často \verb"null", je třeba využít atributy \verb"stop\_lat" a \verb"stop\_lon"
 
-	\item \documentationAtt{stop\_name}{název zastávky}
+	\item \verb-stop_name- název zastávky
 \end{itemize}
 
 \bigbreak
@@ -369,6 +369,22 @@ Jak bylo řečeno v úvodu, součástí práce je i vizualizace spočítaných d
 
 To bude provedeno formou front endové aplikace, která zobrazuje mapu a do ní zanáší data o vozidlech VHD. Funkční požadavky této aplikace jsou inspirované již existujícími řešeními tohoto problému.
 
+\subsection{Mapové podklady}
+
+Jak vyplývá z funkčních požadavků data budou zobrazována v mapě. Mapu si samozřejmě nebudeme kreslit sami, ale využijeme jedno z již existujcích řešení, které umožnˇuje zobrazení mapy a do ní zanést vlastní data. Takové služby mohou být provozovatelem zpoplatněny, ale pro naše demonstrační účely, kdy budeme využívat tuto službu velmi málo, bývá od poplatků většinou upoštěno.
+
+\bigbreak
+
+Jedním z těchto poskytovatelů je společnost Google, která má propracované mapové podklady a prostřednictvím služby Google Maps a poskytuje pro tuto práci požadovanou službu nazývanou Google My Maps\footnote{https://www.google.com/maps/about/mymaps/}.
+
+\bigbreak
+
+Další platformou je Mapbox\footnote{https://www.mapbox.com}, který poskytuje s využitím dalších knihovem velmi podobné služby jako Google My Maps. Nicméně narozdíl od Googlu využívá jako mapový podklad \gls{osm} {otevřená geografické data}.
+
+\bigbreak
+
+Protože smyslem práce je v co největší míře využít otevřená data je žádoucí využít právě službu Mapbox.
+
 \subsection{Současná řešení} \label{subsection:soucasna_reseni_front_end}
 
 Vizualizaci vozidel \gls{vhd} do mapy již nabízí několik portálů. Všechny jsou však poměrně strohé.
@@ -378,7 +394,8 @@ Vizualizaci vozidel \gls{vhd} do mapy již nabízí několik portálů. Všechny
 Takovou mapu zobrazuje i samotný provozavatel datové platformy. Nicméně nejsou zde vidět ani čísla linek zobrazených autobusů, natož pak nějaké další informace. Příklad vizualizace je uveden na obrázku \ref{fig:golemio_result}.
 
 \begin{figure}
-  \includegraphics[width=\linewidth]{../img/golemio_mapa.png}
+	\centering
+  \includegraphics[width=0.5\linewidth]{../img/golemio_mapa.png}
   \caption{Mapa z golemio.cz.}
   \label{fig:golemio_result}
 \end{figure}
@@ -388,7 +405,8 @@ Takovou mapu zobrazuje i samotný provozavatel datové platformy. Nicméně nejs
 Dalším poskytovatelem je portál tram-bus, který si vede o něco lépe. Ukazuje směr jízdy vozidel, čísla linek a po kliknutí informace o zpoždění a nejbližší zastávky. Pozn.: na mapě již jsou vidět spoje \gls{dpp}, protože v době psaní této práce již byly data veřejné. Příklad vizualizace je uveden na obrázku \ref{fig:tram-bus_result}.
 
 \begin{figure}
-  \includegraphics[width=\linewidth]{../img/tram-bus_mapa.png}
+	\centering
+  \includegraphics[width=0.5\linewidth]{../img/tram-bus_mapa.png}
   \caption{Mapa z www.tram-bus.cz.}
   \label{fig:tram-bus_result}
 \end{figure}
@@ -402,7 +420,8 @@ Mimo Prahu je velice pěkně udělaná aplikace pro zobrazení vozidel \gls{idsj
 Tato aplikace je po vizuální i funkční stránce dobrou inspirací pro tvorbu aplikace v této práci.
 
 \begin{figure}
-  \includegraphics[width=\linewidth]{../img/idsjmk_mapa.png}
+	\centering
+  \includegraphics[width=0.5\linewidth]{../img/idsjmk_mapa.png}
   \caption{Mapa z mapa.idsjmk.cz.}
   \label{fig:idsjmk_result}
 \end{figure}
