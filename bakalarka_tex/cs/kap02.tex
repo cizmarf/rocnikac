@@ -71,7 +71,7 @@ Uložená historická data budou struktorovaná tak, aby nad nimi mohly být pro
 \end{itemize}
 
 
-\section{Zpracování vstupních dat}
+\section{Zpracování vstupních dat} \label{section:zpracovani_vstupnich_dat}
 
 Struktura uložení dat se zakládá na struktuře zdrojových dat popsaných v kapitole \ref{section:analyza_zdroje} Analýza zdroje dat.
 
@@ -335,7 +335,7 @@ Pro velmi krátké trasy se zobrazené vzorky dat mohou jevit jako zcela nepravi
 
 \subsubsection{Model konkávním obalem}
 
-Na dalším grafu \ref{fig:nepredvidatelne_zdrzeni} je zobrazen příklad, kdy na trase exituje bod, který určité procento projíždějících spojů zdrží o netriviální dobu. Něco takového nastane pokud spoje projíždí světelnou křižovatkou nebo místem kde se náhodně tvoří kolona vozidel. Zde dochází ke skové změně průběhu bodové funkce a spojité modely, jakým je polynomílní model, by s okolím tohoto kritického místa měly problém. Pro případy, kdy je na trase jen jeden takový bod by použití polymoniálních modelů vyhovovovalo, ale teroreticky je potřeba algoritmus, který umí pracovat s více kritickými body na trase.
+Na dalším grafu \ref{fig:nepredvidatelne_zdrzeni} je zobrazen příklad, kdy na trase exituje bod, který určité procento projíždějících spojů zdrží o netriviální dobu. Něco takového nastane, pokud spoje projíždí světelnou křižovatkou nebo místem kde se náhodně tvoří kolona vozidel. Zde dochází ke skové změně průběhu bodové funkce. Spojité modely, jakým je polynomílní model, by s okolím tohoto kritického místa měly problém. Pro případy, kdy je na trase jen jeden takový bod by použití polymoniálních modelů vyhovovovalo, bytˇ by v bodě skoku odhad nebyl úplně přesný, ale předpokládejme, že nalezená polynomiání funkce by tento skok zohlednila. Ale teroreticky je potřeba algoritmus, který umí pracovat s více kritickými body na trase.
 
 \begin{figure}
 	\centering
@@ -344,15 +344,15 @@ Na dalším grafu \ref{fig:nepredvidatelne_zdrzeni} je zobrazen příklad, kdy n
   \label{fig:nepredvidatelne_zdrzeni}
 \end{figure}
 
-Nevyhovující průběh trasy se dvěma kritickými body $x$ a $y$ na trase odpovídá následně popsané modelové situaci jízdy vozidel mezi dvěma zastávkami. Uvažume, že se většina projíždějících spojů zdrží pouze v prvním kritickém bodě $x$ o $c$ sekund, nebo pouze v druhém kritickém bodě $y$ o $c$ sekund, nebo se lehce zdrží v obou kritických bodech o $c_y + c_x = c$ sekund\footnote{$c_x$ značí nabrané zpoždění v bodě $x$, pro $y$ analogicky}. S takovým zdržením je počítáno v jízdním řádu a tedy vozidla, která projedou první kritický bod bez zdrření jedou na čas stejně tak, jako vozidla v něm zdržená. O snížení nebo zvýšení případného zpoždění spoje je možno rozhodnout až po projetí druhého bodu.
+Nevyhovující průběh trasy se dvěma kritickými body $x$ a $y$ na trase odpovídá následně popsané modelové situaci jízdy vozidel mezi dvěma zastávkami. Uvažume, že se většina projíždějících spojů zdrží pouze v prvním kritickém bodě $x$ o $c$ sekund, nebo pouze v druhém kritickém bodě $y$ o $c$ sekund, nebo se lehce zdrží v obou kritických bodech o $c_y + c_x = c$ sekund\footnote{$c_x$ značí nabrané zpoždění v bodě $x$, pro $y$ analogicky}. S takovým zdržením je počítáno v jízdním řádu a tedy vozidla, která projedou první kritický bod bez zdrření jedou na čas stejně tak, jako vozidla v něm zdržená. O snížení nebo zvýšení případného zpoždění spoje je možno rozhodnout až po projetí druhého bodu. Zatímco polynomiální model by svými odhady jen uváděl uživatele v omyl.
 
 \bigbreak
 
-Jinými slovy na ose času jizdý od vyjetí ze zastávky vzniká jakýsi podprostor v němž se zpoždění nemění. Pro ohraničení tohoto podprosoru je potřeba sestrojit konkávní obal všech vzorků všech spojů, které přijely do následující zastávky včas.
+Jinými slovy na grafu času jízdý a vzdálenosti od vyjetí ze zastávky vzniká jakýsi podprostor v němž se zpoždění nemění. Pro ohraničení tohoto podprosoru je potřeba sestrojit konkávní obal všech vzorků všech spojů, které přijely do následující zastávky včas.
 
 \bigbreak
 
-Nejprve k samotnému konkávnímu obalu je potřeba říct, že na množině bodů není definován jednoznačně, jak je vidět na obrázku \ref{fig:konkavni_obal_nejednoznacny}\footnote{Zdroj: Alpha-Concave Hull, a Generalization of Convex Hull, Saeed Asaeedi, Farzad Didehvar, and Ali Mohades, Department of Mathematics and Computer Science, Amirkabir University of Technology, https://arxiv.org/pdf/1309.7829.pdf}. Pro úšely této práce je zapotřebí spočítat obal ve třídimenzionálním prostoru, což je velmi komplikovaný úkol, a proto je potřeba přijít s zjednodušením úlohy. Tedy počítat obal pouze pro dvoudimenzionální prostor. Toho se nedá dosáhnou jinak než diskretizací úlohy a počítání obalu pro každou hodinu zvláštˇ, tedy ze všech bodů, které byly zaznamenány v průběhu jedné hodiny.
+Nejprve k samotnému konkávnímu obalu je potřeba říct, že na množině bodů není definován jednoznačně, jak je vidět na obrázku \ref{fig:konkavni_obal_nejednoznacny}\footnote{Zdroj: Alpha-Concave Hull, a Generalization of Convex Hull, Saeed Asaeedi, Farzad Didehvar, and Ali Mohades, Department of Mathematics and Computer Science, Amirkabir University of Technology, https://arxiv.org/pdf/1309.7829.pdf}. Pro úšely této práce je zapotřebí spočítat obal ve třídimenzionálním prostoru, což je velmi komplikovaný úkol, a není ani snadné nalézt knihovny, které by konkávní obal ve 3D spočítaly. a proto je potřeba přijít s zjednodušením úlohy. Tedy počítat obal pouze pro dvoudimenzionální prostor. Toho se nedá dosáhnou jinak než diskretizací úlohy a počítání obalu pro každou hodinu zvláštˇ, tedy ze všech bodů, které byly zaznamenány v průběhu jedné hodiny.
 
 \begin{figure}
 	\centering
@@ -373,7 +373,7 @@ Z předchozího popisu řešení vyplývá ovšem, že pro výpočet obalu jsou 
 
 \bigbreak
 
-Naštěstí pro nás se v průběhu analýzy dat o polohách spojů nepodařilo najít jediný případ dvojce zastávek, mezi kterýma by došlo k popsané situaci -- výskytu dvou kritických bodů. Nebo tyto body jsou natolik nevýrazné, že by popsané řešení pomocí konkávního obalu nepřineslo žádné zlepšení odhadu zpoždění, ba naopak vzhledem k implementační náročnosti a množstvím chyb vznikajícím při tak algoritmicky náročných úkolech by přesnost odhadu zpoždění zhoršilo.
+Naštěstí pro nás se v průběhu analýzy dat o polohách spojů nepodařilo najít jediný případ dvojce zastávek, mezi kterýma by došlo k popsané situaci -- výskytu dvou kritických bodů. Nebo tyto body jsou natolik nevýrazné, že by popsané řešení pomocí konkávního obalu nepřineslo žádné zlepšení odhadu zpoždění, ba naopak vzhledem k implementační náročnosti a množstvím chyb vznikajícím při tak algoritmicky náročných úkolech by přesnost odhadu zpoždění zhoršilo. Možných vysvětlení proč tato situace nenastává se nabízí více. Zejména vlivem složitosti dopravní sítě a závsilostí v ní je možné, že pokud se vozidlo zdrží v jedné koloně vozidel a na jeho trase se ještě jeden kritický bod, pak je velmi pravděpodobné že se zdrží i v něm, protože hustota dopravy je ve stejném čase stejná na celé trase vozidla. Tedy mohou nastat dvě situace: 1. vozidlo projede oba kritické body bez zdržení v časech s mírnou úrovní dopravy, 2. vozidlo se zdroží v obou kritických bodech stejně v časech s vyskou úrovní dopravy. Tyto situace jsou pokryty popisu profilu jízdy polynomiálním modelem. Další vysvětlení je, že popisované segmenty trasy (mezi zastávkami) jsou příliš krátké na to, aby se zde vyskytly 2 kritické body. Jiné vysvětlení může být, jistý druh práva přednosti v jízdě pro spoje \gls{vhd}, čímž se myslí ovládání světelných křižovatek ve prospěch těchto vozidel, čímž se eliminuje dopad na zpoždění průjezdu křižovatkou.
 
 TODO obrazek modelu
 
@@ -385,7 +385,7 @@ Návrh algoritmu pracující s konkávním obalem je následující. Nejprve uka
 poslední_vzorky = vyber všechny vzorky poloh vozidel
   těsně před dojezdem do stanice $b$ od všech spojů;
 odhad_příjezdu = odhadni čas příjezdu v průběhu celého
-  dne podle bodů v poslní_vzorky;
+  dne podle bodů v poslní_vzorky, např.: pomocí poly regrese;
 spoje_včas = prázdné pole spojů;
 
 pro každou hodinu h:
@@ -402,24 +402,22 @@ pro každou hodinu h:
 Vrací: konkávní_obal;
 \end{code}
 
-Dále odhad zpoždění z konkávního obalu:
+Dále odhad zpoždění z konkávního obalu. Pro funkci \verb-vzdálenost bodu od hranice obalu- se vždy myslí vzdálenost po kolmici na osu ujeté vzdálenosti a osu času dne.
 
 \begin{code}[frame=none]
 Vstup: bod v prostoru vzdálenosti, průběhu dne
   a času na trase (vzorek polohy vozidla)
 
 pokud je bod v konkávní_obal:
-  velikost_okna = rozdíl horní hranice obalu od spodní
-    v čase příjezdu do zastávky;
+  velikost_okna_příjezdu = rozdíl horní hranice obalu od spodní
+    v zastávce příjezdu;
   spodek_okna = spodní hranice okna v čase
     příjezdu do zastávky;
   poměr = vzdálenost bodu od spodní hranice obalu
-	ku vzdálenost bodu od horní hranice obalu;
+	ku vzdálenosti bodu od horní hranice obalu;
   odhad_příjezdu = velikost_okna * poměr + spodek_okna;
 jinak:
   pokud je bod pod obalem:
-    spodek_okna = spodní hranice obalu
-	  v čase příjezdu do zastávky;
     odhad_příjezdu = spodek_okna - vzdálenost bodu od obalu;
   jinak:
     vrch_okna = horní hranice obalu
@@ -440,55 +438,6 @@ Ačkoli by řešení popsané výše mělo vyřešit problém řešený v této
 \bigbreak
 
 Vstupní data pro učení neuronové sítě budou vzorky poloh vozidel a spoždění zaznamenané v následující stanici.
-
-\subsection{Čtení dat}
-
-Pro zkonstuování modelů popisujících profily jízd mezi všemi dvojcemi zastávek $(a, b)$ je nejprve potřeba zjistit všechny dvojce zastávek, mezi kterými jede alesponˇ jeden spoj. Tedy nejprve chceme získat celou množinu $AB$. To se dá zjistit pomocí jízdních řádů, které reprezentujeme v tabulce \verb-rides- v naší databázi popsané v kapitole \ref{subsection:databaze}
-
-\bigbreak
-
- Dále pokud máme všechny dvojce zastávek $(a, b)$ je potřeba získat všechny oznámené polohy vozidel mezi nimi pro každou dvojci zastávek zvláštˇ. To je možné realizovat pomocí následujícího \gls{sql} dotazu.
-
-\begin{code}[frame=none]
-SELECT schedule.id_trip,
-  schedule.id_stop,
-  schedule.lead_stop,
-  departure_time,
-  schedule.lead_stop_departure_time,
-  (schedule.lead_stop_shape_dist_traveled - schedule.shape_dist_traveled)
-    AS diff_shape_trav,
-  trip_coordinates.inserted,
-  (trip_coordinates.shape_dist_traveled - schedule.shape_dist_traveled)
-    AS shifted_shape_trav,
-  trip_coordinates.delay
-FROM (
-  SELECT id_trip, id_stop, shape_dist_traveled, departure_time,
-    LEAD(id_stop, 1) OVER (PARTITION BY
-	  id_trip ORDER BY shape_dist_traveled) lead_stop,
-    LEAD(shape_dist_traveled, 1) OVER (PARTITION BY
-	  id_trip ORDER BY shape_dist_traveled) lead_stop_shape_dist_traveled,
-    LEAD(departure_time, 1) OVER (PARTITION BY
-	  id_trip ORDER BY shape_dist_traveled) lead_stop_departure_time
-  FROM rides) AS schedule
-JOIN trip_coordinates
-ON trip_coordinates.id_trip = schedule.id_trip AND
-  schedule.lead_stop_shape_dist_traveled -
-    schedule.shape_dist_traveled > 1500 AND
-  trip_coordinates.shape_dist_traveled
-    BETWEEN schedule.shape_dist_traveled AND
-  schedule.lead_stop_shape_dist_traveled
-ORDER BY id_stop, lead_stop, shifted_shape_trav
-\end{code}
-
-Tento SQL dotaz nejprve získá všechny dvojce po sobě jdoucích zastávek z jízdních řádů v tabulce \verb-rides-. Protože v tabulce je jízda spoje uložená jako sekvence zastávek, kde každé náleží čas příjezdu resp. odjezdu a její vzdálenost na trase spoje od výchozí stanice spoje (atribut \verb-shape_dist_traveled-). Tedy dvojce zastávek po sobě následující se získají tak, že se seřadí všechny zastávky pro každý spoj podle atributu \verb-shape_dist_traveled-. Následující zastávka pak je ta ležící na následujícím řádku v seřazené tabulce, tento řádek se přečte pomocí funkce \verb-LEAD-.
-
-\bigbreak
-
-K těmto dvojcím zastávek dále získáme všechny vzorky poloh vozidel. To tak, že vezme všechny vzorky pro daný spoj, které leží mezi vybranou dvojcí zastávek. V tomto dotazu zárovenˇ vyloučíme zastávky, které jsou k sobě blíže než nebo vzdálené přesně 1500 m (v implementaci je pak vzdálenost určena parametricky), zdůvodnění této vzdálenosti je výše v návrhu modelů. Pro produkční nasazení je ještě potřeba omezit čtené vzroky podle času vytvoření, tedy např. nevyužívat vzorky starší několika dní, jak je popsáno v analýze problému. Nicméně toto omezení by vycházelo z reálného provozu ze skušeností jak rychle se vývíjí dopravní sítˇ nebo jak často se mění jízdní řády.
-
-\bigbreak
-
-Takto jak je SQL dotaz napsán, je jeho provedení velmi časově náročné. To nám, ale nemusí vadit protože dotaz bude volán pouze před výpočtem modelů, což je samo o sobě mnohem časově náročnější operace a navíc tato operace bude spouštěna tak, aby nepřetěžovala kapacitu stroje. Pokud by se ukázalo, že dotaz vybírá z databáze příliš velké množství dat, s kterými se poté tězce manipuluje v paměti počítače, je možné doplnit stránkování výběru dvojic zastávek klíčovým slovem s parametry \verb-LIMIT offset, limit-.
 
 
 \section{Vizualizace dat}

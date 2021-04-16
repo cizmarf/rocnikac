@@ -36,27 +36,32 @@
 \contentsline {subsubsection}{Polynomi\IeC {\'a}ln\IeC {\'\i } profil j\IeC {\'\i }zdy}{24}{section*.16}% 
 \contentsline {subsubsection}{Nepravideln\IeC {\'e} profily j\IeC {\'\i }zdy}{25}{section*.17}% 
 \contentsline {subsubsection}{Model konk\IeC {\'a}vn\IeC {\'\i }m obalem}{27}{section*.18}% 
-\contentsline {subsubsection}{Modely neuronov\IeC {\'y}ch s\IeC {\'\i }t\IeC {\'\i }}{30}{section*.19}% 
-\contentsline {subsection}{\numberline {2.3.3}\IeC {\v C}ten\IeC {\'\i } dat}{31}{subsection.2.3.3}% 
-\contentsline {section}{\numberline {2.4}Vizualizace dat}{32}{section.2.4}% 
-\contentsline {subsection}{\numberline {2.4.1}Funk\IeC {\v c}n\IeC {\'\i } po\IeC {\v z}adavky}{32}{subsection.2.4.1}% 
-\contentsline {subsection}{\numberline {2.4.2}Kvalitativn\IeC {\'\i } po\IeC {\v z}adavky}{32}{subsection.2.4.2}% 
-\contentsline {subsection}{\numberline {2.4.3}N\IeC {\'a}vrh grafiky a UI}{33}{subsection.2.4.3}% 
-\contentsline {chapter}{\numberline {3}Implementace}{34}{chapter.3}% 
-\contentsline {section}{\numberline {3.1}Modely}{34}{section.3.1}% 
-\contentsline {section}{\numberline {3.2}Vizualizace dat}{34}{section.3.2}% 
-\contentsline {subsection}{\numberline {3.2.1}Klientsk\IeC {\'a} \IeC {\v c}\IeC {\'a}st}{34}{subsection.3.2.1}% 
-\contentsline {subsubsection}{Mapbox API}{34}{section*.20}% 
-\contentsline {subsubsection}{B\IeC {\v e}h aplikace}{36}{section*.21}% 
-\contentsline {subsection}{\numberline {3.2.2}Serverov\IeC {\'a} \IeC {\v c}\IeC {\'a}st}{37}{subsection.3.2.2}% 
-\contentsline {subsubsection}{Server knihovna}{38}{section*.22}% 
-\contentsline {chapter}{\numberline {4}Porovn\IeC {\'\i }n\IeC {\'\i } se st\IeC {\'a}vaj\IeC {\'\i }c\IeC {\'\i }m \IeC {\v r}e\IeC {\v s}en\IeC {\'\i }m}{40}{chapter.4}% 
-\contentsline {chapter}{\numberline {5}Navrhy na zlepseni}{41}{chapter.5}% 
-\contentsline {chapter}{\numberline {6}Statistiky}{42}{chapter.6}% 
-\contentsline {chapter}{Z\IeC {\'a}v\IeC {\v e}r}{43}{chapter*.23}% 
-\contentsline {chapter}{Seznam pou\IeC {\v z}it\IeC {\'e} literatury}{44}{chapter*.24}% 
-\contentsline {chapter}{Seznam obr\'azk\r {u}}{45}{chapter*.25}% 
-\contentsline {chapter}{Seznam tabulek}{46}{chapter*.26}% 
-\contentsline {chapter}{Seznam pou\IeC {\v z}it\IeC {\'y}ch zkratek}{47}{chapter*.27}% 
-\contentsline {chapter}{\numberline {A}P\IeC {\v r}\IeC {\'\i }lohy}{49}{appendix.A}% 
-\contentsline {section}{\numberline {A.1}Prvn\IeC {\'\i } p\IeC {\v r}\IeC {\'\i }loha}{49}{section.A.1}% 
+\contentsline {subsubsection}{Modely neuronov\IeC {\'y}ch s\IeC {\'\i }t\IeC {\'\i }}{31}{section*.19}% 
+\contentsline {section}{\numberline {2.4}Vizualizace dat}{31}{section.2.4}% 
+\contentsline {subsection}{\numberline {2.4.1}Funk\IeC {\v c}n\IeC {\'\i } po\IeC {\v z}adavky}{31}{subsection.2.4.1}% 
+\contentsline {subsection}{\numberline {2.4.2}Kvalitativn\IeC {\'\i } po\IeC {\v z}adavky}{31}{subsection.2.4.2}% 
+\contentsline {subsection}{\numberline {2.4.3}N\IeC {\'a}vrh grafiky a UI}{32}{subsection.2.4.3}% 
+\contentsline {chapter}{\numberline {3}Implementace}{33}{chapter.3}% 
+\contentsline {section}{\numberline {3.1}\IeC {\'U}vod}{33}{section.3.1}% 
+\contentsline {section}{\numberline {3.2}Zpracov\IeC {\'a}n\IeC {\'\i } dat}{34}{section.3.2}% 
+\contentsline {subsection}{\numberline {3.2.1}Konstrukce objekt\IeC {\r u} vozidel}{34}{subsection.3.2.1}% 
+\contentsline {subsection}{\numberline {3.2.2}Odhad zpo\IeC {\v z}d\IeC {\v e}n\IeC {\'\i }}{35}{subsection.3.2.2}% 
+\contentsline {subsection}{\numberline {3.2.3}Kompletace dat a jejich ulo\IeC {\v z}en\IeC {\'\i }}{35}{subsection.3.2.3}% 
+\contentsline {section}{\numberline {3.3}Modely}{37}{section.3.3}% 
+\contentsline {subsection}{\numberline {3.3.1}\IeC {\v C}ten\IeC {\'\i } dat}{37}{subsection.3.3.1}% 
+\contentsline {section}{\numberline {3.4}Vizualizace dat}{39}{section.3.4}% 
+\contentsline {subsection}{\numberline {3.4.1}Klientsk\IeC {\'a} \IeC {\v c}\IeC {\'a}st}{39}{subsection.3.4.1}% 
+\contentsline {subsubsection}{Mapbox API}{39}{section*.20}% 
+\contentsline {subsubsection}{B\IeC {\v e}h aplikace}{40}{section*.21}% 
+\contentsline {subsection}{\numberline {3.4.2}Serverov\IeC {\'a} \IeC {\v c}\IeC {\'a}st}{42}{subsection.3.4.2}% 
+\contentsline {subsubsection}{Server knihovna}{42}{section*.22}% 
+\contentsline {chapter}{\numberline {4}Porovn\IeC {\'\i }n\IeC {\'\i } se st\IeC {\'a}vaj\IeC {\'\i }c\IeC {\'\i }m \IeC {\v r}e\IeC {\v s}en\IeC {\'\i }m}{45}{chapter.4}% 
+\contentsline {chapter}{\numberline {5}Navrhy na zlepseni}{46}{chapter.5}% 
+\contentsline {chapter}{\numberline {6}Statistiky}{47}{chapter.6}% 
+\contentsline {chapter}{Z\IeC {\'a}v\IeC {\v e}r}{48}{chapter*.23}% 
+\contentsline {chapter}{Seznam pou\IeC {\v z}it\IeC {\'e} literatury}{49}{chapter*.24}% 
+\contentsline {chapter}{Seznam obr\'azk\r {u}}{50}{chapter*.25}% 
+\contentsline {chapter}{Seznam tabulek}{51}{chapter*.26}% 
+\contentsline {chapter}{Seznam pou\IeC {\v z}it\IeC {\'y}ch zkratek}{52}{chapter*.27}% 
+\contentsline {chapter}{\numberline {A}P\IeC {\v r}\IeC {\'\i }lohy}{54}{appendix.A}% 
+\contentsline {section}{\numberline {A.1}Prvn\IeC {\'\i } p\IeC {\v r}\IeC {\'\i }loha}{54}{section.A.1}% 

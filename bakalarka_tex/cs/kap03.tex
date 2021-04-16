@@ -2,20 +2,260 @@
 
 \chapter{Implementace}
 
+V této kapitole je detailně popsána implementace a volba technologií použití k implementaci navrženého díla.
+
+\section{Úvod}
+
+Nejdůležitější částí celého systému je modul výpočtu a používání pravděpodobnostních modelů odhadu zpoždění vozidel. To vytváří požadavek na využití technologií, které poskytují prostředí pro pohodlnou tvorbu těchto modelů. V současnosti jsou nejpokročilejší nástroje pro takový účel součástí balíčkové sady jakyka Python3, konkrétně se jedná o knihovnu scikit-learn\footnote{https://scikit-learn.org/stable/} a další nástroje pro páci s velkými daty jake je knihovna NumPy\footnote{https://numpy.org}. Tyto knihovny implemntují dobře známé algoritmy umělé inteligence, včetně optimalizací a pomocných funkcí zjednodušujících hledání nejlepšího modelu. Navíc jsou tyto knihovny naimplementovány s ohledem na vysokou výkonost\footnote{https://scikit-learn.org/stable/developers/performance.html} a využití grafických karet\footnote{Záleží na konkrétním hardwaru}. Proto nedává smysl jejich služeb nevyužít. Využití jazyka Python3 je tedy pro jádro náší práce jasnou volbou.
+
+\bigbreak
+
+Pro samotné zpracování dat žádné speciální požadavky nevyvstávají a je možné využít i jiné ověřené backendové programovací jazyky a technologie. Nicméně pro zachování jednoty vývoje není důvod měnit prostředí a využijeme též jazyk Python3. Může být namítnuto, že programy psané v jazyce Python3 nejsou výkonostně příliš dobré, nicméně v našem případě se nebudou provádět žádné složité výpočty, ale pouze stahování dat z internetu a jejich transformace. Bytˇ se jedná o poměrně velké objemy dat jakákoliv operace s nimi je stále řádově rychlejší než stahování z internetu.
+
+\bigbreak
+
+Databázi jsem již vybrali MySQL\footnote{https://www.mysql.com} implementaci. To zejména z důvodů, že se jedná o open source projekt a tato implementace je velmi často vyžívaná v celé řadě jiných projektů s velkou komunitou. Konkrétně pro Python3 existuje knihovna MySQL Connector\footnote{https://dev.mysql.com/doc/connector-python/en/} přes kterou je možné \gls{sql} databázi pohodlně obsluhovat.
+
+\bigbreak
+
+Celý systém je ovládaný přes hlavní skript v souboru \verb-download_and_process.py-. Tento skript slouží jak ke spuštění produkčního běhu aplikace tak i k údržbě dat, správným nastavení parametrů se vybere zdroj dat, kde je navýběr mezi demonstračními daty, vývojovými daty nebo real-time dady. Dále je možné spuštěním skriptu vytvořit modelu profilů jízd a táké odstranit historická data z databáze podle jejich data vložení.
+
+\bigbreak
+
+Veškerý software bude naimplemtván s ohledem na paradigma \gls{oop}. Tedy logické celky budeme dělit do tříd, jejichž instance budou repzentovat vždy danou entitu. Každá třída bude implemenovat sadu metod, odpovídající logice věci.
+
+\section{Zpracování dat} \label{section:zpracovani_dat}
+
+Základní myšlenka zpracování dat pocházejících ze zdroje dat popsaném v kapitole \ref{section:analyza_zdroje} je taková, že data se budou periodicky stahovat a ukládat do \gls{sql} databáze, tento postup je popsán v kapitole \ref{section:zpracovani_vstupnich_dat}.
+
+\bigbreak
+
+Jako součást projektu naimplementujeme pro přehlednost pomocné třídy celkově usnadnˇující využití zdrojů a technologií pro náš specifický účel. Dále pak z důvodu oddělení technických záležitostí, jako je např.: stahování dat ze sítě, tak aby nezasahovali do ko'du implementující logiku systému. Stejně tak se tímto eliminuje výskyt paternů v celém ko'du. Konktrétně se tím myslí komunikace s databází, kominkace se zdrojem dat, komunikace se souborovým systémem. Tyto třídy navíc definují důležité konstanty, jakými jsou např.: jména využívaných souborů nebo souborových adresářů, \gls{url} zdroje dat atp.
+
+\bigbreak
+
+Hlavní smyčka ve které se stahují a zpracovávají data volá následující funkce.
+
+\begin{code}[frame=none]
+# stažení aktuálních poloh vozidel
+all_vehicle_positions.get_all_vehicle_positions_json()
+
+# konstrukce interní reprezentace vozidel
+all_vehicle_positions.construct_all_trips(database_connection)
+
+# odhadnutí spoždění všech vozidel
+estimate_delays(all_vehicle_positions, models)
+
+# kompletace dat a uložení do databáze
+asyncio.run(process_async_vehicles(all_vehicle_positions, database_connection, args))
+\end{code}
+
+\subsection{Konstrukce objektů vozidel}
+
+Funkce \verb-construct_all_trips- vytvoří z každého nalezeného vozidla ve vstupním \gls{json} souboru instanci třídy \verb-Trip-, která je interní reprezentací těchto vozidel.
+
+\bigbreak
+
+Avšak ke konstrukci instancí vozidel je potřeba získat data z databáze o jízdních řádech. To potože součástí vstupního souboru z externího zdroje není informace o poslední projeté a další následující zastávce. Tuto informaci potřebujeme pro odhad zpoždění provádějící se v dalším kroku\footnote{Ve verzi 2 datového formátu souboru poloh vozidel je již tato informace zahrnuta}. Proto se na začátku konstrukce instancí třídy \verb-Trip- čtou data z tabulky \verb-rides- pouze pro aktuálně zpracovávané jízdy, a dále se pak sadou funkcí hledá poslední projetá a následující zastávka na trase každého spoje.
+
+\subsection{Odhad zpoždění}
+
+Tato funkce odhadu zpoždění musí být volána ještě před uložením do databáze, aby se do databáze vložily data včetně odhadu zpoždění. To ovšem zapříčiní, že pokud je vozidlo dosud nenalezeno neznáme ani jeho jízdní řád a tedy nemůžeme pro něj odhadnou zpoždění. To ovšem nehraje velkou roli, protože se tak stane pro každé vozidlo ihned po vyjetí z výchozí stanice, nebo ještě pře vyjetím, v těchto případech nemá počítání odhadu zpoždění velký význam. V další iteraci již jízdní řády spoje budou známé, tedy chybějící zpoždění doplníme velmi rychle.
+
+\bigbreak
+
+Funkce odhad zpoždění využívá zkonstruovaných modelů profilů jízd, pokud takový model zatím není vytvořen použije se zpoždění v poslední projeté zastávce. Modely jsou uloženy v souborovém systému a pro každou dvojci zastávek je model uložen zvláštˇ.
+
+\bigbreak
+
+Pro rychlejší běh aplikace jsou však po prvním načtení modely drženy v paměti počítače v proměnné typu mapa, to nám pak umožní rychlé vyhledávání podle dvojce identifikátorů zastávek. Implementace funkce je následující, tento ko'd je volán pro každé vozidlo zvláštˇ.
+
+\begin{code}[frame=none]
+# najde model podle dvojce zastávek a dnů v týdnu
+model = models.get(
+  str(vehicle.last_stop or '') + "_" +
+  str(vehicle.next_stop or '') +
+  ("_bss" if lib.is_business_day(vehicle.last_updated) else "_hol"),
+  Two_stops_model.Linear_model(vehicle.stop_dist_diff))
+
+# vybere data potřebná k výpočtu odhadu zpoždění
+tuple_for_predict = vehicle.get_tuple_for_predict()
+
+# odhadne zpoždění
+# jinak se při vkládání do databáze použije zpoždění z poslední zastávky
+if tuple_for_predict is not None:
+  vehicle.cur_delay = model.predict(*tuple_for_predict)
+\end{code}
+
+\subsection{Kompletace dat a jejich uložení}
+
+Kompletace dat především obnáší stažení dalších dat, jako jsou jízdní řády v případě, že jízda doposud nebyla nalezena. Takových jízd může být v jedné iteraci běžící aplikace i několik desítek, při spuštění systému jsou všechny jízdy nenalezeny a tedy musí být staženy dodatečná data i pro několik stovek jízd. Aby se data o každé jízdě nestahovala sériově metoda zpracování vozidel je implementována asynchroně, resp. stahování dat je asynchroní. Díky tomu se začnou stahovat data o více jízdách v jeden okamžik. Bytˇ čekání na stažení dat o jedné jízdě je při dobrém internetovém spojení otázkou několika desítek milisekund, tak v případech stahování dat o stovkách jízd sériově by jenom stahování dat prodloužilo běh jedné iterace o jednotky až nízké desítky sekund.
+
+\bigbreak
+
+Jak tedy vyplývá z textu výše tato funkce dělí běh na dvě části podle toho jestli je jízda vozidla nalezena nebo nenalezena. V případě nalezené jízdy v databázi se jen aktualizuje záznam v tabulce \verb-trips-, mezi aktualizovaná data patří aktuální zpoždění, zpoždění v poslení pojeté zastávce, ujetá vzdálenost, souřadnice vozidla a časová známka aktualizace dat ve zdroji dat. Zárovenˇ s aktualizací dat v tabulce \verb-trips- se provádí i vložení nového záznamu do tabulky \verb-trip_coordinates-, která slouží jako datový sklad všech zaznamenaných poloh vozidel. Celá logika aktualizace je řešena v \gls{sql} funkci.
+
+\begin{code}[frame=none]
+CREATE DEFINER=`root`@`localhost` FUNCTION
+  `update_trip_and_insert_coordinates_if_changed`(
+  trip_source_id_to_insert VARCHAR(31),
+  current_delay_to_insert INT(32),
+    last_stop_delay_to_insert INT(32),
+  shape_dist_traveled_to_insert INT(32),
+  lat_to_insert DECIMAL(9,6),
+  lon_to_insert DECIMAL(9,6),
+  last_updated_to_insert DATETIME) RETURNS int(1)
+    DETERMINISTIC
+BEGIN
+  SELECT last_updated, id_trip
+  INTO @last_updated, @id_trip
+  FROM trips
+  WHERE trips.trip_source_id = trip_source_id_to_insert
+  LIMIT 1;
+
+  IF @last_updated <> last_updated_to_insert THEN
+    INSERT INTO trip_coordinates (
+      id_trip,
+      lat,
+      lon,
+      inserted,
+      delay,
+      shape_dist_traveled,
+      last_stop_delay)
+    VALUES (
+      @id_trip,
+      lat_to_insert,
+      lon_to_insert,
+      last_updated_to_insert,
+      current_delay_to_insert,
+      shape_dist_traveled_to_insert,
+      last_stop_delay_to_insert);
+
+    UPDATE trips
+    SET trips.last_updated = last_updated_to_insert,
+      trips.current_delay = current_delay_to_insert,
+      trips.shape_dist_traveled = shape_dist_traveled_to_insert,
+      trips.lat = lat_to_insert,
+      trips.lon = lon_to_insert
+    WHERE trips.id_trip = @id_trip;
+        RETURN 1;
+  ELSE
+    RETURN 0;
+  END IF;
+END
+\end{code}
 
 
+\section{Konstrukce modelů}
 
 
+Pro spočítání polynomiálního modelu se využívá knihovna sklearn konkrétně algoritmus zvaný Rigde, který sám o sobě hledá linární závislosti, nicméně vstupní hodnoty jsou mezi sebou náležitě pronásobeny tak, aby simulovali polynomiální funkci. Toho se dosáhne pomocí funkce PolynomialFeatures. Optimální stupeň polynomu se zjistí spočítáním modelu pro každý stupeň v rozumných mezích a nakonec se zvolí ten s nejmenší chybou. To se v jazyce Python3 za pomocí knihovny sklearn provede následujcícm ko'dem. Omezení stupnˇů polynomiální regrese vyplývá ze skušenosti, kdy s nejmenší chybou jsou modely stupně 5 nebo 6.
 
-\section{Modely}
+\begin{code}[frame=none]
+for degree in [3, 4, 5, 6, 7, 8, 9, 10]:
+  model = make_pipeline(PolynomialFeatures(degree), Ridge(), verbose=0)
+  model.fit(X_train, y_train)
+  pred = model.predict(X_test)
+  error = mean_squared_error(y_test, pred)
+  if error < best_error:
+    best_degree = degree
+    best_error = error
 
+self.model = make_pipeline(PolynomialFeatures(best_degree), Ridge())
+self.model.fit(input_data, output_data)
+\end{code}
 
-Pro spočítání polynomiálního modelu se využívá knihovna sklearn konkrétně algoritmus zvaný Rigde, který sám o sobě hledá linární závislosti, nicméně vstupní hodnoty jsou mezi sebou náležitě pronásobeny tak, aby simulovali polynomiální funkci. Toho se dosáhne pomocí funkce PolynomialFeatures. Optimální stupeň polynomu se zjistí spočítáním modelu pro každý stupeň v rozumných mezích a nakonec se zvolí ten s nejmenší chybou. (TODO jak moc detailně se ma toto popisovat?)
+Samotné nalezení správného modelu se nyní může zdát jednoduché, nicméně nejsložitější prací pro jakoukoli úlohy z oblasti umělé inteligence a strojového učení je příprava dat a v naší práci tomu není jinak. Atˇ už se jedná o samotná zpracování dat popsané výše v kapitole \ref{section:zpracovani_dat}, tak také je potřeba tyto zpracovaná data dále trasnformovat z formátu v jakém jsou uloženy v databázi do formátu jaký je vhodný pro počítání lineární regrese. Dále je pak potřeba data vyčistit od zcela nesmyslných vzorků poloh vozidel, kterých je vstupních datech spousta a mohly by negativně ovlivnit správnost odhadů nalezených modeů.
 
+\subsection{Čtení dat}
 
+Pro zkonstuování modelů popisujících profily jízd mezi všemi dvojcemi zastávek je nejprve potřeba zjistit všechny dvojce zastávek, mezi kterými jede alesponˇ jeden spoj. To se dá zjistit pomocí jízdních řádů, které reprezentujeme v tabulce \verb-rides- v naší databázi popsané v kapitole \ref{subsection:databaze}
 
+\bigbreak
 
+ Dále pokud máme všechny dvojce zastávek je potřeba získat všechny oznámené polohy vozidel mezi nimi pro každou dvojci zastávek zvláštˇ. To je možné realizovat pomocí následujícího \gls{sql} dotazu.
 
+\begin{code}[frame=none]
+SELECT schedule.id_trip,
+  schedule.id_stop,
+  schedule.lead_stop,
+  departure_time,
+  schedule.lead_stop_departure_time,
+  (schedule.lead_stop_shape_dist_traveled - schedule.shape_dist_traveled)
+    AS diff_shape_trav,
+  trip_coordinates.inserted,
+  (trip_coordinates.shape_dist_traveled - schedule.shape_dist_traveled)
+    AS shifted_shape_trav,
+  trip_coordinates.delay
+FROM (
+  SELECT id_trip, id_stop, shape_dist_traveled, departure_time,
+    LEAD(id_stop, 1) OVER (PARTITION BY
+	  id_trip ORDER BY shape_dist_traveled) lead_stop,
+    LEAD(shape_dist_traveled, 1) OVER (PARTITION BY
+	  id_trip ORDER BY shape_dist_traveled) lead_stop_shape_dist_traveled,
+    LEAD(departure_time, 1) OVER (PARTITION BY
+	  id_trip ORDER BY shape_dist_traveled) lead_stop_departure_time
+  FROM rides) AS schedule
+JOIN trip_coordinates
+ON trip_coordinates.id_trip = schedule.id_trip AND
+  schedule.lead_stop_shape_dist_traveled -
+    schedule.shape_dist_traveled > 1500 AND
+  trip_coordinates.shape_dist_traveled
+    BETWEEN schedule.shape_dist_traveled AND
+  schedule.lead_stop_shape_dist_traveled
+ORDER BY id_stop, lead_stop, shifted_shape_trav
+\end{code}
+
+Tento SQL dotaz nejprve získá všechny dvojce po sobě jdoucích zastávek z jízdních řádů v tabulce \verb-rides-. Protože v tabulce je jízda spoje uložená jako sekvence zastávek, kde každé náleží čas příjezdu resp. odjezdu a její vzdálenost na trase spoje od výchozí stanice spoje (atribut \verb-shape_dist_traveled-). Tedy dvojce zastávek po sobě následující se získají tak, že se seřadí všechny zastávky pro každý spoj podle atributu \verb-shape_dist_traveled-. Následující zastávka pak je ta ležící na následujícím řádku v seřazené tabulce, tento řádek se přečte pomocí funkce \verb-LEAD-.
+
+\bigbreak
+
+K těmto dvojcím zastávek dále získáme všechny vzorky poloh vozidel. To tak, že vezme všechny vzorky pro daný spoj, které leží mezi vybranou dvojcí zastávek. V tomto dotazu zárovenˇ vyloučíme zastávky, které jsou k sobě blíže než nebo vzdálené přesně 1500 m (v implementaci je pak vzdálenost určena parametricky), zdůvodnění této vzdálenosti je výše v návrhu modelů. Pro produkční nasazení je ještě potřeba omezit čtené vzroky podle času vytvoření, tedy např. nevyužívat vzorky starší několika dní, jak je popsáno v analýze problému. Nicméně toto omezení by vycházelo z reálného provozu ze skušeností jak rychle se vývíjí dopravní sítˇ nebo jak často se mění jízdní řády.
+
+\bigbreak
+
+Takto jak je SQL dotaz napsán, je jeho provedení velmi časově náročné. To nám, ale nemusí vadit protože dotaz bude volán pouze před výpočtem modelů, což je samo o sobě mnohem časově náročnější operace a navíc tato operace bude spouštěna tak, aby nepřetěžovala kapacitu stroje. Pokud by se ukázalo, že dotaz vybírá z databáze příliš velké množství dat, s kterými se poté tězce manipuluje v paměti počítače, je možné doplnit stránkování výběru dvojic zastávek klíčovým slovem s parametry \verb-LIMIT offset, limit-.
+
+\subsection{Příprava dat}
+
+Přečtená data z databáze se dále třídí podle dne v týdnu, ve kterém byla zaznamenána a pak pro každou sadu dat je vytvořena instance třídy \verb-Two_stops_model-. Do této třídy se pak ukládají přečtená data.
+
+\bigbreak
+
+Dále následuje čištění dat od chyb a jejich odstranění. Čištění funguje tak, že pokud nějaký vzorek dat je výrzně mimo kluster všech ostatních, tak není odstraněn pouze tento jeden vzorek, ale rovnou všechny vzorky daného spoje. To proto, že s vysokou pravděpodobností jsou ovlivněny chybou i ostatní vzorky, ale nesplnˇují poměrne volné kritéria na odstranění. Hledání chyb pak probíhá tak, že se spočírá poměr čas jízdy ku vzdálenosti všech vozorků a za chybné se označí ty příliš vzdálené od průměru. Popsaný alguritmus je implementován takto.
+
+\begin{code}[frame=none]
+trips_to_remove = set()
+trip_times_to_remove = dict()
+coor_times = self.norm_data.get_coor_times()
+norm_shapes = np.divide(self.norm_data.get_shapes(), 100)
+
+# coordinates times and distance are semi linear dependent
+
+rate = np.divide(coor_times, norm_shapes, where=norm_shapes!=0,) != np.array(None)
+
+# print("mena:", abs(rate - rate.mean()))
+# print("std:", rate.std())
+
+# gets indices of high variance
+high_variance = np.where((
+    abs(rate - rate.mean()) > rate.std() * Two_stops_model.REDUCE_VARIANCE_RATE
+  ).astype(int) == 1)[0]
+
+# for all indicated indices gets trips ids
+# and creates dictionary of day times of all corrupted samples
+for hv in high_variance:
+  trip_id = self.norm_data.get_ids_trip()[hv]
+  trips_to_remove.add(trip_id)
+
+  if trip_id in trip_times_to_remove:
+    trip_times_to_remove[trip_id].append(self.norm_data.get_timestamps()[hv])
+
+  else:
+    trip_times_to_remove[trip_id] = [self.norm_data.get_timestamps()[hv]]
+
+self.norm_data.remove_items_by_id_trip(trips_to_remove, trip_times_to_remove)
+\end{code}
 
 \section{Vizualizace dat}
 
