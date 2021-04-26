@@ -160,26 +160,21 @@ def main(database_connection, args):
 
 		# estimate delays based on models created
 		estimate_delays(all_vehicle_positions, models)
-		# this is deprecated solution of creating output vehicle position file,
-		# in current version it needs to read all data from database for each server request
-		# all_vehicle_positions.get_all_vehicle_positions_json()
 
 		# runs trips insertion and update
 		# async uses for trip file downloading only
 		asyncio.run(process_async_vehicles(all_vehicle_positions, database_connection, args))
 
 		# sleeps the remaining time (processing of all vehicles can take several seconds)
-		try:
-			# sleeps in production or demo else fills database as fast as possible
-			if args.static_demo or not args.static_data:
-				time.sleep(args.update_time - (time.time() - req_start))
-
-		# in extreme case processing lot of vehicles it can take more than maximum sleep time
-		# if this occurs it keeps running the main loop and creates warning message
-		except Exception as e:
-			print(e)
-			logging.warning("Sleep failed, " + str(e))
-			continue
+		# sleeps in production or demo else fills database as fast as possible
+		# in an extreme case of processing lot of vehicles it can take more than maximum sleep time
+		# if this occurs it keeps running the main loop and writes a warning message
+		if args.static_demo or not args.static_data:
+			time_to_sleep = args.update_time - (time.time() - req_start)
+			if time_to_sleep > 0:
+				time.sleep(time_to_sleep)
+			else:
+				logging.warning("Sleep failed")
 
 if __name__ == "__main__":
 
@@ -190,7 +185,7 @@ if __name__ == "__main__":
 	# if running build_models make sure there is enough historical data in database
 	# if static demo running it does not show all passing trips throw a stop correctly
 	parser = argparse.ArgumentParser()
-	parser.add_argument("--static_data", default=False, type=bool, action='store_true',
+	parser.add_argument("--static_data", default=True, type=bool, action='store_true',
 		help="Fill with static data or dynamic real-time data.")
 	parser.add_argument("--thu_only", default=False, type=bool,
 		help='If static data used it will fill the database with Thursday 20/2/2020 data only. For statistic purpose only.')
@@ -204,7 +199,7 @@ if __name__ == "__main__":
 		help="Deletes all trips inactive for more than set minutes")
 	parser.add_argument("--build_models", default=-1, type=int,
 		help="Rebuild all models")
-	parser.add_argument("--database", default='vehicle_positions_test_database', type=str,
+	parser.add_argument("--database", default='vehicle_positions_delay_estimation_database', type=str,
 		help='Name of database to use')
 	args = parser.parse_args([] if "__file__" not in globals() else None)
 

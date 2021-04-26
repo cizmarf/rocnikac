@@ -46,7 +46,7 @@ def get_all_pairs():
 					LEAD(departure_time, 1) OVER (PARTITION BY id_trip ORDER BY shape_dist_traveled) lead_stop_departure_time
 				FROM rides) as inn
 				JOIN trip_coordinates
-				ON trip_coordinates.id_trip = inn.id_trip and inn.lead_stop_shape_dist_traveled - inn.shape_dist_traveled > 1500 and trip_coordinates.shape_dist_traveled between inn.shape_dist_traveled and inn.lead_stop_shape_dist_traveled
+				ON trip_coordinates.id_trip = inn.id_trip and inn.lead_stop_shape_dist_traveled - inn.shape_dist_traveled > 1000 and trip_coordinates.shape_dist_traveled between inn.shape_dist_traveled and inn.lead_stop_shape_dist_traveled
 				-- order by id_stop, lead_stop, shifted_shape_trav"""
 	)
 
@@ -150,6 +150,7 @@ def get_plot(model, samples, dep_stop, arr_stop):
 
 	fig = plt.figure()
 	ax = fig.add_subplot(111, projection='3d')
+	# Z = None
 	if Z is not None:
 		ax.plot_wireframe(xx2, xx1, Z,)  # grid model
 
@@ -178,15 +179,18 @@ def get_plot(model, samples, dep_stop, arr_stop):
 	# plt.savefig(dep_stop + '_to_' + arr_stop + '.pdf')
 	plt.close()
 
-	print("From " + dep_stop + " to " + arr_stop + ", samples: " + samples)
+	print("From " + str(dep_stop) + " to " + str(arr_stop) + ", samples: " + str(samples))
 
 
 if __name__ == '__main__':
+	dep_stop = 534  # e[0].split()[0]
+	arr_stop = 421  # e[0].split()[1]
+
 	# num = get_all_pairs()
 
 	# for e in num:
-		dep_stop = 534 #e[0].split()[0]
-		arr_stop = 421 #e[0].split()[1]
+		# dep_stop = e[0].split()[0]
+		# arr_stop = e[0].split()[1]
 
 		model = create_model(dep_stop, arr_stop)
 

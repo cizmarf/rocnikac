@@ -10,8 +10,11 @@
 -- CREATE DATABASE `vehicle_positions_test_database`;
 -- USE `vehicle_positions_test_database`;
 
-CREATE DATABASE `vehicle_positions_statistic_database`;
-USE `vehicle_positions_statistic_database`;
+-- CREATE DATABASE `vehicle_positions_statistic_database`;
+-- USE `vehicle_positions_statistic_database`;
+
+CREATE DATABASE `vehicle_positions_delay_estimation_database`;
+USE `vehicle_positions_delay_estimation_database`;
 
 -- SET @@global.time_zone = '+00:00';
 

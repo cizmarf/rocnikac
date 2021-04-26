@@ -186,7 +186,6 @@ class Two_stops_model:
 					if error < best_error:
 						best_degree = degree
 						best_error = error
-				# print("Deg:", degree, "Err", error)
 
 				self.model = make_pipeline(PolynomialFeatures(best_degree), Ridge())
 				self.model.fit(input_data, output_data)
@@ -317,7 +316,7 @@ class Two_stops_model:
 			#
 
 		def has_enough_data(self):
-			return True
+			return False
 			pass
 
 		# now for arrivals curve, remake for regular model
@@ -403,11 +402,11 @@ class Two_stops_model:
 		trips_to_remove = set()
 		trip_times_to_remove = dict()
 		coor_times = self.norm_data.get_coor_times()
-		norm_shapes = np.divide(self.norm_data.get_shapes(), 10)
+		norm_shapes = np.divide(self.norm_data.get_shapes(), 100)
 
 		# coordinates times and distance are semi linear dependent
 
-		rate = np.divide(coor_times, np.divide(norm_shapes, 10), where=norm_shapes!=0,) != np.array(None)
+		rate = np.divide(coor_times, norm_shapes, where=norm_shapes!=0,) != np.array(None)
 
 		# print("mena:", abs(rate - rate.mean()))
 		# print("std:", rate.std())

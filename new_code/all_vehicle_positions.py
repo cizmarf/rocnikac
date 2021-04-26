@@ -82,7 +82,7 @@ class All_vehicle_positions():
 		return A[indexA:indexB]
 
 	# linear search, number of stops use to be up to 100
-	# if shape dist trav out of range it keeps nones for last and next stop
+	# if shape dist trav is out of range it keeps nones for last and next stop
 	@staticmethod
 	def get_last_next_stop_and_sdt(trip_ride, shape_traveled):
 		for i in range(len(trip_ride) - 1):
@@ -155,8 +155,6 @@ class All_vehicle_positions():
 					# by looking for first and last occurrence of trip id
 					trip_ride = All_vehicle_positions.get_trip_rides_sublist(
 						trip_rides, trip_ids, trip.trip_id)
-
-					# File_system.pickle_object(trip_rides, '../input_data/get_last_next_stop_and_sdt_trip_rides.list')
 
 					trip.last_stop, \
 					trip.next_stop, \

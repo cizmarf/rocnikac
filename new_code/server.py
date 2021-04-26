@@ -5,34 +5,12 @@ import logging
 import sys
 import threading
 import time
-import webbrowser
-from pathlib import Path
 from wsgiref.simple_server import make_server
-
-import mysql.connector
-from watchdog.observers import Observer
-from watchdog.events import FileSystemEventHandler
 
 from database import Database
 from file_system import File_system
 
 class Server:
-
-	# class Veh_pos_file_handler(FileSystemEventHandler):
-	#
-	# 	def on_modified(self, event):
-	# 		if event is not None and event.src_path == str(File_system.all_vehicle_positions_real_time_geojson) or event is None:
-	# 			# print("mod")
-	# 			try:
-	# 				with open(File_system.all_vehicle_positions_real_time_geojson, 'r') as f:
-	# 					if f.mode == 'r':
-	# 						self.veh_pos_file_content = f.read()
-	# 			except IOError as e:
-	# 				logging.warning("IOE " + e)
-	#
-	# 	def __init__(self):
-	# 		self.veh_pos_file_content = ""
-	# 		self.on_modified(None)
 
 	def __init__(self, database_name: str = 'vehicle_positions_database'):
 		self.database_connection = Database(database_name)
@@ -43,7 +21,7 @@ class Server:
 	# returns database id according to the given trip source id
 	def get_id_trip_by_trip_id(self, trip_id):
 
-		# looks for trip id in catch map
+		# looks for trip id in buffer map
 		if trip_id in self.trip_id_to_id_trip_map:
 			return self.trip_id_to_id_trip_map[trip_id]
 
@@ -76,7 +54,7 @@ class Server:
 				trips.lat, 
 				trips.lon 
 			FROM trips 
-			JOIN headsigns ON trips.id_headsign = headsigns.id_headsign""")
+			JOIN headsigns ON trips.id_headsign = headsigns.id_headsign AND trips.last_updated > NOW() - INTERVAL 10 MINUTE""")
 
 		trips_geojson = {}
 		trips_geojson["type"] = "FeatureCollection"
@@ -107,8 +85,6 @@ class Server:
 		geojson_tail["features"][0]["geometry"]["type"] = "LineString"
 		geojson_tail["features"][0]["geometry"]["coordinates"] = []
 		return geojson_tail
-
-	#TODO file buffer
 
 	def get_tail(self, trip_id: str, semi_now: datetime = 'now'):
 
@@ -274,57 +250,64 @@ class Server:
 
 	def server(self, environ, start_response):
 
-		if environ['REQUEST_METHOD'] == 'POST':
+		if environ['REQUEST_METHOD'] == 'GET':
 			try:
-				request_body_size = int(environ['CONTENT_LENGTH'])
-				request_body = environ['wsgi.input'].read(request_body_size)
-			except (TypeError, ValueError):
-				request_body = None
+				request_body = environ['PATH_INFO'][1:str(environ['PATH_INFO']).index('&')]
+				response_body = None
+				if "vehicles_positions" == request_body:
+					response_body = json.dumps(self.get_vehicles_positions())
 
-			response_body = ""
-			request_body = request_body.decode('utf-8')
+				# for given trip_id it returns its stops and tail and shape
+				elif "trip" == request_body.split('.')[0]:
+					trip_id = request_body[request_body.index('.')+1:]
+					response_body = '[' + \
+						json.dumps(self.get_shape(trip_id)) + ',' + \
+						json.dumps(self.get_tail(trip_id)) + ',' + \
+						json.dumps(self.get_stops(trip_id)) + ']'
 
-			# main request for all vehicles_positions
-			if "vehicles_positions" == request_body:
-				# print("veh_pos")
-				# response_body = event_handler.veh_pos_file_content
-				response_body = json.dumps(self.get_vehicles_positions())
+				# returns tail for trip of the given trip_id
+				elif "tail" == request_body.split('.')[0]:
+					response_body = json.dumps(self.get_tail(
+						request_body[request_body.index('.')+1:]))
 
-			# for given trip_id it returns its stops and tail and shape
-			elif "trip" == request_body.split('.')[0]:
-				trip_id = request_body[request_body.index('.')+1:]
-				response_body = '[' + \
-					json.dumps(self.get_shape(trip_id)) + ',' + \
-					json.dumps(self.get_tail(trip_id)) + ',' + \
-					json.dumps(self.get_stops(trip_id)) + ']'
+				# returns shape for trip of the given trip_id
+				elif "shape" == request_body.split('.')[0]:
+					response_body = json.dumps(self.get_shape(
+						request_body[request_body.index('.')+1:]))
 
-			# returns tail for trip of the given trip_id
-			elif "tail" == request_body.split('.')[0]:
-				response_body = json.dumps(self.get_tail(
-					request_body[request_body.index('.')+1:]))
+				# returns stops for trip of the given trip_id
+				elif "stops" == request_body.split('.')[0]:
+					response_body = json.dumps(self.get_stops(
+						request_body[request_body.index('.')+1:]))
 
-			# returns shape for trip of the given trip_id
-			elif "shape" == request_body.split('.')[0]:
-				response_body = json.dumps(self.get_shape(
-					request_body[request_body.index('.')+1:]))
+				# returns trip_id for all trips passing the given stop and their timetables
+				elif "trips_by_stop" == request_body.split('.')[0]:
+					response_body = json.dumps(self.get_trips_by_stop(
+						request_body[request_body.index('.')+1:]))
 
-			# returns stops for trip of the given trip_id
-			elif "stops" == request_body.split('.')[0]:
-				response_body = json.dumps(self.get_stops(
-					request_body[request_body.index('.')+1:]))
-
-			# returns trip_id for all trips passing the given stop and their timetables
-			elif "trips_by_stop" == request_body.split('.')[0]:
-				response_body = json.dumps(self.get_trips_by_stop(
-					request_body[request_body.index('.')+1:]))
-
-			# print(response_body)
-			status = '200 OK'
-			headers = [('Content-type', 'text/plain')]
-			start_response(status, headers)
-			return [response_body.encode()]
+				# print(response_body)
+				status = '200 OK'
+				headers = [('Content-type', 'text/plain')]
+				start_response(status, headers)
+				return [response_body.encode()]
+			except (TypeError, ValueError, IndexError):
+				logging.warning("invalid request: " + str(environ))
+				response_body = "invalid request"
+				status = '404'
+				headers = [('Content-type', 'text/html'),
+						   ('Content-Length', str(len(response_body)))]
+				start_response(status, headers)
+				return [response_body.encode()]
+			except Exception as e:
+				logging.warning("Something went wrong: " + str(e))
+				response_body = "internal error"
+				status = '500'
+				headers = [('Content-type', 'text/html'),
+						   ('Content-Length', str(len(response_body)))]
+				start_response(status, headers)
+				return [response_body.encode()]
 		else:
-			logging.warning("GET method should not occurs.")
+			logging.warning("POST method should not occurs.")
 			response_body = "bad request"
 			status = '400'
 			headers = [('Content-type', 'text/html'),
@@ -336,13 +319,6 @@ class Server:
 	def start_server(self):
 		"""Start the server."""
 		httpd = make_server("", self.PORT, self.server)
-
-		# global event_handler
-		# event_handler = Server.Veh_pos_file_handler()
-		# observer = Observer()
-		# observer.schedule(event_handler, path=str(File_system.all_vehicle_positions_real_time_geojson.parent), recursive=False)
-		# observer.start()
-
 		thread = threading.Thread(target=httpd.serve_forever)
 		thread.start()
 
@@ -350,18 +326,14 @@ class Server:
 			while True:
 				time.sleep(1)
 		except KeyboardInterrupt:
-			# observer.stop()
 			pass
 
-		# observer.join()
 		httpd.server_close()
 		thread.join()
 		sys.exit()
 
 
 if __name__ == "__main__":
-	# logging.basicConfig(format='%(asctime)s %(levelname)s: %(message)s', level=logging.INFO, filename=allFilesURL.log_server, filemode='w')
-	# logging.info(Log.start)
 	parser = argparse.ArgumentParser()
 	parser.add_argument("--database", default='vehicle_positions_test_database', type=str,
 		help="Says source database name")

@@ -230,6 +230,7 @@
                 el_p.appendChild(el_c);
                 el_c.className = 'stop_pin';
 
+                // zobrazí všechny spoje projíždějící zastávkou
                 el_c.addEventListener('click', function() {
                     no_stop_chosen = false;
                     show_trips_by_stop(getFileByAJAXreqNoCallback(
@@ -237,8 +238,7 @@
                     ), marker.name);
                 });
 
-                // TODO presunout cely element na prvni pricku v senzamu
-
+				// přidá do mapy název zastávky po najetí myší
                 el_c.addEventListener("mouseover", function(){
                     var el_s = document.createElement('div');
                     el_s.innerText = marker.name;
@@ -248,6 +248,7 @@
                             .addTo(map);
                 });
 
+				// odebere všechny názevy zastávek z mapy po vyjetí myši
                 el_c.addEventListener("mouseout", function(){
                     var signs = document.getElementsByClassName('stop_pin_sign');
                     while(signs[0]) {
@@ -336,19 +337,15 @@
                 return false;
             }
 
-            request.onreadystatechange = function () {
-                if (this.readyState === 4) {
-                    console.log('Prijato: ', request.responseText);
-                    // callback(request.responseText);
-                }
-            };
-
             request.onerror = function(){
                 throw Error("Network error")
             };
-            request.open('POST', "http://localhost:8080", false);
-            request.send(str_request);
-            return request.responseText;
+            request.open('GET', "http://localhost:8080/" + str_request + "&preventCache="+new Date(), false);
+            request.send();
+            if (request.readyState === 4) {
+				console.log('Prijato: ', request.responseText);
+				return request.responseText;
+			}
         }
 
     }
@@ -424,10 +421,10 @@
         trips.forEach(function (trip) {
 
 
-            if (trip["id"] in buses_elements) {
+            if (trip["id"] in vehicles_elements) {
                 var bus = new Active_trip(
                 	trip["id"],
-	                buses_elements[trip["id"]], trip["delay"], trip["headsign"]);
+	                vehicles_elements[trip["id"]], trip["delay"], trip["headsign"]);
                 bus.show_on_map();
                 active_trips[trip["id"]] = bus;
             }
@@ -461,9 +458,9 @@
 		request.onerror = function(){
 			throw Error("Network error")
 		};
-		request.open('POST', "http://localhost:8080", true); // true for callback
-		request.send(str_request);
-		return request.responseText;
+
+		request.open('GET', "http://localhost:8080/" + str_request + "&preventCache="+new Date(), false);
+		request.send();
 	}
 
 	function getFileByAJAXreqNoCallback(str_request) {
@@ -475,27 +472,24 @@
 	        return false;
 		}
 
-		request.onreadystatechange = function () {
-			if (this.readyState === 4) {
-				console.log('Prijato: ', request.responseText);
-				// callback(request.responseText);
-			}
-		};
-
 		request.onerror = function(){
 			throw Error("Network error")
 		};
-		request.open('POST', "http://localhost:8080", false); // true for callback
-		request.send(str_request);
-		return request.responseText;
+
+		request.open('GET', "http://localhost:8080/" + str_request + "&preventCache="+new Date(), false);
+            request.send();
+            if (request.readyState === 4) {
+				console.log('Prijato: ', request.responseText);
+				return request.responseText;
+			}
 	}
 
 	function showBusesOnMap(veh_pos_geojson) {
-		buses.forEach(function(elem) {
+		vehicles.forEach(function(elem) {
 			elem.remove();
-			buses.delete(elem);
+			vehicles.delete(elem);
 		});
-		buses_elements = {};
+		vehicles_elements = {};
 
 		veh_pos_geojson = JSON.parse(veh_pos_geojson);
 		veh_pos_geojson.features.forEach(function(marker) {
@@ -558,8 +552,8 @@
 			var elem = new mapboxgl.Marker(el)
 					.setLngLat(marker.geometry.coordinates)
 					.addTo(map);
-			buses.add(elem);
-			buses_elements[marker.properties.gtfs_trip_id] = el;
+			vehicles.add(elem);
+			vehicles_elements[marker.properties.gtfs_trip_id] = el;
 		});
 	}
 
@@ -577,13 +571,10 @@
 			zoom: 10 // starting zoom
 		});
 
-
-        //
-
-		var buses = new Set();
-		var active_trips = {};
-		var buses_elements = {};
-		var no_stop_chosen = true;
+		var vehicles = new Set(); // elementy vozidel v mape
+		var active_trips = {}; // vybraná vozidla
+		var vehicles_elements = {}; // html elementy vozidel
+		var no_stop_chosen = true; // indikátor vybraní zastávky
 
 		getFileByAJAXreq("vehicles_positions", showBusesOnMap);
 
@@ -592,7 +583,7 @@
 			getFileByAJAXreq("vehicles_positions", showBusesOnMap);
 
 			for (var trip in active_trips){
-			    active_trips[trip].update_tail()
+			    active_trips[trip].update_tail();
             }
 		}, 10000);
 	}

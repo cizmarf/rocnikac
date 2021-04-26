@@ -10,7 +10,9 @@ import lib
 from file_system import File_system
 from network import Network
 
-
+# Trip class instance represents a vehicle found in source file.
+# It implements transformation method for reading this file into class variables.
+# And it can convert itself to the databse input type.
 class Trip:
 
 	@staticmethod

@@ -10,9 +10,9 @@ class FillDatabase():
 	@staticmethod
 	def testInsertData():
 		# takes extremely long to time to do
-		tests.lib_tests.drop_all_tables("vehicle_positions_database")
+		tests.lib_tests.drop_all_tables("vehicle_positions_delay_estimation_database")
 
-		database_connection = Database("vehicle_positions_database")
+		database_connection = Database("vehicle_positions_delay_estimation_database")
 		args = tests.lib_tests.get_args()
 
 		from download_and_process import main
