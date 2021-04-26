@@ -230,20 +230,14 @@ trip_times_to_remove = dict()
 coor_times = self.norm_data.get_coor_times()
 norm_shapes = np.divide(self.norm_data.get_shapes(), 100)
 
-# coordinates times and distance are semi linear dependent
-
 rate = np.divide(coor_times, norm_shapes, where=norm_shapes!=0,) != np.array(None)
 
-# print("mena:", abs(rate - rate.mean()))
-# print("std:", rate.std())
-
-# gets indices of high variance
 high_variance = np.where((
     abs(rate - rate.mean()) > rate.std() * Two_stops_model.REDUCE_VARIANCE_RATE
   ).astype(int) == 1)[0]
 
-# for all indicated indices gets trips ids
-# and creates dictionary of day times of all corrupted samples
+# for all indicated indices get trip ids
+# and create dictionary of trip ids of all corrupted samples
 for hv in high_variance:
   trip_id = self.norm_data.get_ids_trip()[hv]
   trips_to_remove.add(trip_id)
