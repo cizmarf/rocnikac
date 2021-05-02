@@ -8,141 +8,93 @@ from file_system import File_system
 import tests.lib_tests
 
 class TestEstimation(unittest.TestCase):
+	worse = 0
+	better = 0
+	twice_better = 0
+	ratio = []
 
 	@staticmethod
-	def compare_delays(old: list, new: list):
-		old_np = np.array(old)
-		new_np = np.array(new)
+	def compare_delays(old_ride_delay, new_ride_delay):
+		old_np = np.array(old_ride_delay)
+		new_np = np.array(new_ride_delay)
 
 		print(old_np.std())
 		print(new_np.std())
+		TestEstimation.ratio.append(old_np.std()/new_np.std())
+		if old_np.std() < new_np.std():
+			TestEstimation.worse += 1
+		if old_np.std() > new_np.std():
+			TestEstimation.better += 1
+		if old_np.std() > new_np.std() * 2:
+			TestEstimation.twice_better += 1
 
-	def test_compare_estimation_534_421(self):
-		old_database_connection = Database("vehicle_positions_database")
+	@staticmethod
+	def compare_estimation(id_trip: int, sdt_dep: int, sdt_arr: int, db_old, db_new):
 
-		old_delay = np.array(old_database_connection.execute_fetchall("""
-			SELECT delay, inserted 
-			FROM trip_coordinates 
-			WHERE id_trip = %s AND shape_dist_traveled BETWEEN %s AND %s
-			ORDER BY inserted, shape_dist_traveled""",
-		('2162', '24647', '31530')))
+		old_delay = np.array(db_old.execute_fetchall("""
+					SELECT delay, inserted 
+					FROM trip_coordinates 
+					WHERE id_trip = %s AND shape_dist_traveled BETWEEN %s AND %s
+					ORDER BY inserted, shape_dist_traveled""",
+			(str(id_trip), str(sdt_dep), str(sdt_arr))))
 
-		new_database_connection = Database("vehicle_positions_delay_estimation_database")
-
-		new_delay = np.array(new_database_connection.execute_fetchall("""
-			SELECT delay, inserted 
-			FROM trip_coordinates 
-			WHERE id_trip = %s AND shape_dist_traveled BETWEEN %s AND %s
-			ORDER BY inserted, shape_dist_traveled""",
-		('2162', '24647', '31530')))
+		new_delay = np.array(db_new.execute_fetchall("""
+					SELECT delay, inserted 
+					FROM trip_coordinates 
+					WHERE id_trip = %s AND shape_dist_traveled BETWEEN %s AND %s
+					ORDER BY inserted, shape_dist_traveled""",
+			(str(id_trip), str(sdt_dep), str(sdt_arr))))
 
 		assert (old_delay.shape[0] == new_delay.shape[0])
+		if len(old_delay.shape) == 1:
+			print('For trip: ' + str(id_trip), ' std between ' + str(sdt_dep) + ' and ' + str(sdt_arr) + ' no data has been found.')
+			return
 
-		old_ride_delay = [old_delay[0,0]]
+		old_ride_delay = [old_delay[0, 0]]
 		new_ride_delay = [new_delay[0, 0]]
-		last_inserted = old_delay[0,1]
+		last_inserted = old_delay[0, 1]
 
 		for i in range(old_delay.shape[0]):
-			if old_delay[i,1].timestamp() < last_inserted.timestamp() + 12 * 60 * 60:
-				old_ride_delay.append(old_delay[i,0])
+			if old_delay[i, 1].timestamp() < last_inserted.timestamp() + 12 * 60 * 60:
+				old_ride_delay.append(old_delay[i, 0])
 				new_ride_delay.append(new_delay[i, 0])
 			else:
+
+				print('Trip: ' + str(id_trip), ' std between ' + str(sdt_dep) + ' and ' + str(sdt_arr) + ' variance is:')
 				TestEstimation.compare_delays(old_ride_delay, new_ride_delay)
-				old_ride_delay = [old_delay[i, 0]]
-				new_ride_delay = [new_delay[i, 0]]
+
 			last_inserted = old_delay[i, 1]
 
-
+		print('Trip: ' + str(id_trip), ' std between ' + str(sdt_dep) + ' and ' + str(sdt_arr) + ' variance is:')
 		TestEstimation.compare_delays(old_ride_delay, new_ride_delay)
 
+	def test_compare_estimation_534_421(self):
+		TestEstimation.compare_estimation(2162, 24647, 31530, Database("vehicle_positions_database"), Database("vehicle_positions_delay_estimation_database"))
 
+	def test_compare_all_estimations(self):
 
+		old_database_connection = Database("vehicle_positions_database")
+		new_database_connection = Database("vehicle_positions_delay_estimation_database")
 
-	def test_insert_new_trip_to_trips_and_coordinates_and_return_id(self):
-		database_connection = Database("vehicle_positions_test_database")
+		models = File_system.load_all_models()
 
-		database_connection.execute_transaction_commit_rollback("""
-			SELECT insert_new_trip_to_trips_and_coordinates_and_return_id
-			(%s, %s, %s, %s, %s, %s, %s, %s, %s)""",
-			('test_id', 'test_headsign', 10, 20, 100, 'no', datetime(1997, 3, 5, 2, 30, 40), 0.01, 0.02))
+		for model in models.items():
+			all_stop_trips = np.array(old_database_connection.execute_fetchall("""
+				SELECT id_trip, id_stop, shape_dist_traveled FROM vehicle_positions_database.rides 
+				WHERE id_stop = %s or id_stop = %s 
+				ORDER BY id_trip, shape_dist_traveled;""",
+				(model[1].dep_stop, model[1].arr_stop)))
 
-		headsign = database_connection.execute_fetchall("""
-			SELECT * 
-			FROM headsigns 
-			WHERE headsign = 'test_headsign' 
-			LIMIT 1""")
-		trip = database_connection.execute_fetchall("""
-			SELECT * 
-			FROM trips 
-			WHERE trip_source_id = 'test_id' 
-			LIMIT 1""")
-		trip_coordinates = database_connection.execute_fetchall("""
-			SELECT * 
-			FROM trip_coordinates 
-			WHERE id_trip = """ + str(trip[0][0]))
+			last_row = all_stop_trips[0]
+			last_row = all_stop_trips[0]
 
-		self.assertEqual('test_headsign', headsign[0][1])
+			for row in all_stop_trips[1:]:
+				if last_row[0] == row[0]:
+					TestEstimation.compare_estimation(row[0], last_row[2], row[2], old_database_connection, new_database_connection)
+				last_row = row
 
-		self.assertEqual(headsign[0][0], trip[0][2])
-		self.assertEqual(10, trip[0][3])
-		self.assertEqual(100, trip[0][4])
-		self.assertEqual(datetime(1997, 3, 5, 2, 30, 40), trip[0][5])
-		self.assertEqual('no', trip[0][6])
+		print('Finished')
+		print('For ' + str(TestEstimation.better) + ' segments of trips is the new estimation better.')
+		print('For ' + str(TestEstimation.twice_better) + ' segments of trips is the new estimation significantly better.')
+		print('For ' + str(TestEstimation.worse) + ' segments of trips is the new estimation worse.')
 
-		self.assertEqual(0.01, float(trip_coordinates[0][1]))
-		self.assertEqual(0.02, float(trip_coordinates[0][2]))
-		self.assertEqual(datetime(1997, 3, 5, 2, 30, 40), trip_coordinates[0][3])
-		self.assertEqual(10, trip_coordinates[0][4])
-		self.assertEqual(100, trip_coordinates[0][5])
-		self.assertEqual(20, trip_coordinates[0][6])
-
-		database_connection.execute("""
-			DELETE FROM trip_coordinates 
-			WHERE id_trip = """ + str(trip[0][0]))
-		database_connection.execute("""
-			DELETE FROM trips 
-			WHERE id_trip = """ + str(trip[0][0]))
-		database_connection.execute("""
-			DELETE FROM headsigns 
-			WHERE id_headsign = """ + str(headsign[0][0]))
-
-	def test_cascade_delete(self):
-		database_connection = Database("vehicle_positions_test_database")
-
-		database_connection.execute_transaction_commit_rollback("""
-			SELECT insert_new_trip_to_trips_and_coordinates_and_return_id
-			(%s, %s, %s, %s, %s, %s, %s, %s, %s)""",
-			('test_id', 'test_headsign', 10, 20, 100, 'no', datetime(1997, 3, 5, 2, 30, 40), 0.01, 0.02))
-
-		database_connection.execute("""
-			DELETE FROM trips 
-			WHERE trip_source_id = 'test_id'""")
-
-		headsign = database_connection.execute_fetchall("""
-			SELECT * 
-			FROM headsigns 
-			WHERE headsign = 'test_headsign' 
-			LIMIT 1""")
-		trip = database_connection.execute_fetchall("""
-			SELECT * 
-			FROM trips 
-			WHERE trip_source_id = 'test_id' 
-			LIMIT 1""")
-		trip_coordinates = database_connection.execute_fetchall("""
-			SELECT * 
-			FROM trip_coordinates 
-			WHERE inserted = %s""",
-		(datetime(1997, 3, 5, 2, 30, 40),))
-
-		# headsign does not aim to trip but trip aims to headsign
-		database_connection.execute("""
-			DELETE FROM headsigns 
-			WHERE id_headsign = """ + str(headsign[0][0]))
-
-		self.assertEqual(1, len(headsign))
-		self.assertEqual(0, len(trip))
-		self.assertEqual(0, len(trip_coordinates))
-
-if __name__ == '__main__':
-	FillDatabase.testInsertData()
-	# unittest.main()

@@ -1,6 +1,6 @@
 %%% Fiktivní kapitola s ukázkami tabulek, obrázků a kódu
 
-\chapter{Implementace}
+\chapter{Implementace} \lable{chapter:implementace}
 
 V této kapitole je detailně popsána implementace a volba technologií použití k implementaci navrženého díla.
 
@@ -148,7 +148,6 @@ END
 
 \section{Konstrukce modelů}
 
-
 Pro spočítání polynomiálního modelu se využívá knihovna sklearn konkrétně algoritmus zvaný Rigde, který sám o sobě hledá linární závislosti, nicméně vstupní hodnoty jsou mezi sebou náležitě pronásobeny tak, aby simulovali polynomiální funkci. Toho se dosáhne pomocí funkce PolynomialFeatures. Optimální stupeň polynomu se zjistí spočítáním modelu pro každý stupeň v rozumných mezích a nakonec se zvolí ten s nejmenší chybou. To se v jazyce Python3 za pomocí knihovny sklearn provede následujcícm ko'dem. Omezení stupnˇů polynomiální regrese vyplývá ze skušenosti, kdy s nejmenší chybou jsou modely stupně 5 nebo 6.
 
 \begin{code}[frame=none]
@@ -250,6 +249,27 @@ for hv in high_variance:
 
 self.norm_data.remove_items_by_id_trip(trips_to_remove, trip_times_to_remove)
 \end{code}
+
+Po vykonání této procedůry jsou data připravena jako vstupní data pro výpočet modelu profilu jízdy podle algoritmu uvedeném výše.
+
+\subsection{Práce s modely}
+
+Pro vložení odhadnutého zpoždění do databáze je potřeba využít předvypočítané modely pro jeho odhad.
+
+Tento odhad se počítá pro každé vozidlo zvláštˇ na základě vstupních dat o aktuální poloze vozidla obohacené o další informace. Tento vstupní vektor se konstruuje ve třídě \verb-Trip- následovně.
+
+\begin{code}[frame=none]
+self.shape_traveled - self.last_stop_shape_dist_trav,
+lib.time_to_sec(self.last_updated),
+self.departure_time.seconds,
+self.arrival_time.seconds
+\end{code}
+
+První položka je aktuální vzdálenost vozidla od poslední projeté zastávky, dále je uveden čas zaznamenání polohy vozidla, třetí položkou je čas pravidelného odjezdu z poslední projeté zastávky a dále příjezdu do následející zastávky. Pro poslední dvě položky je nutné přečíst jízdní řád pro daný spoj z databáze.
+
+Po sestrojení vstupního vektoru je vložen jako vstupní parametr funkce pro předpovědˇ odhadu zpoždění, kterou má každá instance modelu. Podle typu modelu se pro odhad zpoždění využije lineární nebo polynomiální model. V obou případech je potřeba pouze ošetřit případ, kdy vozidlo jede přes půlnoc a rozdíl tedy rozdíl času příjezdu a odjezdu by vyšel záporně.
+
+V případě, že se využívá polynomiální model pro odhaz zpoždění, je navíc ošetřena situace, kdy čas zaznamenání polohy vozidla je mimo rozsah modelu, v případě, že tomu tak je, je použita nejbližší hraniční hodnota. K něčemu takovému by docházet nemělo nebo případné posunutí času nebude mít velký vliv, protože nejpozdější, resp. nejdřívejší čas průjezdu mezi dvěma zastávkami se v realitě často nemění vůbec nebo nijak výrazně. Ošetření této situace se však míjí účinkem a to, protože se nejdřívější, resp. nejpozdější průjezd počítá vždy od půlnoci\footnote{v této práci se vždy využívá časová zo'na \gls{utc}}. Pro eliminaci chyby odhadu zpoždění polynomiálním modelem z důvodu, že model profiluje příjezd do následující zastávky v jiném čase než je pravidelný čas příjezdu, je navíc ještě zjištěn skutečný čas na jízdy tím, že se zjistí odhadovaná hodnota v čase a vzdálenost následující zastávky. Tato hodnota se pak přičte k odhadnutému zpoždění.
 
 \section{Vizualizace dat}
 

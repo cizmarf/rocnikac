@@ -382,16 +382,9 @@ class Two_stops_model:
 			return
 
 		poly_model = Two_stops_model.Polynomial_model(self.distance, self.norm_data, self.dep_id_stop, self.arr_id_stop, self.bss_or_hol)
-		concav_model = Two_stops_model.Concave_hull_model(self.distance, self.norm_data, self.dep_id_stop, self.arr_id_stop, self.bss_or_hol)
-		rmse_aplha = 0.4
 
-		# rmse and distance traveled are linearly depended because variance of samples is increasing as well
-
-		if poly_model.get_rmse() < self.distance * rmse_aplha or not concav_model.has_enough_data():
-			self.model = poly_model
-			return
-
-		self.model = concav_model
+		self.model = poly_model
+		return
 
 	def __len__(self):
 		assert len(self.shapes) == len(self.day_times) == len(self.coor_times) == len(self.ids_trip)
