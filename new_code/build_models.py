@@ -77,6 +77,9 @@ class Build_models:
 				if self.business_day_model.dep_id_stop != sts_row[1] or \
 						self.business_day_model.arr_id_stop != sts_row[2]:
 
+					print('Building models between ' + str(self.business_day_model.dep_id_stop) + ' and ' + str(self.business_day_model.arr_id_stop))
+					print('bss: ' + str(len(self.business_day_model.shapes)) + ', hol: ' + str(len(self.nonbusiness_day_model.shapes)))
+
 					if len(self.business_day_model) > 0:
 						self.business_day_model.create_model()
 						self.business_day_model.model.save_model()

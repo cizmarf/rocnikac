@@ -165,6 +165,8 @@ def main(database_connection, args):
 		# async uses for trip file downloading only
 		asyncio.run(process_async_vehicles(all_vehicle_positions, database_connection, args))
 
+		print(str(len(all_vehicle_positions.vehicles)) + ' vehicles processed in ' + str(time.time() - req_start) + ' seconds')
+
 		# sleeps the remaining time (processing of all vehicles can take several seconds)
 		# sleeps in production or demo else fills database as fast as possible
 		# in an extreme case of processing lot of vehicles it can take more than maximum sleep time
@@ -185,7 +187,7 @@ if __name__ == "__main__":
 	# if running build_models make sure there is enough historical data in database
 	# if static demo running it does not show all passing trips throw a stop correctly
 	parser = argparse.ArgumentParser()
-	parser.add_argument("--static_data", default=True, type=bool, action='store_true',
+	parser.add_argument("--static_data", default=True, action='store_true',
 		help="Fill with static data or dynamic real-time data.")
 	parser.add_argument("--thu_only", default=False, type=bool,
 		help='If static data used it will fill the database with Thursday 20/2/2020 data only. For statistic purpose only.')
@@ -199,7 +201,7 @@ if __name__ == "__main__":
 		help="Deletes all trips inactive for more than set minutes")
 	parser.add_argument("--build_models", default=-1, type=int,
 		help="Rebuild all models")
-	parser.add_argument("--database", default='vehicle_positions_delay_estimation_database', type=str,
+	parser.add_argument("--database", default='vehicle_positions_fri_delay_estimation_database', type=str,
 		help='Name of database to use')
 	args = parser.parse_args([] if "__file__" not in globals() else None)
 

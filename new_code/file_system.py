@@ -87,7 +87,7 @@ class File_system:
 	def load_all_models() -> dict:
 		models = {}
 		# models_path = [join(File_system.all_models, f) for f in listdir(File_system.all_models) if isfile(join(File_system.all_models, f))]
-		models_path = [path for path in Path(File_system.all_models).glob('*')
+		models_path = [path for path in Path(File_system.all_models).glob('*.model')
 					   if path.is_file()]
 
 		for model_path in models_path:

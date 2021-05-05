@@ -3,21 +3,25 @@
 \contentsline {figure}{\numberline {1.1}{\ignorespaces Graf po\IeC {\v c}tu \IeC {\'u}sek\IeC {\r u} mezi n\IeC {\'a}sleduj\IeC {\'\i }c\IeC {\'\i }mi zast\IeC {\'a}vkami a vzd\IeC {\'a}lenot\IeC {\'\i }\IeC {\nobreakspace }mezi nimi.}}{6}{figure.1.1}% 
 \contentsline {figure}{\numberline {1.2}{\ignorespaces Modr\IeC {\'a} plocha zna\IeC {\v c}\IeC {\'\i }\IeC {\nobreakspace }vymodelovan\IeC {\'y} profil trasy. Ora\IeC {\v z}ov\IeC {\'e} body jsou jednotliv\IeC {\'e} vzorky polohy vozidel. Data pro graf jsou ze dn\IeC {\r u} 20.--21. 2. 2020}}{7}{figure.1.2}% 
 \contentsline {figure}{\numberline {1.3}{\ignorespaces Trasa mezi zast\IeC {\'a}vkama K Leti\IeC {\v s}ti a Zli\IeC {\v c}\IeC {\'\i }n. Zdroj: mapy.cz}}{7}{figure.1.3}% 
-\contentsline {figure}{\numberline {1.4}{\ignorespaces Mapa z golemio.cz.}}{15}{figure.1.4}% 
-\contentsline {figure}{\numberline {1.5}{\ignorespaces Mapa z www.tram-bus.cz.}}{16}{figure.1.5}% 
-\contentsline {figure}{\numberline {1.6}{\ignorespaces Mapa z mapa.idsjmk.cz.}}{16}{figure.1.6}% 
+\contentsline {figure}{\numberline {1.4}{\ignorespaces Po\IeC {\v c}et soubor\IeC {\r u} s po\IeC {\v c}etem nov\IeC {\v e} nalezen\IeC {\'y}ch spoj\IeC {\r u} v nich.}}{15}{figure.1.4}% 
+\contentsline {figure}{\numberline {1.5}{\ignorespaces Po\IeC {\v c}et soubor\IeC {\r u} s po\IeC {\v c}etem nov\IeC {\v e} nalezen\IeC {\'y}ch spoj\IeC {\r u} v nich.}}{16}{figure.1.5}% 
+\contentsline {figure}{\numberline {1.6}{\ignorespaces Mapa z golemio.cz.}}{17}{figure.1.6}% 
+\contentsline {figure}{\numberline {1.7}{\ignorespaces Mapa z www.tram-bus.cz.}}{17}{figure.1.7}% 
+\contentsline {figure}{\numberline {1.8}{\ignorespaces Mapa z mapa.idsjmk.cz.}}{18}{figure.1.8}% 
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces UML diagram n\IeC {\'a}vrhu aplikace}}{18}{figure.2.1}% 
-\contentsline {figure}{\numberline {2.2}{\ignorespaces EER diagram datab\IeC {\'a}ze.}}{20}{figure.2.2}% 
-\contentsline {figure}{\numberline {2.3}{\ignorespaces Variabilita d\IeC {\'e}lky j\IeC {\'\i }zdy v pr\IeC {\r u}b\IeC {\v e}hu dne}}{25}{figure.2.3}% 
-\contentsline {figure}{\numberline {2.4}{\ignorespaces Variabilita \IeC {\v c}asu j\IeC {\'\i }zdy v z\IeC {\'a}vislosti na ujet\IeC {\'e} vzd\IeC {\'a}lenosti}}{26}{figure.2.4}% 
-\contentsline {figure}{\numberline {2.5}{\ignorespaces \IeC {\'U}sek s nepravidelnostmi}}{26}{figure.2.5}% 
-\contentsline {figure}{\numberline {2.6}{\ignorespaces \IeC {\'U}sek s nepravidelnostmi 2}}{27}{figure.2.6}% 
-\contentsline {figure}{\numberline {2.7}{\ignorespaces \IeC {\'U}sek s nepravidelnostmi}}{28}{figure.2.7}% 
-\contentsline {figure}{\numberline {2.8}{\ignorespaces Nejednozna\IeC {\v c}nost konk\IeC {\'a}vn\IeC {\'\i }ho obalu}}{29}{figure.2.8}% 
-\contentsline {figure}{\numberline {2.9}{\ignorespaces Mapbox Mapa, pou\IeC {\v z}it\IeC {\'y} styl mapy: streets-v11}}{32}{figure.2.9}% 
-\contentsline {figure}{\numberline {2.10}{\ignorespaces Design zobrazen\IeC {\'\i } element\IeC {\r u} v map\IeC {\v e}, linka je 348 je vybr\IeC {\'a}na}}{32}{figure.2.10}% 
+\contentsline {figure}{\numberline {2.1}{\ignorespaces UML diagram n\IeC {\'a}vrhu aplikace}}{20}{figure.2.1}% 
+\contentsline {figure}{\numberline {2.2}{\ignorespaces EER diagram datab\IeC {\'a}ze.}}{22}{figure.2.2}% 
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Variabilita d\IeC {\'e}lky j\IeC {\'\i }zdy v pr\IeC {\r u}b\IeC {\v e}hu dne}}{27}{figure.2.3}% 
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Variabilita \IeC {\v c}asu j\IeC {\'\i }zdy v z\IeC {\'a}vislosti na ujet\IeC {\'e} vzd\IeC {\'a}lenosti}}{28}{figure.2.4}% 
+\contentsline {figure}{\numberline {2.5}{\ignorespaces \IeC {\'U}sek s nepravidelnostmi}}{28}{figure.2.5}% 
+\contentsline {figure}{\numberline {2.6}{\ignorespaces \IeC {\'U}sek s nepravidelnostmi 2}}{29}{figure.2.6}% 
+\contentsline {figure}{\numberline {2.7}{\ignorespaces \IeC {\'U}sek s nepravidelnostmi}}{30}{figure.2.7}% 
+\contentsline {figure}{\numberline {2.8}{\ignorespaces Nejednozna\IeC {\v c}nost konk\IeC {\'a}vn\IeC {\'\i }ho obalu}}{31}{figure.2.8}% 
+\contentsline {figure}{\numberline {2.9}{\ignorespaces Mapbox Mapa, pou\IeC {\v z}it\IeC {\'y} styl mapy: streets-v11}}{34}{figure.2.9}% 
+\contentsline {figure}{\numberline {2.10}{\ignorespaces Design zobrazen\IeC {\'\i } element\IeC {\r u} v map\IeC {\v e}, linka je 348 je vybr\IeC {\'a}na}}{34}{figure.2.10}% 
 \addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Pr\IeC {\r u}m\IeC {\v e}rn\IeC {\'y} \IeC {\v c}as zpracov\IeC {\'a}v\IeC {\'a}n\IeC {\'\i } dan\IeC {\'e}ho po\IeC {\v c}tu vozidel ze v\IeC {\v s}ech soubor\IeC {\r u} se statick\IeC {\'y}mi daty. Sv\IeC {\v e}tle modr\IeC {\'a} barva ohrani\IeC {\v c}uje 95 \% interval spolehlivosti. Po\IeC {\v c}ty vozidel jsou v\IeC {\v z}dy zaokrouhleny dol\IeC {\r u} na cel\IeC {\'e} des\IeC {\'\i }tky.}}{49}{figure.4.1}% 
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

@@ -1,6 +1,6 @@
 %%% Fiktivní kapitola s ukázkami tabulek, obrázků a kódu
 
-\chapter{Implementace} \lable{chapter:implementace}
+\chapter{Implementace} \label{chapter:implementace}
 
 V této kapitole je detailně popsána implementace a volba technologií použití k implementaci navrženého díla.
 
@@ -166,7 +166,7 @@ self.model.fit(input_data, output_data)
 
 Samotné nalezení správného modelu se nyní může zdát jednoduché, nicméně nejsložitější prací pro jakoukoli úlohy z oblasti umělé inteligence a strojového učení je příprava dat a v naší práci tomu není jinak. Atˇ už se jedná o samotná zpracování dat popsané výše v kapitole \ref{section:zpracovani_dat}, tak také je potřeba tyto zpracovaná data dále trasnformovat z formátu v jakém jsou uloženy v databázi do formátu jaký je vhodný pro počítání lineární regrese. Dále je pak potřeba data vyčistit od zcela nesmyslných vzorků poloh vozidel, kterých je vstupních datech spousta a mohly by negativně ovlivnit správnost odhadů nalezených modeů.
 
-\subsection{Čtení dat}
+\subsection{Čtení dat} \label{subsection:cteni_dat}
 
 Pro zkonstuování modelů popisujících profily jízd mezi všemi dvojcemi zastávek je nejprve potřeba zjistit všechny dvojce zastávek, mezi kterými jede alesponˇ jeden spoj. To se dá zjistit pomocí jízdních řádů, které reprezentujeme v tabulce \verb-rides- v naší databázi popsané v kapitole \ref{subsection:databaze}
 

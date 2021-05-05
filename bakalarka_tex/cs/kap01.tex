@@ -35,7 +35,7 @@ Přidaná hodnota je tedy v tom, že Práce navrhne takové modely, které nebud
 
 \bigbreak
 
-Pro řešení odhadu toho typu spoždění stačí navrhnout systém na odhat zpoždění v půběhu jízdy mezi referenčními body z historikých dat jízd.
+Pro řešení odhadu toho typu spoždění stačí navrhnout systém na odhad zpoždění v půběhu jízdy mezi referenčními body z historikých dat jízd.
 
 \bigbreak
 
@@ -86,7 +86,7 @@ Poslední úsek se tedy skládá z výjezdu z Pražského okruhu, průjezdu kři
 
 \subsection{Současná řešení}
 
-Algoritmus na odhat aktuálního zpoždění mezi dvěma referenčními body již exituje a je součástí Datové Platformy -- Golemio, ze kterého se čerpají data pro tuto práci. (Detailní popis dat uveden v kapitole ~\ref{chapter:TODO later}.)
+Algoritmus na odhad aktuálního zpoždění mezi dvěma referenčními body již exituje a je součástí Datové Platformy -- Golemio, ze kterého se čerpají data pro tuto práci. (Detailní popis dat uveden v kapitole ~\ref{chapter:TODO later}.)
 
 \bigbreak
 
@@ -98,7 +98,7 @@ Proto je potřeba tento odhad zpřesnit, což je cílem naší práce. K tomuto 
 
 
 
-\section{Analýza zdroje dat} \label{section:analyza_zdroje}
+\section{Analýza zdroje dat} \label{chapter:analyza_zdroje}
 
 V této kapitole je popsán zdroj real-timových dat o polohách vozidel využívané v této práci.
 
@@ -355,6 +355,66 @@ Do databáze bylo celkem vloženo 5820 nástupištˇ, které náleží celkem 29
 \subsubsection{Jízdy}
 
 Celkem bylo nalezeno 12788 spojů, z nich naprostá většina vyjela opakovaně v následující den\footnote{Ze všech vypravených jízd ve dnech 20. 2. 2020 (9334) a 21. 2. 2020 (9428) jich 9051 bylo označeno ve zdrojových datech stejným identifikátorem, tedy z našeho pohledu sdílely jízdní řád a cestu.}.
+
+\subsubsection{Vstupní soubory} \label{subsubsection:vstupni_soubory}
+
+Pro testovací účely bylo celkem pořízeno 15 794 obrazů dopravní situace záznamenávající aktuální polohy vozidel.
+
+\bigbreak
+
+Pro stahování těchto souborů byl využit script napsaný v jazyce Bash, který po dobu 4 dnů periodicky každých 20 sekund stáhl aktuální obraz poloh vozidel. Tento stažený dokumnet pak uložil v komprimovaném formátu a označil časem stažení. Tento script běžel na počítači, který pro účely této práce zapůjčil k využití pan profesor Jakub Klímek, jemuž tímto děkuji.
+
+\begin{code}[frame=none]
+#!/bin/sh
+
+cur_file="current_json_file.json";
+
+while :
+do
+  curl -s --header "Content-Type: application/json; charset=utf-8" \
+  --header "access token" \
+  'https://api.golemio.cz/v1/vehiclepositions' > "$cur_file";
+
+  if [ 0 -ne $? ];
+  then
+    today=`date +%Y-%m-%dT%H.%M.%S`;
+    echo "Curl failed $today" >> downloader.log;
+    sleep 19;
+    continue;
+  fi
+
+  today=`date +%Y-%m-%dT%H.%M.%S`;
+  tar -czf "../raw_data-2/${today}.tar.gz" $cur_file;
+  echo "File ${today}.tar.gz saved." >> downloader.log
+  sleep 20
+
+done
+
+\end{code}
+
+\bigbreak
+
+Z celkového počtu nalezenách spojů vyplývá, že počet nově nalezených spojů v jednom obrazu je méně než jeden. Kompletní histogram počtu souborů poloh vozidel, které obsahují určitý počet nově objevených spojů je zobrazen na grafu \ref{fig:vehicle_pos_x_new_trips}.
+
+\begin{figure}
+	\centering
+  \includegraphics[width=0.7\linewidth]{../img/vehicle_pos_x_new_trips}
+  \caption{Počet souborů s početem nově nalezených spojů v nich.}
+  \label{fig:vehicle_pos_x_new_trips}
+\end{figure}
+
+Maximální počet vozidel obsažených v jednom souboru je méně něž 800. Kompletní histogrtam počt ussouborů s počtem vozidel celkem v jednom souboru je na grafu \ref{fig:vehicle_pos_x_all_trips}. Z tohoto grafu vyplývá, že velká většina vstupních souborů z celkového počtu 15793 obsahuje do 200 vozidel v každém souboru.
+
+\bigbreak
+
+Avšak ne všechna vozidla v každém souboru jsou nová nebo dostala změněny oproti předešlému záznamu. To z důvodu, že je zdroj dat nastaven tak, aby vysílal polohu vozidla jako aktuální, i když už je zastaralá několik minut. Va takovém případě se zpracovává vzorek volohy vozdila stále dokola.
+
+\begin{figure}
+	\centering
+  \includegraphics[width=0.7\linewidth]{../img/vehicle_pos_x_all_trips}
+  \caption{Počet souborů s početem nově nalezených spojů v nich.}
+  \label{fig:vehicle_pos_x_all_trips}
+\end{figure}
 
 Další rozbor dat na grafu \ref{fig:stop_distances_result} a v kapitole \ref{TODO:statistika}.
 

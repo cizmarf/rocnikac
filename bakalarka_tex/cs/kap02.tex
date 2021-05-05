@@ -1,4 +1,4 @@
-%%% Fiktivní kapitola s ukázkami sazby
+%% Fiktivní kapitola s ukázkami sazby
 
 \chapter{Návrh řešení}
 
@@ -9,7 +9,7 @@ V této kapitole je popsán návrh technického řešení uvedených problémů
 Běh celé aplikace bude rozdělen do dvou částí.
 
 \begin{itemize}
-	\item Stahování a ukládání real-time dat o polohách vozidel do datového skladu, které budou doplněny o odhat zpoždění pro okamžité zveřejnění v uživatelské aplikaci.
+	\item Stahování a ukládání real-time dat o polohách vozidel do datového skladu, které budou doplněny o odhad zpoždění pro okamžité zveřejnění v uživatelské aplikaci.
 
 	\item Modelování profilů jízd jednotlivých úseků. Tyto modely budou pak dále sloužit k odhadování zpoždění v budoucnu.  Výpočet modelů bude prováděn jednou za delší časový úsek (nejlépe jednou za den).
 \end{itemize}
@@ -55,8 +55,7 @@ Zpracování historických dat bude probíhat vždy po delší době, nejlépe 
 Uložená historická data budou struktorovaná tak, aby nad nimi mohly být prováděny statistické výpočty minimálně o frekvencích jízd spojů, vzdálenostech tras a zpoždění spojů.
 \end{itemize}
 
-\subsubsection{Kvalitativní požadavky} \label {subsubsection:kvalitativni_pozadavky}
-}
+\subsubsection{Kvalitativní požadavky} \label{subsubsection:kvalitativni_pozadavky}
 
 \begin{itemize}
 
@@ -64,7 +63,7 @@ Uložená historická data budou struktorovaná tak, aby nad nimi mohly být pro
 	Řešení bude schopno při jedné aktualizaci zpracovat alesponˇ 1000\footnote{20. 2. 2020 mezi 7:00 a 7:10 bylo na trase přes 600 vozidel} vzorků poloh vozidel, kde 10 \% vzorků může být o dosut neznámých jízdách. V tomto případě je potřeba stáhnout jízdní řád konkrétní jízdy a její jízdní profil, což představuje navíc dotaz na Datovou platformu jakožto zdroje dat pro tuto práci.
 
 	\item
-	Vypočítané modely profilů jízd budou dávat odhat zpoždění lepší (až na vyjimku popsanou níže), než je lineární odhad. To znamená, že zpoždění vypočítaná pro každý přijatý vzorek polohy vozidla mezi dvěma referenčními body na trase bude mít menší rozptyl než lineární odhad zpoždění.
+	Vypočítané modely profilů jízd budou dávat odhad zpoždění lepší (až na vyjimku popsanou níže), než je lineární odhad. To znamená, že zpoždění vypočítaná pro každý přijatý vzorek polohy vozidla mezi dvěma referenčními body na trase bude mít menší rozptyl než lineární odhad zpoždění.
 
 	\item
 	V případě, že spočítaný odhad zpoždění vozidla by zastaral natolik rychle, že v okamžik zveřejnění by již nebyl platný, nedává smysl zpoždění odhadovat pokročilejší metodou.
@@ -272,7 +271,7 @@ Odhad zpoždění vozidla na trase se v současné době provádí pomocí lin
 
 \bigbreak
 
-Ačkoli je snaha tento model nahradit lepším, v některých situacích může jeho použití i na dále dávat smysl. Zejména pak v případech kdy není k dispozici dostatek dat a nebo je vzdálenost dvou zastávek natolik malá, že nemá smyl ani jakýkoliv odhat zpoždění dělat. (TODO do problemu: Lepší by bylo volit trasy s nejmenší dobou jízdy, ale čas jízdy je promněnlivý a težko se získá skutečná doba jízdy z dat. Navíc v praxi jsou vzdálenost a doba jízdy dostatečně závislé)
+Ačkoli je snaha tento model nahradit lepším, v některých situacích může jeho použití i na dále dávat smysl. Zejména pak v případech kdy není k dispozici dostatek dat a nebo je vzdálenost dvou zastávek natolik malá, že nemá smyl ani jakýkoliv odhad zpoždění dělat. (TODO do problemu: Lepší by bylo volit trasy s nejmenší dobou jízdy, ale čas jízdy je promněnlivý a težko se získá skutečná doba jízdy z dat. Navíc v praxi jsou vzdálenost a doba jízdy dostatečně závislé)
 
 \subsubsection{Polynomiální profil jízdy}
 
@@ -366,11 +365,11 @@ Nejprve k samotnému konkávnímu obalu je potřeba říct, že na množině bod
 
  \bigbreak
 
-Dále se jako netriviální ukazuje detekce spojů, které přijely včas a tedy všechny jejich body mají být předány k výpočtu obalu. Nabízí se použít data o všech spojí, které přijely do cílové zastávky s co nejmenším zpožděním, ale je nutné mít na paměti, že příjezdy podle jízdního řádu nemusí vůbec odpovídat realitě. Proto se zdá být nejlepší použít data od spojů, které přijely ve stejnou dobu jako je průměr všech příjezdů do cílové zastávky. Toho se docílí tak, že se poslední vzorky podle vzdálenosti všech spojů použijí pro odhat času příjezdu. Dále se pro každou hodinu použije se určité procento nejbližších spojů k tomuto odhadu.
+Dále se jako netriviální ukazuje detekce spojů, které přijely včas a tedy všechny jejich body mají být předány k výpočtu obalu. Nabízí se použít data o všech spojí, které přijely do cílové zastávky s co nejmenším zpožděním, ale je nutné mít na paměti, že příjezdy podle jízdního řádu nemusí vůbec odpovídat realitě. Proto se zdá být nejlepší použít data od spojů, které přijely ve stejnou dobu jako je průměr všech příjezdů do cílové zastávky. Toho se docílí tak, že se poslední vzorky podle vzdálenosti všech spojů použijí pro odhad času příjezdu. Dále se pro každou hodinu použije se určité procento nejbližších spojů k tomuto odhadu.
 
 \bigbreak
 
-Z předchozího popisu řešení vyplývá ovšem, že pro výpočet obalu jsou použity spoje, které ani zdaleka nemusely přijet včas jak je požadováno, ale předpokládá se, že se nepříliš vzdalují od průměrného času příjezdu. To že střední zpoždění pro celý obal není nulové se vyřeší spočtením odchylky průměrného příjezdu od příjezdu podle jízdního řádu a následně přičtení této konstanty k odhadnutnému zpoždění. Každopádně to, že rozptyl příjezdů spojů zahrnutých ve výpočtu obalu může být netriviální, vyžaduje nahlížet na tento obal jako na lineární prostor pohybu zpoždění. Tedy že odhat zpoždění pro bod nacházející se v obalu je lineárně závislý na vzdálenosti od hranice obalu, avšak protože je známo časové rozpětí příjezdu spojů použitých pro výpočet obalu, je možné tuto vzdálenost snadno přenést na skutečné pozdění.
+Z předchozího popisu řešení vyplývá ovšem, že pro výpočet obalu jsou použity spoje, které ani zdaleka nemusely přijet včas jak je požadováno, ale předpokládá se, že se nepříliš vzdalují od průměrného času příjezdu. To že střední zpoždění pro celý obal není nulové se vyřeší spočtením odchylky průměrného příjezdu od příjezdu podle jízdního řádu a následně přičtení této konstanty k odhadnutnému zpoždění. Každopádně to, že rozptyl příjezdů spojů zahrnutých ve výpočtu obalu může být netriviální, vyžaduje nahlížet na tento obal jako na lineární prostor pohybu zpoždění. Tedy že odhad zpoždění pro bod nacházející se v obalu je lineárně závislý na vzdálenosti od hranice obalu, avšak protože je známo časové rozpětí příjezdu spojů použitých pro výpočet obalu, je možné tuto vzdálenost snadno přenést na skutečné pozdění.
 
 \bigbreak
 

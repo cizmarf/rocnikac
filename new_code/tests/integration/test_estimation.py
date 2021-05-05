@@ -34,14 +34,18 @@ class TestEstimation(unittest.TestCase):
 		old_delay = np.array(db_old.execute_fetchall("""
 					SELECT delay, inserted 
 					FROM trip_coordinates 
-					WHERE id_trip = %s AND shape_dist_traveled BETWEEN %s AND %s
+					WHERE id_trip = %s 
+						AND shape_dist_traveled BETWEEN %s AND %s
+						AND inserted BETWEEN '2020-02-21 00:00:00' AND '2020-02-21 23:59:59'
 					ORDER BY inserted, shape_dist_traveled""",
 			(str(id_trip), str(sdt_dep), str(sdt_arr))))
 
 		new_delay = np.array(db_new.execute_fetchall("""
 					SELECT delay, inserted 
 					FROM trip_coordinates 
-					WHERE id_trip = %s AND shape_dist_traveled BETWEEN %s AND %s
+					WHERE id_trip = %s 
+						AND shape_dist_traveled BETWEEN %s AND %s
+						AND inserted BETWEEN '2020-02-21 00:00:00' AND '2020-02-21 23:59:59'
 					ORDER BY inserted, shape_dist_traveled""",
 			(str(id_trip), str(sdt_dep), str(sdt_arr))))
 
@@ -54,38 +58,40 @@ class TestEstimation(unittest.TestCase):
 		new_ride_delay = [new_delay[0, 0]]
 		last_inserted = old_delay[0, 1]
 
-		for i in range(old_delay.shape[0]):
-			if old_delay[i, 1].timestamp() < last_inserted.timestamp() + 12 * 60 * 60:
-				old_ride_delay.append(old_delay[i, 0])
-				new_ride_delay.append(new_delay[i, 0])
+		for i in range(old_delay.shape[0] - 1):
+			if old_delay[i + 1, 1].timestamp() < last_inserted.timestamp() + 12 * 60 * 60:
+				old_ride_delay.append(old_delay[i + 1, 0])
+				new_ride_delay.append(new_delay[i + 1, 0])
 			else:
 
 				print('Trip: ' + str(id_trip), ' std between ' + str(sdt_dep) + ' and ' + str(sdt_arr) + ' variance is:')
 				TestEstimation.compare_delays(old_ride_delay, new_ride_delay)
+				old_ride_delay = [old_delay[i + 1, 0]]
+				new_ride_delay = [new_delay[i + 1, 0]]
 
-			last_inserted = old_delay[i, 1]
+			last_inserted = old_delay[i + 1, 1]
 
 		print('Trip: ' + str(id_trip), ' std between ' + str(sdt_dep) + ' and ' + str(sdt_arr) + ' variance is:')
 		TestEstimation.compare_delays(old_ride_delay, new_ride_delay)
 
 	def test_compare_estimation_534_421(self):
-		TestEstimation.compare_estimation(2162, 24647, 31530, Database("vehicle_positions_database"), Database("vehicle_positions_delay_estimation_database"))
+		TestEstimation.compare_estimation(2162, 24647, 31530, Database("vehicle_positions_database"), Database("vehicle_positions_fri_delay_estimation_database"))
 
 	def test_compare_all_estimations(self):
 
 		old_database_connection = Database("vehicle_positions_database")
-		new_database_connection = Database("vehicle_positions_delay_estimation_database")
+		new_database_connection = Database("vehicle_positions_fri_delay_estimation_database")
 
 		models = File_system.load_all_models()
 
 		for model in models.items():
+			print(model[1].dep_stop, model[1].arr_stop)
 			all_stop_trips = np.array(old_database_connection.execute_fetchall("""
 				SELECT id_trip, id_stop, shape_dist_traveled FROM vehicle_positions_database.rides 
 				WHERE id_stop = %s or id_stop = %s 
 				ORDER BY id_trip, shape_dist_traveled;""",
 				(model[1].dep_stop, model[1].arr_stop)))
 
-			last_row = all_stop_trips[0]
 			last_row = all_stop_trips[0]
 
 			for row in all_stop_trips[1:]:

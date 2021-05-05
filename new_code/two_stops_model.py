@@ -376,14 +376,18 @@ class Two_stops_model:
 
 		self._reduce_errors()
 
+		print('Samples reduced to ' + str(len(self.shapes)))
+
 		# more than 10 x 4 data samples per km needed, distance between stops is already filtered by sql query
 		if len(self.norm_data) < self.distance * 0.001 * 10 * 6:
+			print(str(len(self.norm_data)) + ' is not enough')
 			self.model = Two_stops_model.Linear_model(self.distance)
 			return
 
 		poly_model = Two_stops_model.Polynomial_model(self.distance, self.norm_data, self.dep_id_stop, self.arr_id_stop, self.bss_or_hol)
 
 		self.model = poly_model
+		print('Poly model generated with rmse ' + str(self.model.rmse))
 		return
 
 	def __len__(self):

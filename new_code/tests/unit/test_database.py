@@ -1,10 +1,13 @@
 import argparse
+import glob
 import json
 import lzma
+import math
 import os
 import pickle
 import unittest
 from pathlib import Path
+import numpy as np
 import matplotlib.pyplot as plt
 import tests.lib_tests
 from database import Database
@@ -290,6 +293,107 @@ class TestDatabaseClass(unittest.TestCase):
 
 		self.assertEqual(result, File_system.pickle_load_object("../output_data/testExecute_procedure_fetchall.obj"))
 
+	def test_histogram_of_found_trips(self):
+		with open("../input_data/fill_database_output", "r") as file:
+			map = {}
+			cur_trips = 0
+			file.readline()
+			line = file.readline() # skipps first line
+			while line != '':
+				if 'raw_trips' in line:
+					cur_trips += 1
+				else:
+					if cur_trips in map:
+						map[cur_trips] += 1
+					else:
+						map[cur_trips] = 1
+					cur_trips = 0
+				line = file.readline()
+
+			plt.figure(figsize=(10, 8))
+			plt.subplot()
+			sorted_map = [(k, map[k]) for k in sorted(map, key=map.get, reverse=True)]
+			plt.bar([k[0] for k in sorted_map], [v[1] for v in sorted_map])
+
+			self.assertEqual(sum([v[1] for v in sorted_map]), 15793)
+			plt.title('Počet souborů s polohy vozidel s počtem nově objevených spojů.')
+			plt.xlabel('Počet nových spojů')
+			plt.ylabel('Počet souborů')
+			plt.yscale('log')
+			# plt.savefig('books_read.pdf')
+			plt.show()
+
+	def test_trips_processing_time(self):
+		with open("../input_data/fill_database_output_seconds", "r") as file:
+			map = {}
+			line = file.readline()
+			while line != '':
+				if 'vehicles processed' in line:
+					no_of_vehicles = math.floor(int(line.split()[0]) / 10.0) * 10
+					time = float(line.split()[4])
+					if no_of_vehicles in map:
+						map[no_of_vehicles].append(time)
+					else:
+						map[no_of_vehicles] = [time]
+				line = file.readline()
+
+			plt.figure(figsize=(10, 8))
+			plt.subplot()
+			sorted_map = sorted(map)
+			ci = np.array([1.96 * np.std(np.array(map[k])) / math.sqrt(len(map[k])) for k in sorted_map])
+			y = np.array([np.mean(np.array(map[k])) for k in sorted_map])
+			plt.plot(sorted_map, y)
+			plt.fill_between(sorted_map, (y - ci), (y + ci), color='b', alpha=.1)
+
+			# self.assertEqual(sum([v[1] for v in sorted_map]), 15793)
+			plt.title('Průměrný čas zpracování daného počtu vozidel s 95 % intervalem spolehlivosti.')
+			plt.xlabel('Počet vozidel')
+			plt.ylabel('Čas [s]')
+			# plt.yscale('log')
+			plt.savefig('books_read.pdf')
+			plt.show()
+
+	def test_histogram_of_all_trips(self):
+		sufix = '/*.tar.gz'
+		self.files = glob.glob(str(File_system.static_vehicle_positions) + sufix)
+		self.files = sorted(self.files)
+
+		map = {}
+
+		for file in self.files:
+			content = File_system.get_tar_file_content(file).decode("utf-8")
+			count = math.floor(content.count('coordinates') / 10.0) * 10
+			if round(count, -1) in map:
+				map[round(count, -1)] += 1
+			else:
+				map[round(count, -1)] = 1
+
+		plt.figure(figsize=(10, 8))
+		plt.subplot()
+		sorted_map = [(k, map[k]) for k in sorted(map, key=map.get, reverse=True)]
+		plt.bar([k[0] for k in sorted_map], [v[1] for v in sorted_map], width=8)
+		plt.title('Počet souborů s polohy vozidel s počtem spojů. Agregováno po desítkách.')
+		plt.xlabel('Počet spojů')
+		plt.ylabel('Počet souborů')
+		plt.yscale('log')
+		plt.savefig('books_read.pdf')
+		plt.show()
+
+	def test_size_of_all_samples(self):
+		database_connection = Database('vehicle_positions_database')
+
+		# demo app needs aprox 30 secs to fetch
+		# in production it may takes longer time to fetch all data
+		database_connection.execute('SET GLOBAL connect_timeout=600')
+		database_connection.execute('SET GLOBAL wait_timeout=600')
+		database_connection.execute('SET GLOBAL interactive_timeout=600')
+
+		stop_to_stop_data = database_connection.execute_procedure_fetchall(
+			'get_all_pairs_of_stops', (0, 0, 1500))
+
+		File_system.pickle_object(stop_to_stop_data, str(File_system.cwd / Path('tests/output_data/') / Path('all_samples')))
+
+		self.assertEqual(9914112, Path(str(File_system.cwd / Path('tests/output_data/') / Path('all_samples'))).stat().st_size)
 
 if __name__ == '__main__':
 	unittest.main()

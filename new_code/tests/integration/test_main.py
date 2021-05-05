@@ -1,3 +1,4 @@
+import time
 import unittest
 from pathlib import Path
 
@@ -21,7 +22,10 @@ class TestMainDemo(unittest.TestCase):
 
 		args = lib_tests.get_args_demo()
 
+		req_start = time.time()
 		main(database_connection, args)
+		req_end = time.time()
+		print('seconds ' + str(req_end - req_start))
 
 		File_system.static_vehicle_positions = old_path
 
