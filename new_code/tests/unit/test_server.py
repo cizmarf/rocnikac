@@ -1,4 +1,14 @@
+import asyncio
 import unittest
+from random import random
+from time import sleep
+
+import numpy as np
+import matplotlib.pyplot as plt
+import aiohttp
+import requests
+from pathlib import Path
+
 from server import *
 
 ################################################################
@@ -67,14 +77,81 @@ class TestServer(unittest.TestCase):
 		self.assertEqual(3, len(trips))
 		self.assertEqual('324_634_200111', trips[0]['id'])
 
-	def test_get_vehicles_positions(self):
-		server = Server('vehicle_positions_test_database')
+	## you must start the server in background first
+	## and it is recommended to run demo database fill
+	## for all the following test
+	def test_high_load_sync(self):
+		req_start = time.time()
+		for i in range(100):
+			x = requests.get('http://localhost:8080/vehicles_positions&preventCache=' + str(random()))
+			if x.status_code != 200:
+				print('req ' + str(i) + ' failed')
 
-		all_veh = server.get_vehicles_positions()
+		self.assertLess(time.time() - req_start, 1)
 
-		self.assertIsInstance(all_veh, dict)
-		self.assertEqual(149, len(all_veh['features']))
-		self.assertEqual('Benice', all_veh['features'][0]['properties']['headsign'])
+	@staticmethod
+	async def async_download(urls):
+		async with aiohttp.ClientSession() as session:
+			for url in urls:
+				async with session.get(url) as resp:
+					if resp.status != 200:
+						print('req ' + url + ' failed')
+					if resp.status == 200:
+						await resp.read()
 
-if __name__ == '__main__':
-	unittest.main()
+	def test_high_load_vehicle_positions(self):
+		req_start = time.time()
+		asyncio.run(TestServer.async_download(['http://localhost:8080/vehicles_positions&preventCache=' + str(i) for i in range(100)]))
+
+		self.assertLess(time.time() - req_start, 1)
+
+	def test_high_load_trips(self):
+		req_start = time.time()
+		x = requests.get('http://localhost:8080/vehicles_positions&preventCache=' + str(random()))
+		content = json.loads(x.content)
+		asyncio.run(TestServer.async_download(['http://localhost:8080/trip.' + trip['properties']['gtfs_trip_id'] + '&preventCache=' + trip['properties']['gtfs_trip_id'] for trip in content['features']]))
+
+		self.assertLess(time.time() - req_start, 1)
+		self.assertGreater(len(content['features']), 100)
+
+	def test_high_load_tails(self):
+		req_start = time.time()
+		x = requests.get('http://localhost:8080/vehicles_positions&preventCache=' + str(random()))
+		content = json.loads(x.content)
+		asyncio.run(TestServer.async_download(['http://localhost:8080/tail.' + trip['properties']['gtfs_trip_id'] + '&preventCache=' + trip['properties']['gtfs_trip_id'] for trip in content['features']]))
+
+		self.assertLess(time.time() - req_start, 1)
+		self.assertGreater(len(content['features']), 100)
+
+	def test_high_load_plot(self):
+		times = []
+		for i in range(1000):
+			req_start = time.time()
+			asyncio.run(TestServer.async_download(['http://localhost:8080/vehicles_positions&preventCache=' + str(random()) for _ in range(100)]))
+			req_end = time.time()
+			# self.assertLess(req_end - req_start, 1)
+			times.append(req_end - req_start)
+			sleep(0.1)
+
+		mu = np.mean(times)
+		sigma = np.std(times)
+		count, bins, ignored = plt.hist(times, 30, density=True)
+		plt.plot(bins, 1 / (sigma * np.sqrt(2 * np.pi)) * np.exp(- (bins - mu) ** 2 / (2 * sigma ** 2)), linewidth=2, color='r')
+		plt.savefig('books_read.pdf')
+		plt.show()
+
+
+	## skipp this test,
+	## due to the test database contains old data the server does not find any trip
+	## because it finds trips not older 10 minutes
+	# def test_get_vehicles_positions(self):
+	# 	server = Server('vehicle_positions_test_database')
+	#
+	# 	all_veh = server.get_vehicles_positions()
+	#
+	# 	self.assertIsInstance(all_veh, dict)
+	# 	self.assertEqual(149, len(all_veh['features']))
+	# 	self.assertEqual('Benice', all_veh['features'][0]['properties']['headsign'])
+
+# if __name__ == '__main__':
+# 	unittest.main()

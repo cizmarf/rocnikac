@@ -35,7 +35,7 @@ class FillDatabase():
 class TestDatabase(unittest.TestCase):
 
 	# this method should run first because it fills data
-	def testInsertData(self):
+	def testInsertTestData(self):
 		database_connection = Database("vehicle_positions_test_database")
 		no_of_trips = database_connection.execute_fetchall("""
 			SELECT count(*) FROM trips""")
@@ -45,7 +45,7 @@ class TestDatabase(unittest.TestCase):
 			# database_connection = Database("vehicle_positions_test_database")
 			# res = database_connection.execute_fetchall('SELECT * FROM vehicle_positions_test_database.trip_coordinates order by last_stop_delay')
 
-			tests.lib_tests.drop_all_tables()
+			tests.lib_tests.drop_all_tables("vehicle_positions_test_database")
 			old_path = File_system.static_vehicle_positions
 			File_system.static_vehicle_positions = \
 				File_system.cwd / Path("tests/input_data/raw_vehicle_positions_simple/")
@@ -178,5 +178,6 @@ class TestDatabase(unittest.TestCase):
 		self.assertEqual(0, len(trip_coordinates))
 
 if __name__ == '__main__':
-	FillDatabase.testInsertData()
+	TestDatabase().testInsertTestData()
+	# FillDatabase.testInsertData()
 	# unittest.main()

@@ -376,7 +376,7 @@ class TestDatabaseClass(unittest.TestCase):
 		plt.xlabel('Počet spojů')
 		plt.ylabel('Počet souborů')
 		plt.yscale('log')
-		plt.savefig('books_read.pdf')
+		# plt.savefig('books_read.pdf')
 		plt.show()
 
 	def test_size_of_all_samples(self):
@@ -394,6 +394,153 @@ class TestDatabaseClass(unittest.TestCase):
 		File_system.pickle_object(stop_to_stop_data, str(File_system.cwd / Path('tests/output_data/') / Path('all_samples')))
 
 		self.assertEqual(9914112, Path(str(File_system.cwd / Path('tests/output_data/') / Path('all_samples'))).stat().st_size)
+
+	def test_built_models(self):
+		class model_stops_log:
+			stop_dep = 0
+			stop_arr = 0
+			rmse_bss = None
+			samples_bss = 0
+			reduced_samples_bss = 0
+			enough_bss = None
+			type_bss = None
+			degree_bss = None
+			rmse_hol = None
+			samples_hol = 0
+			reduced_samples_hol = 0
+			enough_hol = None
+			type_hol = None
+			degree_hol = None
+			time = None
+
+		with open("../input_data/build_models_output", "r") as file:
+			models_log = []
+			model_log = None
+			line = file.readline()
+			while line != '':
+				if 'Building models between' in line:
+					model_log = model_stops_log()
+					model_log.stop_arr = int(line.split()[3])
+					model_log.stop_dep = int(line.split()[5])
+				if 'bss:' in line:
+					model_log.samples_bss = int(line.split()[1][:len(line.split()[1]) - 1])
+					model_log.samples_hol = int(line.split()[3])
+					if model_log.samples_bss == 0 or model_log.samples_hol == 0:
+						if model_log.samples_bss != 0:
+							line = file.readline()
+							model_log.reduced_samples_bss = int(line.split()[3])
+							line = file.readline()
+							if 'not enough' in line:
+								model_log.enough_bss = False
+							elif 'degree' in line:
+								model_log.enough_bss = True
+								model_log.degree_bss = int(line.split()[1])
+								line = file.readline()
+								model_log.rmse_bss = float(line.split()[5])
+							else:
+								print('should not occur')
+						if model_log.samples_hol != 0:
+							line = file.readline()
+							model_log.reduced_samples_hol = int(line.split()[3])
+							line = file.readline()
+							if 'not enough' in line:
+								model_log.enough_hol = False
+							elif 'degree' in line:
+								model_log.enough_hol = True
+								model_log.degree_hol = int(line.split()[1])
+								line = file.readline()
+								model_log.rmse_hol = float(line.split()[5])
+							else:
+								print('should not occur')
+					else:
+						line = file.readline()
+						model_log.reduced_samples_bss = int(line.split()[3])
+						line = file.readline()
+						if 'not enough' in line:
+							model_log.enough_bss = False
+						elif 'degree' in line:
+							model_log.enough_bss = True
+							model_log.degree_bss = int(line.split()[1])
+							line = file.readline()
+							model_log.rmse_bss = float(line.split()[5])
+						else:
+							print('should not occur')
+
+						line = file.readline()
+						model_log.reduced_samples_hol = int(line.split()[3])
+						line = file.readline()
+						if 'not enough' in line:
+							model_log.enough_hol = False
+						elif 'degree' in line:
+							model_log.enough_hol = True
+							model_log.degree_hol = int(line.split()[1])
+							line = file.readline()
+							model_log.rmse_hol = float(line.split()[5])
+						else:
+							print('should not occur (rmse)')
+
+					line = file.readline()
+					if line.split()[0] != '_':
+						model_log.type_bss = line.split()[0]
+
+					if line.split()[1] != '_':
+						model_log.type_hol = line.split()[1]
+
+					if 'seconds' in line:
+						model_log.time = float(line.split()[5])
+						models_log.append(model_log)
+					else:
+						print('should not occur (time)')
+				line = file.readline()
+
+			reduces = [log.reduced_samples_bss / log.samples_bss for log in models_log if log.samples_bss != 0]
+			reduces.extend([log.reduced_samples_hol / log.samples_hol for log in models_log if log.samples_hol != 0])
+			reduces = np.array(reduces)
+			print(reduces.max())
+			print(np.mean(reduces))
+
+			degrees = [log.degree_bss for log in models_log if log.type_bss == 'Poly']
+			degrees.extend([log.degree_hol for log in models_log if log.type_hol == 'Poly'])
+			degrees = np.array(degrees)
+
+			rmses_bss = [log.rmse_bss for log in models_log if log.type_bss == 'Poly']
+
+			print(rmses_bss)
+			rmse_bss = np.array(rmses_bss)
+			rmses_hol = [log.rmse_hol for log in models_log if log.type_hol == 'Poly']
+			rmse_hol = np.array(rmses_hol)
+			# times_elapsed = np.array(times_elapsed)
+			# print(pairs)
+			print(len(rmse_bss))
+			print(np.mean(rmse_bss))
+			print(rmse_bss.max())
+			print(len(rmse_hol))
+			print(np.mean(rmse_hol))
+			print(rmse_hol.max())
+			#
+			# print(len([None for log in models_log if log.type_bss == 'Linear' and log.rmse_bss != None]))
+			# # print(np.mean(times_elapsed))
+			# # print(times_elapsed.max())
+			#
+			# # mu = np.mean(rmse_bss)
+			# # sigma = np.std(rmse_bss)
+			plt.hist(degrees, 10, density=False)
+			# plt.plot(bins)#, 1 / (sigma * np.sqrt(2 * np.pi)) * np.exp(- (bins - mu) ** 2 / (2 * sigma ** 2)), linewidth=2, color='r')
+			# plt.savefig('books_read.pdf')
+			plt.show()
+
+			# plt.figure(figsize=(10, 8))
+			# plt.subplot()
+			# sorted_map = [(k, map[k]) for k in sorted(map, key=map.get, reverse=True)]
+			# plt.bar([k[0] for k in sorted_map], [v[1] for v in sorted_map])
+			#
+			# self.assertEqual(sum([v[1] for v in sorted_map]), 15793)
+			# plt.title('Počet souborů s polohy vozidel s počtem nově objevených spojů.')
+			# plt.xlabel('Počet nových spojů')
+			# plt.ylabel('Počet souborů')
+			# plt.yscale('log')
+			# # plt.savefig('books_read.pdf')
+			# plt.show()
 
 if __name__ == '__main__':
 	unittest.main()

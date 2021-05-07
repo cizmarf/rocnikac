@@ -3,6 +3,7 @@ import os
 from datetime import timedelta
 from pathlib import Path
 import sys
+
 sys.path.append('../')
 # import mysql.connector
 # import matplotlib.pyplot as plt
@@ -19,7 +20,7 @@ from file_system import File_system
 
 from two_stops_model import Two_stops_model, Norm_data
 
-database_connection = Database(database="vehicle_positions_delay_estimation_database")
+database_connection = Database(database="vehicle_positions_database")
 
 
 def timediff_to_sec(timed):
@@ -85,7 +86,7 @@ def create_model(dep_stop, arr_stop):
 					LEAD(arrival_time, 1) OVER (PARTITION BY id_trip ORDER BY shape_dist_traveled) lead_stop_arrival_time
 				FROM rides) as inn
 				JOIN trip_coordinates
-				ON trip_coordinates.id_trip = inn.id_trip and id_stop = %s and lead_stop = %s and trip_coordinates.shape_dist_traveled between (inn.shape_dist_traveled) and (inn.lead_stop_shape_dist_traveled - 100)
+				ON trip_coordinates.id_trip = inn.id_trip and id_stop = %s and lead_stop = %s and trip_coordinates.shape_dist_traveled between (inn.shape_dist_traveled + 99) and (inn.lead_stop_shape_dist_traveled - 99)
 				order by id_stop, lead_stop, shifted_shape_trav""",
 		(dep_stop, arr_stop)
 	)
@@ -183,8 +184,8 @@ def get_plot(model, samples, dep_stop, arr_stop):
 
 
 if __name__ == '__main__':
-	dep_stop = 44  # e[0].split()[0]
-	arr_stop = 46  # e[0].split()[1]
+	dep_stop = 534  # e[0].split()[0]
+	arr_stop = 421  # e[0].split()[1]
 
 	# num = get_all_pairs()
 

@@ -6,23 +6,33 @@
 \contentsline {figure}{\numberline {1.4}{\ignorespaces Po\IeC {\v c}et soubor\IeC {\r u} s po\IeC {\v c}etem nov\IeC {\v e} nalezen\IeC {\'y}ch spoj\IeC {\r u} v nich.}}{15}{figure.1.4}% 
 \contentsline {figure}{\numberline {1.5}{\ignorespaces Po\IeC {\v c}et soubor\IeC {\r u} s po\IeC {\v c}etem nov\IeC {\v e} nalezen\IeC {\'y}ch spoj\IeC {\r u} v nich.}}{16}{figure.1.5}% 
 \contentsline {figure}{\numberline {1.6}{\ignorespaces Mapa z golemio.cz.}}{17}{figure.1.6}% 
-\contentsline {figure}{\numberline {1.7}{\ignorespaces Mapa z www.tram-bus.cz.}}{17}{figure.1.7}% 
+\contentsline {figure}{\numberline {1.7}{\ignorespaces Mapa z www.tram-bus.cz.}}{18}{figure.1.7}% 
 \contentsline {figure}{\numberline {1.8}{\ignorespaces Mapa z mapa.idsjmk.cz.}}{18}{figure.1.8}% 
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {2.1}{\ignorespaces UML diagram n\IeC {\'a}vrhu aplikace}}{20}{figure.2.1}% 
 \contentsline {figure}{\numberline {2.2}{\ignorespaces EER diagram datab\IeC {\'a}ze.}}{22}{figure.2.2}% 
 \contentsline {figure}{\numberline {2.3}{\ignorespaces Variabilita d\IeC {\'e}lky j\IeC {\'\i }zdy v pr\IeC {\r u}b\IeC {\v e}hu dne}}{27}{figure.2.3}% 
-\contentsline {figure}{\numberline {2.4}{\ignorespaces Variabilita \IeC {\v c}asu j\IeC {\'\i }zdy v z\IeC {\'a}vislosti na ujet\IeC {\'e} vzd\IeC {\'a}lenosti}}{28}{figure.2.4}% 
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Variabilita \IeC {\v c}asu j\IeC {\'\i }zdy v z\IeC {\'a}vislosti na ujet\IeC {\'e} vzd\IeC {\'a}lenosti}}{27}{figure.2.4}% 
 \contentsline {figure}{\numberline {2.5}{\ignorespaces \IeC {\'U}sek s nepravidelnostmi}}{28}{figure.2.5}% 
 \contentsline {figure}{\numberline {2.6}{\ignorespaces \IeC {\'U}sek s nepravidelnostmi 2}}{29}{figure.2.6}% 
-\contentsline {figure}{\numberline {2.7}{\ignorespaces \IeC {\'U}sek s nepravidelnostmi}}{30}{figure.2.7}% 
-\contentsline {figure}{\numberline {2.8}{\ignorespaces Nejednozna\IeC {\v c}nost konk\IeC {\'a}vn\IeC {\'\i }ho obalu}}{31}{figure.2.8}% 
-\contentsline {figure}{\numberline {2.9}{\ignorespaces Mapbox Mapa, pou\IeC {\v z}it\IeC {\'y} styl mapy: streets-v11}}{34}{figure.2.9}% 
-\contentsline {figure}{\numberline {2.10}{\ignorespaces Design zobrazen\IeC {\'\i } element\IeC {\r u} v map\IeC {\v e}, linka je 348 je vybr\IeC {\'a}na}}{34}{figure.2.10}% 
+\contentsline {figure}{\numberline {2.7}{\ignorespaces V\IeC {\'y}razn\IeC {\'e} zpo\IeC {\v z}d\IeC {\v e}n\IeC {\'\i } jedn\IeC {\'e} j\IeC {\'\i }zdy}}{30}{figure.2.7}% 
+\contentsline {figure}{\numberline {2.8}{\ignorespaces \IeC {\'U}sek s nepravideln\IeC {\'y}m zpo\IeC {\v z}d\IeC {\v e}n\IeC {\'\i }m}}{30}{figure.2.8}% 
+\contentsline {figure}{\numberline {2.9}{\ignorespaces Nejednozna\IeC {\v c}nost konk\IeC {\'a}vn\IeC {\'\i }ho obalu}}{31}{figure.2.9}% 
+\contentsline {figure}{\numberline {2.10}{\ignorespaces Nejednozna\IeC {\v c}nost konk\IeC {\'a}vn\IeC {\'\i }ho obalu}}{33}{figure.2.10}% 
+\contentsline {figure}{\numberline {2.11}{\ignorespaces Mapbox Mapa, pou\IeC {\v z}it\IeC {\'y} styl mapy: streets-v11}}{35}{figure.2.11}% 
+\contentsline {figure}{\numberline {2.12}{\ignorespaces Design zobrazen\IeC {\'\i } element\IeC {\r u} v map\IeC {\v e}, linka je 348 je vybr\IeC {\'a}na}}{35}{figure.2.12}% 
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Pr\IeC {\r u}m\IeC {\v e}rn\IeC {\'y} \IeC {\v c}as zpracov\IeC {\'a}v\IeC {\'a}n\IeC {\'\i } dan\IeC {\'e}ho po\IeC {\v c}tu vozidel ze v\IeC {\v s}ech soubor\IeC {\r u} se statick\IeC {\'y}mi daty. Sv\IeC {\v e}tle modr\IeC {\'a} barva ohrani\IeC {\v c}uje 95 \% interval spolehlivosti. Po\IeC {\v c}ty vozidel jsou v\IeC {\v z}dy zaokrouhleny dol\IeC {\r u} na cel\IeC {\'e} des\IeC {\'\i }tky.}}{49}{figure.4.1}% 
-\addvspace {10\p@ }
-\addvspace {10\p@ }
-\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Pr\IeC {\r u}m\IeC {\v e}rn\IeC {\'y} \IeC {\v c}as zpracov\IeC {\'a}v\IeC {\'a}n\IeC {\'\i } dan\IeC {\'e}ho po\IeC {\v c}tu vozidel ze v\IeC {\v s}ech soubor\IeC {\r u} se statick\IeC {\'y}mi daty. Sv\IeC {\v e}tle modr\IeC {\'a} barva ohrani\IeC {\v c}uje 95 \% interval spolehlivosti. Po\IeC {\v c}ty vozidel jsou v\IeC {\v z}dy zaokrouhleny dol\IeC {\r u} na cel\IeC {\'e} des\IeC {\'\i }tky.}}{50}{figure.4.1}% 
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Doba odpov\IeC {\v e}di serveru na 100 paraleln\IeC {\'\i }ch dotaz\IeC {\r u} (1000 vzork\IeC {\r u})}}{52}{figure.4.2}% 
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Mapa Prahy a okol\IeC {\'\i } s polohy vozidel zaznaman\IeC {\'a}ny 23. 2. 2020}}{53}{figure.4.3}% 
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Shluk vozidel}}{53}{figure.4.4}% 
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Vyzna\IeC {\v c}en\IeC {\'a} trasa j\IeC {\'\i }zdy}}{53}{figure.4.5}% 
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Vyzna\IeC {\v c}en\IeC {\'a} trasa j\IeC {\'\i }zdy s j\IeC {\'\i }zdn\IeC {\'\i }m \IeC {\v r}\IeC {\'a}dem}}{54}{figure.4.6}% 
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Vozidla proj\IeC {\'\i }\IeC {\v z}d\IeC {\v e}j\IeC {\'\i }c\IeC {\'\i } vybranou zast\IeC {\'a}vkou}}{54}{figure.4.7}% 
+\contentsline {figure}{\numberline {4.8}{\ignorespaces Odjezdov\IeC {\'a} tabule}}{55}{figure.4.8}% 
+\contentsline {figure}{\numberline {4.9}{\ignorespaces Modelov\IeC {\'a}n\IeC {\'\i } profulu j\IeC {\'\i }zdy s chybn\IeC {\'y}mi vstupn\IeC {\'\i }mi daty}}{55}{figure.4.9}% 
+\contentsline {figure}{\numberline {4.10}{\ignorespaces Histogram \gls {rmse}}}{56}{figure.4.10}% 
+\contentsline {figure}{\numberline {4.11}{\ignorespaces Histogram \gls {rmse}}}{56}{figure.4.11}% 
+\contentsline {figure}{\numberline {4.12}{\ignorespaces Histogram \gls {rmse}}}{57}{figure.4.12}% 
 \addvspace {10\p@ }

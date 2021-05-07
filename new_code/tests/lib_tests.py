@@ -53,5 +53,5 @@ def get_args_thu_only():
 
 def get_args_demo():
 	args = get_args()
-	args.static_demo = False
+	args.static_demo = True
 	return args

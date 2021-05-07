@@ -10,9 +10,9 @@ Spoje které zajišťují hromadnou dopravu jezdí podle jízdních řádů, kte
 
 \bigbreak
 
-Délka trasy mezi dvěma refernčními body nezříka dosahuje i několika desítek kilometrů\footnote{Podle dat pro spoje jedoucí v 20. 2. 2020 je medián vzdálesnotí mezi zastávkama, mezi kterýma projede alesponˇ jeden spoj denně 943 m. Průjezdů mezi zatávkami ve vzdálenosti více než 10 kilometrů je 784, přiřičemž průjezdů mezi zastávkami ve vzdálenosti alesponˇ 2 km je přibližně 15000}. Na těchto úsecích mohou vznikat mimořáné události, které se dají predikovat jen s těží. Nicméně ve většině případů je průběh jízdy ovlivněn pouze obvyklým provozem v dané denní době.
+Délka trasy mezi dvěma referenčními body nezříka dosahuje i několika desítek kilometrů\footnote{Podle dat pro spoje jedoucí v 20. 2. 2020 je medián vzdálesnotí mezi zastávkama, mezi kterýma projede alespoň jeden spoj denně 943 m. Průjezdů mezi zatávkami ve vzdálenosti více než 10 kilometrů je 784, přiřičemž průjezdů mezi zastávkami ve vzdálenosti alespoň 2 km je přibližně 15000}. Na těchto úsecích mohou vznikat mimořáné události, které se dají predikovat jen s těží. Nicméně ve většině případů je průběh jízdy ovlivněn pouze obvyklým provozem v dané denní době.
 
-Detailní rozbor počtu průjezdů mezi zastávkami v daných vzdálenostech je vidět na grafu \ref{fig:stop_distances_result}. Kde průjezdem se myslí každý jednotlivý průjezd vozidla mezi danou dvojcí zastávek v daný den. Data jsou platná pro spoje jedoucí v 20. 2. 2020.
+Detailní rozbor počtu průjezdů mezi zastávkami v daných vzdálenostech je vidět na grafu \ref{fig:stop_distances_result}. Kde průjezdem se myslí každý jednotlivý průjezd vozidla mezi danou dvojcí zastávek v daný den. Data jsou platná pro spoje jedoucí 20. 2. 2020.
 
 \begin{figure}
 	\centering
@@ -23,23 +23,23 @@ Detailní rozbor počtu průjezdů mezi zastávkami v daných vzdálenostech je 
 
 \section{Popis problému odhadu zpoždění}
 
-Řešený problém se týká případu, kdy vozidlo projíždí mezi dvěma referenčními body a tato trasa má části, ve kterých vozidlo jede různou rychlostí. Např. vozidlo při vyjíždění z města jede mnohem pomaleji než při jízdě mezi městy. Takových úseků, na kterých se rychlost jízdy liší může být na trase více a nedají se všechny jednoduše detekovat.
+Řešený problém se týká případu, kdy vozidlo projíždí mezi dvěma referenčními body a tato trasa má části, ve kterých vozidlo jede různou rychlostí. Např. vozidlo při vyjíždění z města jede mnohem pomaleji než při jízdě mezi městy a při vjezdu do dalšího města zase zpomalí. Takových úseků, na kterých se rychlost jízdy liší, může být na trase více a nedají se všechny jednoduše detekovat.
 
 \bigbreak
 
-Tato Práce tedy modeluje profily jízd mezi referenčními body. A na základě toho zpřesnit odhad zpoždění. Tento odhad by měl být mnohem přesnější než současné odhady, které odpovídají tomu, že vozidlo jede konstantní rychlostí po celou dobu jízdy. Nebo je takové možné brát jako aktuální zpoždění spoje poslední změřené zpoždění při průjezdu nějakých referenčním bodem (zastávkou, nebo např. pro tramvaje se používají návěstidla).
+Tato Práce tedy modeluje profily jízd mezi referenčními body. A na základě toho zpřesnˇuje odhad zpoždění. Odhad tímto novým způsobem by měl být mnohem přesnější než současné odhady, které předpokládají, že vozidlo jede konstantní rychlostí po celou dobu jízdy, více rozepsáno v kapitole \ref{subsection:soucasna_reseni_odhadu}. Také je možné brát jako aktuální zpoždění spoje poslední změřené zpoždění při průjezdu nějakým referenčním bodem (zastávkou, návěstidla).
 
 \bigbreak
 
-Přidaná hodnota je tedy v tom, že Práce navrhne takové modely, které nebudou penezalizovat zvyšováním zpožděním za pomalou jízdu v úsecích, které se pomaleji projždějí vždy. A také naopak zvýhodnˇovat snížením zpožděním za rychlou jízdu v úsecích, které se projíždějí rychle. Pokud bychom se tedy podívali na změny zpoždění na trase mezi dvěma referečními body, v ideálním případně by měli být nulové.
+Přidaná hodnota je tedy v tom, že Práce navrhne takové modely, které nebudou penezalizovat zvyšováním zpožděním za pomalou jízdu v úsecích, které se pomaleji projíždějí vždy. A také naopak zvýhodňovat snížením zpožděním za rychlou jízdu v úsecích, které se obvykle projíždějí rychleji. Pokud bychom se tedy podívali na změny zpoždění na trase mezi dvěma referečními body, v ideálním případně by měli být nulové.
 
 \bigbreak
 
-Pro řešení odhadu toho typu spoždění stačí navrhnout systém na odhad zpoždění v půběhu jízdy mezi referenčními body z historikých dat jízd.
+Pro řešení odhadu toho typu spoždění stačí navrhnout systém na odhadu zpoždění v půběhu jízdy mezi referenčními body z historikých dat jízd.
 
 \bigbreak
 
-Pro vyloučení všech pochybností je hodno uvést, že se naše Práce nesnaží předpovědět zpoždění, které spoj může nabrat vzhledem k dosavadnímu průběhu trasy. Tedy např. nijak nezohlednˇuje to, že spoj právě stojí v mimořádné koloně a dalo by se tedy předpokládat, že zpoždění bude rychle růst i v následujících minutách. Ale naopak Práce se snaží odhadnou zpoždění v danném bodě na trase vzhledem k obvyklému profilu jízdy. Tedy např. pokud by výše uvažavaná kolona byla pravidelná Práce ji zohlední ve statistických modelech.
+Pro vyloučení všech pochybností je hodno uvést, že se naše Práce nesnaží předpovědět zpoždění, které spoj může nabrat vzhledem k dosavadnímu průběhu trasy. Tedy např. nijak nezohledňuje to, že spoj právě stojí v mimořádné koloně a dalo by se tedy předpokládat, že zpoždění bude rychle růst i v následujících minutách. Ale naopak Práce se snaží odhadnou zpoždění v danném bodě na trase vzhledem k obvyklému profilu jízdy. Tedy např. pokud by výše uvažavaná kolona byla pravidelná Práce ji zohlední ve statistických modelech.
 
 
 \subsection{Příklad nelineárního profilu trasy} \label{subsection:priklad_nelinearni_trasa}
@@ -48,7 +48,7 @@ Celé ilustrováno na příkladě jízd mezi dvěma zastávkama K letišti a ZLi
 
 \bigbreak
 
-Popsané rozdíly v rychlosti a nelineární profil trasy je patrný na grafu \ref{fig:k_letisti_to_zlicin_3d}. Za povšimnutí táké stojí viditelné spomalení průjezdů v ranní špičce, 7--9 \footnote{časy jsou v UTC} hodina ráno.
+Popsané rozdíly v rychlosti a nelineární profil trasy je patrný na grafu \ref{fig:k_letisti_to_zlicin_3d}. Za povšimnutí táké stojí viditelné zpomalení průjezdů v ranní špičce, 7--9 \footnote{časy jsou v UTC} hodina ráno.
 
 \bigbreak
 
@@ -81,12 +81,12 @@ Dále trasa pokračuje přes Pražský okruh rovně až do vzdálenosti 4.9 km o
 
 \bigbreak
 
-Poslední úsek se tedy skládá z výjezdu z Pražského okruhu, průjezdu křižovatkou, jízdy po obecní komunikaci a vjezdu do stanice Zličín. Délka úseku je 2 km. Průměrná rychlost za celou trasu se na tomto úseku snížila na 55 km/h.
+Poslední úsek se tedy skládá z výjezdu z Pražského okruhu, průjezdu křižovatkou, jízdy po obecní komunikaci a vjezdu do stanice Zličín. Délka úseku je 2 km. Průměrná rychlost za celou trasu se na tomto úseku snížila na 55 km/h. Do této průměrné rychlosti se započítává i jízda ve všech výše popsaných úsecích, tedy skutečná průměrná rychlost v tomto posledním úseku byla výrazně menší.
 
 
-\subsection{Současná řešení}
+\subsection{Současná řešení} \label{subsection:soucasna_reseni_odhadu}
 
-Algoritmus na odhad aktuálního zpoždění mezi dvěma referenčními body již exituje a je součástí Datové Platformy -- Golemio, ze kterého se čerpají data pro tuto práci. (Detailní popis dat uveden v kapitole ~\ref{chapter:TODO later}.)
+Algoritmus na odhad aktuálního zpoždění mezi dvěma referenčními body již exituje a je součástí Datové Platformy -- Golemio, ze kterého se čerpají data pro tuto práci. (Detailní popis dat uveden v kapitole \ref{chapter:analyza_zdroje}.)
 
 \bigbreak
 
@@ -94,8 +94,11 @@ Nicméně tento algoritmus nijak nezohledňuje variabilitu profilu trasy. Totiž
 
 \bigbreak
 
-Proto je potřeba tento odhad zpřesnit, což je cílem naší práce. K tomuto cíli jsme byli nasměrování v rámci schůzky s pracvoníky společnosti OICT, kde bylo řečeno, že toto je problém současného řešení, který je potřeba vyřešit.
+TODO obrazek linearniho modelu
 
+\bigbreak
+
+Proto je potřeba tento odhad zpřesnit, což je cílem naší práce. K tomuto cíli jsme byli nasměrováni v rámci schůzky s pracovníky společnosti OICT, kde bylo řečeno, že toto je problém současného řešení, který je potřeba vyřešit.
 
 
 \section{Analýza zdroje dat} \label{chapter:analyza_zdroje}
@@ -108,7 +111,7 @@ Vozidla vysílají data o své poleze při různých událostech. Zejména pak p
 
 \bigbreak
 
-Taková data pak přímo putují k provozavoateli systému na monitorování vozidel, kterým je společnost \gls{kapsch} jakožto partner \gls{dpp}. Ten však tato data zpracovává a posílá ke zveřejnění na platformě Golemio. Bohužel při tomto procesu zpracování se vytratí informace o události v jáké byly data pořízeny. Tedy informace o příjezdu nebo odjezdu ze zastávky jsou zjistitelné pouze z \gls{gps} souřadnic a následném odhadu pozice vozidla na trase dané linky.
+Taková data pak přímo putují k provozavoateli systému na monitorování vozidel, kterým je společnost \gls{kapsch} jakožto partner \gls{ropid}. Ten však tato data zpracovává a posílá ke zveřejnění na platformě Golemio. Bohužel při tomto procesu zpracování se vytratí informace o události v jáké byla data pořízena. Tedy informace o příjezdu nebo odjezdu ze zastávky jsou zjistitelné pouze z \gls{gps} souřadnic a následném odhadu pozice vozidla na trase dané linky.
 
 \bigbreak
 
@@ -120,7 +123,7 @@ Po té co jsou tyto data přeneseny do společnosti Operátor ICT by měla být 
 
 \bigbreak
 
-Real-time data o polohách, která jsou již neplatná (zastaralá) se neposílají (posílá vždy pouze nejaktuálnší informace) a i z Datové platformy jsou data po pár minutách nenávratně smazány.
+Real-time data o polohách, která jsou již neplatná (zastaralá) se neposílají (posílá vždy pouze nejaktuálnší informace) a i z Datové platformy jsou data po pár minutách nenávratně smazána.
 
 \subsubsection{Dokumentace}
 
@@ -144,11 +147,11 @@ Ačkoli se dokumentace tváří tak, že data jsou exportována ve formátech \g
 
 \bigbreak
 
-Celá datová platforma Golemio je pojatá jako Open Source projekt\footnote{Programátorská dokumentace je dostupná na https://operator-ict.gitlab.io/golemio/documentation/}. Tedy je možné její zdrojový ko'd vylepšit či opravit nebo také čtením ko'du detailně porozumnět jak zde popisované zpracování dat funguje. Avšak takový rozbor zdrojového ko'du je mimo rozsah této práce.
+Celá datová platforma Golemio je pojatá jako Open Source projekt\footnote{Programátorská dokumentace je dostupná na https://operator-ict.gitlab.io/golemio/documentation/}. Tedy je možné její zdrojový kód vylepšit či opravit nebo také čtením kódu detailně porozumnět jak zde popisované zpracování dat funguje. Avšak takový rozbor zdrojového kódu je mimo rozsah této práce.
 
 \subsubsection{Pozice vozidel}
 
-Ze zveřejněných dat na této platformě jsou nejdůležijtější data pro tuto práci pozice vozidel. Jelikož se jedná o real-time data, data rychle zastarávají a je nutné je velmi často aktualizaovat.
+Ze zveřejněných dat na této platformě jsou nejdůležijtější data pro tuto práci polohy vozidel. Jelikož se jedná o real-time data, data rychle zastarávají a je nutné je velmi často aktualizaovat.
 
 \bigbreak
 
@@ -157,11 +160,11 @@ Využívané atributy jsou:
 \begin{itemize}
 	\item \verb-coordinates- aktuální \gls{gps} souřadnice vozidla
 
-	\item \verb-origin\_timestamp- čas zachycení pozice vozidla, v časovém pásmu \gls{utc}
+	\item \verb-origin\_timestamp- čas zachycení polohy vozidla, v časovém pásmu \gls{utc}
 
 	\item \verb-gtfs\_trip\_id- unikátní identifikátor tripu pro spárování s jízdním řádem
 
-	\item \verb-gtfs\_shape\_dist\_traveled- vzdálenost vozidla uražená od začátku tripu v metrech
+	\item \verb-gtfs\_shape\_dist\_traveled- vzdálenost vozidla uražená od začátku jízdy v metrech
 
 	\item \verb-delay\_stop\_departure- zpoždění zachycené při odjezdu z poslední projeté zastávky v sekundách
 \end{itemize}.
@@ -226,11 +229,11 @@ Příklad dat popisující aktuální polohu vozidla, na kterém je možno vidě
 
 \subsubsection{Jízdy}
 
-Dále jsou k dispozici data o každé jízdě. To je popis trasy vozidla, včetně zastávek a časů příjezdů a odjezdů do/z nich. Také může být vyžádáno k informacím o jízdě připojit celý shape trasy, tj. lomená čára kopírující celou trasu daného tripu po povrchu Země.
+Dále jsou k dispozici data o každém spoji. To je popis trasy vozidla, včetně zastávek a časů příjezdů a odjezdů do/z nich. Také může být vyžádáno k informacím o jízdě připojit celý detailní nákres trasy, tj. lomená čára kopírující celou trasu daného tripu po povrchu Země.
 
 \bigbreak
 
- Míra unikátnosti identifikátorů těchto tripů je předmětem dohadů a zřejmě jsou pod správou plánovačů \gls{mhd}, nicméně pro účely této práce může být předpokládáno, že každá jízda má vlastní jízdní řád, který se váže na čas a každá jízda jede nejvýše jednou za den.
+ Míra unikátnosti identifikátorů těchto tripů je předmětem dohadů a zřejmě jsou pod správou plánovačů \gls{vhd}, nicméně pro účely této práce může být předpokládáno, že každá jízda má vlastní jízdní řád, který se váže na čas a každá jízda jede nejvýše jednou za den.
 
 \begin{itemize}
 	\item \verb-trip\_headsign- nápis na čele vozidla, typicky cílová stanice
@@ -342,19 +345,19 @@ Příklad dat popisujících jednu jízdu včetně zastávek. Seznam zastávek a
 
 \subsection{Analýza statických dat}
 
-Sběr dat probíhal ve dnech 20.--24. 2. 2020.
+Sběr dat probíhal ve dnech 20.--23. 2. 2020.
 
 \bigbreak
 
-Data byla přebírána pouze z dat o každé jednotlivé jízdě a aktuálních poloh vozidel stahovaných každých 20 sekund. Tedy pokud určitou zastávkou žádný spoj neprojel nebo se uložení spoje z důvodu neúplných dat nezdařilo, může nějaká zastávka v databázi chybět. Stejně tak mohou chybět i nějaké spoje. Nejčastěji chybějící požadovaná data jsou informace o spoždění spoje v poslední zastávce, zcela nenalezený spoj ve zdroji dat a tedy chybějící jízdní řád. Nicméně jedná se zanedbatelné množství. Práce totiž nemůže počítat s poškozenými daty a není jejím úkolem držet všechny zastávky, ale pouze ty kterými nějaký spoj projíždí. To z důvodu přehlednosti zastávek při vizualizaci, kde ukazovat nepoužívané zastávky nemá smysl a také pro odhady zpoždění nedává smysl počítat něco pro zastávku, která není obsluhovaná.
+Data byla přebírána pouze z dat o každé jednotlivé jízdě a aktuálních poloh vozidel stahovaných každých 20 sekund. Tedy pokud určitou zastávkou žádný spoj neprojel nebo se uložení spoje z důvodu neúplných dat nezdařilo, může nějaká zastávka v databázi chybět. Stejně tak mohou chybět i nějaké spoje. Nejčastěji chybějící požadovaná data jsou informace o spoždění spoje v poslední zastávce, zcela nenalezený spoj ve zdroji dat a tedy chybějící jízdní řád. Nicméně jedná se o zanedbatelné množství spojů. Práce totiž nemůže počítat s poškozenými daty a není jejím úkolem držet všechny zastávky, ale pouze ty kterými nějaký spoj projíždí. To z důvodu přehlednosti zastávek při vizualizaci, kde ukazovat nepoužívané zastávky nemá smysl a také pro odhady zpoždění nedává smysl počítat něco pro zastávku, která není obsluhovaná.
 
 \subsubsection{Zastávky} \label{subsubsection:zastavky}
 
-Do databáze bylo celkem vloženo 5820 nástupištˇ, které náleží celkem 2961 zastávkám. Ale naprostá většina (74 \%) zastávek jsou párová, tedy mají pouze 2 nástupiště. Jednosměrných zastávek je 18 \%, zastávek se 3 nástupišti jsou 3 \%. Nejvíce nástupištˇ mají stanice Slaný Aut. nádr. (14), Černý Most (12), Kladno Autobusové nádraží (11).
+Do databáze bylo celkem vloženo 5820 nástupišť, které náleží celkem 2961 zastávkám. Ale naprostá většina (74 \%) zastávek jsou párová, tedy mají pouze 2 nástupiště. Jednosměrných zastávek je 18 \%, zastávek se 3 nástupišti jsou 3 \%. Nejvíce nástupišť mají stanice Slaný Aut. nádr. (14), Černý Most (12), Kladno Autobusové nádraží (11).
 
 \subsubsection{Jízdy}
 
-Celkem bylo nalezeno 12788 spojů, z nich naprostá většina vyjela opakovaně v následující den\footnote{Ze všech vypravených jízd ve dnech 20. 2. 2020 (9334) a 21. 2. 2020 (9428) jich 9051 bylo označeno ve zdrojových datech stejným identifikátorem, tedy z našeho pohledu sdílely jízdní řád a cestu.}.
+Celkem bylo nalezeno 12788 spojů, z nich naprostá většina vyjela opakovaně v následující den\footnote{Ze všech vypravených jízd ve dnech 20. 2. 2020 (9334) a 21. 2. 2020 (9428) jich 9051 bylo označeno ve zdrojových datech stejným identifikátorem, tedy z našeho pohledu sdílely jízdní řád a trasu.}.
 
 \subsubsection{Vstupní soubory} \label{subsubsection:vstupni_soubory}
 
@@ -362,7 +365,7 @@ Pro testovací účely bylo celkem pořízeno 15 794 obrazů dopravní situace z
 
 \bigbreak
 
-Pro stahování těchto souborů byl využit script napsaný v jazyce Bash, který po dobu 4 dnů periodicky každých 20 sekund stáhl aktuální obraz poloh vozidel. Tento stažený dokumnet pak uložil v komprimovaném formátu a označil časem stažení. Tento script běžel na počítači, který pro účely této práce zapůjčil k využití pan profesor Jakub Klímek, jemuž tímto děkuji.
+Pro stahování těchto souborů byl využit script napsaný v jazyce Bash, který po dobu 4 dnů periodicky každých 20 sekund stáhl aktuální obraz poloh vozidel. Tento stažený dokument pak uložil v komprimovaném formátu a označil časem stažení. Tento script běžel na počítači, který pro účely této práce zapůjčil k využití pan profesor Jakub Klímek, jemuž tímto děkuji.
 
 \begin{code}[frame=none]
 #!/bin/sh
@@ -403,11 +406,13 @@ Z celkového počtu nalezenách spojů vyplývá, že počet nově nalezených s
   \label{fig:vehicle_pos_x_new_trips}
 \end{figure}
 
-Maximální počet vozidel obsažených v jednom souboru je méně něž 800. Kompletní histogrtam počt ussouborů s počtem vozidel celkem v jednom souboru je na grafu \ref{fig:vehicle_pos_x_all_trips}. Z tohoto grafu vyplývá, že velká většina vstupních souborů z celkového počtu 15793 obsahuje do 200 vozidel v každém souboru.
+\bigbreak
+
+Maximální počet vozidel obsažených v jednom souboru je méně něž 800. Kompletní histogrtam počtu souborů s počtem vozidel celkem v jednom souboru je na grafu \ref{fig:vehicle_pos_x_all_trips}. Z tohoto grafu vyplývá, že velká většina vstupních souborů z celkového počtu 15793 obsahuje do 200 vozidel v každém souboru.
 
 \bigbreak
 
-Avšak ne všechna vozidla v každém souboru jsou nová nebo dostala změněny oproti předešlému záznamu. To z důvodu, že je zdroj dat nastaven tak, aby vysílal polohu vozidla jako aktuální, i když už je zastaralá několik minut. Va takovém případě se zpracovává vzorek volohy vozdila stále dokola.
+Avšak ne všechna vozidla v každém souboru jsou nová nebo dostala změněny oproti předešlému záznamu. To z důvodu, že je zdroj dat nastaven tak, aby vysílal polohu vozidla jako aktuální, i když už je zastaralá několik minut. V takovém případě se zpracovává vzorek volohy vozdila stále dokola.
 
 \begin{figure}
 	\centering
@@ -415,6 +420,8 @@ Avšak ne všechna vozidla v každém souboru jsou nová nebo dostala změněny�
   \caption{Počet souborů s početem nově nalezených spojů v nich.}
   \label{fig:vehicle_pos_x_all_trips}
 \end{figure}
+
+\bigbreak
 
 Další rozbor dat na grafu \ref{fig:stop_distances_result} a v kapitole \ref{TODO:statistika}.
 
@@ -427,11 +434,11 @@ Jak bylo řečeno v úvodu, součástí práce je i vizualizace spočítaných d
 
 \bigbreak
 
-To bude provedeno formou front endové aplikace, která zobrazuje mapu a do ní zanáší data o vozidlech VHD. Funkční požadavky této aplikace jsou inspirované již existujícími řešeními tohoto problému.
+To bude provedeno formou front endové aplikace, která zobrazuje mapu a do ní zanáší data o vozidlech \gls{vhd}. Funkční požadavky této aplikace jsou inspirované již existujícími řešeními tohoto problému.
 
 \subsection{Mapové podklady}
 
-Jak vyplývá z funkčních požadavků data budou zobrazována v mapě. Mapu si samozřejmě nebudeme kreslit sami, ale využijeme jedno z již existujcích řešení, které umožnˇuje zobrazení mapy a do ní zanést vlastní data. Takové služby mohou být provozovatelem zpoplatněny, ale pro naše demonstrační účely, kdy budeme využívat tuto službu velmi málo, bývá od poplatků většinou upoštěno.
+Jak vyplývá z funkčních požadavků data budou zobrazována v mapě. Mapu si samozřejmě nebudeme kreslit sami, ale využijeme jedno z již existujcích řešení, které umožňuje zobrazení mapy a do ní zanést vlastní data. Takové služby mohou být provozovatelem zpoplatněny, ale pro naše demonstrační účely, kdy budeme využívat tuto službu velmi málo, bývá od poplatků většinou upoštěno.
 
 \bigbreak
 

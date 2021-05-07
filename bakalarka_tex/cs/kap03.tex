@@ -6,15 +6,15 @@ V této kapitole je detailně popsána implementace a volba technologií použit
 
 \section{Úvod}
 
-Nejdůležitější částí celého systému je modul výpočtu a používání pravděpodobnostních modelů odhadu zpoždění vozidel. To vytváří požadavek na využití technologií, které poskytují prostředí pro pohodlnou tvorbu těchto modelů. V současnosti jsou nejpokročilejší nástroje pro takový účel součástí balíčkové sady jakyka Python3, konkrétně se jedná o knihovnu scikit-learn\footnote{https://scikit-learn.org/stable/} a další nástroje pro páci s velkými daty jake je knihovna NumPy\footnote{https://numpy.org}. Tyto knihovny implemntují dobře známé algoritmy umělé inteligence, včetně optimalizací a pomocných funkcí zjednodušujících hledání nejlepšího modelu. Navíc jsou tyto knihovny naimplementovány s ohledem na vysokou výkonost\footnote{https://scikit-learn.org/stable/developers/performance.html} a využití grafických karet\footnote{Záleží na konkrétním hardwaru}. Proto nedává smysl jejich služeb nevyužít. Využití jazyka Python3 je tedy pro jádro náší práce jasnou volbou.
+Nejdůležitější částí celého systému je modul výpočtu a používání pravděpodobnostních modelů odhadu zpoždění vozidel. To vytváří požadavek na využití technologií, které poskytují prostředí pro pohodlnou tvorbu těchto modelů. V současnosti jsou nejpokročilejší nástroje pro takový účel součástí balíčkové sady jakyka Python3, konkrétně se jedná o knihovnu scikit-learn\footnote{https://scikit-learn.org/stable/} a další nástroje pro práci s velkými daty jake je knihovna NumPy\footnote{https://numpy.org}. Tyto knihovny implementují dobře známé algoritmy umělé inteligence, včetně optimalizací a pomocných funkcí zjednodušujících hledání nejlepšího modelu, dále pak i užitečné funkce pro počítání statistik. Navíc jsou tyto knihovny naimplementovány s ohledem na vysokou výkonost\footnote{https://scikit-learn.org/stable/developers/performance.html} a využití grafických karet\footnote{Záleží na konkrétním hardwaru}. Proto nedává smysl jejich služeb nevyužít. Využití jazyka Python3 je tedy pro jádro náší práce jasnou volbou.
 
 \bigbreak
 
-Pro samotné zpracování dat žádné speciální požadavky nevyvstávají a je možné využít i jiné ověřené backendové programovací jazyky a technologie. Nicméně pro zachování jednoty vývoje není důvod měnit prostředí a využijeme též jazyk Python3. Může být namítnuto, že programy psané v jazyce Python3 nejsou výkonostně příliš dobré, nicméně v našem případě se nebudou provádět žádné složité výpočty, ale pouze stahování dat z internetu a jejich transformace. Bytˇ se jedná o poměrně velké objemy dat jakákoliv operace s nimi je stále řádově rychlejší než stahování z internetu.
+Pro samotné zpracování dat žádné speciální požadavky nevyvstávají a je možné využít i jiné ověřené backendové programovací jazyky a technologie. Nicméně pro zachování jednoty vývoje není důvod měnit prostředí a využijeme též jazyk Python3. Může být namítnuto, že programy psané v jazyce Python3 nejsou výkonostně příliš dobré, nicméně v našem případě se nebudou provádět žádné složité výpočty, ale pouze stahování dat z internetu a jejich transformace. Byť se jedná o poměrně velké objemy dat jakákoliv operace s nimi je stále řádově rychlejší než stahování z internetu.
 
 \bigbreak
 
-Databázi jsem již vybrali MySQL\footnote{https://www.mysql.com} implementaci. To zejména z důvodů, že se jedná o open source projekt a tato implementace je velmi často vyžívaná v celé řadě jiných projektů s velkou komunitou. Konkrétně pro Python3 existuje knihovna MySQL Connector\footnote{https://dev.mysql.com/doc/connector-python/en/} přes kterou je možné \gls{sql} databázi pohodlně obsluhovat.
+Databázi jsme již vybrali MySQL\footnote{https://www.mysql.com} implementaci. To zejména z důvodů, že se jedná o open source projekt a tato implementace je velmi často vyžívaná v celé řadě jiných projektů s velkou komunitou. Konkrétně pro Python3 existuje knihovna MySQL Connector\footnote{https://dev.mysql.com/doc/connector-python/en/} přes kterou je možné \gls{sql} databázi pohodlně obsluhovat.
 
 \bigbreak
 
@@ -30,7 +30,7 @@ Základní myšlenka zpracování dat pocházejících ze zdroje dat popsaném v
 
 \bigbreak
 
-Jako součást projektu naimplementujeme pro přehlednost pomocné třídy celkově usnadnˇující využití zdrojů a technologií pro náš specifický účel. Dále pak z důvodu oddělení technických záležitostí, jako je např.: stahování dat ze sítě, tak aby nezasahovali do ko'du implementující logiku systému. Stejně tak se tímto eliminuje výskyt paternů v celém ko'du. Konktrétně se tím myslí komunikace s databází, kominkace se zdrojem dat, komunikace se souborovým systémem. Tyto třídy navíc definují důležité konstanty, jakými jsou např.: jména využívaných souborů nebo souborových adresářů, \gls{url} zdroje dat atp.
+Jako součást projektu naimplementujeme pro přehlednost pomocné třídy celkově usnadňující využití zdrojů a technologií pro náš specifický účel. Dále pak z důvodu oddělení technických záležitostí, jako je např.: stahování dat ze sítě, tak aby nezasahovaly do kódu implementující logiku systému. Stejně tak se tímto eliminuje výskyt paternů v celém kódu. Konktrétně se tím myslí komunikace s databází, komunikace se zdrojem dat, komunikace se souborovým systémem. Tyto třídy navíc definují důležité konstanty, jakými jsou např.: jména využívaných souborů nebo souborových adresářů, \gls{url} zdroje dat atp.
 
 \bigbreak
 
@@ -56,7 +56,7 @@ Funkce \verb-construct_all_trips- vytvoří z každého nalezeného vozidla ve v
 
 \bigbreak
 
-Avšak ke konstrukci instancí vozidel je potřeba získat data z databáze o jízdních řádech. To potože součástí vstupního souboru z externího zdroje není informace o poslední projeté a další následující zastávce. Tuto informaci potřebujeme pro odhad zpoždění provádějící se v dalším kroku\footnote{Ve verzi 2 datového formátu souboru poloh vozidel je již tato informace zahrnuta}. Proto se na začátku konstrukce instancí třídy \verb-Trip- čtou data z tabulky \verb-rides- pouze pro aktuálně zpracovávané jízdy, a dále se pak sadou funkcí hledá poslední projetá a následující zastávka na trase každého spoje.
+Avšak ke konstrukci instancí vozidel je potřeba získat data z databáze o jízdních řádech. To protože součástí vstupního souboru z externího zdroje není informace o poslední projeté a další následující zastávce. Tuto informaci potřebujeme pro odhad zpoždění provádějící se v dalším kroku\footnote{Ve verzi 2 datového formátu souboru poloh vozidel je již tato informace zahrnuta}. Proto se na začátku konstrukce instancí třídy \verb-Trip- čtou data z tabulky \verb-rides- pouze pro aktuálně zpracovávané jízdy, a dále se pak sadou funkcí hledá poslední projetá a následující zastávka na trase každého spoje.
 
 \subsection{Odhad zpoždění}
 
@@ -64,11 +64,11 @@ Tato funkce odhadu zpoždění musí být volána ještě před uložením do da
 
 \bigbreak
 
-Funkce odhad zpoždění využívá zkonstruovaných modelů profilů jízd, pokud takový model zatím není vytvořen použije se zpoždění v poslední projeté zastávce. Modely jsou uloženy v souborovém systému a pro každou dvojci zastávek je model uložen zvláštˇ.
+Funkce odhad zpoždění využívá zkonstruovaných modelů profilů jízd, pokud takový model zatím není vytvořen, použije se zpoždění v poslední projeté zastávce. Modely jsou uloženy v souborovém systému a pro každou dvojci zastávek je model uložen zvlášť.
 
 \bigbreak
 
-Pro rychlejší běh aplikace jsou však po prvním načtení modely drženy v paměti počítače v proměnné typu mapa, to nám pak umožní rychlé vyhledávání podle dvojce identifikátorů zastávek. Implementace funkce je následující, tento ko'd je volán pro každé vozidlo zvláštˇ.
+Pro rychlejší běh aplikace jsou však po prvním načtení modely drženy v paměti počítače v proměnné typu mapa, to nám pak umožní rychlé vyhledávání podle dvojce identifikátorů zastávek. Implementace funkce je následující, tento kód je volán pro každé vozidlo zvlášť.
 
 \begin{code}[frame=none]
 # najde model podle dvojce zastávek a dnů v týdnu
@@ -89,11 +89,11 @@ if tuple_for_predict is not None:
 
 \subsection{Kompletace dat a jejich uložení}
 
-Kompletace dat především obnáší stažení dalších dat, jako jsou jízdní řády v případě, že jízda doposud nebyla nalezena. Takových jízd může být v jedné iteraci běžící aplikace i několik desítek, při spuštění systému jsou všechny jízdy nenalezeny a tedy musí být staženy dodatečná data i pro několik stovek jízd. Aby se data o každé jízdě nestahovala sériově metoda zpracování vozidel je implementována asynchroně, resp. stahování dat je asynchroní. Díky tomu se začnou stahovat data o více jízdách v jeden okamžik. Bytˇ čekání na stažení dat o jedné jízdě je při dobrém internetovém spojení otázkou několika desítek milisekund, tak v případech stahování dat o stovkách jízd sériově by jenom stahování dat prodloužilo běh jedné iterace o jednotky až nízké desítky sekund.
+Kompletace dat především obnáší stažení dalších dat, jako jsou jízdní řády v případě, že jízda doposud nebyla nalezena. Takových jízd může být v jedné iteraci běžící aplikace i několik desítek, při spuštění systému jsou všechny jízdy nenalezeny a tedy musí být staženy dodatečná data i pro několik stovek jízd. Aby se data o každé jízdě nestahovala sériově metoda zpracování vozidel je implementována asynchroně, resp. stahování dat je asynchroní. Díky tomu se začnou stahovat data o více jízdách v jeden okamžik. Byť čekání na stažení dat o jedné jízdě je při dobrém internetovém spojení otázkou několika desítek milisekund, tak v případech stahování dat o stovkách jízd sériově by jenom stahování dat prodloužilo běh jedné iterace o jednotky až nízké desítky sekund.
 
 \bigbreak
 
-Jak tedy vyplývá z textu výše tato funkce dělí běh na dvě části podle toho jestli je jízda vozidla nalezena nebo nenalezena. V případě nalezené jízdy v databázi se jen aktualizuje záznam v tabulce \verb-trips-, mezi aktualizovaná data patří aktuální zpoždění, zpoždění v poslení pojeté zastávce, ujetá vzdálenost, souřadnice vozidla a časová známka aktualizace dat ve zdroji dat. Zárovenˇ s aktualizací dat v tabulce \verb-trips- se provádí i vložení nového záznamu do tabulky \verb-trip_coordinates-, která slouží jako datový sklad všech zaznamenaných poloh vozidel. Celá logika aktualizace je řešena v \gls{sql} funkci.
+Jak tedy vyplývá z textu výše tato funkce dělí běh na dvě části, podle toho jestli je jízda vozidla nalezena nebo nenalezena. V případě nalezené jízdy v databázi se jen aktualizuje záznam v tabulce \verb-trips-, mezi aktualizovaná data patří aktuální zpoždění, zpoždění v poslení pojeté zastávce, ujetá vzdálenost, souřadnice vozidla a časová známka aktualizace dat ve zdroji dat. Zároveň s aktualizací dat v tabulce \verb-trips- se provádí i vložení nového záznamu do tabulky \verb-trip_coordinates-, která slouží jako datový sklad všech zaznamenaných poloh vozidel. Celá logika aktualizace je řešena v \gls{sql} funkci.
 
 \begin{code}[frame=none]
 CREATE DEFINER=`root`@`localhost` FUNCTION
@@ -148,10 +148,10 @@ END
 
 \section{Konstrukce modelů}
 
-Pro spočítání polynomiálního modelu se využívá knihovna sklearn konkrétně algoritmus zvaný Rigde, který sám o sobě hledá linární závislosti, nicméně vstupní hodnoty jsou mezi sebou náležitě pronásobeny tak, aby simulovali polynomiální funkci. Toho se dosáhne pomocí funkce PolynomialFeatures. Optimální stupeň polynomu se zjistí spočítáním modelu pro každý stupeň v rozumných mezích a nakonec se zvolí ten s nejmenší chybou. To se v jazyce Python3 za pomocí knihovny sklearn provede následujcícm ko'dem. Omezení stupnˇů polynomiální regrese vyplývá ze skušenosti, kdy s nejmenší chybou jsou modely stupně 5 nebo 6.
+Pro spočítání polynomiálního modelu se využívá knihovna sklearn konkrétně algoritmus zvaný Rigde, který sám o sobě hledá linární závislosti, nicméně vstupní hodnoty jsou mezi sebou náležitě pronásobeny tak, aby simulovaly polynomiální funkci. Toho se dosáhne pomocí funkce PolynomialFeatures. Optimální stupeň polynomu se zjistí spočítáním modelu pro každý stupeň v rozumných mezích a nakonec se zvolí ten s nejmenší chybou. To se v jazyce Python3 za pomocí knihovny sklearn provede následujcícím kódem. Omezení stupňů polynomiální regrese vyplývá ze skušenosti, kdy modely pro vyšší stupně jsou více chybové protože došlo k tzv. přeučení modelu.
 
 \begin{code}[frame=none]
-for degree in [3, 4, 5, 6, 7, 8, 9, 10]:
+for degree in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]:
   model = make_pipeline(PolynomialFeatures(degree), Ridge(), verbose=0)
   model.fit(X_train, y_train)
   pred = model.predict(X_test)
@@ -164,15 +164,15 @@ self.model = make_pipeline(PolynomialFeatures(best_degree), Ridge())
 self.model.fit(input_data, output_data)
 \end{code}
 
-Samotné nalezení správného modelu se nyní může zdát jednoduché, nicméně nejsložitější prací pro jakoukoli úlohy z oblasti umělé inteligence a strojového učení je příprava dat a v naší práci tomu není jinak. Atˇ už se jedná o samotná zpracování dat popsané výše v kapitole \ref{section:zpracovani_dat}, tak také je potřeba tyto zpracovaná data dále trasnformovat z formátu v jakém jsou uloženy v databázi do formátu jaký je vhodný pro počítání lineární regrese. Dále je pak potřeba data vyčistit od zcela nesmyslných vzorků poloh vozidel, kterých je vstupních datech spousta a mohly by negativně ovlivnit správnost odhadů nalezených modeů.
+Samotné nalezení správného modelu se nyní může zdát jednoduché, nicméně nejsložitější prací pro jakoukoli úlohy z oblasti umělé inteligence a strojového učení je příprava dat a v naší práci tomu není jinak. Ať už se jedná o samotná zpracování dat popsané výše v kapitole \ref{section:zpracovani_dat}, tak také je potřeba tyto zpracovaná data dále trasnformovat z formátu v jakém jsou uloženy v databázi do formátu jaký je vhodný pro počítání lineární regrese. Dále je pak potřeba data vyčistit od zcela nesmyslných vzorků poloh vozidel, kterých je vstupních datech spousta a mohly by negativně ovlivnit správnost odhadů nalezených modeů.
 
 \subsection{Čtení dat} \label{subsection:cteni_dat}
 
-Pro zkonstuování modelů popisujících profily jízd mezi všemi dvojcemi zastávek je nejprve potřeba zjistit všechny dvojce zastávek, mezi kterými jede alesponˇ jeden spoj. To se dá zjistit pomocí jízdních řádů, které reprezentujeme v tabulce \verb-rides- v naší databázi popsané v kapitole \ref{subsection:databaze}
+Pro zkonstuování modelů popisujících profily jízd mezi všemi dvojcemi zastávek je nejprve potřeba zjistit všechny dvojce zastávek, mezi kterými jede alespoň jeden spoj. To se dá zjistit pomocí jízdních řádů, které reprezentujeme v tabulce \verb-rides- v naší databázi popsané v kapitole \ref{subsection:databaze}
 
 \bigbreak
 
- Dále pokud máme všechny dvojce zastávek je potřeba získat všechny oznámené polohy vozidel mezi nimi pro každou dvojci zastávek zvláštˇ. To je možné realizovat pomocí následujícího \gls{sql} dotazu.
+ Dále pokud máme všechny dvojce zastávek je potřeba získat všechny oznámené polohy vozidel mezi nimi pro každou dvojci zastávek zvlášť. Tyto dva kroky je možné realizovat pomocí následujícího \gls{sql} dotazu.
 
 \begin{code}[frame=none]
 SELECT schedule.id_trip,
@@ -209,7 +209,7 @@ Tento SQL dotaz nejprve získá všechny dvojce po sobě jdoucích zastávek z j
 
 \bigbreak
 
-K těmto dvojcím zastávek dále získáme všechny vzorky poloh vozidel. To tak, že vezme všechny vzorky pro daný spoj, které leží mezi vybranou dvojcí zastávek. V tomto dotazu zárovenˇ vyloučíme zastávky, které jsou k sobě blíže než nebo vzdálené přesně 1500 m (v implementaci je pak vzdálenost určena parametricky), zdůvodnění této vzdálenosti je výše v návrhu modelů. Pro produkční nasazení je ještě potřeba omezit čtené vzroky podle času vytvoření, tedy např. nevyužívat vzorky starší několika dní, jak je popsáno v analýze problému. Nicméně toto omezení by vycházelo z reálného provozu ze skušeností jak rychle se vývíjí dopravní sítˇ nebo jak často se mění jízdní řády.
+K těmto dvojcím zastávek dále získáme všechny vzorky poloh vozidel. To tak, že vezme všechny vzorky pro daný spoj, které leží mezi vybranou dvojcí zastávek. V tomto dotazu zároveň vyloučíme zastávky, které jsou k sobě blíže než nebo vzdálené přesně 1500 m (v implementaci je pak vzdálenost určena parametricky), zdůvodnění této vzdálenosti je výše v návrhu modelů. Pro produkční nasazení je ještě potřeba omezit čtené vzroky podle času vytvoření, tedy např. nevyužívat vzorky starší několika dní, jak je popsáno v analýze problému. Nicméně toto omezení by vycházelo z reálného provozu ze zkušeností, jak rychle se vývíjí dopravní síť nebo jak často se mění jízdní řády.
 
 \bigbreak
 
@@ -221,8 +221,10 @@ Přečtená data z databáze se dále třídí podle dne v týdnu, ve kterém by
 
 \bigbreak
 
-Dále následuje čištění dat od chyb a jejich odstranění. Čištění funguje tak, že pokud nějaký vzorek dat je výrzně mimo kluster všech ostatních, tak není odstraněn pouze tento jeden vzorek, ale rovnou všechny vzorky daného spoje. To proto, že s vysokou pravděpodobností jsou ovlivněny chybou i ostatní vzorky, ale nesplnˇují poměrne volné kritéria na odstranění. Hledání chyb pak probíhá tak, že se spočírá poměr čas jízdy ku vzdálenosti všech vozorků a za chybné se označí ty příliš vzdálené od průměru. Popsaný alguritmus je implementován takto.
+Dále následuje čištění dat od chyb a jejich odstranění. Čištění funguje tak, že pokud nějaký vzorek dat je výrazně mimo kluster všech ostatních, tak není odstraněn pouze tento jeden vzorek, ale rovnou všechny vzorky dané jízdy. To proto, že s vysokou pravděpodobností jsou ovlivněny chybou i ostatní vzorky, ale nesplňují poměrne volné kritéria na odstranění. Hledání chyb pak probíhá tak, že se spočírá poměr čas jízdy ku vzdálenosti všech vozorků a za chybné se označí ty příliš vzdálené od průměru. Popsaný alguritmus je implementován takto.
 
+
+TODO upravit kod podle aktualni verze
 \begin{code}[frame=none]
 trips_to_remove = set()
 trip_times_to_remove = dict()
@@ -250,13 +252,17 @@ for hv in high_variance:
 self.norm_data.remove_items_by_id_trip(trips_to_remove, trip_times_to_remove)
 \end{code}
 
+\bigbreak
+
 Po vykonání této procedůry jsou data připravena jako vstupní data pro výpočet modelu profilu jízdy podle algoritmu uvedeném výše.
 
 \subsection{Práce s modely}
 
 Pro vložení odhadnutého zpoždění do databáze je potřeba využít předvypočítané modely pro jeho odhad.
 
-Tento odhad se počítá pro každé vozidlo zvláštˇ na základě vstupních dat o aktuální poloze vozidla obohacené o další informace. Tento vstupní vektor se konstruuje ve třídě \verb-Trip- následovně.
+\bigbreak
+
+Tento odhad se počítá pro každé vozidlo zvlášť na základě vstupních dat o aktuální poloze vozidla obohacené o další informace. Tento vstupní vektor se konstruuje ve třídě \verb-Trip- následovně.
 
 \begin{code}[frame=none]
 self.shape_traveled - self.last_stop_shape_dist_trav,
@@ -265,11 +271,21 @@ self.departure_time.seconds,
 self.arrival_time.seconds
 \end{code}
 
+\bigbreak
+
 První položka je aktuální vzdálenost vozidla od poslední projeté zastávky, dále je uveden čas zaznamenání polohy vozidla, třetí položkou je čas pravidelného odjezdu z poslední projeté zastávky a dále příjezdu do následející zastávky. Pro poslední dvě položky je nutné přečíst jízdní řád pro daný spoj z databáze.
 
-Po sestrojení vstupního vektoru je vložen jako vstupní parametr funkce pro předpovědˇ odhadu zpoždění, kterou má každá instance modelu. Podle typu modelu se pro odhad zpoždění využije lineární nebo polynomiální model. V obou případech je potřeba pouze ošetřit případ, kdy vozidlo jede přes půlnoc a rozdíl tedy rozdíl času příjezdu a odjezdu by vyšel záporně.
+\bigbreak
 
-V případě, že se využívá polynomiální model pro odhaz zpoždění, je navíc ošetřena situace, kdy čas zaznamenání polohy vozidla je mimo rozsah modelu, v případě, že tomu tak je, je použita nejbližší hraniční hodnota. K něčemu takovému by docházet nemělo nebo případné posunutí času nebude mít velký vliv, protože nejpozdější, resp. nejdřívejší čas průjezdu mezi dvěma zastávkami se v realitě často nemění vůbec nebo nijak výrazně. Ošetření této situace se však míjí účinkem a to, protože se nejdřívější, resp. nejpozdější průjezd počítá vždy od půlnoci\footnote{v této práci se vždy využívá časová zo'na \gls{utc}}. Pro eliminaci chyby odhadu zpoždění polynomiálním modelem z důvodu, že model profiluje příjezd do následující zastávky v jiném čase než je pravidelný čas příjezdu, je navíc ještě zjištěn skutečný čas na jízdy tím, že se zjistí odhadovaná hodnota v čase a vzdálenost následující zastávky. Tato hodnota se pak přičte k odhadnutému zpoždění.
+Po sestrojení vstupního vektoru je vložen jako vstupní parametr funkce pro předpověď odhadu zpoždění, kterou má každá instance modelu. Podle typu modelu se pro odhad zpoždění využije lineární nebo polynomiální model. V obou případech je potřeba pouze ošetřit případ, kdy vozidlo jede přes půlnoc a rozdíl tedy rozdíl času příjezdu a odjezdu by vyšel záporně.
+
+\bigbreak
+
+V případě, že se využívá polynomiální model pro odhaz zpoždění, je navíc ošetřena situace, kdy čas zaznamenání polohy vozidla je mimo rozsah modelu, v případě, že tomu tak je, je použita nejbližší hraniční hodnota. K něčemu takovému by docházet nemělo nebo případné posunutí času nebude mít velký vliv, protože nejpozdější, resp. nejdřívejší čas průjezdu mezi dvěma zastávkami se v realitě často nemění vůbec nebo nijak výrazně. Ošetření této situace se však míjí účinkem a to, protože se nejdřívější, resp. nejpozdější průjezd počítá vždy od půlnoci\footnote{v této práci se vždy využívá časová zóna \gls{utc}}.
+
+\bigbreak
+
+Pro eliminaci chyby odhadu zpoždění polynomiálním modelem z důvodu, že model profiluje příjezd do následující zastávky v jiném čase než je pravidelný čas příjezdu, je navíc ještě zjištěn skutečný čas jízdy tím, že se zjistí odhadovaná hodnota v čase a vzdálenost následující zastávky. Tato hodnota se pak přičte k odhadnutému zpoždění.
 
 \section{Vizualizace dat}
 
@@ -297,7 +313,7 @@ Prostředí Mapbox je široce využívaný multiplatformový nástroj pro zobraz
 
 \bigbreak
 
-Webová aplikace této práce využívá naprosto základní funkcionality, které mapbox přináší.  Popis jejich využití včetně načtení prostředí Mapboxu do webové stránky za předpokladu, že jsou splněny základní \gls{html} požadavky webové stránky je následující.
+Webová aplikace této práce využívá naprosto základní funkcionality, které mapbox přináší. Popis jejich využití včetně načtení prostředí Mapboxu do webové stránky za předpokladu, že jsou splněny základní \gls{html} požadavky webové stránky je následující.
 
 \bigbreak
 
@@ -316,7 +332,7 @@ Dále je potřeba vytvořit element s identifikátorem webové stránky, kde bud
 
 \bigbreak
 
-Po naiportovéní je v JavaScriptu k dispozici knihovna jménem \verb-mapboxgl- pomocí, které se ovládá celé mapové prostředí. Tedy je tedˇ možné vytvořit samotnou mapu.
+Po naiportovéní je v JavaScriptu k dispozici knihovna jménem \verb-mapboxgl- pomocí, které se ovládá celé mapové prostředí. Tedy je teď možné vytvořit samotnou mapu.
 
 \begin{code}[frame=none]
 var map = new mapboxgl.Map({
@@ -371,7 +387,7 @@ Se serverovou částí se komunikuje pomocí \verb-GET- requestů a server vrac
 Po inicializaci prostředí Mapboxu popsanou výše následuje inicializace naší aplikace. Především se pak spustí smyčka aktualizující aktuální polohy vozidel.
 
 \begin{code}[frame=none]
-var vehicles = new Set(); // elementy vozidel v mape
+var vehicles = new Set(); // elementy vozidel v mapě
 var active_trips = {}; // vybraná vozidla
 var vehicles_elements = {}; // html elementy vozidel
 var no_stop_chosen = true; // indikátor vybrání zastávky
@@ -383,7 +399,7 @@ getFileByAJAXreq("vehicles_positions", showBusesOnMap);
 window.setInterval(function(){
 getFileByAJAXreq("vehicles_positions", showBusesOnMap);
 
-// aktualizace ocasu všech vybraný vozidel
+// aktualizace ocasů všech vybraný vozidel
 for (var trip in active_trips){
   active_trips[trip].update_tail();
 }
@@ -394,7 +410,7 @@ Po načtení poloh vozidel probíhá jejich vykreslování do mapy. Nejprve se o
 
 \bigbreak
 
-Tedy pokud vozidlo není vybráno vytvoří se nový element a následně se vykreslí do mapy a zárovenˇ se stáhnou další informace o vozidle, které se též následně zobrazují. Jsou jimi trasa vozidla, jízdní řád a zpoždění. Vybrané vozidlo se v ko'du reprezentuje vlastní třídou \verb-Active_trip-, každá instace této třídy se přidá do promněné \verb-active_trips-. Tato třída pak obsahuje metody obstarávající zobrazení dalších informací, stejně tak jejich odstranění nebo aktualizaci.
+Tedy pokud vozidlo není vybráno vytvoří se nový element a následně se vykreslí do mapy a zároveň se stáhnou další informace o vozidle, které se též následně zobrazují. Jsou jimi trasa vozidla, jízdní řád a zpoždění. Vybrané vozidlo se v kódu reprezentuje vlastní třídou \verb-Active_trip-, každá instace této třídy se přidá do proměnné \verb-active_trips-. Tato třída pak obsahuje metody obstarávající zobrazení dalších informací, stejně tak jejich odstranění nebo aktualizaci.
 
 \bigbreak
 
@@ -402,7 +418,7 @@ Pokud vozidlo již bylo vybráno jednoduše se odstraní z množiny vybraných v
 
 \bigbreak
 
-V případě, že je nějaké vozidlo vybráno, zobrazují se i jeho zastávky. Každá zobrazená zastávka reaguje na kliknutí a na přejetí myší. Po kliknutí se vyberou všechny spoje projíždějící zastávkou a po přejetí myší se zobrazí název zastávky. Tyto funkcionality se \gls{html} elementu přiřadí následujícím ko'dem.
+V případě, že je nějaké vozidlo vybráno, zobrazují se i jeho zastávky. Každá zobrazená zastávka reaguje na kliknutí a na přejetí myší. Po kliknutí se vyberou všechny spoje projíždějící zastávkou a po přejetí myší se zobrazí název zastávky. Tyto funkcionality se \gls{html} elementu přiřadí následujícím kódem.
 
 \begin{code}[frame=none]
 // zobrazí všechny spoje projíždějící zastávkou
@@ -425,7 +441,7 @@ el_c.addEventListener("mouseover", function(){
 
 // odebere všechny názevy zastávek z mapy po vyjetí myši
 el_c.addEventListener("mouseout", function(){
-  var signs = document.getElementsByClassName('stop_pin_sign');
+  var signs = document.getElementsByClassName('stop_pin_sige);
   while(signs[0]) {
     signs[0].parentNode.removeChild(signs[0]);
   }
@@ -476,11 +492,11 @@ Kde \verb-server- je funkce, která je vždy volána když server obdrží dotaz
 
 \bigbreak
 
-Volaná funkce \verb-server- je kompletní gls{WSGI} aplikace, jež příjmá argumenty \verb-environ-, což je dotaz a atribut \verb-start-response-, který reprezentuje hlavičku odpovědi. Dále se v této funkci nachází veškerá logika serveru, tedy reaguje na parametry dotazu.
+Volaná funkce \verb-server- je kompletní \gls{wsgi} aplikace, jež příjmá argumenty \verb-environ-, což je dotaz a atribut \verb:start-response:, který reprezentuje hlavičku odpovědi. Dále se v této funkci nachází veškerá logika serveru, tedy reaguje na parametry dotazu.
 
 \bigbreak
 
-Zpracování dotazu funguje pro všechny kombinace parametrů dotazu podobně. Vždy se data čtou z databáze a transformují se do formátu /gls{geojson}. Uvedˇme si na příkladu jak probíhá zpracování dotazu na zastávky daného spoje. Po té co obdržíme dotaz se z něj přečtou parametry. Pro dotaz na zastávky musí být parametr ve formátu \verb-get_stops.id_trip-. Parsování dotazu a volání příslušní interní funkce se provádí následovně.
+Zpracování dotazu funguje pro všechny kombinace parametrů dotazu podobně. Vždy se data čtou z databáze a transformují se do formátu \gls{geojson}. Uveďme si na příkladu jak probíhá zpracování dotazu na zastávky daného spoje. Po té co obdržíme dotaz se z něj přečtou parametry. Pro dotaz na zastávky musí být parametr ve formátu \verb-get_stops.id_trip-. Parsování dotazu a volání příslušní interní funkce se provádí následovně.
 
 \begin{code}[frame=none]
 elif "stops" == request_body.split('.')[0]:

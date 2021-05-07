@@ -1,4 +1,5 @@
 import argparse
+from urllib.parse import unquote, quote
 from datetime import datetime
 import json
 import logging
@@ -6,6 +7,7 @@ import sys
 import threading
 import time
 from wsgiref.simple_server import make_server
+from ftfy import fix_text
 
 from database import Database
 from file_system import File_system
@@ -282,8 +284,11 @@ class Server:
 
 				# returns trip_id for all trips passing the given stop and their timetables
 				elif "trips_by_stop" == request_body.split('.')[0]:
-					response_body = json.dumps(self.get_trips_by_stop(
-						request_body[request_body.index('.')+1:]))
+					# print(quote(fix_text(request_body[request_body.index('.')+1:])))
+					response_body = json.dumps(self.get_trips_by_stop(fix_text(
+						request_body[request_body.index('.')+1:])))
+
+					print(response_body)
 
 				# print(response_body)
 				status = '200 OK'

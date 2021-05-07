@@ -120,7 +120,7 @@ class Two_stops_model:
 	SECONDS_A_DAY = 24 * 60 * 60
 	REMOVE_ALPHA_TIMES = 2
 	VEHICLE_ARRIVED_MARGIN = 200  # if vehicle is less then 200 m from arr stop it is considered to be arrived
-	REDUCE_VARIANCE_RATE = 5.5
+	REDUCE_VARIANCE_RATE = 40
 
 
 	class Linear_model(Super_model):
@@ -171,14 +171,14 @@ class Two_stops_model:
 
 			X_train, X_test, y_train, y_test = train_test_split(input_data, output_data, test_size=0.33, random_state=42)
 
-			best_degree = 3
+			best_degree = 1
 			best_error = float('inf')  # maxint
 
 			# TODO delate with
 			with warnings.catch_warnings():
 				warnings.simplefilter("ignore")
 
-				for degree in [3, 4, 5, 6, 7, 8, 9, 10]:
+				for degree in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]:
 					model = make_pipeline(PolynomialFeatures(degree), Ridge(), verbose=0)
 					model.fit(X_train, y_train)
 					pred = model.predict(X_test)
@@ -190,7 +190,9 @@ class Two_stops_model:
 				self.model = make_pipeline(PolynomialFeatures(best_degree), Ridge())
 				self.model.fit(input_data, output_data)
 				pred = self.model.predict(input_data)
-				self.rmse = mean_squared_error(output_data, pred)
+				self.rmse = math.sqrt(mean_squared_error(output_data, pred))
+				self.degree = best_degree
+				print('degree ' + str(best_degree))
 
 				del self.norm_data  # deletes norm data structure because it is no more needed
 
@@ -223,117 +225,6 @@ class Two_stops_model:
 
 		def get_name(self):
 			return "Poly"
-
-	class Concave_hull_model(Super_model):
-
-		def __init__(self, distance, norm_data, dep_stop, arr_stop, bss_or_hol):
-			super().__init__(distance, norm_data, dep_stop, arr_stop, bss_or_hol)
-			self.min_day_time = min(self.norm_data.get_day_times())
-			self.max_day_time = max(self.norm_data.get_day_times())
-			self._train_model()
-
-		def _train_model(self):
-			pass
-			# last_data_before_arrival = {}
-			# for row in self.norm_data:
-			# 	if 30 < self.distance - row.shape < 200:
-			# 		if row.id_trip not in last_data_before_arrival:
-			# 			last_data_before_arrival[row.id_trip] = [row.coor_time, row.day_time]
-			# 		elif last_data_before_arrival[row.id_trip][0] < row.coor_time:
-			# 			last_data_before_arrival[row.id_trip] = [row.coor_time, row.day_time]
-			#
-			# if len(last_data_before_arrival) < (self.max_day_time - self.min_day_time) / 3600 * 0.7:
-			# 	print(len(last_data_before_arrival), (self.max_day_time - self.min_day_time) / 3600 * 1)
-			# 	raise RuntimeError("not enough data for hull")
-			#
-			# # for k, v in last_data_before_arrival.items():
-			# #
-			# # 	print([v[0], v[1], k])
-			#
-			# last_data_before_arrival = [[v[0], v[1], k] for k, v in last_data_before_arrival.items()]
-			#
-			# input_data = np.array([last_data_before_arrival]).transpose()[1]  # takes day times from data array
-			# input_data = np.pad(input_data, ((0, 0), (0, 1)), constant_values=1)
-			#
-			# output_data = np.array([last_data_before_arrival]).transpose()[0]
-			#
-			# # last_data_before_arrival = last_data_before_arrival[0]  # for some reason np.array consume array in one element array only
-			#
-			# X_train, X_test, y_train, y_test = train_test_split(input_data, output_data, test_size=0.33, random_state=42)
-			#
-			# best_degree = 1
-			# best_error = float('inf')  # maxint
-			#
-			# for degree in [1, 3, 4, 5, 6, 7, 8, 9, 10]:
-			# 	model = make_pipeline(PolynomialFeatures(degree), Ridge())
-			# 	model.fit(X_train, y_train)
-			# 	pred = model.predict(X_test)
-			# 	error = mean_squared_error(y_test, pred)
-			# 	if error < best_error:
-			# 		best_degree = degree
-			# 		best_error = error
-			# # print("Deg:", degree, "Err", error)
-			#
-			# # TODO unself
-			# self.model_arrivals = make_pipeline(PolynomialFeatures(best_degree), Ridge())
-			# self.model_arrivals.fit(input_data, output_data)
-			#
-			# last_data_before_arrival.sort(key=lambda x: x[1], reverse=False)  # sort by date time
-			#
-			# self.points_of_concave_hull = []
-			# all_usable_trips = set()
-			# current_index_start = 0
-			# current_index_stop = 0
-			#
-			# for hour in range(int((self.max_day_time - self.min_day_time) / 3600 + 3600)):  # for each hour
-			# 	for i in range(len(last_data_before_arrival[current_index_start:])):
-			# 		if last_data_before_arrival[current_index_start + i][1] > self.min_day_time + hour * 3600 + 3600:
-			# 			current_index_stop = current_index_start + i
-			# 			break
-			#
-			# 	trips_of_this_hour = last_data_before_arrival[
-			# 						 current_index_start: current_index_stop]  # .sort(key=lambda x: x[0], reverse=True)
-			# 	current_index_start = current_index_stop
-			# 	estimated_arrival = float(self.model_arrivals.predict([[self.min_day_time + 3600 * hour + 3600 / 2, 1]])[0])
-			#
-			# 	for i in range(len(trips_of_this_hour)):
-			# 		trips_of_this_hour[i].append(abs(estimated_arrival - trips_of_this_hour[i][0]))
-			#
-			# 	trips_of_this_hour.sort(key=lambda x: x[3], reverse=False)
-			#
-			# 	if len(trips_of_this_hour) < 3:
-			# 		all_usable_trips.update(x[2] for x in trips_of_this_hour)
-			# 	else:
-			# 		all_usable_trips.update(x[2] for x in trips_of_this_hour[:int(len(trips_of_this_hour) * 0.7) + 1])
-			#
-			# for hour in range(int((self.max_day_time - self.min_day_time) / 3600 + 3600)):  # for each hour
-			# 	all_points_of_this_hour = []
-			# 	for row in self.norm_data:
-			# 		if row.id_trip in all_usable_trips and self.min_day_time + hour * 3600 < row.day_time < self.min_day_time + hour * 3600 + 3600:
-			# 			all_points_of_this_hour.append([row.coor_time, row.shape])
-			# 	if len(all_points_of_this_hour) != 0:
-			# 		self.points_of_concave_hull.extend([self.min_day_time + hour * 3600 + 3600/30, x[0], x[1]] for x in list(alphashape.alphashape(all_points_of_this_hour).exterior.coords))
-			#
-
-		def has_enough_data(self):
-			return False
-			pass
-
-		# now for arrivals curve, remake for regular model
-		def predict_standard(self, norm_shape_dist_trv, update_time):
-			return 0
-			# pass
-
-		def predict_nonstandard(self, day_times):
-			input_data = np.array([day_times, np.full(len(day_times), 1)]).transpose()
-			return self.model_arrivals.predict(input_data)
-
-		def predict(self, norm_shape_dist_trv, update_time, departure_time, arrival_time):
-			return 0
-			# pass
-
-		def get_name(self):
-			return "Hull"
 
 	# norm_data is dict of shapes, coor_times ands day_times, ids_trip
 	def __init__(self, dep_id_stop: int, arr_id_stop: int, distance: int, bss_or_hol: str):
@@ -376,18 +267,22 @@ class Two_stops_model:
 
 		self._reduce_errors()
 
-		print('Samples reduced to ' + str(len(self.shapes)))
+		print('Samples reduced to ' + str(len(self.norm_data)))
 
 		# more than 10 x 4 data samples per km needed, distance between stops is already filtered by sql query
-		if len(self.norm_data) < self.distance * 0.001 * 10 * 6:
+		if len(self.norm_data) < self.distance * 0.001 * 10 * 4:
 			print(str(len(self.norm_data)) + ' is not enough')
 			self.model = Two_stops_model.Linear_model(self.distance)
 			return
 
 		poly_model = Two_stops_model.Polynomial_model(self.distance, self.norm_data, self.dep_id_stop, self.arr_id_stop, self.bss_or_hol)
+		print('Poly model generated with rmse ' + str(poly_model.rmse))
+
+		if poly_model.degree == 1:
+			self.model = Two_stops_model.Linear_model(self.distance)
+			return
 
 		self.model = poly_model
-		print('Poly model generated with rmse ' + str(self.model.rmse))
 		return
 
 	def __len__(self):
@@ -403,14 +298,30 @@ class Two_stops_model:
 
 		# coordinates times and distance are semi linear dependent
 
-		rate = np.divide(coor_times, norm_shapes, where=norm_shapes!=0,) != np.array(None)
+		rate = np.divide(coor_times, norm_shapes, where=norm_shapes!=0,) #!= np.array(None)
+		for i in range(len(rate)):
+			if rate[i] == np.inf:
+				rate[i] = 0.0
+			if rate[i] is None:
+				rate[i] = 0.0
+			# low shape distance travelled and a little higher coor time
+			# may cause false indicating the samples as high variance
+			# if norm_shapes[i] < 2:
+			# 	rate[i] = rate[i] / 2.0
 
+		if max(norm_shapes) > 1:
+			tmp = []
+			for i in range(len(rate)):
+				tmp.append(rate[i] * (1 - ((max(norm_shapes) - norm_shapes[i]) / max(norm_shapes))))
+
+			rate = np.array(tmp)
 		# print("mena:", abs(rate - rate.mean()))
 		# print("std:", rate.std())
 
+		# print('median ' + str(np.median(np.array(coor_times))))
 		# gets indices of high variance
 		high_variance = np.where((
-				abs(rate - rate.mean()) > rate.std() * Two_stops_model.REDUCE_VARIANCE_RATE
+				abs(rate - np.median(np.array(rate))) > rate.std() * 4 + (np.median(np.array(rate))) # / Two_stops_model.REDUCE_VARIANCE_RATE)
 			).astype(int) == 1)[0]
 
 		# for all indicated indices gets trips ids

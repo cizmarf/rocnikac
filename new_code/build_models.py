@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import time
 
 from database import Database
 
@@ -56,6 +57,7 @@ class Build_models:
 			print("no data fetched")
 			return
 		else:
+			req_start = time.time()
 			# For all stops pairs two models are created (business days and nonbusiness days)
 			# dep stop id, arr stop id, distance between stops
 			self.business_day_model = Two_stops_model(
@@ -83,15 +85,20 @@ class Build_models:
 					if len(self.business_day_model) > 0:
 						self.business_day_model.create_model()
 						self.business_day_model.model.save_model()
+
+					if len(self.nonbusiness_day_model) > 0:
+						self.nonbusiness_day_model.create_model()
+						self.nonbusiness_day_model.model.save_model()
+
+					print((self.business_day_model.model.get_name() if len(self.business_day_model) > 0 else '_') + ' ' + (self.nonbusiness_day_model.model.get_name() if len(self.nonbusiness_day_model) > 0 else '_') + ' models created in ' + str(time.time() - req_start) + ' seconds')
+					req_start = time.time()
+
 					self.business_day_model = Two_stops_model(
 						sts_row[1],  # dep stop id
 						sts_row[2],  # arr stop id
 						sts_row[5],  # distance between stops
 						"bss"
 					)
-					if len(self.nonbusiness_day_model) > 0:
-						self.nonbusiness_day_model.create_model()
-						self.nonbusiness_day_model.model.save_model()
 					self.nonbusiness_day_model = Two_stops_model(
 						sts_row[1],
 						sts_row[2],
@@ -99,7 +106,11 @@ class Build_models:
 						"hol"
 					)
 
+
 				self.add_row(sts_row)
+
+			print('Building models between ' + str(self.business_day_model.dep_id_stop) + ' and ' + str(self.business_day_model.arr_id_stop))
+			print('bss: ' + str(len(self.business_day_model.shapes)) + ', hol: ' + str(len(self.nonbusiness_day_model.shapes)))
 
 			if len(self.business_day_model) > 0:
 				self.business_day_model.create_model()
@@ -107,6 +118,8 @@ class Build_models:
 			if len(self.nonbusiness_day_model) > 0:
 				self.nonbusiness_day_model.create_model()
 				self.nonbusiness_day_model.model.save_model()
+
+			print((self.business_day_model.model.get_name() if len(self.business_day_model) > 0 else '_') + ' ' + (self.nonbusiness_day_model.model.get_name() if len(self.nonbusiness_day_model) > 0 else '_') + ' models created in ' + str(time.time() - req_start) + ' seconds')
 
 
 if __name__ == '__main__':

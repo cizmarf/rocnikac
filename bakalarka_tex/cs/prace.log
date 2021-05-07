@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  5 MAY 2021 16:36
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  7 MAY 2021 17:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -834,8 +834,8 @@ Package: paralist 2017/01/22 v2.7 Extended list environments
 \plparsep=\skip70
 \pl@lab=\toks42
 )
-Package hyperref Info: Option `unicode' set `true' on input line 252.
-Package hyperref Info: Option `breaklinks' set `true' on input line 253.
+Package hyperref Info: Option `unicode' set `true' on input line 262.
+Package hyperref Info: Option `breaklinks' set `true' on input line 263.
 
 \@input{makra.aux}
 \openout2 = `makra.aux'.
@@ -844,35 +844,35 @@ Package hyperref Info: Option `breaklinks' set `true' on input line 253.
 \c@veta=\count151
 \c@definice=\count152
 ) (./prace.aux (./titulka.aux) (./uvod.aux) (./kap01.aux)
-(./kap01,5.aux) (./kap02.aux) (./kap03.aux) (./kap04.aux) (./kap05.aux)
-(./kap06.aux) (./zaver.aux) (./literatura.aux))
+(./kap01,5.aux) (./kap02.aux) (./kap03.aux) (./kap04.aux) (./zaver.aux)
+(./literatura.aux))
 \openout1 = `prace.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 259.
-LaTeX Font Info:    ... okay on input line 259.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 259.
-LaTeX Font Info:    ... okay on input line 259.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 259.
-LaTeX Font Info:    ... okay on input line 259.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 259.
-LaTeX Font Info:    ... okay on input line 259.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 259.
-LaTeX Font Info:    ... okay on input line 259.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 259.
-LaTeX Font Info:    ... okay on input line 259.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 259.
-LaTeX Font Info:    ... okay on input line 259.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 259.
-LaTeX Font Info:    ... okay on input line 259.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 259.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 259.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 269.
+LaTeX Font Info:    ... okay on input line 269.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 269.
+LaTeX Font Info:    ... okay on input line 269.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 269.
+LaTeX Font Info:    ... okay on input line 269.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 269.
+LaTeX Font Info:    ... okay on input line 269.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 269.
+LaTeX Font Info:    ... okay on input line 269.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 269.
+LaTeX Font Info:    ... okay on input line 269.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 269.
+LaTeX Font Info:    ... okay on input line 269.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 269.
+LaTeX Font Info:    ... okay on input line 269.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 269.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 269.
 
 
 (/usr/local/texlive/2019/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 259.
-LaTeX Font Info:    Try loading font information for T1+lmr on input line 259.
+LaTeX Font Info:    ... okay on input line 269.
+LaTeX Font Info:    Try loading font information for T1+lmr on input line 269.
 
 (/usr/local/texlive/2019/texmf-dist/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
@@ -909,7 +909,7 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 \AtBeginShipoutBox=\box38
-Package hyperref Info: Link coloring OFF on input line 259.
+Package hyperref Info: Link coloring OFF on input line 269.
 
 (/usr/local/texlive/2019/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
@@ -919,9 +919,9 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count159
 )
-LaTeX Info: Redefining \ref on input line 259.
-LaTeX Info: Redefining \pageref on input line 259.
-LaTeX Info: Redefining \nameref on input line 259.
+LaTeX Info: Redefining \ref on input line 269.
+LaTeX Info: Redefining \pageref on input line 269.
+LaTeX Info: Redefining \nameref on input line 269.
 
 (./prace.out) (./prace.out)
 \@outlinefile=\write5
@@ -931,7 +931,7 @@ LaTeX Info: Redefining \nameref on input line 259.
 
  (./titulka.tex
 Package hyperref Info: Option `pageanchor' set `false' on input line 6.
-<../img/logo-cs.pdf, id=232, 506.4591pt x 156.49065pt>
+<../img/logo-cs.pdf, id=228, 506.4591pt x 156.49065pt>
 File: ../img/logo-cs.pdf Graphic file (type pdf)
 <use ../img/logo-cs.pdf>
 Package pdftex.def Info: ../img/logo-cs.pdf  used on input line 10.
@@ -1005,11 +1005,11 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <7> on input line 16.
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <5> on input line 16.
-LaTeX Font Info:    Try loading font information for T1+lmtt on input line 21.
+LaTeX Font Info:    Try loading font information for T1+lmtt on input line 20.
  (/usr/local/texlive/2019/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-Underfull \hbox (badness 10000) in paragraph at lines 21--21
+Underfull \hbox (badness 10000) in paragraph at lines 20--20
 [][][][]$\T1/lmtt/m/n/10 www . irozhlas . cz / zpravy -[] domov / data -[] o -[
 ] poloze -[] vozidel -[] dpp -[] mhd -[] tramvaje -[]
  []
@@ -1022,49 +1022,43 @@ Underfull \hbox (badness 10000) in paragraph at lines 21--21
 
  (./kap01.tex
 Kapitola 1.
-LaTeX Font Info:    Try loading font information for TS1+lmr on input line 13.
-(/usr/local/texlive/2019/texmf-dist/tex/latex/lm/ts1lmr.fd
-File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-<../img/stop_distances_plot_2020-02-20.png, id=361, 1003.75pt x 803.0pt>
+<../img/stop_distances_plot_2020-02-20.png, id=360, 1003.75pt x 803.0pt>
 File: ../img/stop_distances_plot_2020-02-20.png Graphic file (type png)
 <use ../img/stop_distances_plot_2020-02-20.png>
 Package pdftex.def Info: ../img/stop_distances_plot_2020-02-20.png  used on inp
 ut line 19.
 (pdftex.def)             Requested size: 247.54149pt x 198.02939pt.
- [5
+LaTeX Font Info:    Try loading font information for TS1+lmr on input line 30.
+(/usr/local/texlive/2019/texmf-dist/tex/latex/lm/ts1lmr.fd
+File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+) [5
 
 
 
 ]
-<../img/k_letisti_to_zlicin_3d.png, id=373, 1214.136pt x 732.8178pt>
+<../img/k_letisti_to_zlicin_3d.png, id=372, 1214.136pt x 732.8178pt>
 File: ../img/k_letisti_to_zlicin_3d.png Graphic file (type png)
 <use ../img/k_letisti_to_zlicin_3d.png>
 Package pdftex.def Info: ../img/k_letisti_to_zlicin_3d.png  used on input line 
 58.
 (pdftex.def)             Requested size: 412.56496pt x 249.00938pt.
-<../img/k_letisti_to_zlicin_map.png, id=376, 351.3125pt x 656.4525pt>
+<../img/k_letisti_to_zlicin_map.png, id=375, 351.3125pt x 656.4525pt>
 File: ../img/k_letisti_to_zlicin_map.png Graphic file (type png)
 <use ../img/k_letisti_to_zlicin_map.png>
 Package pdftex.def Info: ../img/k_letisti_to_zlicin_map.png  used on input line
  69.
 (pdftex.def)             Requested size: 123.77074pt x 231.27432pt.
  [6 <../img/stop_distances_plot_2020-02-20.png (PNG copy)>] [7 <../img/k_letist
-i_to_zlicin_3d.png> <../img/k_letisti_to_zlicin_map.png>]
-
-LaTeX Warning: Reference `chapter:TODO later' on page 8 undefined on input line
- 89.
-
-[8]
-Underfull \hbox (badness 10000) in paragraph at lines 147--147
+i_to_zlicin_3d.png> <../img/k_letisti_to_zlicin_map.png>] [8] [9]
+Underfull \hbox (badness 10000) in paragraph at lines 150--150
 [][][]\T1/lmr/m/n/10 Programátorská do-ku-men-tace je do-stupná na https://oper
 ator-
  []
 
-[9]
-Overfull \hbox (6.52368pt too wide) in paragraph at lines 164--165
+
+Overfull \hbox (5.87076pt too wide) in paragraph at lines 167--168
 [][][]\T1/lmtt/m/n/12 gtfs\_shape\_dist\_traveled []\T1/lmr/m/n/12 vzdá-le-nost
- vo-zi-dla ura-ºená od za-£átku tripu|
+ vo-zi-dla ura-ºená od za-£átku jízdy|
  []
 
 [10] [11] [12] [13] [14]
@@ -1072,44 +1066,44 @@ Overfull \hbox (6.52368pt too wide) in paragraph at lines 164--165
 File: ../img/vehicle_pos_x_new_trips.pdf Graphic file (type pdf)
 <use ../img/vehicle_pos_x_new_trips.pdf>
 Package pdftex.def Info: ../img/vehicle_pos_x_new_trips.pdf  used on input line
- 401.
-(pdftex.def)             Requested size: 247.54149pt x 198.02742pt.
-<../img/vehicle_pos_x_all_trips.pdf, id=470, 722.7pt x 578.16pt>
+ 404.
+(pdftex.def)             Requested size: 288.7942pt x 231.03053pt.
+ [15 <../img/vehicle_pos_x_new_trips.pdf>]
+<../img/vehicle_pos_x_all_trips.pdf, id=515, 722.7pt x 578.16pt>
 File: ../img/vehicle_pos_x_all_trips.pdf Graphic file (type pdf)
 <use ../img/vehicle_pos_x_all_trips.pdf>
 Package pdftex.def Info: ../img/vehicle_pos_x_all_trips.pdf  used on input line
- 414.
-(pdftex.def)             Requested size: 247.54149pt x 198.02742pt.
+ 419.
+(pdftex.def)             Requested size: 288.7942pt x 231.03053pt.
 
 
-LaTeX Warning: Reference `TODO:statistika' on page 15 undefined on input line 4
-19.
+LaTeX Warning: Reference `TODO:statistika' on page 16 undefined on input line 4
+26.
 
-[15 <../img/vehicle_pos_x_new_trips.pdf>] [16 <../img/vehicle_pos_x_all_trips.p
-df>]
-<../img/golemio_mapa.png, id=574, 1063.975pt x 723.70375pt>
+[16 <../img/vehicle_pos_x_all_trips.pdf>]
+<../img/golemio_mapa.png, id=572, 1063.975pt x 723.70375pt>
 File: ../img/golemio_mapa.png Graphic file (type png)
 <use ../img/golemio_mapa.png>
-Package pdftex.def Info: ../img/golemio_mapa.png  used on input line 458.
+Package pdftex.def Info: ../img/golemio_mapa.png  used on input line 465.
 (pdftex.def)             Requested size: 206.28247pt x 140.31001pt.
-<../img/tram-bus_mapa.png, id=577, 928.46875pt x 783.92876pt>
+<../img/tram-bus_mapa.png, id=575, 928.46875pt x 783.92876pt>
 File: ../img/tram-bus_mapa.png Graphic file (type png)
 <use ../img/tram-bus_mapa.png>
-Package pdftex.def Info: ../img/tram-bus_mapa.png  used on input line 469.
+Package pdftex.def Info: ../img/tram-bus_mapa.png  used on input line 476.
 (pdftex.def)             Requested size: 206.28247pt x 174.16342pt.
 
-Overfull \hbox (6.94542pt too wide) in paragraph at lines 476--477
+Overfull \hbox (6.94542pt too wide) in paragraph at lines 483--484
 \T1/lmr/m/n/12 (In-te-gro-vaný do-pravní sys-tém Ji-ho-mo-rav-ského kraje). Ten
  ihned po na-£tení stránky|
  []
 
-<../img/idsjmk_mapa.png, id=581, 1179.40625pt x 932.48375pt>
+<../img/idsjmk_mapa.png, id=579, 1179.40625pt x 932.48375pt>
 File: ../img/idsjmk_mapa.png Graphic file (type png)
 <use ../img/idsjmk_mapa.png>
-Package pdftex.def Info: ../img/idsjmk_mapa.png  used on input line 484.
+Package pdftex.def Info: ../img/idsjmk_mapa.png  used on input line 491.
 (pdftex.def)             Requested size: 206.28247pt x 163.0875pt.
-[17 <../img/golemio_mapa.png> <../img/tram-bus_mapa.png>]) [18 <../img/idsjmk_m
-apa.png>]
+) [17 <../img/golemio_mapa.png>] [18 <../img/tram-bus_mapa.png> <../img/idsjmk_
+mapa.png>]
 \openout2 = `kap01,5.aux'.
 
 
@@ -1138,90 +1132,97 @@ Package pdftex.def Info: ../img/design_diagram.pdf  used on input line 25.
 LaTeX Warning: Reference `section:analyza_zdroje' on page 21 undefined on input
  line 76.
 
-<../img/eer_database.pdf, id=640, 560.96056pt x 785.65768pt>
+<../img/eer_database.pdf, id=641, 560.96056pt x 785.65768pt>
 File: ../img/eer_database.pdf Graphic file (type pdf)
 <use ../img/eer_database.pdf>
 Package pdftex.def Info: ../img/eer_database.pdf  used on input line 88.
 (pdftex.def)             Requested size: 412.56496pt x 577.84108pt.
 [21] [22 <../img/eer_database.pdf>]
-Overfull \hbox (50.14809pt too wide) in paragraph at lines 182--183
+Overfull \hbox (50.14809pt too wide) in paragraph at lines 180--181
 \T1/lmr/m/n/12 van¥ pro dvojci re-fen£-ních bod·. K tomu se zejména vy-u-ºívá a
 tri-but [][]\T1/lmtt/m/n/12 shape_dist_traveled[]\T1/lmr/m/n/12 ,|
  []
 
 [23] [24] [25]
-<../img/dojezd_ve_fazich_dne.png, id=717, 1042.8561pt x 682.2288pt>
+<../img/dojezd_ve_fazich_dne.png, id=718, 1042.8561pt x 682.2288pt>
 File: ../img/dojezd_ve_fazich_dne.png Graphic file (type png)
 <use ../img/dojezd_ve_fazich_dne.png>
 Package pdftex.def Info: ../img/dojezd_ve_fazich_dne.png  used on input line 28
-6.
+5.
 (pdftex.def)             Requested size: 412.56496pt x 269.89902pt.
-<../img/dojezd_podle_vzdalenosti.png, id=719, 975.645pt x 702.4644pt>
+<../img/dojezd_podle_vzdalenosti.png, id=720, 975.645pt x 702.4644pt>
 File: ../img/dojezd_podle_vzdalenosti.png Graphic file (type png)
 <use ../img/dojezd_podle_vzdalenosti.png>
 Package pdftex.def Info: ../img/dojezd_podle_vzdalenosti.png  used on input lin
-e 295.
+e 294.
 (pdftex.def)             Requested size: 412.56496pt x 297.04816pt.
- [26]
-<../img/cerny_most_chvaly.png, id=730, 890.3664pt x 628.0263pt>
+ [26] [27 <../img/dojezd_ve_fazich_dne.png> <../img/dojezd_podle_vzdalenosti.pn
+g>]
+<../img/cerny_most_chvaly.png, id=739, 890.3664pt x 628.0263pt>
 File: ../img/cerny_most_chvaly.png Graphic file (type png)
 <use ../img/cerny_most_chvaly.png>
-Package pdftex.def Info: ../img/cerny_most_chvaly.png  used on input line 322.
+Package pdftex.def Info: ../img/cerny_most_chvaly.png  used on input line 321.
 (pdftex.def)             Requested size: 412.56496pt x 291.00385pt.
-
-
-LaTeX Warning: Reference `' on page 27 undefined on input line 327.
-
-[27 <../img/dojezd_ve_fazich_dne.png>] [28 <../img/dojezd_podle_vzdalenosti.png
-> <../img/cerny_most_chvaly.png>]
-<../img/divoka_sarka_veleslavin.png, id=746, 997.326pt x 643.9257pt>
+ [28 <../img/cerny_most_chvaly.png>]
+<../img/divoka_sarka_veleslavin.png, id=748, 997.326pt x 643.9257pt>
 File: ../img/divoka_sarka_veleslavin.png Graphic file (type png)
 <use ../img/divoka_sarka_veleslavin.png>
 Package pdftex.def Info: ../img/divoka_sarka_veleslavin.png  used on input line
- 331.
+ 330.
 (pdftex.def)             Requested size: 412.56496pt x 266.36937pt.
-<../img/nepredvidatelne_zdrzeni.png, id=748, 913.4928pt x 608.5134pt>
+<../img/delayed_trip.png, id=750, 956.8548pt x 608.5134pt>
+File: ../img/delayed_trip.png Graphic file (type png)
+<use ../img/delayed_trip.png>
+Package pdftex.def Info: ../img/delayed_trip.png  used on input line 339.
+(pdftex.def)             Requested size: 412.56496pt x 262.37062pt.
+<../img/nepredvidatelne_zdrzeni.png, id=752, 913.4928pt x 608.5134pt>
 File: ../img/nepredvidatelne_zdrzeni.png Graphic file (type png)
 <use ../img/nepredvidatelne_zdrzeni.png>
 Package pdftex.def Info: ../img/nepredvidatelne_zdrzeni.png  used on input line
- 342.
+ 350.
 (pdftex.def)             Requested size: 412.56496pt x 274.8313pt.
- [29 <../img/divoka_sarka_veleslavin.png>]
-<../img/konkavni_obal_nejednoznacny.png, id=763, 696.6025pt x 531.9875pt>
+ [29 <../img/divoka_sarka_veleslavin.png>] [30 <../img/delayed_trip.png> <../im
+g/nepredvidatelne_zdrzeni.png>]
+<../img/konkavni_obal_nejednoznacny.png, id=771, 696.6025pt x 531.9875pt>
 File: ../img/konkavni_obal_nejednoznacny.png Graphic file (type png)
 <use ../img/konkavni_obal_nejednoznacny.png>
 Package pdftex.def Info: ../img/konkavni_obal_nejednoznacny.png  used on input 
-line 359.
+line 373.
 (pdftex.def)             Requested size: 330.05322pt x 252.0554pt.
-
-[30 <../img/nepredvidatelne_zdrzeni.png>] [31 <../img/konkavni_obal_nejednoznac
-ny.png>]
-Overfull \hbox (67.6935pt too wide) in paragraph at lines 405--406
+ [31 <../img/konkavni_obal_nejednoznacny.png>]
+<../img/good_to_concave_hull.pdf, id=784, 555.03362pt x 378.6948pt>
+File: ../img/good_to_concave_hull.pdf Graphic file (type pdf)
+<use ../img/good_to_concave_hull.pdf>
+Package pdftex.def Info: ../img/good_to_concave_hull.pdf  used on input line 40
+0.
+(pdftex.def)             Requested size: 412.56496pt x 281.48944pt.
+ [32]
+Overfull \hbox (67.6935pt too wide) in paragraph at lines 430--431
 []\T1/lmr/m/n/12 Dále od-had zpoº-d¥ní z kon-káv-ního obalu. Pro funkci [][]\T1
 /lmtt/m/n/12 vzdálenost bodu od hranice obalu|
  []
 
-[32] [33]
+[33 <../img/good_to_concave_hull.pdf>] [34]
 
-LaTeX Warning: Reference `mapbox_mapa' on page 34 undefined on input line 477.
+LaTeX Warning: Reference `mapbox_mapa' on page 35 undefined on input line 490.
 
-<../img/mapa_mapbox.png, id=790, 660.4675pt x 487.8225pt>
+<../img/mapa_mapbox.png, id=853, 660.4675pt x 487.8225pt>
 File: ../img/mapa_mapbox.png Graphic file (type png)
 <use ../img/mapa_mapbox.png>
-Package pdftex.def Info: ../img/mapa_mapbox.png  used on input line 481.
+Package pdftex.def Info: ../img/mapa_mapbox.png  used on input line 494.
 (pdftex.def)             Requested size: 206.28247pt x 152.36227pt.
 
-LaTeX Warning: Reference `dve_vozidla' on page 34 undefined on input line 486.
+LaTeX Warning: Reference `dve_vozidla' on page 35 undefined on input line 499.
 
 
-LaTeX Warning: Reference `dve_vozidla' on page 34 undefined on input line 490.
+LaTeX Warning: Reference `dve_vozidla' on page 35 undefined on input line 503.
 
-<../img/dve_vozidla.png, id=791, 634.37pt x 280.04625pt>
+<../img/dve_vozidla.png, id=854, 634.37pt x 280.04625pt>
 File: ../img/dve_vozidla.png Graphic file (type png)
 <use ../img/dve_vozidla.png>
-Package pdftex.def Info: ../img/dve_vozidla.png  used on input line 494.
+Package pdftex.def Info: ../img/dve_vozidla.png  used on input line 507.
 (pdftex.def)             Requested size: 206.28247pt x 91.06522pt.
-) [34 <../img/mapa_mapbox.png> <../img/dve_vozidla.png>]
+) [35 <../img/mapa_mapbox.png> <../img/dve_vozidla.png>]
 \openout2 = `kap03.aux'.
 
  (./kap03.tex
@@ -1238,22 +1239,22 @@ Overfull \hbox (15.70422pt too wide) in paragraph at lines 21--22
 1/lmtt/m/n/12 download_and_process.py[]\T1/lmr/m/n/12 .|
  []
 
-[35
+[36
 
 
 
 ]
 
-LaTeX Warning: Reference `section:analyza_zdroje' on page 36 undefined on input
+LaTeX Warning: Reference `section:analyza_zdroje' on page 37 undefined on input
  line 29.
 
-[36] [37] [38] [39] [40] [41] [42] [43]
-Overfull \hbox (11.81572pt too wide) in paragraph at lines 367--368
+[37] [38] [39] [40] [41] [42] [43] [44]
+Overfull \hbox (11.81572pt too wide) in paragraph at lines 383--384
 []\T1/lmr/m/n/12 Se ser-ve-ro-vou £ástí se ko-mu-ni-kuje po-mocí [][]\T1/lmtt/m
 /n/12 GET []\T1/lmr/m/n/12 request· a ser-ver vrací [][]JSON[]onové|
  []
 
-[44] [45] [46]) [47]
+[45] [46] [47]) [48]
 \openout2 = `kap04.aux'.
 
  (./kap04.tex
@@ -1264,53 +1265,100 @@ Underfull \hbox (badness 10000) in paragraph at lines 39--39
 3-macbook-pro-has-a-
  []
 
-[48
+[49
 
 
 
 ]
-<../img/file_process_time.pdf, id=925, 722.7pt x 578.16pt>
+<../img/file_process_time.pdf, id=991, 722.7pt x 578.16pt>
 File: ../img/file_process_time.pdf Graphic file (type pdf)
 <use ../img/file_process_time.pdf>
 Package pdftex.def Info: ../img/file_process_time.pdf  used on input line 60.
 (pdftex.def)             Requested size: 288.7942pt x 231.03053pt.
- [49 <../img/file_process_time.pdf>]) [50]
-\openout2 = `kap05.aux'.
+ [50 <../img/file_process_time.pdf>]
+<../img/server_response_time.pdf, id=1053, 462.52798pt x 346.89601pt>
+File: ../img/server_response_time.pdf Graphic file (type pdf)
+<use ../img/server_response_time.pdf>
+Package pdftex.def Info: ../img/server_response_time.pdf  used on input line 99
+.
+(pdftex.def)             Requested size: 288.7942pt x 216.60303pt.
+ [51]
+<../img/big_picture.png, id=1068, 817.0525pt x 732.7375pt>
+File: ../img/big_picture.png Graphic file (type png)
+<use ../img/big_picture.png>
+Package pdftex.def Info: ../img/big_picture.png  used on input line 118.
+(pdftex.def)             Requested size: 288.7942pt x 258.9888pt.
+<../img/cluster.png, id=1069, 270.00874pt x 211.79124pt>
+File: ../img/cluster.png Graphic file (type png)
+<use ../img/cluster.png>
+Package pdftex.def Info: ../img/cluster.png  used on input line 125.
+(pdftex.def)             Requested size: 123.77074pt x 97.0826pt.
+<../img/trip_path.png, id=1072, 571.13374pt x 322.20375pt>
+File: ../img/trip_path.png Graphic file (type png)
+<use ../img/trip_path.png>
+Package pdftex.def Info: ../img/trip_path.png  used on input line 137.
+(pdftex.def)             Requested size: 288.7942pt x 162.92055pt.
+<../img/kladno_aut_322.png, id=1073, 909.3975pt x 512.91624pt>
+File: ../img/kladno_aut_322.png Graphic file (type png)
+<use ../img/kladno_aut_322.png>
+Package pdftex.def Info: ../img/kladno_aut_322.png  used on input line 144.
+(pdftex.def)             Requested size: 288.7942pt x 162.88431pt.
+<../img/more_trips.png, id=1077, 778.91pt x 595.22375pt>
+File: ../img/more_trips.png Graphic file (type png)
+<use ../img/more_trips.png>
+Package pdftex.def Info: ../img/more_trips.png  used on input line 155.
+(pdftex.def)             Requested size: 288.7942pt x 220.68346pt.
+ [52 <../img/server_response_time.pdf>] [53 <../img/big_picture.png> <../img/cl
+uster.png> <../img/trip_path.png>]
+<../img/stredokluky_table.png, id=1111, 503.8825pt x 253.94875pt>
+File: ../img/stredokluky_table.png Graphic file (type png)
+<use ../img/stredokluky_table.png>
+Package pdftex.def Info: ../img/stredokluky_table.png  used on input line 162.
+(pdftex.def)             Requested size: 165.02345pt x 83.16785pt.
+[54 <../img/kladno_aut_322.png> <../img/more_trips.png>]
+<../img/chyba_zpozdeni_v_posledni_zastavce.png, id=1129, 1023.3432pt x 634.8919
+5pt>
+File: ../img/chyba_zpozdeni_v_posledni_zastavce.png Graphic file (type png)
+<use ../img/chyba_zpozdeni_v_posledni_zastavce.png>
+Package pdftex.def Info: ../img/chyba_zpozdeni_v_posledni_zastavce.png  used on
+ input line 183.
+(pdftex.def)             Requested size: 165.02345pt x 102.37917pt.
+<../img/rmse.pdf, id=1130, 462.52798pt x 346.89601pt>
+File: ../img/rmse.pdf Graphic file (type pdf)
+<use ../img/rmse.pdf>
+Package pdftex.def Info: ../img/rmse.pdf  used on input line 190.
+(pdftex.def)             Requested size: 165.02345pt x 123.7656pt.
+<../img/second_degree.pdf, id=1135, 1076.10025pt x 655.48888pt>
+File: ../img/second_degree.pdf Graphic file (type pdf)
+<use ../img/second_degree.pdf>
+Package pdftex.def Info: ../img/second_degree.pdf  used on input line 202.
+(pdftex.def)             Requested size: 412.56496pt x 251.29878pt.
+<../img/thrd_degree.pdf, id=1137, 555.03362pt x 378.6948pt>
+File: ../img/thrd_degree.pdf Graphic file (type pdf)
+<use ../img/thrd_degree.pdf>
+Package pdftex.def Info: ../img/thrd_degree.pdf  used on input line 210.
+(pdftex.def)             Requested size: 412.56496pt x 281.48944pt.
+ [55 <../img/stredokluky_table.png> <../img/chyba_zpozdeni_v_posledni_zastavce.
+png>] [56 <../img/rmse.pdf> <../img/second_degree.pdf
 
- (./kap05.tex)
-\openout2 = `kap06.aux'.
-
- (./kap06.tex
-Kapitola 5.
-[51
-
-
-
-
-
-]
-Kapitola 6.
-[52
-
-]
-Kapitola 7.
-) [53
-
-]
+pdfTeX warning: pdflatex (file ../img/second_degree.pdf): PDF inclusion: multip
+le pdfs with page group included in a single page
+>]) [57 <../img/thrd_degree.pdf>]
 \openout2 = `zaver.aux'.
 
- (./zaver.tex) [54
+ (./zaver.tex) [58
 
 
 
 ]
 \openout2 = `literatura.aux'.
 
- (./literatura.tex (./prace.bbl
+ (./literatura.tex
+(./prace.bbl
 
 Package natbib Warning: Empty `thebibliography' environment on input line 8.
 
-)) [55
+)) [59
 
 
 
@@ -1318,54 +1366,56 @@ Package natbib Warning: Empty `thebibliography' environment on input line 8.
 \tf@lof=\write7
 \openout7 = `prace.lof'.
 
- [56
+ [60
 
 
 ] (./prace.lot)
 \tf@lot=\write8
 \openout8 = `prace.lot'.
 
- [57
+ [61
 
 ]
 Using TeX to sort glossary entries---this may take a while
-[58
+[62
 
 ]
-Overfull \hbox (11.3606pt too wide) in paragraph at lines 292--292
+Overfull \hbox (11.3606pt too wide) in paragraph at lines 300--300
 []\T1/lmr/m/n/12 JavaScript Ob-ject No-tation, spe-ci-fakce: https://tools.ietf
 .org/html/rfc8259.|
  []
 
-[59
+[63
 
 
 ]
 P\v {r}\'{\i }loha A.
-[60
+[64
 
 ]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 310.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 310.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 318.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 318.
  (./prace.aux (./titulka.aux) (./uvod.aux) (./kap01.aux) (./kap01,5.aux)
-(./kap02.aux) (./kap03.aux) (./kap04.aux) (./kap05.aux) (./kap06.aux)
-(./zaver.aux) (./literatura.aux))
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 310.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 310.
+(./kap02.aux) (./kap03.aux) (./kap04.aux) (./zaver.aux) (./literatura.aux))
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 318.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 318.
 Package rerunfilecheck Info: File `prace.out' has not changed.
-(rerunfilecheck)             Checksum: 8B61C4A50912E56AA823B29E73FCEA87;8477.
+(rerunfilecheck)             Checksum: 85EFC70B58122EA38B126A40124A9F80;8249.
 
 
 LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 310.
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 318.
  ) 
 Here is how much of TeX's memory you used:
- 22660 strings out of 492616
- 344965 string characters out of 6129482
- 458765 words of memory out of 5000000
- 25857 multiletter control sequences out of 15000+600000
- 94277 words of font info for 84 fonts, out of 8000000 for 9000
+ 22807 strings out of 492616
+ 348217 string characters out of 6129482
+ 460789 words of memory out of 5000000
+ 25981 multiletter control sequences out of 15000+600000
+ 93912 words of font info for 83 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  46i,8n,57p,1970b,2327s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/lo
@@ -1384,10 +1434,10 @@ b></usr/local/texlive/2019/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/loca
 l/texlive/2019/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local/texlive/
 2019/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/local/texlive/2019/texmf
 -dist/fonts/type1/public/lm/lmtt12.pfb>
-Output written on prace.pdf (64 pages, 12844993 bytes).
+Output written on prace.pdf (68 pages, 17375587 bytes).
 PDF statistics:
- 1227 PDF objects out of 1440 (max. 8388607)
- 952 compressed objects within 10 object streams
- 221 named destinations out of 1000 (max. 500000)
- 561 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1522 PDF objects out of 1728 (max. 8388607)
+ 1078 compressed objects within 11 object streams
+ 246 named destinations out of 1000 (max. 500000)
+ 618 words of extra memory for PDF output out of 10000 (max. 10000000)
 
