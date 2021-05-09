@@ -197,10 +197,16 @@ class Two_stops_model:
 				del self.norm_data  # deletes norm data structure because it is no more needed
 
 		def predict(self, norm_shape_dist_trv, update_time, departure_time, arrival_time):
+			if norm_shape_dist_trv == 0 and update_time == 83429 and departure_time == 83400 and arrival_time == 83760:
+				print()
 			if self.max_day_time < update_time:  # if in estimator area
+				departure_time -= update_time - self.max_day_time
+				arrival_time -= update_time - self.max_day_time
 				update_time = self.max_day_time
 
 			if self.min_day_time > update_time:
+				departure_time += self.min_day_time - update_time
+				arrival_time += self.min_day_time - update_time
 				update_time = self.min_day_time
 
 			time_diff = (arrival_time - departure_time) % Two_stops_model.SECONDS_A_DAY

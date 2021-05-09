@@ -165,6 +165,16 @@ class TestModels(unittest.TestCase):
 	def test_train_model(self):
 		pass
 
+	def test_estimate_delay(self):
+		model_path = Path(File_system.all_models) / Path('6991_8607_bss.model')
+
+		with lzma.open(model_path, "rb") as model_file:
+			model = pickle.load(model_file)
+
+		cur_delay = model.predict(0, 83429, 83400, 83760)
+
+		print(cur_delay)
+
 
 
 class TestTwo_stops_models(unittest.TestCase):

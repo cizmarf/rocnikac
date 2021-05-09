@@ -12,7 +12,7 @@ class Build_models:
 	## Builds models of rides between all pairs of stops
 
 	def __init__(self):
-		self.database_connection = Database('vehicle_positions_database')
+		self.database_connection = Database('vehicle_positions_statistic_database')
 
 		# demo app needs aprox 30 secs to fetch
 		# in production it may takes longer time to fetch all data

@@ -20,7 +20,7 @@ from file_system import File_system
 
 from two_stops_model import Two_stops_model, Norm_data
 
-database_connection = Database(database="vehicle_positions_database")
+database_connection = Database(database="vehicle_positions_statistic_database")
 
 
 def timediff_to_sec(timed):
@@ -184,8 +184,8 @@ def get_plot(model, samples, dep_stop, arr_stop):
 
 
 if __name__ == '__main__':
-	dep_stop = 534  # e[0].split()[0]
-	arr_stop = 421  # e[0].split()[1]
+	dep_stop = 6991  # e[0].split()[0]
+	arr_stop = 8607  # e[0].split()[1]
 
 	# num = get_all_pairs()
 
