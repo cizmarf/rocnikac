@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  7 MAY 2021 17:47
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  12 MAY 2021 22:06
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1273,47 +1273,47 @@ Underfull \hbox (badness 10000) in paragraph at lines 39--39
 <../img/file_process_time.pdf, id=991, 722.7pt x 578.16pt>
 File: ../img/file_process_time.pdf Graphic file (type pdf)
 <use ../img/file_process_time.pdf>
-Package pdftex.def Info: ../img/file_process_time.pdf  used on input line 60.
+Package pdftex.def Info: ../img/file_process_time.pdf  used on input line 61.
 (pdftex.def)             Requested size: 288.7942pt x 231.03053pt.
  [50 <../img/file_process_time.pdf>]
 <../img/server_response_time.pdf, id=1053, 462.52798pt x 346.89601pt>
 File: ../img/server_response_time.pdf Graphic file (type pdf)
 <use ../img/server_response_time.pdf>
-Package pdftex.def Info: ../img/server_response_time.pdf  used on input line 99
-.
+Package pdftex.def Info: ../img/server_response_time.pdf  used on input line 10
+0.
 (pdftex.def)             Requested size: 288.7942pt x 216.60303pt.
  [51]
 <../img/big_picture.png, id=1068, 817.0525pt x 732.7375pt>
 File: ../img/big_picture.png Graphic file (type png)
 <use ../img/big_picture.png>
-Package pdftex.def Info: ../img/big_picture.png  used on input line 118.
+Package pdftex.def Info: ../img/big_picture.png  used on input line 119.
 (pdftex.def)             Requested size: 288.7942pt x 258.9888pt.
 <../img/cluster.png, id=1069, 270.00874pt x 211.79124pt>
 File: ../img/cluster.png Graphic file (type png)
 <use ../img/cluster.png>
-Package pdftex.def Info: ../img/cluster.png  used on input line 125.
+Package pdftex.def Info: ../img/cluster.png  used on input line 126.
 (pdftex.def)             Requested size: 123.77074pt x 97.0826pt.
 <../img/trip_path.png, id=1072, 571.13374pt x 322.20375pt>
 File: ../img/trip_path.png Graphic file (type png)
 <use ../img/trip_path.png>
-Package pdftex.def Info: ../img/trip_path.png  used on input line 137.
+Package pdftex.def Info: ../img/trip_path.png  used on input line 138.
 (pdftex.def)             Requested size: 288.7942pt x 162.92055pt.
 <../img/kladno_aut_322.png, id=1073, 909.3975pt x 512.91624pt>
 File: ../img/kladno_aut_322.png Graphic file (type png)
 <use ../img/kladno_aut_322.png>
-Package pdftex.def Info: ../img/kladno_aut_322.png  used on input line 144.
+Package pdftex.def Info: ../img/kladno_aut_322.png  used on input line 145.
 (pdftex.def)             Requested size: 288.7942pt x 162.88431pt.
 <../img/more_trips.png, id=1077, 778.91pt x 595.22375pt>
 File: ../img/more_trips.png Graphic file (type png)
 <use ../img/more_trips.png>
-Package pdftex.def Info: ../img/more_trips.png  used on input line 155.
+Package pdftex.def Info: ../img/more_trips.png  used on input line 156.
 (pdftex.def)             Requested size: 288.7942pt x 220.68346pt.
  [52 <../img/server_response_time.pdf>] [53 <../img/big_picture.png> <../img/cl
 uster.png> <../img/trip_path.png>]
 <../img/stredokluky_table.png, id=1111, 503.8825pt x 253.94875pt>
 File: ../img/stredokluky_table.png Graphic file (type png)
 <use ../img/stredokluky_table.png>
-Package pdftex.def Info: ../img/stredokluky_table.png  used on input line 162.
+Package pdftex.def Info: ../img/stredokluky_table.png  used on input line 163.
 (pdftex.def)             Requested size: 165.02345pt x 83.16785pt.
 [54 <../img/kladno_aut_322.png> <../img/more_trips.png>]
 <../img/chyba_zpozdeni_v_posledni_zastavce.png, id=1129, 1023.3432pt x 634.8919
@@ -1321,44 +1321,116 @@ Package pdftex.def Info: ../img/stredokluky_table.png  used on input line 162.
 File: ../img/chyba_zpozdeni_v_posledni_zastavce.png Graphic file (type png)
 <use ../img/chyba_zpozdeni_v_posledni_zastavce.png>
 Package pdftex.def Info: ../img/chyba_zpozdeni_v_posledni_zastavce.png  used on
- input line 183.
+ input line 184.
 (pdftex.def)             Requested size: 165.02345pt x 102.37917pt.
 <../img/rmse.pdf, id=1130, 462.52798pt x 346.89601pt>
 File: ../img/rmse.pdf Graphic file (type pdf)
 <use ../img/rmse.pdf>
-Package pdftex.def Info: ../img/rmse.pdf  used on input line 190.
+Package pdftex.def Info: ../img/rmse.pdf  used on input line 191.
 (pdftex.def)             Requested size: 165.02345pt x 123.7656pt.
 <../img/second_degree.pdf, id=1135, 1076.10025pt x 655.48888pt>
 File: ../img/second_degree.pdf Graphic file (type pdf)
 <use ../img/second_degree.pdf>
-Package pdftex.def Info: ../img/second_degree.pdf  used on input line 202.
+Package pdftex.def Info: ../img/second_degree.pdf  used on input line 203.
 (pdftex.def)             Requested size: 412.56496pt x 251.29878pt.
 <../img/thrd_degree.pdf, id=1137, 555.03362pt x 378.6948pt>
 File: ../img/thrd_degree.pdf Graphic file (type pdf)
 <use ../img/thrd_degree.pdf>
-Package pdftex.def Info: ../img/thrd_degree.pdf  used on input line 210.
+Package pdftex.def Info: ../img/thrd_degree.pdf  used on input line 211.
 (pdftex.def)             Requested size: 412.56496pt x 281.48944pt.
  [55 <../img/stredokluky_table.png> <../img/chyba_zpozdeni_v_posledni_zastavce.
 png>] [56 <../img/rmse.pdf> <../img/second_degree.pdf
 
 pdfTeX warning: pdflatex (file ../img/second_degree.pdf): PDF inclusion: multip
 le pdfs with page group included in a single page
->]) [57 <../img/thrd_degree.pdf>]
+>] [57 <../img/thrd_degree.pdf>]
+
+LaTeX Warning: Reference `table:9270_ride' on page 58 undefined on input line 2
+39.
+
+
+LaTeX Warning: Reference `fig:rozptyl_old' on page 58 undefined on input line 2
+74.
+
+
+LaTeX Warning: Reference `fig:rozptyl_new' on page 58 undefined on input line 2
+74.
+
+<../img/rozptyl_old.pdf, id=1271, 462.52798pt x 346.89601pt>
+File: ../img/rozptyl_old.pdf Graphic file (type pdf)
+<use ../img/rozptyl_old.pdf>
+Package pdftex.def Info: ../img/rozptyl_old.pdf  used on input line 278.
+(pdftex.def)             Requested size: 412.56496pt x 309.44046pt.
+<../img/rozptyl_new.pdf, id=1272, 462.52798pt x 346.89601pt>
+File: ../img/rozptyl_new.pdf Graphic file (type pdf)
+<use ../img/rozptyl_new.pdf>
+Package pdftex.def Info: ../img/rozptyl_new.pdf  used on input line 285.
+(pdftex.def)             Requested size: 412.56496pt x 309.44046pt.
+
+LaTeX Warning: Reference `fig:rozptyl_diff' on page 58 undefined on input line 
+292.
+
+
+LaTeX Warning: Reference `fig:rozptyl_old' on page 58 undefined on input line 2
+92.
+
+
+LaTeX Warning: Reference `fig:rozptyl_new' on page 58 undefined on input line 2
+92.
+
+[58]
+<../img/rozptyl_diff.pdf, id=1279, 462.52798pt x 346.89601pt>
+File: ../img/rozptyl_diff.pdf Graphic file (type pdf)
+<use ../img/rozptyl_diff.pdf>
+Package pdftex.def Info: ../img/rozptyl_diff.pdf  used on input line 296.
+(pdftex.def)             Requested size: 412.56496pt x 309.44046pt.
+
+
+LaTeX Warning: Reference `fig:rozptyl_diff' on page 59 undefined on input line 
+304.
+
+
+LaTeX Warning: Reference `fig:chyba' on page 59 undefined on input line 308.
+
+<../img/chyba.pdf, id=1280, 445.18318pt x 353.40028pt>
+File: ../img/chyba.pdf Graphic file (type pdf)
+<use ../img/chyba.pdf>
+Package pdftex.def Info: ../img/chyba.pdf  used on input line 312.
+(pdftex.def)             Requested size: 412.56496pt x 327.52104pt.
+
+LaTeX Warning: Reference `table:825_samples' on page 59 undefined on input line
+ 317.
+
+
+LaTeX Warning: Reference `tab:825_ride' on page 59 undefined on input line 317.
+
+
+[59 <../img/rozptyl_old.pdf>] [60 <../img/rozptyl_new.pdf>]
+
+LaTeX Warning: Reference `fig:compare_534_421' on page 61 undefined on input li
+ne 358.
+
+<../img/compare_534_421.pdf, id=1371, 462.52798pt x 346.89601pt>
+File: ../img/compare_534_421.pdf Graphic file (type pdf)
+<use ../img/compare_534_421.pdf>
+Package pdftex.def Info: ../img/compare_534_421.pdf  used on input line 362.
+(pdftex.def)             Requested size: 412.56496pt x 309.44046pt.
+) [61 <../img/rozptyl_diff.pdf>] [62 <../img/chyba.pdf>] [63 <../img/compare_53
+4_421.pdf>]
 \openout2 = `zaver.aux'.
 
- (./zaver.tex) [58
+ (./zaver.tex) [64
 
 
 
 ]
 \openout2 = `literatura.aux'.
 
- (./literatura.tex
-(./prace.bbl
+ (./literatura.tex (./prace.bbl
 
 Package natbib Warning: Empty `thebibliography' environment on input line 8.
 
-)) [59
+)) [65
 
 
 
@@ -1366,18 +1438,18 @@ Package natbib Warning: Empty `thebibliography' environment on input line 8.
 \tf@lof=\write7
 \openout7 = `prace.lof'.
 
- [60
+ [66
 
 
 ] (./prace.lot)
 \tf@lot=\write8
 \openout8 = `prace.lot'.
 
- [61
+ [67
 
 ]
 Using TeX to sort glossary entries---this may take a while
-[62
+[68
 
 ]
 Overfull \hbox (11.3606pt too wide) in paragraph at lines 300--300
@@ -1385,12 +1457,12 @@ Overfull \hbox (11.3606pt too wide) in paragraph at lines 300--300
 .org/html/rfc8259.|
  []
 
-[63
+[69
 
 
 ]
 P\v {r}\'{\i }loha A.
-[64
+[70
 
 ]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 318.
@@ -1399,9 +1471,15 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 318.
 (./kap02.aux) (./kap03.aux) (./kap04.aux) (./zaver.aux) (./literatura.aux))
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 318.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 318.
-Package rerunfilecheck Info: File `prace.out' has not changed.
-(rerunfilecheck)             Checksum: 85EFC70B58122EA38B126A40124A9F80;8249.
 
+
+Package rerunfilecheck Warning: File `prace.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `prace.out':
+(rerunfilecheck)             Before: 85EFC70B58122EA38B126A40124A9F80;8249
+(rerunfilecheck)             After:  5E3F1AD53C4FBF6B199400F4929EB6A8;8249.
 
 LaTeX Warning: There were undefined references.
 
@@ -1411,33 +1489,39 @@ LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 318.
  ) 
 Here is how much of TeX's memory you used:
- 22807 strings out of 492616
- 348217 string characters out of 6129482
- 460789 words of memory out of 5000000
- 25981 multiletter control sequences out of 15000+600000
+ 22862 strings out of 492616
+ 349300 string characters out of 6129482
+ 460917 words of memory out of 5000000
+ 26011 multiletter control sequences out of 15000+600000
  93912 words of font info for 83 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  46i,8n,57p,1970b,2327s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/lo
-cal/texlive/2019/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/20
-19/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/texlive/2019/texmf-d
-ist/fonts/enc/dvips/lm/lm-ec.enc}{/usr/local/texlive/2019/texmf-dist/fonts/enc/
-dvips/lm/lm-ts1.enc}</usr/local/texlive/2019/texmf-dist/fonts/type1/public/lm/l
-mbx12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/lm/lmmi10.pfb>
-</usr/local/texlive/2019/texmf-dist/fonts/type1/public/lm/lmmi12.pfb></usr/loca
-l/texlive/2019/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></usr/local/texlive/2
-019/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></usr/local/texlive/2019/texmf-d
-ist/fonts/type1/public/lm/lmr10.pfb></usr/local/texlive/2019/texmf-dist/fonts/t
-ype1/public/lm/lmr12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public
-/lm/lmr17.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/lm/lmr7.pf
-b></usr/local/texlive/2019/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/loca
-l/texlive/2019/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local/texlive/
-2019/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/local/texlive/2019/texmf
--dist/fonts/type1/public/lm/lmtt12.pfb>
-Output written on prace.pdf (68 pages, 17375587 bytes).
+pdfTeX warning (dest): name{chapter*.28} has been referenced but does not exi
+st, replaced by a fixed one
+
+pdfTeX warning (dest): name{chapter*.27} has been referenced but does not exist
+, replaced by a fixed one
+
+{/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/loca
+l/texlive/2019/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/2019
+/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/texlive/2019/texmf-dis
+t/fonts/enc/dvips/lm/lm-ec.enc}{/usr/local/texlive/2019/texmf-dist/fonts/enc/dv
+ips/lm/lm-ts1.enc}</usr/local/texlive/2019/texmf-dist/fonts/type1/public/lm/lmb
+x12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></
+usr/local/texlive/2019/texmf-dist/fonts/type1/public/lm/lmmi12.pfb></usr/local/
+texlive/2019/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></usr/local/texlive/201
+9/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></usr/local/texlive/2019/texmf-dis
+t/fonts/type1/public/lm/lmr10.pfb></usr/local/texlive/2019/texmf-dist/fonts/typ
+e1/public/lm/lmr12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/l
+m/lmr17.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/lm/lmr7.pfb>
+</usr/local/texlive/2019/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/local/
+texlive/2019/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local/texlive/20
+19/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/local/texlive/2019/texmf-d
+ist/fonts/type1/public/lm/lmtt12.pfb>
+Output written on prace.pdf (74 pages, 17452005 bytes).
 PDF statistics:
- 1522 PDF objects out of 1728 (max. 8388607)
- 1078 compressed objects within 11 object streams
- 246 named destinations out of 1000 (max. 500000)
- 618 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1749 PDF objects out of 2073 (max. 8388607)
+ 1150 compressed objects within 12 object streams
+ 266 named destinations out of 1000 (max. 500000)
+ 643 words of extra memory for PDF output out of 10000 (max. 10000000)
 

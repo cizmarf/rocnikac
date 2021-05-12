@@ -17,6 +17,7 @@ class Static_all_vehicle_positions:
 			sufix = '/*.tar.gz'
 
 		sufix = '/2020-02-2[01]*.tar.gz'
+		# sufix = '/2020-02-20*.tar.gz'
 
 		self.files = glob.glob(str(File_system.static_vehicle_positions) + sufix)
 		self.files = sorted(self.files)
@@ -114,6 +115,7 @@ class All_vehicle_positions():
 	# finds ride for given trip id
 	@staticmethod
 	def get_trip_rides_sublist(trip_rides, trip_ids, trip_id):
+
 		return All_vehicle_positions.get_sublist(trip_rides,
 					All_vehicle_positions.findFirstOccurrence(
 						trip_ids, trip_id),
@@ -128,36 +130,53 @@ class All_vehicle_positions():
 			for vehicle in self.json_file["features"]:
 				trip_ids.append(vehicle["properties"]["trip"]["gtfs_trip_id"])
 
+
+			### not using anymore because mysql cannot compare '_' and a digit corectlly
+
 			# selects timetables of these trips
 			# for getting last and next stop by shape dist traveled
-			trip_rides = database_connection.execute_fetchall(
-				"""	SELECT 
-						trips.trip_source_id, 
-						rides.id_stop, 
-						rides.shape_dist_traveled,
-						rides.arrival_time,
-						rides.departure_time
-					FROM trips 
-					JOIN rides ON trips.id_trip=rides.id_trip 
-					WHERE trips.trip_source_id IN ({seq}) 
-					ORDER BY trips.trip_source_id, shape_dist_traveled""".format(
-    					seq=','.join(['%s']*len(trip_ids))
-				), trip_ids)
-
-			if len(trip_rides) > 0:
-				# gets ids only for easy find array indices of current trip
-				trip_ids = list(zip(*trip_rides))[0]
+			# trip_rides = database_connection.execute_fetchall(
+			# 	"""	SELECT
+			# 			trips.trip_source_id,
+			# 			rides.id_stop,
+			# 			rides.shape_dist_traveled,
+			# 			rides.arrival_time,
+			# 			rides.departure_time
+			# 		FROM trips
+			# 		JOIN rides ON trips.id_trip=rides.id_trip
+			# 		WHERE trips.trip_source_id IN ({seq})
+			# 		ORDER BY trips.trip_source_id, shape_dist_traveled""".format(
+    		# 			seq=','.join(['%s']*len(trip_ids))
+			# 	), trip_ids)
+			#
+			# if len(trip_rides) > 0:
+			# 	# gets ids only for easy find array indices of current trip
+			# 	trip_ids = list(zip(*trip_rides))[0]
 
 			for vehicle in self.json_file["features"]:
 				trip = Trip()
 				trip.set_attributes_by_vehicle(vehicle)
 
-				if len(trip_rides) > 0:
-					# gets sublist of trips rides for current trip
-					# by looking for first and last occurrence of trip id
-					trip_ride = All_vehicle_positions.get_trip_rides_sublist(
-						trip_rides, trip_ids, trip.trip_id)
+				# if len(trip_rides) > 0:
+				# 	# gets sublist of trips rides for current trip
+				# 	# by looking for first and last occurrence of trip id
+				# 	trip_ride = All_vehicle_positions.get_trip_rides_sublist(
+				# 		trip_rides, trip_ids, trip.trip_id)
 
+				trip_ride = database_connection.execute_fetchall(
+					"""	SELECT
+							trips.trip_source_id,
+							rides.id_stop,
+							rides.shape_dist_traveled,
+							rides.arrival_time,
+							rides.departure_time
+						FROM trips
+						JOIN rides ON trips.id_trip=rides.id_trip
+						WHERE trips.trip_source_id = %s
+						ORDER BY trips.trip_source_id, shape_dist_traveled""",
+					(trip.trip_id,))
+
+				if len(trip_ride) > 0:
 					trip.last_stop, \
 					trip.next_stop, \
 					trip.last_stop_shape_dist_trav, \

@@ -19,7 +19,7 @@ TODO Popisovat co testují testy? Není v tom žádná složitá logika. Dále 
 
 \subsection{Testy kvality}
 
-Všechny následující výkonostní testy jsou prováděny na osobním notebooku s technickými parametry uvedenými v tabulce \ref{table:hw}', kde všechny procesy aplikace včetně databáze běží paralelně.
+Všechny následující výkonostní testy jsou prováděny na osobním notebooku s technickými parametry uvedenými v tabulce \ref{table:hw}
 
 \begin{center}
 	\begin{table}[ht]
@@ -37,6 +37,7 @@ Všechny následující výkonostní testy jsou prováděny na osobním notebook
 \end{table}
 \end{center}
 \footnote{https://9to5mac.com/2016/11/01/the-late-2016-entry-level-13-macbook-pro-has-a-ridiculously-fast-ssd/}
+
 \bigbreak
 
 Pro potlačení zkreslení testů vlivem čekání na stažení dat z internetu jsou všechny data načítána z disku počítače.
@@ -215,11 +216,11 @@ Co se týče stupňů polynomiálních regresí, které využíváme při konstr
 
 \subsection{Odhady zpoždění} \label{subsection:odhady_zpozdeni}
 
-Z toho jak jsou definovány požadavky řešení v kapitole \ref{subsubsection:kvalitativni_pozadavky} pro změření kvality výsledků stačí porovnávat odhad zpoždění lineárního (původního) modelu a nového polynomiálního modelu. Přičemž odhad je lepší pokud má sekvence odhadů zpoždění z celé jízdy mezi dvojcí zastávek menší rozptyl.
+Z toho jak jsou definovány požadavky řešení v kapitole \ref{subsubsection:kvalitativni_pozadavky} pro změření kvality výsledků stačí porovnávat odhad zpoždění lineárního (původního) modelu a nového polynomiálního modelu. Přičemž odhad je lepší pokud má sekvence odhadů zpoždění z celé jízdy mezi dvojcí zastávek menší rozptyl\footnote{Níže budeme s pracovat s odmocninou z rozptylu, což se formálně nazývá směrodatná odchylka.}.
 
 \bigbreak
 
-Podívejme se tedy na porovnání odhadů zpoždění novými modely profilů jízd se stávajícím řešení pracujícím s předpokladem, že vozidla jedou celou trasu mezi dvěma zastávkami konstantní rychlostí.
+Podívejme se tedy na porovnání odhadů zpoždění novými modely profilů jízd se stávajícím řešení pracujícím s předpokladem, že vozidla jedou celou trasu mezi dvěma zastávkami konstantní rychlostí. Budeme porovnávat dat pouze mezi dvojci zastávek mezi, kterými byl spočítán polynomiální model. V jiných případech, kdy model spočítán nebyl se vždy použil lineární model a není tedy co srovnávat.
 
 \bigbreak
 
@@ -227,7 +228,141 @@ Evaluaci výsledků budeme provádět s daty sesbíranými 20. 2. 2020, které p
 
 \bigbreak
 
-TODO
+Z dat sesbíraných 20. 2. 2020 se vytvořilo 284 modelů popisující průběh trasy.
+
+\bigbreak
+
+Budeme porovnávání zaznamenaná odhadnutá zpoždění mezi odhadem podle lineárního modelu a polynomiálního modelu. Pro lepší výsledky vyloučíme z porovnání vzorky poloh vozidel, které byly zaznamenány bezprostředně po vyjetí z první zastávky nebo před přijetím do druhé zastávky. Takové vzorky poloh vozidel obsahují často chybná data, která nagativně ovlivnˇjí výpočet modelů (data jsou vyloučeny i při výpočtu) i porovnání jejich výsledků. Tyto chyby jsou převážně způsobeny zaokrouhlováním atributu ujeté vzdálenosti ve vzorku dat na celé stovky.
+
+\bigbreak
+
+Ilustrujme si tento problém na příkladu z reálných dat. V tabulce \ref{table:9270_samples} jsou zaznamenány vybrané polohy vozidla, které jelo podle jízdního řádu, jehož první dvě zastávky jsou uvedené v tabulce \ref{table:9270_ride}. Ačkoli je druhá zastávka spoje ve vzdálenosti 4840 metrů o výchozí zastávky, podle vzorku polohy vozdila pořízeném ve vzdálenosti 4800 metrů se změnilo zpoždění v poslední zastávce, což značí, že vozidlo již stojí v druhé zastávce. Avšak kdybychom brali všechny vzorky dat pořízené před projetím bodu 4840 metrů (druhá zastávka), zahrneme tento bod do výpočtu modelu, resp. evaluace výsledků a negativně nám ovlivní výsledky. Dále vydíme, že po vyjetí ze zastávky má vozdilo konstantní zpoždění v poslední projeté zastávce, tedy vozidlo opustilo zastávku a je na trase.
+
+\begin{center}
+	\begin{table}[ht]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+ID spoje & ujetá vzdálenost & zpoždění v poslední zastávce \\ \hline \hline
+336\_89\_181210 & 4400 & 61 \\ \hline
+336\_89\_181210 & 4700 & 61 \\ \hline
+336\_89\_181210 & 4800 & 84 \\ \hline
+336\_89\_181210 & 4900 & 92 \\ \hline
+336\_89\_181210 & 5300 & 92 \\ \hline
+\end{tabular}
+\label{table:9270_samples}
+\caption{Záznamy poloh spoje 336\_89\_181210.}
+\end{table}
+\end{center}
+
+\begin{center}
+	\begin{table}[ht]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+ID spoje & vzdálenost zastávky na trase \\ \hline \hline
+336\_89\_181210 & 0 \\ \hline
+336\_89\_181210 & 4840 \\ \hline
+\end{tabular}
+\label{tab:9270_ride}
+\caption{Výtah z jízdního řádu spoje 336\_89\_181210.}
+\end{table}
+\end{center}
+
+\bigbreak
+
+Nyní se podívejme už na samotné srovnání rozptylů zpožděních, které jednotlivé modely odhadovaly na trasách mezi danými dvojci zastávek. Histogram rozptylů k dvojcím zastávek podle lineárního modelu je vidět na grafu \ref{fig:rozptyl_old}. Histogram rozptylů zpoždění podle polynomiálního modelu je zobrazen na grafu \ref{fig:rozptyl_new}. Z porovnání těchto grafů je jasně viditelné, že došlo k výraznému zmenšení rozptylu. Průměr rozptylů se snížil z 19 sekund na 12.
+
+\begin{figure}
+	\centering
+  \includegraphics[width=1\linewidth]{../img/rozptyl_old}
+  \caption{Histogram rozptylu zpoždění podle lineárního modelu, poslední sloupec značí hodnoty 80 a více}
+  \label{fig:rozptyl_old}
+\end{figure}
+
+\begin{figure}
+	\centering
+  \includegraphics[width=1\linewidth]{../img/rozptyl_new}
+  \caption{Histogram rozptylu zpoždění podle lineárního modelu, poslední sloupec značí hodnoty 80 a více}
+  \label{fig:rozptyl_new}
+\end{figure}
+
+\bigbreak
+
+Tyto grafy nám ukazují, že v průměru došlo ke zlepšení odhadu, ale podívejme se ještě na porovnání rozptylů zpoždění mezi dvojcemi zastávek jednotlivě. Na histogramu \ref{fig:rozptyl_diff} je patrné, že u největšího počtu dvojic zastávek došlo ke snížení rozptylu o 0 až 10 sekund, nezanedbatelného počtu dvojic o 10 až 20 sekund a ke významnému snížení došlo u necelých 25 dvojic. Toto pozorování lze vyvodit i z grafů \ref{fig:rozptyl_old} a \ref{fig:rozptyl_new}, ze kterých vychází, že k nejvýznamějšímu poklesu rozptylů došlo z 10--20 sekund na 10--20 sekund.
+
+\begin{figure}
+	\centering
+  \includegraphics[width=1\linewidth]{../img/rozptyl_diff}
+  \caption{Histogram rozptylu zpoždění podle lineárního modelu, poslední sloupec značí hodnoty 80 a více}
+  \label{fig:rozptyl_diff}
+\end{figure}
+
+\subsubsection{Příklad zhoršení odhadu zpoždění}
+
+
+Dále také na grafu \ref{fig:rozptyl_diff} vidíme, že u 26 dvojic došlo ke zvýšení rozptylu, což je v této práci nežádoucí. Stalo se tak, ale pouze v necelých 10 procentech případů a z toho ve většine nedošlo k výraznému zhoršení. Avšak v jednotkách případů došlo k výraznému zhoršení i o několik desítek sekund. Rozeberme si tedy jeden příklad výrazného zhoršení a proč k němu došlo.
+
+\bigbreak
+
+N grafu \ref{fig:chyba} je vizualizován vygenerovaný model pro dvojci zastávek, kde došlo k největšímu zhoršení oproti odhadu zpoždění lineárním modelem. Na první pohled se zdá, že takto má vypadat ideální model. Při bližším ohledání, ale zjistíme, že dokonalá vlna vznikla z chybných vstupních dat. Konkrétně si povšimněme, že vzorky se sekupily do dvou klusterů, první ve vzdálenosti 0 až 3000 metrů od vyjetí a druhý dále.
+
+\begin{figure}
+	\centering
+  \includegraphics[width=1\linewidth]{../img/chyba}
+  \caption{Histogram rozptylu zpoždění podle lineárního modelu, poslední sloupec značí hodnoty 80 a více}
+  \label{fig:chyba}
+\end{figure}
+
+Chybná vstupní data, ze kterých vypočítaný model vychází, uvedeme ještě v tabulce \ref{table:825_samples} a část jízdního řádu dotčeného spoje v tabulce \ref{tab:825_ride}. V první tabulce si můžeme povšimnout, že zhruba ve dvou třetinách jízdy mezi zastávkama došlo ke změně zpoždění v poslední zastávce. Což je z našeho pohledu nevysvětlitelné. Tento skok ve zpoždění o více než 220 sekund je u všech jízd projíždějících mezi touto dvojcí. zastávek.
+
+\begin{center}
+	\begin{table}[ht]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+ID spoje & ujetá vzdálenost & zpoždění v poslední zastávce \\ \hline \hline
+630\_177\_200210 & 6700 & 167 \\ \hline
+630\_177\_200210 & 7400 & 167 \\ \hline
+630\_177\_200210 & 7600 & 167 \\ \hline
+630\_177\_200210 & 7900 & 167 \\ \hline
+630\_177\_200210 & 8300 & -62 \\ \hline
+630\_177\_200210 & 8600 & -62 \\ \hline
+630\_177\_200210 & 9100 & -62 \\ \hline
+\end{tabular}
+\label{table:825_samples}
+\caption{Záznamy poloh spoje 630\_177\_200210.}
+\end{table}
+\end{center}
+
+\begin{center}
+	\begin{table}[ht]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+ID spoje & vzdálenost zastávky na trase \\ \hline \hline
+630\_177\_200210 & 5225 \\ \hline
+630\_177\_200210 & 9187 \\ \hline
+\end{tabular}
+\label{tab:825_ride}
+\caption{Výtah z jízdního řádu spoje 630\_177\_200210.}
+\end{table}
+\end{center}
+
+\bigbreak
+
+Avšak tento skok by se měl projevit i u odhadu zpoždění lineárním modelem. Jak je tedy možné, že u lineárního modelu vyšel rozptyl velmi malý a u polynomiálního modelu v řádů vysokých desítek? K pochopení nám napomůže podívat se na záznamy toho spoje v den 21. 2. 2020, tedy na záznamy které slouží pro evaluaci úspěšnosti. V tento den se totiž pořídily pouze 3 záznamy ve vzdálenosti 2 km od sebe. Tedy lineární model předpověl všem téměř stejné zpoždění, ale polynomiální model vlivem natrénování se na špatných datech, odhadoval zpoždění zcela mimo realitu.
+
+\subsubsection{Příklad zlepšení odhadu zpoždění}
+
+Na druhou stranu v našem modelovém případě profilu jízdy mezi zastávkami K Letišti a Zličín pro spoj 324\_593\_200106 došlo k výraznému zlepšení a tedy snížení rozptylu z 60 sekund na 12. Kompletní porovnání záznamu vývoje zpoždění na trase je možné pozorovat na grafu \ref{fig:compare_534_421}.
+
+\begin{figure}
+	\centering
+  \includegraphics[width=1\linewidth]{../img/compare_534_421}
+  \caption{Porovnání průběhu odhadnutých zpoždění lineárním modelme (modrá) a polynomiálním modelem (oranžová) mezi zastávkami K Letišti a Zličín}
+  \label{fig:compare_534_421}
+\end{figure}
 
 \section{Statistiky}
 

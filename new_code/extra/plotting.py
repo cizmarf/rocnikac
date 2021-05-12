@@ -184,8 +184,8 @@ def get_plot(model, samples, dep_stop, arr_stop):
 
 
 if __name__ == '__main__':
-	dep_stop = 6991  # e[0].split()[0]
-	arr_stop = 8607  # e[0].split()[1]
+	dep_stop = 808  # e[0].split()[0]
+	arr_stop = 809  # e[0].split()[1]
 
 	# num = get_all_pairs()
 
