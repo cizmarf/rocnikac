@@ -16,7 +16,7 @@ class File_system:
 	static_vehicle_positions = 	cwd / Path("tests/input_data/raw_vehicle_positions_all/")
 	static_trips = 				cwd / Path("data/raw_trips/")
 	all_shapes = 				cwd / Path("data/shapes/")
-	all_models = 				cwd / Path("data/models_thu/")
+	all_models = 				cwd / Path("data/empty/")
 
 	# deprecate
 	# all_vehicle_positions_real_time_geojson = cwd / Path("data/vehicle_positions/vehicle_positions.json")

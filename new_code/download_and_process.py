@@ -201,7 +201,7 @@ if __name__ == "__main__":
 		help="Deletes all trips inactive for more than set minutes")
 	parser.add_argument("--build_models", default=-1, type=int,
 		help="Rebuild all models")
-	parser.add_argument("--database", default='vehicle_positions_fri_delay_estimation_database', type=str,
+	parser.add_argument("--database", default='vehicle_positions_statistic_database', type=str,
 		help='Name of database to use')
 	args = parser.parse_args([] if "__file__" not in globals() else None)
 

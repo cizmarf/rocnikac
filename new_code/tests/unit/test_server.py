@@ -137,7 +137,7 @@ class TestServer(unittest.TestCase):
 		sigma = np.std(times)
 		count, bins, ignored = plt.hist(times, 30, density=True)
 		plt.plot(bins, 1 / (sigma * np.sqrt(2 * np.pi)) * np.exp(- (bins - mu) ** 2 / (2 * sigma ** 2)), linewidth=2, color='r')
-		plt.savefig('books_read.pdf')
+		# plt.savefig('books_read.pdf')
 		plt.show()
 
 

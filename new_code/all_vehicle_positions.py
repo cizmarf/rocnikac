@@ -16,7 +16,7 @@ class Static_all_vehicle_positions:
 		else:
 			sufix = '/*.tar.gz'
 
-		sufix = '/2020-02-2[01]*.tar.gz'
+		# sufix = '/2020-02-20T04*.tar.gz'
 		# sufix = '/2020-02-20*.tar.gz'
 
 		self.files = glob.glob(str(File_system.static_vehicle_positions) + sufix)

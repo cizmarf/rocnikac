@@ -90,7 +90,7 @@ class TestNormData(unittest.TestCase):
 class TestModels(unittest.TestCase):
 	def test_linear_model(self):
 		lin_model = Two_stops_model.Linear_model(1000)
-		# timezone = pytz.timezone("Europe/Prague")
+		timezone = pytz.timezone("Europe/Prague")
 		morning = timedelta(hours=10, minutes=0, seconds=0).seconds
 		midnight = timedelta(hours=0, minutes=0, seconds=0).seconds
 
@@ -104,6 +104,11 @@ class TestModels(unittest.TestCase):
 		self.assertEqual(-300, lin_model.predict(750, midnight, timedelta(hours=23, minutes=50, seconds=0).seconds, timedelta(hours=0, minutes=10, seconds=0).seconds))
 		self.assertEqual(600, lin_model.predict(0, midnight, timedelta(hours=23, minutes=50, seconds=0).seconds, timedelta(hours=0, minutes=10, seconds=0).seconds))
 		self.assertEqual(480, lin_model.predict(0, timedelta(hours=23, minutes=58, seconds=0).seconds, timedelta(hours=23, minutes=50, seconds=0).seconds, timedelta(hours=0, minutes=10, seconds=0).seconds))
+
+		self.assertEqual(-30, lin_model.predict(500, timedelta(hours=23, minutes=59, seconds=30).seconds, timedelta(hours=23, minutes=59, seconds=0).seconds, timedelta(hours=24, minutes=1, seconds=0).seconds))
+		self.assertEqual(-72, lin_model.predict(700, timedelta(hours=24, minutes=0, seconds=30).seconds, timedelta(hours=24, minutes=1, seconds=0).seconds, timedelta(hours=24, minutes=2, seconds=0).seconds))
+		self.assertEqual(30, lin_model.predict(1000, timedelta(hours=24, minutes=0, seconds=30).seconds, timedelta(hours=23, minutes=59, seconds=0).seconds, timedelta(hours=24, minutes=00, seconds=0).seconds))
+		self.assertEqual(-122, lin_model.predict(1000, timedelta(hours=23, minutes=58, seconds=58).seconds, timedelta(hours=0, minutes=0, seconds=0).seconds, timedelta(hours=0, minutes=1, seconds=0).seconds))
 
 	def test_poly_model_a(self):
 		model = File_system.pickle_load_object(Path('../input_data') / Path("2_2374_hol.model"))

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  12 MAY 2021 22:06
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  13 MAY 2021 23:50
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1348,78 +1348,52 @@ le pdfs with page group included in a single page
 LaTeX Warning: Reference `table:9270_ride' on page 58 undefined on input line 2
 39.
 
-
-LaTeX Warning: Reference `fig:rozptyl_old' on page 58 undefined on input line 2
-74.
-
-
-LaTeX Warning: Reference `fig:rozptyl_new' on page 58 undefined on input line 2
-74.
-
-<../img/rozptyl_old.pdf, id=1271, 462.52798pt x 346.89601pt>
+<../img/rozptyl_old.pdf, id=1273, 462.52798pt x 346.89601pt>
 File: ../img/rozptyl_old.pdf Graphic file (type pdf)
 <use ../img/rozptyl_old.pdf>
 Package pdftex.def Info: ../img/rozptyl_old.pdf  used on input line 278.
 (pdftex.def)             Requested size: 412.56496pt x 309.44046pt.
-<../img/rozptyl_new.pdf, id=1272, 462.52798pt x 346.89601pt>
+<../img/rozptyl_new.pdf, id=1274, 462.52798pt x 346.89601pt>
 File: ../img/rozptyl_new.pdf Graphic file (type pdf)
 <use ../img/rozptyl_new.pdf>
 Package pdftex.def Info: ../img/rozptyl_new.pdf  used on input line 285.
 (pdftex.def)             Requested size: 412.56496pt x 309.44046pt.
-
-LaTeX Warning: Reference `fig:rozptyl_diff' on page 58 undefined on input line 
-292.
-
-
-LaTeX Warning: Reference `fig:rozptyl_old' on page 58 undefined on input line 2
-92.
-
-
-LaTeX Warning: Reference `fig:rozptyl_new' on page 58 undefined on input line 2
-92.
-
 [58]
-<../img/rozptyl_diff.pdf, id=1279, 462.52798pt x 346.89601pt>
+<../img/rozptyl_diff.pdf, id=1286, 462.52798pt x 346.89601pt>
 File: ../img/rozptyl_diff.pdf Graphic file (type pdf)
 <use ../img/rozptyl_diff.pdf>
 Package pdftex.def Info: ../img/rozptyl_diff.pdf  used on input line 296.
 (pdftex.def)             Requested size: 412.56496pt x 309.44046pt.
-
-
-LaTeX Warning: Reference `fig:rozptyl_diff' on page 59 undefined on input line 
-304.
-
-
-LaTeX Warning: Reference `fig:chyba' on page 59 undefined on input line 308.
-
-<../img/chyba.pdf, id=1280, 445.18318pt x 353.40028pt>
+<../img/chyba.pdf, id=1289, 445.18318pt x 353.40028pt>
 File: ../img/chyba.pdf Graphic file (type pdf)
 <use ../img/chyba.pdf>
 Package pdftex.def Info: ../img/chyba.pdf  used on input line 312.
 (pdftex.def)             Requested size: 412.56496pt x 327.52104pt.
-
-LaTeX Warning: Reference `table:825_samples' on page 59 undefined on input line
- 317.
-
-
-LaTeX Warning: Reference `tab:825_ride' on page 59 undefined on input line 317.
-
-
-[59 <../img/rozptyl_old.pdf>] [60 <../img/rozptyl_new.pdf>]
-
-LaTeX Warning: Reference `fig:compare_534_421' on page 61 undefined on input li
-ne 358.
-
-<../img/compare_534_421.pdf, id=1371, 462.52798pt x 346.89601pt>
+ [59 <../img/rozptyl_old.pdf>] [60 <../img/rozptyl_new.pdf>]
+<../img/compare_534_421.pdf, id=1383, 462.52798pt x 346.89601pt>
 File: ../img/compare_534_421.pdf Graphic file (type pdf)
 <use ../img/compare_534_421.pdf>
-Package pdftex.def Info: ../img/compare_534_421.pdf  used on input line 362.
+Package pdftex.def Info: ../img/compare_534_421.pdf  used on input line 366.
 (pdftex.def)             Requested size: 412.56496pt x 309.44046pt.
-) [61 <../img/rozptyl_diff.pdf>] [62 <../img/chyba.pdf>] [63 <../img/compare_53
-4_421.pdf>]
+ [61 <../img/rozptyl_diff.pdf>] [62 <../img/chyba.pdf>] [63 <../img/compare_534
+_421.pdf>]
+<../img/trips_len.pdf, id=1497, 462.52798pt x 346.89601pt>
+File: ../img/trips_len.pdf Graphic file (type pdf)
+<use ../img/trips_len.pdf>
+Package pdftex.def Info: ../img/trips_len.pdf  used on input line 385.
+(pdftex.def)             Requested size: 412.56496pt x 309.44046pt.
+
+[64 <../img/trips_len.pdf>]
+<../img/trips_total_delay.pdf, id=1542, 462.52798pt x 346.89601pt>
+File: ../img/trips_total_delay.pdf Graphic file (type pdf)
+<use ../img/trips_total_delay.pdf>
+Package pdftex.def Info: ../img/trips_total_delay.pdf  used on input line 400.
+(pdftex.def)             Requested size: 412.56496pt x 309.44046pt.
+) [65 <../img/trips_total_delay.pdf>]
 \openout2 = `zaver.aux'.
 
- (./zaver.tex) [64
+ (./zaver.tex)
+[66
 
 
 
@@ -1430,26 +1404,32 @@ Package pdftex.def Info: ../img/compare_534_421.pdf  used on input line 362.
 
 Package natbib Warning: Empty `thebibliography' environment on input line 8.
 
-)) [65
+)) [67
 
 
 
-] (./prace.lof)
+] (./prace.lof [68
+
+
+]
+Overfull \hbox (19.60674pt too wide) in paragraph at lines 42--42
+ [][] [][]\T1/lmr/m/n/12 Porovnání pr·-b¥hu od-had-nu-tých zpoº-d¥ní li-ne-ár-n
+ím mo-de-lem (modrá) |
+ []
+
+)
 \tf@lof=\write7
 \openout7 = `prace.lof'.
 
- [66
-
-
-] (./prace.lot)
+ [69] (./prace.lot)
 \tf@lot=\write8
 \openout8 = `prace.lot'.
 
- [67
+ [70
 
 ]
 Using TeX to sort glossary entries---this may take a while
-[68
+[71
 
 ]
 Overfull \hbox (11.3606pt too wide) in paragraph at lines 300--300
@@ -1457,12 +1437,12 @@ Overfull \hbox (11.3606pt too wide) in paragraph at lines 300--300
 .org/html/rfc8259.|
  []
 
-[69
+[72
 
 
 ]
 P\v {r}\'{\i }loha A.
-[70
+[73
 
 ]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 318.
@@ -1471,57 +1451,42 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 318.
 (./kap02.aux) (./kap03.aux) (./kap04.aux) (./zaver.aux) (./literatura.aux))
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 318.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 318.
+Package rerunfilecheck Info: File `prace.out' has not changed.
+(rerunfilecheck)             Checksum: 5E3F1AD53C4FBF6B199400F4929EB6A8;8249.
 
-
-Package rerunfilecheck Warning: File `prace.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `prace.out':
-(rerunfilecheck)             Before: 85EFC70B58122EA38B126A40124A9F80;8249
-(rerunfilecheck)             After:  5E3F1AD53C4FBF6B199400F4929EB6A8;8249.
 
 LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 318.
  ) 
 Here is how much of TeX's memory you used:
- 22862 strings out of 492616
- 349300 string characters out of 6129482
- 460917 words of memory out of 5000000
- 26011 multiletter control sequences out of 15000+600000
+ 22879 strings out of 492616
+ 349695 string characters out of 6129482
+ 462939 words of memory out of 5000000
+ 26021 multiletter control sequences out of 15000+600000
  93912 words of font info for 83 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  46i,8n,57p,1970b,2327s stack positions out of 5000i,500n,10000p,200000b,80000s
-pdfTeX warning (dest): name{chapter*.28} has been referenced but does not exi
-st, replaced by a fixed one
-
-pdfTeX warning (dest): name{chapter*.27} has been referenced but does not exist
-, replaced by a fixed one
-
-{/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/loca
-l/texlive/2019/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/2019
-/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/texlive/2019/texmf-dis
-t/fonts/enc/dvips/lm/lm-ec.enc}{/usr/local/texlive/2019/texmf-dist/fonts/enc/dv
-ips/lm/lm-ts1.enc}</usr/local/texlive/2019/texmf-dist/fonts/type1/public/lm/lmb
-x12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></
-usr/local/texlive/2019/texmf-dist/fonts/type1/public/lm/lmmi12.pfb></usr/local/
-texlive/2019/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></usr/local/texlive/201
-9/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></usr/local/texlive/2019/texmf-dis
-t/fonts/type1/public/lm/lmr10.pfb></usr/local/texlive/2019/texmf-dist/fonts/typ
-e1/public/lm/lmr12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/l
-m/lmr17.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/lm/lmr7.pfb>
-</usr/local/texlive/2019/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/local/
-texlive/2019/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local/texlive/20
-19/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/local/texlive/2019/texmf-d
-ist/fonts/type1/public/lm/lmtt12.pfb>
-Output written on prace.pdf (74 pages, 17452005 bytes).
+{/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/lo
+cal/texlive/2019/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/20
+19/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/texlive/2019/texmf-d
+ist/fonts/enc/dvips/lm/lm-ec.enc}{/usr/local/texlive/2019/texmf-dist/fonts/enc/
+dvips/lm/lm-ts1.enc}</usr/local/texlive/2019/texmf-dist/fonts/type1/public/lm/l
+mbx12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/lm/lmmi10.pfb>
+</usr/local/texlive/2019/texmf-dist/fonts/type1/public/lm/lmmi12.pfb></usr/loca
+l/texlive/2019/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></usr/local/texlive/2
+019/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></usr/local/texlive/2019/texmf-d
+ist/fonts/type1/public/lm/lmr10.pfb></usr/local/texlive/2019/texmf-dist/fonts/t
+ype1/public/lm/lmr12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public
+/lm/lmr17.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/lm/lmr7.pf
+b></usr/local/texlive/2019/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/loca
+l/texlive/2019/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local/texlive/
+2019/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/local/texlive/2019/texmf
+-dist/fonts/type1/public/lm/lmtt12.pfb>
+Output written on prace.pdf (77 pages, 17543669 bytes).
 PDF statistics:
- 1749 PDF objects out of 2073 (max. 8388607)
- 1150 compressed objects within 12 object streams
- 266 named destinations out of 1000 (max. 500000)
- 643 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1872 PDF objects out of 2073 (max. 8388607)
+ 1205 compressed objects within 13 object streams
+ 271 named destinations out of 1000 (max. 500000)
+ 653 words of extra memory for PDF output out of 10000 (max. 10000000)
 

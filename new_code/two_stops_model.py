@@ -132,12 +132,23 @@ class Two_stops_model:
 
 		# distance traveled from departure stop, all in seconds
 		def predict(self, norm_shape_dist_trv, update_time, departure_time, arrival_time):
+			if departure_time >= Two_stops_model.SECONDS_A_DAY:
+				departure_time -= Two_stops_model.SECONDS_A_DAY
+
+			if arrival_time >= Two_stops_model.SECONDS_A_DAY:
+				arrival_time -= Two_stops_model.SECONDS_A_DAY
+
+			if update_time >= Two_stops_model.SECONDS_A_DAY:
+				update_time -= Two_stops_model.SECONDS_A_DAY
 
 			time_diff = (arrival_time - departure_time) % Two_stops_model.SECONDS_A_DAY
 			norm_update_time = math.fmod(update_time - departure_time, Two_stops_model.SECONDS_A_DAY)
 
 			if norm_update_time < - Two_stops_model.SECONDS_A_DAY / 2:
 				norm_update_time += Two_stops_model.SECONDS_A_DAY
+
+			if norm_update_time > Two_stops_model.SECONDS_A_DAY / 2:
+				norm_update_time -= Two_stops_model.SECONDS_A_DAY
 
 			ratio = norm_shape_dist_trv / self.distance
 			estimated_time_progress = time_diff * ratio
@@ -197,8 +208,15 @@ class Two_stops_model:
 				del self.norm_data  # deletes norm data structure because it is no more needed
 
 		def predict(self, norm_shape_dist_trv, update_time, departure_time, arrival_time):
-			if norm_shape_dist_trv == 0 and update_time == 83429 and departure_time == 83400 and arrival_time == 83760:
-				print()
+			if departure_time >= Two_stops_model.SECONDS_A_DAY:
+				departure_time -= Two_stops_model.SECONDS_A_DAY
+
+			if arrival_time >= Two_stops_model.SECONDS_A_DAY:
+				arrival_time -= Two_stops_model.SECONDS_A_DAY
+
+			if update_time >= Two_stops_model.SECONDS_A_DAY:
+				update_time -= Two_stops_model.SECONDS_A_DAY
+
 			if self.max_day_time < update_time:  # if in estimator area
 				departure_time -= update_time - self.max_day_time
 				arrival_time -= update_time - self.max_day_time
@@ -214,6 +232,9 @@ class Two_stops_model:
 
 			if norm_update_time < - Two_stops_model.SECONDS_A_DAY / 2:
 				norm_update_time += Two_stops_model.SECONDS_A_DAY
+
+			if norm_update_time > Two_stops_model.SECONDS_A_DAY / 2:
+				norm_update_time -= Two_stops_model.SECONDS_A_DAY
 
 			input_data = np.array([norm_shape_dist_trv, update_time, 1]).reshape(1,-1)
 			prediction = self.model.predict(input_data)  # estimation of coor time

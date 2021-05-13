@@ -71,12 +71,12 @@
 \contentsline {subsection}{\numberline {4.2.2}Odhady zpo\IeC {\v z}d\IeC {\v e}n\IeC {\'\i }}{57}{subsection.4.2.2}% 
 \contentsline {subsubsection}{P\IeC {\v r}\IeC {\'\i }klad zhor\IeC {\v s}en\IeC {\'\i } odhadu zpo\IeC {\v z}d\IeC {\v e}n\IeC {\'\i }}{59}{section*.27}% 
 \contentsline {subsubsection}{P\IeC {\v r}\IeC {\'\i }klad zlep\IeC {\v s}en\IeC {\'\i } odhadu zpo\IeC {\v z}d\IeC {\v e}n\IeC {\'\i }}{61}{section*.28}% 
-\contentsline {section}{\numberline {4.3}Statistiky}{61}{section.4.3}% 
-\contentsline {chapter}{Z\IeC {\'a}v\IeC {\v e}r}{64}{chapter*.29}% 
-\contentsline {section}{\numberline {4.4}N\IeC {\'a}vrhy na zlep\IeC {\v s}en\IeC {\'\i }}{64}{section.4.4}% 
-\contentsline {chapter}{Seznam pou\IeC {\v z}it\IeC {\'e} literatury}{65}{chapter*.30}% 
-\contentsline {chapter}{Seznam obr\'azk\r {u}}{66}{chapter*.31}% 
-\contentsline {chapter}{Seznam tabulek}{67}{chapter*.32}% 
-\contentsline {chapter}{Seznam pou\IeC {\v z}it\IeC {\'y}ch zkratek}{68}{chapter*.33}% 
-\contentsline {chapter}{\numberline {A}P\IeC {\v r}\IeC {\'\i }lohy}{70}{appendix.A}% 
-\contentsline {section}{\numberline {A.1}Prvn\IeC {\'\i } p\IeC {\v r}\IeC {\'\i }loha}{70}{section.A.1}% 
+\contentsline {section}{\numberline {4.3}Statistiky}{64}{section.4.3}% 
+\contentsline {chapter}{Z\IeC {\'a}v\IeC {\v e}r}{66}{chapter*.29}% 
+\contentsline {section}{\numberline {4.4}N\IeC {\'a}vrhy na zlep\IeC {\v s}en\IeC {\'\i }}{66}{section.4.4}% 
+\contentsline {chapter}{Seznam pou\IeC {\v z}it\IeC {\'e} literatury}{67}{chapter*.30}% 
+\contentsline {chapter}{Seznam obr\'azk\r {u}}{68}{chapter*.31}% 
+\contentsline {chapter}{Seznam tabulek}{70}{chapter*.32}% 
+\contentsline {chapter}{Seznam pou\IeC {\v z}it\IeC {\'y}ch zkratek}{71}{chapter*.33}% 
+\contentsline {chapter}{\numberline {A}P\IeC {\v r}\IeC {\'\i }lohy}{73}{appendix.A}% 
+\contentsline {section}{\numberline {A.1}Prvn\IeC {\'\i } p\IeC {\v r}\IeC {\'\i }loha}{73}{section.A.1}% 

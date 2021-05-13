@@ -353,6 +353,10 @@ ID spoje & vzdálenost zastávky na trase \\ \hline \hline
 
 Avšak tento skok by se měl projevit i u odhadu zpoždění lineárním modelem. Jak je tedy možné, že u lineárního modelu vyšel rozptyl velmi malý a u polynomiálního modelu v řádů vysokých desítek? K pochopení nám napomůže podívat se na záznamy toho spoje v den 21. 2. 2020, tedy na záznamy které slouží pro evaluaci úspěšnosti. V tento den se totiž pořídily pouze 3 záznamy ve vzdálenosti 2 km od sebe. Tedy lineární model předpověl všem téměř stejné zpoždění, ale polynomiální model vlivem natrénování se na špatných datech, odhadoval zpoždění zcela mimo realitu.
 
+\bigbreak
+
+Z tohoto se dá usuzovat, že v případech kde se roztyp zpoždění výrazně zhoršil jsou na vině závady ve vstupních datech nebo nám schází informace o procesu určování zpoždění v poslední projeté zastávce. Např.: i autobusy mohou projíždět návěstidly, kde se po průjezdu hodnota zpoždění upraví, avšak z jízdních řádů takovou informaci nezjistíme.
+
 \subsubsection{Příklad zlepšení odhadu zpoždění}
 
 Na druhou stranu v našem modelovém případě profilu jízdy mezi zastávkami K Letišti a Zličín pro spoj 324\_593\_200106 došlo k výraznému zlepšení a tedy snížení rozptylu z 60 sekund na 12. Kompletní porovnání záznamu vývoje zpoždění na trase je možné pozorovat na grafu \ref{fig:compare_534_421}.
@@ -360,10 +364,40 @@ Na druhou stranu v našem modelovém případě profilu jízdy mezi zastávkami 
 \begin{figure}
 	\centering
   \includegraphics[width=1\linewidth]{../img/compare_534_421}
-  \caption{Porovnání průběhu odhadnutých zpoždění lineárním modelme (modrá) a polynomiálním modelem (oranžová) mezi zastávkami K Letišti a Zličín}
+  \caption{Porovnání průběhu odhadnutých zpoždění lineárním modelem (modrá) a polynomiálním modelem (oranžová) mezi zastávkami K Letišti a Zličín}
   \label{fig:compare_534_421}
 \end{figure}
 
 \section{Statistiky}
 
-TODO
+Ze sesbíraných dat je možné odvozovat i různé statistiky o spojích nebo o zpožděních jízd. Uvedˇme se tedy některé z nich.
+
+\bigbreak
+
+Všechny uvedené grafy a statistiky se zakládají na datech ze dne 20. 2. 2020.
+
+\bigbreak
+
+Na prvním grafu \ref{fig:trips_len} je znázorněn histogram celkových délek jízd všech spojů. Přičemž průměrná délka jízdy spoje byla 18 kilometrů.
+
+\begin{figure}
+	\centering
+  \includegraphics[width=1\linewidth]{../img/trips_len}
+  \caption{Histogram délek tras spojů.}
+  \label{fig:trips_len}
+\end{figure}
+
+\bigbreak
+
+Dále si uvedˇme, počet zastávek, které jeden spoj obsluhuje. Samotný histogram se podobá tomu zachycující délky jízd, proto jen v číslech. Průměrný počet zastávek jednoho spoje je 17. Rerokrdní počty zastávek jsou přitom 2 a 48. Celkem 2 zastávky obsluhuje 192 spojů, ale většina z nich jsou přívozy P1 a P2, které se také dostaly do naší databáze a 18 linek autobusů také obsluhuje pouze 2 zastávky\footnote{Vysvětleme proč 2 přívozy tvoří většinu spojů oproti 18 linkám pozemní dopravy. Jedna linka je obsluhována několika spoji (spoj se váže na konkrétní jízdní řád), ale linka je daná sekvencí zastávek. Protože přívozy jezdí poměrně často jsou popsány velkým množstvím spojů, ale dotčené autobusové linky jezdí méně často, proto jim přísluší menší počet spojů.}. Naopak maximální počet zastávek na trase má pouze 8 spojů, které náleží jedné lince číslo 369.
+
+\bigbreak
+
+Na grafu \ref{fig:trips_total_delay} je zobrazeno zpoždění všech jízd v jejich konečné stanici\footnote{Pokud zpoždění v konečné stanici nebylo dostupné ve vstupních datech bylo použito zpoždění v předposlední stanici.} a celková délka jejich trasy. Intuitivně by se dalo říct, že s rostoucí délkou trasy bude zpoždění narůstat, ale jak vychází z grafu průměrné zpoždění vzávislosti na délce trasy je takřka konstantní. Průměrné zpoždění činilo 114 sekund a rozptyl byl 179 sekund. Z toho vychází, že většina jízd dojela se zpožděním, bytˇ v řádu jednotek minut, ale zárovenˇ tím dochází k minimalizaci počtu jízd, které přijedou v předstihu. V konečné zastávce nás sice toto může potěšit, ale musíme si uvědomit, že celkové předjetí se akumuluje po celou dobu jízdy a na zastávkách před konečnou stanicí by tedy vozidlo muselo čekat.
+
+\begin{figure}
+	\centering
+  \includegraphics[width=1\linewidth]{../img/trips_total_delay}
+  \caption{Zpoždění v poslední zastávce jízdy vůči délce celé trasy jízdy, Průměr vyznačen modře a rozptyl šedě}
+  \label{fig:trips_total_delay}
+\end{figure}
