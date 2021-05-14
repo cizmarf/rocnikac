@@ -9,11 +9,12 @@ Každého cestujícího v přepravě jistě někdy trápilo zpoždění svého s
 
 \bigbreak
 
-Cílem této práce je zpřesnit odhad zpoždění vozidel VHD, zejména autobusů, na trase mezi dvěma sousedícími zastávkami. Dále pak tyto výsledky vizualizovat v mapových podkladech.
-
-\bigbreak
-
 Ve vymezené oblasti operuje spousta soukromých i městských dopravců. Ti kteří spadají do naší zájmové oblasti zastřešuje organizace \gls{ropid}, která objednává jednotlivé spoje. Pro naši práci je důležité, že organizace \gls{ropid} zadala jednotlivým dopravcům vysílat aktuální polohy jejich vozů. Tato data o polohách jsou přes zprostředkovatele zveřejňována na pražské datové platformě zvané Golemio\footnote{www.golemio.cz}, jež je ve správě společností Operátor ICT, a. s., která je vlastněná hlavním městem Praha. Takových spojů, o kterých máme všechna požadovaná data je v pracovní den vypraveno necelých deset tisíc.\footnote{ze dne 20. 2. 2020 podle testovacích dat}
+
+\section*{Definice problému}
+
+Cílem této práce je zpřesnit odhad zpoždění vozidel \gls{vhd}, zejména autobusů, na trase mezi dvěma sousedícími zastávkami. Dále pak tyto výsledky vizualizovat v mapových podkladech.
+
 
 \bigbreak
 
@@ -25,4 +26,56 @@ V práci se tedy pokusíme využít dostupná otevřená real-time data k získ�
 
 \bigbreak
 
-Protože disponujeme daty o aktuálních polohách vozidel \gls{mhd}, která navíc rozšíříme o lepší odhady zpoždění. Nabízí se jejich využití tak, že budou vynesena do mapy a tím vznikne vizuálně přívětivé uživatelské prostředí pro prohlížení aktuálního stavu sítě vozidel. V práci tedy navrhujeme a implementujeme uživatelskou aplikaci, která vozidla zobrazí a bude komunikovat s uživatelem tak, že na žádost zobrazí více infomací o daném spoji nebo vybrané zastávce.
+Protože disponujeme daty o aktuálních polohách vozidel \gls{vhd}, která navíc rozšíříme o lepší odhady zpoždění. Nabízí se jejich využití tak, že budou vynesena do mapy a tím vznikne vizuálně přívětivé uživatelské prostředí pro prohlížení aktuálního stavu sítě vozidel. V práci tedy navrhujeme a implementujeme uživatelskou aplikaci, která vozidla zobrazí a bude komunikovat s uživatelem tak, že na žádost zobrazí více infomací o daném spoji nebo vybrané zastávce.
+
+\section*{Souhrn}
+
+Klientská aplikace bude vytvořená pro webovou platformu, ko'd bude napsán ve standardních jazycích pro vývoj webových aplikací. Jsou jimi zejména \gls{html} a \gls{js}.
+
+\bigbreak
+
+Celá serverová část je napsána v jazyce Python3. Server bude sloužit pro stahování a ukládání dat do \gls{sql} databáze, konkrétně implementace MySQL. Další část back-endu bude zpřístupnˇovat data v databázi klienstké aplikaci.
+
+\bigbreak
+
+Jádro celé práce tvoří modul odhadu zpoždění, zde používáme knihovny jakyka Python3 pro strojové učení scikit-learn a pro práci s velkými objemy dat NumPy. Zpoždění spojů budeme odhadovat pomocí pravděpodobnostních modelů natrénovaných na historických datech.
+
+\bigbreak
+
+V průběhu celé práce se setkávame s grafy a statistikami. Ty vyplývají z dat, na kterých byla celá práce testována, konkrétně byla data sbírána ve dnech 20. 2. 2020 až 23. 2. 2020. Dále v textu, kde se takové statistické údaje vyskytijí je vždy uvedeno i z jaké podmnožiny všech testovacích dat vycházejí. Všechny grafy, obrázky a statistické údaje uvedené v této práci, u kterých není explicitně uveden zdroj, byly vytvořeny jako usoučást této práce a jsou založeny na datech a poznatcích získaných v rámci této práce. Vstpní data jsou analyzována v kapitole Analýza.
+
+\section*{Struktura dokumentu}
+
+Tento dekument je rozdělen do 4 hlavních kapitol.
+
+\subsection*{Analýza}
+
+V této kapitole se zaměříme na detailní definici a popis řešeného problému. Analyzujeme vstupní data a jejich zdroj. Dále si ukážeme příklady již funkčních nástrujů vizualizující polohy vozidel a jiná data.
+
+\subsection*{Návrh řešení}
+
+V této kapitole definujeme funkční požadavky na dílo. Navrhneme databázi, do které budeme ukládat data, včetně algoritmu plnícího zadatbázi. Po té navrhneme algoritmus, kterým budeme odhadovat zpoždění. A na závěr kapitoly definujeme front-endovou aplikaci včetně serverové části.
+
+\subsection*{Implementace}
+
+Zde popíšeme implementaci konkrétních softwarových částí práce. Tedy zpracování dat, algortimu odhadu zpoždění, a klienstké aplikace.
+
+\subsection*{Testování a evaluace}
+
+Ukážeme, že aplikace je řádně otestována po všech stránkách a především porovnáme řešení této práce se stávajícím řešení. Na závěr si ukážeme zajímavé statistiky o jízdách vozidel \gls{vhd}.
+
+\section*{Definice pojmů}
+
+V této práci jdeme do velkého detailu reálií \gls{vhd}. Protože je z hlediska softwarového vývoje velmi důležité ujasnit si terminologii a předcházet tak různým nedorozumněním definujme si pojmy, které mohou běžně splývat.
+
+\begin{itemize}
+
+	\item Zastávka / Stanice / Nástupiště -- Nástupiště je nejmenší bod, který jsme schopni rozlišit. Od něj odjíždějí konkrétní vozidla. Rozdíl mezi zastávkou a stanicí není jasně definován. Obecně se chápe, že stanice je většího rozsahu, tedy že má více nástupištˇ nebo je obsluhována více druhy dopravních prostředků. Stanicím a zastávkám pak přísluší i pojmenování. V této práci na úrovni softwaru budeme výhradně pracovat s nástupišti. Avšak pro zlepšení čitelnosti textu používáme slovo zastávka i ve smyslu nástupiště.
+
+	\item Jízdní řád -- Je definovám posloupností zastávek, kterým náleží časy příjezdu a odjezdu. Čas projetí zastávky je počítán vždy od půlnoci, tedy není vázán na konkrétní den.
+
+	\item Spoj -- Spoj je definován jízdním řádem, dále mu přísluší informace o jeho konečné stanici a číslo. Z toho jak je definován jízdní řád vyplývá, že jeden spoj může jet v libovolný počet dnů, ale vždy ve stejný čas.
+
+	\item Jízda -- Jízdou myslíme jednu konkrétní realizaci spoje.
+
+\end{itemize}.

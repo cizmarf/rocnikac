@@ -146,7 +146,7 @@ END
 \end{code}
 
 
-\section{Konstrukce modelů}
+\section{Konstrukce modelů} \label{section:konstrukce_modelu}
 
 Pro spočítání polynomiálního modelu se využívá knihovna sklearn konkrétně algoritmus zvaný Rigde, který sám o sobě hledá linární závislosti, nicméně vstupní hodnoty jsou mezi sebou náležitě pronásobeny tak, aby simulovaly polynomiální funkci. Toho se dosáhne pomocí funkce PolynomialFeatures. Optimální stupeň polynomu se zjistí spočítáním modelu pro každý stupeň v rozumných mezích a nakonec se zvolí ten s nejmenší chybou. To se v jazyce Python3 za pomocí knihovny sklearn provede následujcícím kódem. Omezení stupňů polynomiální regrese vyplývá ze skušenosti, kdy modely pro vyšší stupně jsou více chybové protože došlo k tzv. přeučení modelu.
 

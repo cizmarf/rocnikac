@@ -6,7 +6,7 @@ V této kapitole je detailně popsán problém a způsoby jeho navrženého a so
 
 \section{Úvod}
 
-Spoje které zajišťují hromadnou dopravu jezdí podle jízdních řádů, které definují jejich trasu. Trasa se udává sekvencí projíždících zastávek, časy příjezdu a odjezdu do, resp. z těchto zastávek a vzdáleností zastávek od výchozího bodu spoje. Tyto zastávky jsou zpravidla jediné refenční body u kterých je možno zjistit skutečné zpoždění, nebo předjetí (dále uvažováno jako zpoždění se zápornou hodnotou). Dále jsou součástí jízdních řádů také velice detailní nákresy tras každého spoje, formou lomené čáry definovanou posloupností souřadnic, kde každý bod je doplněn o jeho vzdálenost od výchozího bodu spoje.
+Spoje které zajišťují hromadnou dopravu jezdí podle jízdních řádů, které definují jejich trasu tak, jak jsme si je definovali. Tyto zastávky jsou zpravidla jediné refenční body u kterých je možno zjistit skutečné zpoždění, nebo předjetí (dále uvažováno jako zpoždění se zápornou hodnotou). Dále jsou součástí jízdních řádů také velice detailní nákresy tras každého spoje, formou lomené čáry definovanou posloupností souřadnic, kde každý bod je doplněn o jeho vzdálenost od výchozího bodu spoje.
 
 \bigbreak
 
@@ -44,11 +44,15 @@ Pro vyloučení všech pochybností je hodno uvést, že se naše Práce nesnaž
 
 \subsection{Příklad nelineárního profilu trasy} \label{subsection:priklad_nelinearni_trasa}
 
-Celé ilustrováno na příkladě jízd mezi dvěma zastávkama K letišti a ZLičín, kde je nelineární profil jízdy vidět velice dobře. Jedná se totiž o trasu přesně odpovídající popisu problému.
+Celé ilustrováno na příkladě jízd mezi dvěma zastávkama K letišti a Zličín, kde je nelineární profil jízdy vidět velice dobře. Jedná se totiž o trasu přesně odpovídající popisu problému.
 
 \bigbreak
 
-Popsané rozdíly v rychlosti a nelineární profil trasy je patrný na grafu \ref{fig:k_letisti_to_zlicin_3d}. Za povšimnutí táké stojí viditelné zpomalení průjezdů v ranní špičce, 7--9 \footnote{časy jsou v UTC} hodina ráno.
+Popsané rozdíly v rychlosti a nelineární profil trasy je patrný na grafu \ref{fig:k_letisti_to_zlicin_3d}. Tento typ grafů se vyskutuje v průběhu celé práce a zobrazuje podstatu problému a jeho řešení. Popišme si tedy detailně jeho význam. Na ose vlevo dole je počet sekund od půlnoci, v pravo dole je vzdálenost o poslední projeté zastávky, na vertikální ose je pak čas od vyjetí z poslední projeté zastávky. Oranžové body znázornˇují jednotlivé vzorky poloh vozidel, z nich tedy jsme schopni jednoznačně zjistit čas pořízení vzorku, vzdálenost od poslení projeté zastávky, zpoždění v této zastávce a podle jízdního řádu i čas průjezdu touto poslední zastávkou. Tento soubor dat nám umožnˇuje je vynést do popsaného grafu. Modrá plocha je pak vizualizace modelu, popisující profil jízdy vozidla mezi dvojcí zastávek. Jeho konstrukce ja popsána v kapitole \ref{section:konstrukce_modelu}. Vlevo dole jsou tedy vzorky poloh zaznamenané krátce po vyjetí ze zastávky. Vpravo nahoře pak vzorky těsně před příjezdem do následující zastávky.
+
+\bigbreak
+
+Na tomto grafu stojí za povšimnutí viditelné zpomalení průjezdů v ranní špičce, 7--9 \footnote{časy jsou v UTC} hodina ráno.
 
 \bigbreak
 
@@ -143,15 +147,24 @@ Každá datová sada je exportována ve formátu \gls{geojson} pokud se jedná o
 
 \bigbreak
 
-Ačkoli se dokumentace tváří tak, že data jsou exportována ve formátech \gls{json} nebo \gls{geojson}, většinou formát dat není přesně podle specifikace těchto formátů. Například může být uveden atribut \verb"wheelchair_accessible", který je typu \verb"bool" a je nastaven na hodnotu \verb"True", nicmně podle specifikace se tyto hodnoty píší s malým písmenem\footnote{V průběhu tvorby této práce byla chyba opravena.}. Pro tuto práci to sice nepředstavuje komplikaci, protože tento atribut není potřeba, ale mohlo by se stát, že některé parsery \gls{json}u vyhodnotí řetězec jako nevalidní a skončí chybou.
+Ačkoli se dokumentace tváří tak, že data jsou exportována ve formátech \gls{json} nebo \gls{geojson}, v průběhu práce s daty jsme se setkali s tím, že formát dat nebyl vždy přesně podle specifikace těchto formátů. Například může být uveden atribut \verb"wheelchair_accessible", který je typu \verb"bool" a je nastaven na hodnotu \verb"True", nicmně podle specifikace se tyto hodnoty píší s malým písmenem\footnote{V průběhu tvorby této práce byla chyba opravena.}. Pro tuto práci to sice nepředstavuje komplikaci, protože tento atribut není potřeba, ale mohlo by se stát, že některé parsery \gls{json}u vyhodnotí řetězec jako nevalidní a skončí chybou.
 
 \bigbreak
 
 Celá datová platforma Golemio je pojatá jako Open Source projekt\footnote{Programátorská dokumentace je dostupná na https://operator-ict.gitlab.io/golemio/documentation/}. Tedy je možné její zdrojový kód vylepšit či opravit nebo také čtením kódu detailně porozumnět jak zde popisované zpracování dat funguje. Avšak takový rozbor zdrojového kódu je mimo rozsah této práce.
 
+\subsection{Obsah dat}
+
+Data důležitá pro tuto práci jsou ve zdroji dat rozdělená do několika souborů. Tyto soubory pak nesou podstatné údaje, které si rozebereme v této sekci. V dokumnetaci Datové platformy je popsána celá řada souborů, s informacemi vztaženými k hromadné dopravě v nich se dá vyhledávat pomocí hodnot atributů tak, že lze např. vyžádat data pro konkrétní spoj.
+
+\bigbreak
+
+Pro tuto práci budeme využívat výhradně soubor aktuálních poloh vozidel, který má název All Vehicle Positions. Informace o spojích v tomto souboru si pak vyžádáme ze souboru jménem \gls{gtfs} Trips, který obsahuje jízdní řád spoje i jeho cestu.
+
+
 \subsubsection{Pozice vozidel}
 
-Ze zveřejněných dat na této platformě jsou nejdůležijtější data pro tuto práci polohy vozidel. Jelikož se jedná o real-time data, data rychle zastarávají a je nutné je velmi často aktualizaovat.
+Ze zveřejněných dat na této platformě jsou nejdůležijtější data pro tuto práci polohy vozidel. To protože chceme vozidla zobrazovat na mapě a také předvším busou sloužit pro trénování statistických modelů, pomocí kterých budeme následně odhadovat zpoždění. Jelikož se jedná o real-time data, tato data rychle zastarávají. Proto je nutné je velmi často (20 sekund) aktualizovat tak, aby vizualizace reálné situace ještě dávala smysl a také aby nám neunikly žádné vzorky poloh vozidel, mohlo by se totiž stát, že budou přepsány novějším vzorkem.
 
 \bigbreak
 
@@ -160,16 +173,16 @@ Využívané atributy jsou:
 \begin{itemize}
 	\item \verb-coordinates- aktuální \gls{gps} souřadnice vozidla
 
-	\item \verb-origin\_timestamp- čas zachycení polohy vozidla, v časovém pásmu \gls{utc}
+	\item \verb-origin_timestamp- čas zachycení polohy vozidla, v časovém pásmu \gls{utc}
 
-	\item \verb-gtfs\_trip\_id- unikátní identifikátor tripu pro spárování s jízdním řádem
+	\item \verb-gtfs_trip_id- unikátní identifikátor tripu pro spárování s jízdním řádem
 
-	\item \verb-gtfs\_shape\_dist\_traveled- vzdálenost vozidla uražená od začátku jízdy v metrech
+	\item \verb-gtfs_shape_dist_traveled- vzdálenost vozidla uražená od začátku jízdy v metrech
 
-	\item \verb-delay\_stop\_departure- zpoždění zachycené při odjezdu z poslední projeté zastávky v sekundách
+	\item \verb-delay_stop_departure- zpoždění zachycené při odjezdu z poslední projeté zastávky v sekundách
 \end{itemize}.
 
-Příklad dat popisující aktuální polohu vozidla, na kterém je možno vidět strukturu dat i další atrubuty. Řada z nich je pro tuto práci zbytečná. Dále je možno si povšimnout atrubutu \verb-all\_positions-, který obsahuje všechny zaznamenané pozice daného vozdila na jeho aktuální trase, tento atribut je z důvodů objemu dat volitelný a pro tuto práci se nevyužívá.
+Příklad dat popisující aktuální polohu vozidla, na kterém je možno vidět strukturu dat i další atrubuty. Řada z nich je pro tuto práci zbytečná a jsou vynechány. Dále je možno si povšimnout atrubutu \verb-all_positions- (na konci příkladu), který obsahuje všechny zaznamenané pozice daného vozdila na jeho aktuální trase, tento atribut je z důvodů objemu dat volitelný a pro tuto práci se nevyužívá.
 
 \begin{code}[frame=none]
 "geometry":{
@@ -179,44 +192,21 @@ Příklad dat popisující aktuální polohu vozidla, na kterém je možno vidě
 "properties":{
   "trip":{
     "cis_agency_name":"ČSAD Česká Lípa",
-	"cis_id":"260467",
-	"cis_number":3008,
-	"cis_order":2,
-	"cis_parent_route_name":"467",
-	"cis_real_agency_name":"ČSAD Česká Lípa",
-	"cis_short_name":null,
-	"cis_vehicle_registration_number":1073,
+	"cis_real_agency_name":"ČSAD Česká Lípa"
 	"gtfs_route_id":"L467",
-	"gtfs_route_short_name":"467",
 	"gtfs_trip_id":"467_252_200105",
-	"id":"2020-02-23T18:50:00Z_260467_467_3008",
-	"start_cis_stop_id":30107,
-	"start_cis_stop_platform_code":"A",
-	"start_time":"19:50:00",
-	"start_timestamp":"2020-02-23T18:50:00.000Z",
-	"vehicle_type":4,
-	"wheelchair_accessible":true
   },
   "last_position":{
     "bearing":20,
 	"cis_last_stop_id":21393,
 	"cis_last_stop_sequence":28,
 	"delay":261,
-	"delay_stop_arrival":null,
 	"delay_stop_departure":287,
-	"gtfs_last_stop_id":"U3389Z1",
-	"gtfs_last_stop_sequence":30,
-	"gtfs_next_stop_id":"U2987Z30",
-	"gtfs_next_stop_sequence":31,
 	"gtfs_shape_dist_traveled":"64.1",
-	"is_canceled":false,
 	"lat":"50.41881",
 	"lng":"14.91724",
-	"origin_time":"21:29:37",
-	"origin_timestamp":"2020-02-23T20:29:37.000Z",
 	"speed":20,
 	"tracking":2,
-	"trips_id":"2020-02-23T18:50:00Z_260467_467_3008"
 	},
   "all_positions":{
     "features":[],
@@ -229,18 +219,18 @@ Příklad dat popisující aktuální polohu vozidla, na kterém je možno vidě
 
 \subsubsection{Jízdy}
 
-Dále jsou k dispozici data o každém spoji. To je popis trasy vozidla, včetně zastávek a časů příjezdů a odjezdů do/z nich. Také může být vyžádáno k informacím o jízdě připojit celý detailní nákres trasy, tj. lomená čára kopírující celou trasu daného tripu po povrchu Země.
+Dále jsou k dispozici data o každém spoji. To je popis trasy vozidla, včetně zastávek a časů příjezdů a odjezdů do/z nich. Také může být vyžádáno k informacím o jízdě připojit celý detailní nákres trasy, tj. lomená čára kopírující celou trasu daného spoje po povrchu Země.
 
 \bigbreak
 
- Míra unikátnosti identifikátorů těchto tripů je předmětem dohadů a zřejmě jsou pod správou plánovačů \gls{vhd}, nicméně pro účely této práce může být předpokládáno, že každá jízda má vlastní jízdní řád, který se váže na čas a každá jízda jede nejvýše jednou za den.
+ Míra unikátnosti identifikátorů těchto spojů je předmětem dohadů a zřejmě jsou pod správou plánovačů \gls{vhd}, nicméně pro účely této práce může být předpokládáno, že každá jízda má vlastní jízdní řád, který se váže na čas a každá jízda jede nejvýše jednou za den.
 
 \begin{itemize}
-	\item \verb-trip\_headsign- nápis na čele vozidla, typicky cílová stanice
+	\item \verb-trip_headsign- nápis na čele vozidla, typicky cílová stanice
 
-	\item \verb-route\_id- číslo linky
+	\item \verb-route_id- číslo linky
 
-	\item \verb-trip\_id- unikátní identifikátor tripu pro spárování s real-time daty, pravděpodobně odpovídá atributu \verb"gtfs\_trip\_id"
+	\item \verb-trip_id- unikátní identifikátor tripu pro spárování s real-time daty, pravděpodobně odpovídá atributu \verb"gtfs_trip_id"
 
 
 \end{itemize}
@@ -254,44 +244,29 @@ Navíc s každým tripem může být vyžádáno zaslání seznamu zastávek, kt
 
 	\item \verb-departure_time- čas odjezdu spoje do zastávky
 
-	\item \verb-shape_dist\_traveled- vzdálenost zastávky na trase od výchozího bodu daného tripuv metrech
+	\item \verb-shape_dist_traveled- vzdálenost zastávky na trase od výchozího bodu daného tripuv metrech
 
 	\item \verb-stop_id- unikátní indetifikátor zastávky
 
-	\item \verb-coordinates- \gls{gps} souřadnice zastávky, často \verb"null", je třeba využít atributy \verb"stop\_lat" a \verb"stop\_lon"
+	\item \verb-coordinates- \gls{gps} souřadnice zastávky, často \verb"null", je třeba využít atributy \verb"stop_lat" a \verb"stop_lon"
 
 	\item \verb-stop_name- název zastávky
 \end{itemize}
 
 \bigbreak
 
-Příklad dat popisujících jednu jízdu včetně zastávek. Seznam zastávek a body trasy jsou zkráceny vzhledem k objemu dat.
+Příklad dat popisujících jednu jízdu včetně zastávek. Seznam zastávek a body trasy jsou zkráceny vzhledem k objemu dat. Nepotřebné atributy byly smazány pro větší přehlednost. Za povšimnutí stojí, že geometrie zastávky (tedy její souřadnice) mají hodnotu \verb-null- a souřadnice jsou uvedeny v jiném atributu. Takových zmatečných situací je ve vstupních datech celá řada a před zahájením implementace zpracování těchto dat je nutné se vždy důkladně ujistit, že potřebné informace jsou opravdu součástí datové sady. Stejně tak některé atributy, které by mohlo být užitečné přebírat přímo ze zdroje nemůžeme použít protože v reálných datech jsou vždy nebo většinou bez hodnoty. Takové chování se však nedá vyčítat Datatové platformě nebo \gls{ropid}u, protože kvalita dat je vždy závislá na jejich zdroji, v tomto případě samotných vozidlech a záznamových zařízeních v nich.
 
 \begin{code}[frame=none]
-"bikes_allowed":2,
-"block_id":"",
-"direction_id":1,
-"exceptional":1,
 "route_id":"L421",
-"service_id":"1111100-1",
-"shape_id":"L421V4",
 "trip_headsign":"Kolín,Nádraží",
 "trip_id":"421_225_191114",
-"trip_operation_type":1,
-"trip_short_name":"",
-"wheelchair_accessible":2,
 "stop_times":[{
   "arrival_time":"14:14:00",
-  "arrival_time_seconds":null,
   "departure_time":"14:14:00",
-  "departure_time_seconds":null,
-  "drop_off_type":"0",
-  "pickup_type":"0",
   "shape_dist_traveled":0,
-  "stop_headsign":"",
   "stop_id":"U2033Z5",
   "stop_sequence":1,
-  "timepoint":null,
   "trip_id":"421_225_191114",
   "stop":{
     "geometry":{
@@ -302,20 +277,10 @@ Příklad dat popisujících jednu jízdu včetně zastávek. Seznam zastávek a
       "type":"Point"
     },
     "properties":{
-      "level_id":"",
-      "location_type":0,
-      "parent_station":"",
-      "platform_code":"5",
-      "stop_code":null,
-      "stop_desc":null,
       "stop_id":"U2033Z5",
       "stop_lat":49.87486,
       "stop_lon":14.9078,
       "stop_name":"S\u00e1zava,Aut.st.",
-      "stop_timezone":null,
-      "stop_url":"",
-      "wheelchair_boarding":0,
-      "zone_id":"5"
     },
     "type":"Feature"
   },
@@ -345,7 +310,7 @@ Příklad dat popisujících jednu jízdu včetně zastávek. Seznam zastávek a
 
 \subsection{Analýza statických dat}
 
-Sběr dat probíhal ve dnech 20.--23. 2. 2020.
+Sběr dat probíhal ve dnech 20. 2. 2020 -- 23. 2. 2020 z Datové platformy Golemio. Data byla stahovéna po souborech tak, jak jsou popsána výše.
 
 \bigbreak
 
@@ -365,35 +330,11 @@ Pro testovací účely bylo celkem pořízeno 15 794 obrazů dopravní situace z
 
 \bigbreak
 
+Protože zpracování všech vozidel v jednom souboru stojí netriviální množství času analýza dat v těchto souborech je důležitá. Poslouží nám k definici technických požadavků aplikace a později pro její testování.
+
+\bigbreak
+
 Pro stahování těchto souborů byl využit script napsaný v jazyce Bash, který po dobu 4 dnů periodicky každých 20 sekund stáhl aktuální obraz poloh vozidel. Tento stažený dokument pak uložil v komprimovaném formátu a označil časem stažení. Tento script běžel na počítači, který pro účely této práce zapůjčil k využití pan profesor Jakub Klímek, jemuž tímto děkuji.
-
-\begin{code}[frame=none]
-#!/bin/sh
-
-cur_file="current_json_file.json";
-
-while :
-do
-  curl -s --header "Content-Type: application/json; charset=utf-8" \
-  --header "access token" \
-  'https://api.golemio.cz/v1/vehiclepositions' > "$cur_file";
-
-  if [ 0 -ne $? ];
-  then
-    today=`date +%Y-%m-%dT%H.%M.%S`;
-    echo "Curl failed $today" >> downloader.log;
-    sleep 19;
-    continue;
-  fi
-
-  today=`date +%Y-%m-%dT%H.%M.%S`;
-  tar -czf "../raw_data-2/${today}.tar.gz" $cur_file;
-  echo "File ${today}.tar.gz saved." >> downloader.log
-  sleep 20
-
-done
-
-\end{code}
 
 \bigbreak
 
@@ -423,7 +364,7 @@ Avšak ne všechna vozidla v každém souboru jsou nová nebo dostala změněny�
 
 \bigbreak
 
-Další rozbor dat na grafu \ref{fig:stop_distances_result} a v kapitole \ref{TODO:statistika}.
+Další rozbor dat na grafu \ref{fig:stop_distances_result} a v kapitole \ref{section:stats}.
 
 
 

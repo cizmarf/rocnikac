@@ -9,28 +9,17 @@ V této kapitole je popsán návrh technického řešení uvedených problémů
 Běh celé aplikace bude rozdělen do dvou částí.
 
 \begin{itemize}
-	\item Stahování a ukládání real-time dat o polohách vozidel do datového skladu, které budou doplněny o odhad zpoždění pro okamžité zveřejnění v uživatelské aplikaci.
+	\item Stahování a ukládání real-time dat o polohách vozidel do databáze, které budou doplněny o odhad zpoždění pro okamžité zveřejnění v uživatelské aplikaci.
 
 	\item Modelování profilů jízd jednotlivých úseků. Tyto modely budou pak dále sloužit k odhadování zpoždění v budoucnu. Výpočet modelů bude prováděn jednou za delší časový úsek (nejlépe jednou za den).
 \end{itemize}
 
 Protože obě části jsou na sobě závislé v iniciálním běhu bude prováděna první část sběru dat bez odhadu zpoždění, nebo pomocí již existujícího triviálního lineárního odhadu.
 
-\bigbreak
-
-Schéma návrhu celé aplikace a komunikační mapa jednotlivých komponent je ilusrtována na diagramu \ref{fig:design_diagram}.
-
-\begin{figure}
-	\centering
-  \includegraphics[width=\linewidth]{../img/design_diagram}
-  \caption{UML diagram návrhu aplikace}
-  \label{fig:design_diagram}
-\end{figure}
-
 \subsection{Funkční a kvalitativní požadavky}
 
-Nejprve specifikujme požadavky systému, na kterém se pak bude zakládat
-konkrétní návrh řešení jádra celé aplikace (bez backendu vizualizace).
+Nejprve specifikujme požadavky na systém, na kterém se pak bude zakládat
+konkrétní návrh řešení jádra celé aplikace. V této sekci jsou specifikovány pouze moduly stahování dat a výpočtu modelů, front-endová aplikace a část serveru, která komunikuje s touto aplikací jsou popsány níže v kapitole \ref{section:navrh_vizualizace}.
 
 \subsubsection{Funkční požadavky}
 
@@ -44,7 +33,7 @@ Data o polohách vozidel \gls{vhd} v Datové platfomě jsou aktualizována nejpo
 
 \item
 
-Odhad zpoždění se bude provádět na základě historických dat z posledních vyšších jednotek dnů\footnote{Pro demonstrativní účely této práce jsou využívány historická data pouze ze 4 dnů (2 pracovní a 2 víkendové).}. Tím se sníží dopad mimořádné události na předpovědní model, která může na trase vzniknout. Zároveň by však neměla být započítávána data starší několik týdnů, protože dopravní situace se mění v závislosti na ročním období nebo také pokud se na trase vyskytne delší omezení dopravy. Pak je požadováno, aby se takové omezení projevilo v modelu profilu jízdy co možná nejdříve. Navíc se bude rozlišovat mezi daty z pracovních dnů a nepracovních dnů, to protože samotné jízdní řády se mohou lišit\footnote{Ve dnech pracovního volna se v některých případech liší doba jízdy mezi mezastávkama pro stejnou dvojci zastávek. A to je porušení základního předpokladu z kapitoly \ref{section:zakladni_predpoklady} Základní předpoklady.} a také se do velké míry liší hustota dopravy, která ma velký vliv na profil jízdy. TODO do navrhy na zlepseni: Pro zpřesnění výsledků by bylo lepsi respektovat svatky, kazdy den v tydnu zvlast atp.
+Odhad zpoždění se bude provádět na základě historických dat z posledních vyšších jednotek dnů\footnote{Pro demonstrativní účely této práce jsou využívány historická data pouze ze 4 dnů (2 pracovní a 2 víkendové).}. Tím se sníží dopad mimořádné události na předpovědní model, která může na trase vzniknout. Zároveň by však neměla být započítávána data starší několik týdnů, protože dopravní situace se mění v závislosti na ročním období nebo také pokud se na trase vyskytne delší omezení dopravy. Pak je požadováno, aby se takové omezení projevilo v modelu profilu jízdy co možná nejdříve. Navíc se bude rozlišovat mezi daty z pracovních dnů a nepracovních dnů, to protože samotné jízdní řády se mohou lišit\footnote{Ve dnech pracovního volna se v některých případech liší doba jízdy mezi mezastávkama pro stejnou dvojci zastávek. A to je porušení základního předpokladu z kapitoly \ref{section:zakladni_predpoklady} Základní předpoklady.} a také se do velké míry liší hustota dopravy, která ma velký vliv na profil jízdy.
 
 \item
 
@@ -81,13 +70,15 @@ Na datové platformě jsou real-time data o vozidlech dostupná do historie ř�
 
 \subsection{Databáze} \label{subsection:databaze}
 
-Za tímto účelem tato práce využívá relační databázi obsluhovanou dotazovacím jazykem \gls{sql}. Struktura databáze je vyobrazena na EER diagramu \ref{obr:EER}\footnote{SQL dotazy na sestavení celé databaze jsou definovány v příloze database.sql. Pro testovací, debugovací a demonstrační účely slouží navíc i jiné databáze, které jsou struktorou totožné jako produkční databáze.}. Tato databáze se skládá z 5 tabulek. Jsou jimi:
+Za tímto účelem tato práce bude využívat relační databázi obsluhovanou dotazovacím jazykem \gls{sql}. Struktura databáze je vyobrazena na diagramu \ref{obr:EER}\footnote{SQL dotazy na sestavení celé databaze jsou definovány v příloze database.sql. Pro testovací, debugovací a demonstrační účely slouží navíc i jiné databáze, které jsou struktorou totožné jako produkční databáze.}. Tato databáze se skládá z 5 tabulek. Jsou jimi:
 
 
 \begin{figure}[p]\centering
 \includegraphics[width=\linewidth]{../img/eer_database}
-\caption{EER diagram databáze.}
+\caption{vizualizace struktury databáze}
 \label{obr:EER}
+
+TOTO eer diagram
 
 \end{figure}
 
@@ -169,11 +160,26 @@ Za tímto účelem tato práce využívá relační databázi obsluhovanou dotaz
 
 \end{itemize}
 
-Atributy se jménem *source\_id jsou pravděpodobně unikátní identifikátor entity ve zdroji dat, nicméně z dokumentace zdroje to nevyplývá. Také je tento indenfikátor ukládán jako textový řetězec, ačkoli je tvořen pouze číslicemi a podtržítky, není nikde zaručeno, že jej lze jednoduše převést na číselný kód. Takže pro lepší výkon databáze je použito automaticky generované id typu \gls{int}.
+Ve zdroji dat jsou atributy se jménem \verb-source_id- unikátní identifikátor entit, nicméně z dokumentace zdroje nevyplývá jakého jsou datového typu. Také proto je tento indenfikátor ukládán jako textový řetězec, ačkoli je tvořen pouze číslicemi a podtržítky, není nikde zaručeno, že jej lze jednoduše převést na číselný kód. Takže pro lepší výkon databáze je použito automaticky generované id typu \gls{int}.
 
 \bigbreak
 
-Každá tabulka má několik indexů, které zlepšují výkon databáze při vkládání a hledání dat. Obvzláště pokud je atribut označen jako unikátní, kde se při každém vložení ověřuje unikátnost.
+Každá tabulka má několik indexů, které zlepšují výkon databáze při vkládání a hledání dat. Přirozeně indexovány jsou primární klíče, což jsou ve všech tabulkách unikátní identifikátory typu \gls{int}. Dále indexujeme také unikátní identifikátory přebírané ze zdroje dat. A všechny atributy podle kterých vyhledáváme v databázi, atˇ už dotazem přímo z ko'du aplikacce nebo některou z funkcí napsanou přímo v jazyce \gls{sql}. Takové indexy jsou:
+
+\begin{itemize}
+
+	\item \verb-headsigns.headsign- unikátní index, textová hodnota nápisu
+
+	\item \verb-trips.id_headsign.- pro vyhledání všech spojů s danou konečnou stanicí
+
+	\item \verb-trips.trip_source_id- pro vyhledávání spoje podle zdrojového id
+
+	\item \verb-rides.shape_dist_traveled- pro setřídění jízdního řádu
+	\item \verb-inserted- čas vložení záznamu
+
+	\item \verb-trip_coordinates.shape_dist_traveled- pro vybrání vzroků poloh mezi dvojcí zastávek
+
+\end{itemize}
 
 \bigbreak
 
@@ -200,7 +206,11 @@ dokud skrip běží
 
 \bigbreak
 
-Protože všechny infomace ukládané do databáze jsou důležité pro hlavní cíl této práce, tak pokud se vyskytne jízda, který neobsahuje některou z požadovaných infomarcí je pak automaticky zahozena. To je řešeno pomocí databázových transakcí tak, aby stav databáze byl vždy konzistentní. Transakce v obecném smyslu fungují tak, že můžeme měnit data v databázi (i více zázanamů) a tyto změny se zapíší do samotné databáze až po potvrzení, že všechny změny byly provedeny správně, pokud během provádění změn nastane chyba, můžeme v jakékoli fázi provádění změn všechny dosud provedené změny zahodit a vrátit se do původního stavu databáze před započetím transakce.  Tedy pokud nejsou poskytnuta data ve formátu, který skript akceptuje, nebo nějaké povinné atributy chybí. Vložení celé jízdy nebude provedeno.
+Pokud se vyskytne jízda, která postrádá některou z požadovaných infomarcí, je automaticky zahozena. To zdůvodu protože všechny infomace ukládané do databáze jsou důležité pro hlavní cíl této práce. Vkládání do databáze se provádí na několika místech v ko'du aplikace, proto je toto řešeno pomocí databázových transakcí tak, aby stav databáze byl vždy konzistentní.
+
+\bigbreak
+
+Databázové transakce v obecném smyslu fungují tak, že můžeme měnit data v databázi (i více zázanamů) a tyto změny se zapíší do samotné databáze až po potvrzení, že všechny změny byly provedeny správně. Pokud během provádění změn nastane chyba nebo zjistíme, že nám podstaní informace chybí, můžeme v jakékoli fázi provádění změn všechny dosud provedené změny zahodit a vrátit se do původního stavu databáze před započetím transakce.  Tedy pokud nejsou poskytnuta data ve formátu, který skript akceptuje, nebo nějaké povinné atributy chybí. Vložení celé jízdy nebude provedeno.
 
 \bigbreak
 
@@ -209,7 +219,6 @@ Nejčastěji chybějící atribut je zpoždění v poslední zastávce, toto je 
 \bigbreak
 
 Mimo popsanou databázi se do určeného adresáře ukládají trasy jednotlivých jízd, která jsou ve fromátu \gls{geojson} jako lomená čára definována souřadnicemi. Navíc data o trasách jsou používána pouze pro vizualizaci a jsou přijímány vizualizačním nástrojem ve formátu \gls{geojson}, tedy tyto data není nutné vůbec transformovat a není nutné je držet v hlavní databázi.
-TODO do navrhu na zlepseni: lepsi vyuzit postgis databazi
 
 \bigbreak
 
@@ -255,7 +264,7 @@ Všechny spoje $S_{ab}$ bez ohladu na linku nebo dopravce jedou ze zastávky $a$
 
 Během jízdy mohou nastat mimořádnosti, které porušují výše uvedené předpoklady, nicméně detekce mimořádností a jejich řešení je nad rámec této práce a jejich počet je zanedbatelný, proto na statistické modely nebudou mít vliv.
 
-\subsection{Analýza dat a návrh modelování} \label{subsubsection:analyza_dat}
+\subsection{Návrh modelování} \label{subsubsection:analyza_dat}
 
 Na úvod uveďme, že ve všech grafech a následně pro počítání modelů byly všechny zobrazené vzorky poloh vozidel v grafech zarovnány tak, aby jejich jízda ze zastávky $a$ vždy začínala se spožděním 0 sekund. To podle nahlášeného zpoždění v zastávce $a$.
 
@@ -270,7 +279,7 @@ Odhad zpoždění vozidla na trase se v současné době provádí pomocí lin
 
 \bigbreak
 
-Ačkoli je snaha tento model nahradit lepším, v některých situacích může jeho použití i na dále dávat smysl. Zejména pak v případech kdy není k dispozici dostatek dat a nebo je vzdálenost dvou zastávek natolik malá, že nemá smyl ani jakýkoliv odhad zpoždění dělat. (TODO do problemu: Lepší by bylo volit trasy s nejmenší dobou jízdy, ale čas jízdy je promněnlivý a težko se získá skutečná doba jízdy z dat. Navíc v praxi jsou vzdálenost a doba jízdy dostatečně závislé)
+Ačkoli je snaha tento model nahradit lepším, v některých situacích může jeho použití i na dále dávat smysl. Zejména pak v případech kdy není k dispozici dostatek dat a nebo je vzdálenost dvou zastávek natolik malá, že nemá smyl ani jakýkoliv odhad zpoždění dělat.
 
 \subsubsection{Polynomiální profil jízdy}
 
@@ -296,7 +305,7 @@ Stejně tak po analýze profilu jízdy vzávislosti na ujeté vzdálenosti je na
   \label{fig:dojezd_podle_vzdalenosti}
 \end{figure}
 
-Podle charakteru těchto dat nejlépe budou odpovídat modely získané pomocí lineární regrese, resp. polynomiální regrese. Ve strojovém učení se k výpočtu polynomiální regrese využívá algoritmus lineární regrese s upravenými vstupními daty.
+Tak jak pozorujeme na grafech výše, je patrné, že vzorky poloh vytváří jisté vlny. Takové vlny se dají dobře popsat modely získané pomocí lineární regrese, resp. polynomiální regrese. Ve strojovém učení se k výpočtu polynomiální regrese využívá algoritmus lineární regrese s upravenými vstupními daty.
 
 \bigbreak
 
@@ -452,8 +461,23 @@ jinak:
 Vrací: odhad_příjezdu - pravidelný příjezd;
 \end{code}
 
+\subsection{Využití modelů}
 
-\section{Vizualizace dat}
+Z popsaných modelů v naší aplikaci budeme používat lineární model a polynomiální model. Rozhodnutí který model využít uděláme podle následujících faktorů.
+
+\bigbreak
+
+Pro všechny dvojce zastávek které jsou blízko sebe se použije lineární model, protože pro takovou vzdálenost nemá smysl počítat komplikovaný odhad a ani se zabívat možným způsobem odhadu. První důvod je, že takto krátké vzdálenosti mezi zastávkama jsou častým jevem ve městech, ale tento případ nechceme řešit ze stejných důvodů. Dále na těchto krátkých trasách, které mají i krátky čas jízdy velmi vynikají nepřesnosti v měření. Např. odchylka v měření 10 sekund na trase jejíž projetí trvá 100 sekund se projevý velmi výrazně.
+
+\bigbreak
+
+Lineární model zvolíme také v případě, že nemáme dostatek dat pro výpočet polynomiální modelu. Kolik dat je dostatečných se počítá jako funkce délky trasy a délka části dne ve které jsou zastávky obsluhované.
+
+\bigbreak
+
+Na závěr pokud i přes počítání polynomiálního modelu zjistíme, že takový model má horší výsledky než model lineární, nemá smysl využívat polynomiální model.
+
+\section{Vizualizace dat} \label{section:navrh_vizualizace}
 
  Aplikace vizualizace dat bude postavena z částí server a client. Tedy serverová strana se postará o přístup k otevřeným datům z databáze na základě požadavků klienta.
 
@@ -510,3 +534,26 @@ Pro zvolené vozidlo se vykreslí celá jeho trasa včetně všech zastávek. Tr
 \end{figure}
 
 Další infomace o spoji, nebo zastávce se zobrazí v tabulce, která z části překryje mapu. Tato tabulka bude obsahovat informace o zvoleném vozidle, konkrétně konečnou stanici, jeho zpoždění a celý jízdní řád. Respektivě infomace o zvolené zastávce a to název zastávky a všechny spoje, které zvolenou zastávkou budou projíždět včetně jejich pravidelného odjezdu a aktuálního zpoždění. Po kliknutí na zastávku se tedy zobrazí její odjedová tabule.
+
+\section{Architektura}
+
+Schéma návrhu celé aplikace a komunikační mapa jednotlivých komponent je ilusrtována na diagramu \ref{fig:design_diagram}.
+
+\begin{figure}
+	\centering
+  \includegraphics[width=\linewidth]{../img/design_diagram}
+  \caption{UML diagram návrhu aplikace}
+  \label{fig:design_diagram}
+\end{figure}
+
+\bigbreak
+
+Návrh architektury vychází z popsaných funkčních požadavků a analýzy dat.
+
+\bigbreak
+
+Moduly Data Preprocessing a Client App Backend musí být odděleny protože přistují do databáze nezávisle. Z logiky věci Stahování dat databázi plní a back-end klientské aplikace data z databáze čte.
+
+\bigbreak
+
+Modul starající se o modely je také oddělen od zbytku systému, protože bude volán zcela nezávisle na stahování dat i back-endu kienské aplikace. Konstrukce modelů bude číst data z databáze a vytvořené modely ukládat na disk počítače. Program plnící databázi pak bude pouze číst tyto vytvořené modely a pomocí nich odhadovat zpoždění.
