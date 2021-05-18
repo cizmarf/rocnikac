@@ -1,40 +1,56 @@
 \chapter*{Závěr}
 \addcontentsline{toc}{chapter}{Závěr}
 
-Nejprve jsme se seznámili s daty a po analýze dat se zkušeností a intuicí s vývojem dopravních situací jsme rozhodli, jestli je problém možné řešit a jaký dopad by mohl mít v reálném nasazení. Ačkoli požadavek na zlepšení odhadu nebo i předpovědi zpoždění vozidel \gls{vhd} se zdá naprosto přirozený, žádné z dosud existujících řešení zpracovávající real-time data se o nic takového nepokouší. O to víc je to překvapující s přihlédnutím k množství cestujících v Praze i jinde na světě.
+
+Nejprve jsme se seznámili s daty a po jejich analýze se zkušeností a intuicí s vývojem dopravních situací jsme zvážili, zda je problém možné řešit a jaký dopad by mohl mít v reálném nasazení. Ačkoli požadavek na zlepšení odhadu nebo i předpovědi zpoždění vozidel \gls{vhd} se zdá naprosto přirozený, žádné z dosud existujících řešení zpracovávající real-time data se o nic takového nepokouší. O to víc je to překvapující s přihlédnutím k množství cestujících v Praze i jinde na světě.
+
 
 \bigbreak
 
-Dále jsem analyzovali jiné nástroje v České republice vizualizující polohy vozidel a definovali jsme si problém. Následně jsem si zadali samotné požadavky na dílo.
+
+Dále jsme analyzovali jiné nástroje v České republice vizualizující polohy vozidel a definovali jsme problém, Následně jsme si zadali samotné požadavky na dílo.
 
 \bigbreak
 
-Navrhli jsme procesy zpracování vstupních dat a jejich následné využití k pravděpodobnostnímu odhadu zpoždění. Také jsme navrhli algoritmus, který se používá v této práci pro odhat zpoždění a algoritmu který řeší komplikovanější situace, než s jakýma jsme se setkali v pražské dopravní síti. Ačkoli tento návrh alrogitmus neimplementujeme, může sloužit jako základní kámen pro další výzkum a obdobné aplikace. Součástí návrhu je design front-endu aplikace a databázové struktury.
+
+Navrhli jsme procesy zpracování vstupních dat a jejich následné využití k pravděpodobnostnímu odhadu zpoždění. Také jsme navrhli algoritmus, který se používá v této práci pro odhad zpoždění a algoritmu, který řeší komplikovanější situace, než s jakými jsme se setkali v pražské dopravní síti. Ačkoli tento návrh algoritmu neimplementujeme, může sloužit jako základní kámen pro další výzkum a obdobné aplikace. Součástí návrhu je design front-endu aplikace a databázové struktury.
+
 
 \bigbreak
 
-Zdrojový ko'd aplikace jsme zdokumentovali jako součást ko'du a logiku běhu softwaru jsme popsali v kapitole implementace. Rozděleně jsou popsány části zpracování dat, výpočet modelů sloužících k odhadu zpoždění a server-klient vizualizační aplikace. Pro serverou část jsme popsali jak se k ní připojit v případě vývoje jiné klienstké aplikace.
+
+Zdrojový kód aplikace jsme zdokumentovali jako součást kódu a logiku běhu softwaru jsme popsali v kapitole implementace. Rozděleně jsou popsány části zpracování dat, výpočet modelů sloužících k odhadu zpoždění a server-klient vizualizační aplikace. Pro serverovou část jsme popsali, jak se k ní připojit v případě vývoje jiné klientské aplikace.
+
 
 \bigbreak
 
-Na závěr jsme se celou aplikaci otestovali a to od jednotlivých funkcích tříd až po aplikaci jako celek. Testování funkcí jsme provedli pomocí unit testů. Složitější celky včetně správné funkčnosti databáze jsme otestovali pomocí integračních testů. Server byl podroben zátěžovým testům, kdy jsme jej dotazovaly velkým množstvým paralelních dotazů. Rychlost zpracování dat byla měřena v bodě maximálního vytížení.
+
+Na závěr jsme celou aplikaci otestovali, a to od jednotlivých funkčních tříd až po aplikaci jako celek. Testování funkcí jsme provedli pomocí unit testů. Složitější celky včetně správné funkčnosti databáze jsme otestovali pomocí integračních testů. Server byl podroben zátěžovým testům, kdy jsme jej dotazovali velkým množstvím paralelních dotazů. Rychlost zpracování dat byla měřena v bodě maximálního vytížení.
+
 
 \bigbreak
 
-Velkou část testování tvořilo ověření výsledků, tedy odhadů zpoždění. Z kterého vyplunulo, že v nezanedbatelném množství případů došlo opravdu k výraznému zlepšení. Zvolená metoda se však nedá uplatnit ve všech případech a to zejména z důvodu, že klasické řešení dosahuje dobrých výsledků a není tam tedy prostor ke zlepšení.
 
-\section{Návrhy na zlepšení}
+Velkou část testování tvořilo ověření výsledků, tedy odhadů zpoždění. Z kterého vyplynulo, že v nezanedbatelném množství případů došlo opravdu k výraznému zlepšení. Zvolená metoda se však nedá uplatnit ve všech případech, a to zejména z důvodu, že klasické řešení dosahuje dobrých výsledků a není tam tedy prostor ke zlepšení.
 
-Tak jak je aplikace napsána je shopná samostatného běhu, avšak protože jsme nebyli schopní otestovat aplikaci v dlouhodobém nasazení je potřeba vyřešit několik problémů s tím souvisejících. První problém může být objemn dat, které je potřeba skladovat a s tím související spomalující se reakční doba databáze. V takovém případě navrhujeme historická data skladovat na odděleném místě od databáze, kam ukládáme aktuální data a do které se dotazuje server. Dále je potřeba také určit správnou periodu přepočítání modelů a jaké data a jak stará pro ně použít.
+
+\section*{Návrhy na zlepšení}
+
+
+Tak jak je aplikace napsána, je schopná samostatného běhu, avšak protože nemůžeme otestovat aplikaci v dlouhodobém nasazení je potřeba vyřešit několik problémů s tím souvisejících. První problém může být objem dat, které je potřeba skladovat, a tím zpomalující se reakční doba databáze. V takovém případě navrhujeme historická data skladovat na odděleném místě od databáze, kam ukládáme aktuální data a do které se dotazuje server. Dále je potřeba také určit správnou periodu přepočítání modelů a jak vybírat data, která pro počítání modelů použít.
+
 
 \bigbreak
 
-Protože jsme se v návrhu rozhodli rozdělit vstupní data pro výpočet modelů na zaznamená v pracovní den a víkendový den nabízí se zlepšení do dní pracovního volna započíst i státní svátky nebo ještě lépe použít data pro výpočet modelu jen z jednoho dne v týdnu a vázat tak model na den v týdnu.
 
+Protože jsme při návrhu aplikace rozhodli rozdělit vstupní data pro výpočet modelů do dvou podmnožin -- zaznamená v pracovní den a víkendový den. Nabízí se vylepšení do dní pracovního volna započítat i státní svátky. Nebo ještě lépe pro výpočet jednoho modelu použít data jen z jednoho dne v týdnu a vázat tak model na konkrétní den v týdnu.
 \bigbreak
+
 
 Vzhledem k tomu, že v této práci pracujeme s geografickými daty, bylo by vhodnější použít jinou \gls{sql} databázi, protože MySQL databáze není příliš uzpůsobená pro ukládání tohoto typu dat. Vhodnější implementace databáze se nabízí PostgreSQL\footnote{https://www.postgresql.org} s rozšířením PostGIS\footnote{https://postgis.net}.
 
+
 \bigbreak
 
-Jako poslední návrh na zlepšení je samotné vylepšení modelů popisujících profily jízd. Atˇ už zvolením mnodelu jiného typu nebo zcela odlišného přístupu k problému. Aplikace je nastavena tak, aby se při vylepšování modelů nemusely měnit jiné části aplikace. 
+
+Jako poslední návrh na zlepšení je samotné vylepšení modelů popisujících profily jízd. Ať už zvolením modelu jiného typu nebo zcela odlišného přístupu k problému. Aplikace je nastavena tak, aby se při vylepšování modelů nemusely měnit jiné části aplikace.

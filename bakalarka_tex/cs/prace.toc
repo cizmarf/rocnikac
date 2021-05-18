@@ -7,7 +7,7 @@
 \contentsline {subsubsection}{Rozbor trasy}{8}{section*.11}% 
 \contentsline {subsection}{\numberline {1.2.2}Sou\IeC {\v c}asn\IeC {\'a} \IeC {\v r}e\IeC {\v s}en\IeC {\'\i }}{9}{subsection.1.2.2}% 
 \contentsline {section}{\numberline {1.3}Anal\IeC {\'y}za zdroje dat}{9}{section.1.3}% 
-\contentsline {subsection}{\numberline {1.3.1}P\IeC {\v r}\IeC {\'\i }stup k dat\IeC {\r u}m}{9}{subsection.1.3.1}% 
+\contentsline {subsection}{\numberline {1.3.1}P\IeC {\v r}\IeC {\'\i }stup k dat\IeC {\r u}m}{10}{subsection.1.3.1}% 
 \contentsline {subsubsection}{Dokumentace}{10}{section*.12}% 
 \contentsline {subsection}{\numberline {1.3.2}Obsah dat}{11}{subsection.1.3.2}% 
 \contentsline {subsubsection}{Pozice vozidel}{11}{section*.13}% 
@@ -17,21 +17,21 @@
 \contentsline {subsubsection}{Zast\IeC {\'a}vky}{15}{section*.16}% 
 \contentsline {subsubsection}{J\IeC {\'\i }zdy}{15}{section*.17}% 
 \contentsline {subsubsection}{Vstupn\IeC {\'\i } soubory}{15}{section*.18}% 
-\contentsline {section}{\numberline {1.4}Anal\IeC {\'y}za vizualiza\IeC {\v c}n\IeC {\'\i }ch n\IeC {\'a}stroj\IeC {\r u}}{17}{section.1.4}% 
-\contentsline {subsection}{\numberline {1.4.1}Mapov\IeC {\'e} podklady}{17}{subsection.1.4.1}% 
+\contentsline {section}{\numberline {1.4}Anal\IeC {\'y}za vizualiza\IeC {\v c}n\IeC {\'\i }ch n\IeC {\'a}stroj\IeC {\r u}}{16}{section.1.4}% 
+\contentsline {subsection}{\numberline {1.4.1}Mapov\IeC {\'e} podklady}{16}{subsection.1.4.1}% 
 \contentsline {subsection}{\numberline {1.4.2}Sou\IeC {\v c}asn\IeC {\'a} \IeC {\v r}e\IeC {\v s}en\IeC {\'\i }}{17}{subsection.1.4.2}% 
 \contentsline {subsubsection}{Golemio}{17}{section*.19}% 
 \contentsline {subsubsection}{Tram-bus}{17}{section*.20}% 
-\contentsline {subsubsection}{\gls {idsjmk}}{19}{section*.21}% 
+\contentsline {subsubsection}{\gls {idsjmk}}{17}{section*.21}% 
 \contentsline {chapter}{\numberline {2}N\IeC {\'a}vrh \IeC {\v r}e\IeC {\v s}en\IeC {\'\i }}{20}{chapter.2}% 
 \contentsline {section}{\numberline {2.1}\IeC {\'U}vod}{20}{section.2.1}% 
 \contentsline {subsection}{\numberline {2.1.1}Funk\IeC {\v c}n\IeC {\'\i } a kvalitativn\IeC {\'\i } po\IeC {\v z}adavky}{20}{subsection.2.1.1}% 
-\contentsline {subsubsection}{Funk\IeC {\v c}n\IeC {\'\i }\IeC {\nobreakspace }po\IeC {\v z}adavky}{20}{section*.22}% 
+\contentsline {subsubsection}{Funk\IeC {\v c}n\IeC {\'\i } po\IeC {\v z}adavky}{20}{section*.22}% 
 \contentsline {subsubsection}{Kvalitativn\IeC {\'\i } po\IeC {\v z}adavky}{21}{section*.23}% 
 \contentsline {section}{\numberline {2.2}Zpracov\IeC {\'a}n\IeC {\'\i } vstupn\IeC {\'\i }ch dat}{21}{section.2.2}% 
 \contentsline {subsection}{\numberline {2.2.1}Datab\IeC {\'a}ze}{22}{subsection.2.2.1}% 
 \contentsline {subsection}{\numberline {2.2.2}Pln\IeC {\v e}n\IeC {\'\i } datab\IeC {\'a}ze}{25}{subsection.2.2.2}% 
-\contentsline {section}{\numberline {2.3}Algoritmus odhadu zpo\IeC {\v z}d\IeC {\v e}n\IeC {\'\i }}{26}{section.2.3}% 
+\contentsline {section}{\numberline {2.3}Algoritmus odhadu zpo\IeC {\v z}d\IeC {\v e}n\IeC {\'\i }}{25}{section.2.3}% 
 \contentsline {subsection}{\numberline {2.3.1}Z\IeC {\'a}kladn\IeC {\'\i } p\IeC {\v r}edpoklady}{26}{subsection.2.3.1}% 
 \contentsline {subsection}{\numberline {2.3.2}N\IeC {\'a}vrh modelov\IeC {\'a}n\IeC {\'\i }}{27}{subsection.2.3.2}% 
 \contentsline {subsubsection}{Line\IeC {\'a}rn\IeC {\'\i } model}{27}{section*.24}% 
@@ -44,42 +44,42 @@
 \contentsline {subsection}{\numberline {2.4.2}Kvalitativn\IeC {\'\i } po\IeC {\v z}adavky}{36}{subsection.2.4.2}% 
 \contentsline {subsection}{\numberline {2.4.3}N\IeC {\'a}vrh grafiky a UI}{36}{subsection.2.4.3}% 
 \contentsline {section}{\numberline {2.5}Architektura}{37}{section.2.5}% 
-\contentsline {chapter}{\numberline {3}Implementace}{38}{chapter.3}% 
-\contentsline {section}{\numberline {3.1}\IeC {\'U}vod}{38}{section.3.1}% 
-\contentsline {section}{\numberline {3.2}Zpracov\IeC {\'a}n\IeC {\'\i } dat}{39}{section.3.2}% 
-\contentsline {subsection}{\numberline {3.2.1}Konstrukce objekt\IeC {\r u} vozidel}{39}{subsection.3.2.1}% 
-\contentsline {subsection}{\numberline {3.2.2}Odhad zpo\IeC {\v z}d\IeC {\v e}n\IeC {\'\i }}{40}{subsection.3.2.2}% 
-\contentsline {subsection}{\numberline {3.2.3}Kompletace dat a jejich ulo\IeC {\v z}en\IeC {\'\i }}{40}{subsection.3.2.3}% 
-\contentsline {section}{\numberline {3.3}Konstrukce model\IeC {\r u}}{42}{section.3.3}% 
-\contentsline {subsection}{\numberline {3.3.1}\IeC {\v C}ten\IeC {\'\i } dat}{42}{subsection.3.3.1}% 
-\contentsline {subsection}{\numberline {3.3.2}P\IeC {\v r}\IeC {\'\i }prava dat}{44}{subsection.3.3.2}% 
-\contentsline {subsection}{\numberline {3.3.3}Pr\IeC {\'a}ce s modely}{44}{subsection.3.3.3}% 
-\contentsline {section}{\numberline {3.4}Vizualizace dat}{45}{section.3.4}% 
-\contentsline {subsection}{\numberline {3.4.1}Klientsk\IeC {\'a} \IeC {\v c}\IeC {\'a}st}{45}{subsection.3.4.1}% 
-\contentsline {subsubsection}{Mapbox API}{46}{section*.28}% 
-\contentsline {subsubsection}{B\IeC {\v e}h aplikace}{47}{section*.29}% 
-\contentsline {subsection}{\numberline {3.4.2}Serverov\IeC {\'a} \IeC {\v c}\IeC {\'a}st}{49}{subsection.3.4.2}% 
-\contentsline {subsubsection}{Server knihovna}{49}{section*.30}% 
-\contentsline {chapter}{\numberline {4}Testov\IeC {\'a}n\IeC {\'\i } a evaluace}{51}{chapter.4}% 
-\contentsline {section}{\numberline {4.1}Testov\IeC {\'a}n\IeC {\'\i } softwarov\IeC {\'e}ho \IeC {\v r}e\IeC {\v s}en\IeC {\'\i }}{51}{section.4.1}% 
-\contentsline {subsection}{\numberline {4.1.1}Unit testy}{51}{subsection.4.1.1}% 
-\contentsline {subsection}{\numberline {4.1.2}Integra\IeC {\v c}n\IeC {\'\i } testy}{51}{subsection.4.1.2}% 
-\contentsline {subsection}{\numberline {4.1.3}Testy kvality}{51}{subsection.4.1.3}% 
-\contentsline {subsubsection}{Zpracov\IeC {\'a}n\IeC {\'\i } dat}{52}{section*.31}% 
-\contentsline {subsubsection}{Konstrukce model\IeC {\r u}}{53}{section*.32}% 
-\contentsline {subsubsection}{Serverov\IeC {\'a} \IeC {\v c}\IeC {\'a}st u\IeC {\v z}ivatelsk\IeC {\'e} aplikace}{53}{section*.33}% 
-\contentsline {subsubsection}{Vizualizace}{54}{section*.34}% 
-\contentsline {section}{\numberline {4.2}Evaluace v\IeC {\'y}sledk\IeC {\r u}}{56}{section.4.2}% 
-\contentsline {subsection}{\numberline {4.2.1}Konstrukce model\IeC {\r u}}{56}{subsection.4.2.1}% 
-\contentsline {subsection}{\numberline {4.2.2}Odhady zpo\IeC {\v z}d\IeC {\v e}n\IeC {\'\i }}{59}{subsection.4.2.2}% 
-\contentsline {subsubsection}{P\IeC {\v r}\IeC {\'\i }klad zhor\IeC {\v s}en\IeC {\'\i } odhadu zpo\IeC {\v z}d\IeC {\v e}n\IeC {\'\i }}{61}{section*.35}% 
-\contentsline {subsubsection}{P\IeC {\v r}\IeC {\'\i }klad zlep\IeC {\v s}en\IeC {\'\i } odhadu zpo\IeC {\v z}d\IeC {\v e}n\IeC {\'\i }}{63}{section*.36}% 
-\contentsline {section}{\numberline {4.3}Statistiky}{66}{section.4.3}% 
-\contentsline {chapter}{Z\IeC {\'a}v\IeC {\v e}r}{68}{chapter*.37}% 
-\contentsline {section}{\numberline {4.4}N\IeC {\'a}vrhy na zlep\IeC {\v s}en\IeC {\'\i }}{68}{section.4.4}% 
-\contentsline {chapter}{Seznam pou\IeC {\v z}it\IeC {\'e} literatury}{70}{chapter*.38}% 
-\contentsline {chapter}{Seznam obr\'azk\r {u}}{71}{chapter*.39}% 
-\contentsline {chapter}{Seznam tabulek}{73}{chapter*.40}% 
-\contentsline {chapter}{Seznam pou\IeC {\v z}it\IeC {\'y}ch zkratek}{74}{chapter*.41}% 
-\contentsline {chapter}{\numberline {A}P\IeC {\v r}\IeC {\'\i }lohy}{76}{appendix.A}% 
-\contentsline {section}{\numberline {A.1}Prvn\IeC {\'\i } p\IeC {\v r}\IeC {\'\i }loha}{76}{section.A.1}% 
+\contentsline {chapter}{\numberline {3}Implementace}{39}{chapter.3}% 
+\contentsline {section}{\numberline {3.1}\IeC {\'U}vod}{39}{section.3.1}% 
+\contentsline {section}{\numberline {3.2}Zpracov\IeC {\'a}n\IeC {\'\i } dat}{40}{section.3.2}% 
+\contentsline {subsection}{\numberline {3.2.1}Konstrukce objekt\IeC {\r u} vozidel}{40}{subsection.3.2.1}% 
+\contentsline {subsection}{\numberline {3.2.2}Odhad zpo\IeC {\v z}d\IeC {\v e}n\IeC {\'\i }}{41}{subsection.3.2.2}% 
+\contentsline {subsection}{\numberline {3.2.3}Kompletace dat a jejich ulo\IeC {\v z}en\IeC {\'\i }}{41}{subsection.3.2.3}% 
+\contentsline {section}{\numberline {3.3}Konstrukce model\IeC {\r u}}{43}{section.3.3}% 
+\contentsline {subsection}{\numberline {3.3.1}\IeC {\v C}ten\IeC {\'\i } dat}{43}{subsection.3.3.1}% 
+\contentsline {subsection}{\numberline {3.3.2}P\IeC {\v r}\IeC {\'\i }prava dat}{45}{subsection.3.3.2}% 
+\contentsline {subsection}{\numberline {3.3.3}Pr\IeC {\'a}ce s modely}{46}{subsection.3.3.3}% 
+\contentsline {section}{\numberline {3.4}Vizualizace dat}{47}{section.3.4}% 
+\contentsline {subsection}{\numberline {3.4.1}Klientsk\IeC {\'a} \IeC {\v c}\IeC {\'a}st}{47}{subsection.3.4.1}% 
+\contentsline {subsubsection}{Mapbox API}{47}{section*.28}% 
+\contentsline {subsubsection}{B\IeC {\v e}h aplikace}{48}{section*.29}% 
+\contentsline {subsection}{\numberline {3.4.2}Serverov\IeC {\'a} \IeC {\v c}\IeC {\'a}st}{50}{subsection.3.4.2}% 
+\contentsline {subsubsection}{Server knihovna}{50}{section*.30}% 
+\contentsline {chapter}{\numberline {4}Testov\IeC {\'a}n\IeC {\'\i } a evaluace}{53}{chapter.4}% 
+\contentsline {section}{\numberline {4.1}Testov\IeC {\'a}n\IeC {\'\i } softwarov\IeC {\'e}ho \IeC {\v r}e\IeC {\v s}en\IeC {\'\i }}{53}{section.4.1}% 
+\contentsline {subsection}{\numberline {4.1.1}Unit testy}{53}{subsection.4.1.1}% 
+\contentsline {subsection}{\numberline {4.1.2}Integra\IeC {\v c}n\IeC {\'\i } testy}{53}{subsection.4.1.2}% 
+\contentsline {subsection}{\numberline {4.1.3}Testy kvality}{53}{subsection.4.1.3}% 
+\contentsline {subsubsection}{Zpracov\IeC {\'a}n\IeC {\'\i } dat}{54}{section*.31}% 
+\contentsline {subsubsection}{Konstrukce model\IeC {\r u}}{55}{section*.32}% 
+\contentsline {subsubsection}{Serverov\IeC {\'a} \IeC {\v c}\IeC {\'a}st u\IeC {\v z}ivatelsk\IeC {\'e} aplikace}{55}{section*.33}% 
+\contentsline {subsubsection}{Vizualizace}{55}{section*.34}% 
+\contentsline {section}{\numberline {4.2}Evaluace v\IeC {\'y}sledk\IeC {\r u}}{59}{section.4.2}% 
+\contentsline {subsection}{\numberline {4.2.1}Konstrukce model\IeC {\r u}}{59}{subsection.4.2.1}% 
+\contentsline {subsection}{\numberline {4.2.2}Odhady zpo\IeC {\v z}d\IeC {\v e}n\IeC {\'\i }}{61}{subsection.4.2.2}% 
+\contentsline {subsubsection}{P\IeC {\v r}\IeC {\'\i }klad zhor\IeC {\v s}en\IeC {\'\i } odhadu zpo\IeC {\v z}d\IeC {\v e}n\IeC {\'\i }}{63}{section*.35}% 
+\contentsline {subsubsection}{P\IeC {\v r}\IeC {\'\i }klad zlep\IeC {\v s}en\IeC {\'\i } odhadu zpo\IeC {\v z}d\IeC {\v e}n\IeC {\'\i }}{64}{section*.36}% 
+\contentsline {section}{\numberline {4.3}Statistiky}{65}{section.4.3}% 
+\contentsline {chapter}{Z\IeC {\'a}v\IeC {\v e}r}{70}{chapter*.37}% 
+\contentsline {section}{\numberline {4.4}N\IeC {\'a}vrhy na zlep\IeC {\v s}en\IeC {\'\i }}{70}{section.4.4}% 
+\contentsline {chapter}{Seznam pou\IeC {\v z}it\IeC {\'e} literatury}{72}{chapter*.38}% 
+\contentsline {chapter}{Seznam obr\'azk\r {u}}{73}{chapter*.39}% 
+\contentsline {chapter}{Seznam tabulek}{75}{chapter*.40}% 
+\contentsline {chapter}{Seznam pou\IeC {\v z}it\IeC {\'y}ch zkratek}{76}{chapter*.41}% 
+\contentsline {chapter}{\numberline {A}P\IeC {\v r}\IeC {\'\i }lohy}{78}{appendix.A}% 
+\contentsline {section}{\numberline {A.1}Prvn\IeC {\'\i } p\IeC {\v r}\IeC {\'\i }loha}{78}{section.A.1}% 
