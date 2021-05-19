@@ -23,74 +23,46 @@ Běh celé aplikace bude rozdělen do dvou částí.
 
 Protože obě části jsou na sobě závislé v iniciálním běhu bude prováděna první část sběru dat bez odhadu zpoždění, nebo pomocí již existujícího triviálního lineárního odhadu.
 
-
-\subsection{Funkční a kvalitativní požadavky}
-
-
-Nejprve specifikujme požadavky na systém, na kterém se pak bude zakládat
-konkrétní návrh řešení jádra celé aplikace. V této sekci jsou specifikovány pouze moduly stahování dat a výpočtu modelů. Front-endová aplikace a část serveru, která komunikuje s touto aplikací jsou popsány níže v kapitole \ref{section:navrh_vizualizace}.
+\section{Architektura}
 
 
-\subsubsection{Funkční požadavky}
+Schéma návrhu celé aplikace a komunikační mapa jednotlivých komponentů je ilustrována na diagramu \ref{fig:design_diagram}.
 
 
-\begin{itemize}
-\item
-Popsaný odhad změny zpoždění na trase mezi dvěma referenčními body je nutné počítat v co nejkratším čase tak, aby cestující byli dobře informování o stavu jejich spoje a mohli tyto informace využít např. při dobíhání spoje. A proto je potřeba zpracovávat data okamžitě po jejich vydání, spočítat odhad zpoždění a vystavit tato data veřejně. Vzhledem k tomu, že tato data velmi rychle zastarávají, je nutné provádět tento proces co možná nejrychleji\footnote{Průměrná doba jízdy spoje mezi zastávkami je cca 5 min. Rozložení počtu úseků mezi zastávkami k délce jízdy mezi nimi je závislé a podobné rozložení vůči vzdálenosti ilustrované na grafu\ref{fig:stop_distances_result}.}.
+\begin{figure}
+\centering
+  \includegraphics[width=\linewidth]{../img/design_diagram}
+  \caption{UML diagram návrhu aplikace}
+  \label{fig:design_diagram}
+\end{figure}
 
 
-\item
+\bigbreak
 
 
-Data o polohách vozidel \gls{vhd} v Datové platformě jsou aktualizována nejpozději každých 20 sekund, více v kapitole \ref{chapter:analyza_zdroje}. Tedy pro minimalizaci rychlosti zastarávání dat a získání všech existujících vzorků dat o polohách je nutné, data stahovat alespoň každých 20 sekund.
+Návrh architektury vychází z popsaných funkčních požadavků a analýzy dat.
 
 
-\item
+\bigbreak
 
 
-Odhad zpoždění se bude provádět na základě historických dat z posledních vyšších jednotek dnů\footnote{Pro demonstrativní účely této práce jsou využívány historická data pouze ze 4 dnů (2 pracovní a 2 víkendové).}. Tím se sníží dopad mimořádné události na předpovědní model, která může na trase vzniknout. Zároveň by však neměla být započítávána data starší několik týdnů, protože dopravní situace se mění v závislosti na ročním období, nebo také pokud se na trase vyskytne delší omezení dopravy. Pak je požadováno, aby se takové omezení projevilo v modelu profilu jízdy co možná nejdříve. Navíc se bude rozlišovat mezi daty z pracovních dnů a nepracovních dnů, jelikož samotné jízdní řády se mohou lišit\footnote{Ve dnech pracovního volna se v některých případech liší doba jízdy mezi zastávkami pro stejnou dvojici zastávek. A to je porušení základního předpokladu z kapitoly \ref{section:zakladni_predpoklady} Základní předpoklady.} a také se do velké míry liší hustota dopravy, která má velký vliv na profil jízdy.
+Moduly Data Preprocessing a Client App Backend musí být odděleny, protože přistupují do databáze nezávisle. Z logiky věci: stahování dat databázi plní a back-end klientské aplikace data z databáze čte.
 
 
-\item
+\bigbreak
 
 
-Zpracování historických dat bude probíhat vždy jednou za den. To umožní provádět náročnější výpočty, které by za normálního provozu neúměrně přetížily systém. Navíc vzhledem k povaze cíle práce ani není žádoucí zpracování historických dat provádět častěji než jednou denně, protože se nepokoušíme okamžitě reagovat na změnu dopravní situace, ale modelovat profil jízdy vždy až pro celý den.
+Modul starající se o modely je také oddělen od zbytku systému, protože bude volán zcela nezávisle na stahování dat i back-endu klientské aplikace. Konstrukce modelů bude číst data z databáze a vytvořené modely ukládat na disk počítače. Program plnící databázi pak bude pouze číst tyto vytvořené modely a pomocí nich odhadovat zpoždění.
 
+\bigbreak
 
-\item
-
-
-Uložená historická data budou strukturovaná tak, aby nad nimi mohly být prováděny statistické výpočty minimálně o frekvencích jízd spojů, vzdálenostech tras a zpoždění spojů.
-\end{itemize}
-
-
-\subsubsection{Kvalitativní požadavky} \label{subsubsection:kvalitativni_pozadavky}
-
-
-\begin{itemize}
-
-
-\item
-Řešení bude schopno při jedné aktualizaci zpracovat alespoň 1000\footnote{20. 2. 2020 mezi 7:00 a 7:10 bylo na trase přes 600 vozidel} vzorků poloh vozidel, z čehož 10 \% vzorků může být o dosud neznámých jízdách. V tomto případě je potřeba stáhnout jízdní řád konkrétní jízdy a její jízdní profil, což představuje navíc dotaz na Datovou platformu jakožto zdroje dat pro tuto práci.
-
-
-\item
-Vypočítané modely profilů jízd budou počítat odhad zpoždění lépe (až na výjimku popsanou níže), než je lineární odhad. To znamená, že zpoždění vypočítaná pro každý přijatý vzorek polohy vozidla mezi dvěma referenčními body na trase, bude mít menší rozptyl než lineární odhad zpoždění.
-
-
-\item
-V případě, že spočítaný odhad zpoždění vozidla by zastaral natolik rychle, že v okamžiku zveřejnění by již nebyl platný, nedává smysl zpoždění odhadovat pokročilejší metodou.
-
-
-\end{itemize}
-
-
+Odhadnuté zpoždění se spočítá v modulu Data Preprocessing při zpracování každého jednotlivého spoje, poté se spolu s ostatními daty o spoji vloží do databáze jako aktuální zpoždění daného spoje.
 
 
 \section{Zpracování vstupních dat} \label{section:zpracovani_vstupnich_dat}
 
 
-Struktura uložení dat se zakládá na struktuře zdrojových dat popsaných v kapitole \ref{section:analyza_zdroje} Analýza zdroje dat.
+Struktura uložení dat se bude zakládat na struktuře zdrojových dat popsaných v kapitole \ref{chapter:analyza_zdroje}.
 
 
 \bigbreak
@@ -101,21 +73,13 @@ Na datové platformě jsou historická real-time data o vozidlech dostupná řá
 
 \subsection{Databáze} \label{subsection:databaze}
 
-
-Za tímto účelem tato práce bude využívat relační databázi obsluhovanou dotazovacím jazykem \gls{sql}. Struktura databáze je vyobrazena na diagramu \ref{obr:EER}\footnote{SQL dotazy na sestavení celé databáze jsou definovány v příloze database.sql. Pro testovací, debuggovací a demonstrační účely slouží navíc i jiné databáze, které jsou strukturou totožné jako produkční databáze.}. Tato databáze se skládá z 5 tabulek. Jsou jimi:
-
-
+Za tímto účelem tato práce bude využívat relační databázi obsluhovanou dotazovacím jazykem \gls{sql}. Struktura databáze je navržena na \gls{er} diagramu \ref{obr:ER}. Tento návrh vychází ze struktury vstupních dat a požadavků na softwarové řešení. Tato databáze se skládá z 5 tabulek. Jsou jimi:
 
 
 \begin{figure}[p]\centering
-\includegraphics[width=\linewidth]{../img/eer_database}
-\caption{vizualizace struktury databáze}
-\label{obr:EER}
-
-
-TOTO eer diagram
-
-
+\includegraphics[width=\linewidth]{../img/er_diagram}
+\caption{ER diagram návrhu databáze}
+\label{obr:ER}
 \end{figure}
 
 
@@ -207,7 +171,7 @@ TOTO eer diagram
 \end{itemize}
 
 
-\item \verb-rides- TODO do vety trasa každého spoje, seznam zastávek s časy odjezdů a příjezdů do nich tvořící jízdní řád, relační tabulka mezi spoji a zastávkami, pořadí zastávek, v jakém jsou spojem obslouženy, je určeno časem příjezdu, resp. odjezdu tak i atributem \verb-shape_dist_traveled- \label{table:rides}'
+\item \verb-rides- Je tabulka jízdního řádu každého spoje, tvořená seznamem zastávek s časy odjezdů a příjezdů. Pořadí zastávek, v jakém jsou spojem obslouženy, je určeno časem příjezdu, resp. odjezdu nebo atributem \verb-shape_dist_traveled-. \label{table:rides}
 
 
 \begin{itemize}
@@ -268,6 +232,15 @@ Každá tabulka má několik indexů, které zlepšují výkon databáze při vk
 
 Databáze je nastavená tak, aby umožňovala získat všechny potřebné informace o vozidlech, hlavně přístup k historickým real-time datům, a to separovaně pro dvojici referenčních bodů. K tomu se zejména využívá atribut \verb-shape_dist_traveled-, který označuje vzdálenost na trase od výchozí zastávky a je součástí vstupních dat jízdních řádů i aktuálních poloh vozidel.
 
+\bigbreak
+
+Konečnou strukturu vytvořené databáze najdeme na \gls{eer} diagramu \ref{fig:EER}. \gls{sql} dotazy na sestavení celé databáze jsou definovány v příloženém souboru database.sql. Pro testovací, debuggovací a demonstrační účely jsou vytvořeny navíc i jiné databáze, které jsou strukturou totožné jako produkční databáze.
+
+\begin{figure}[p]\centering
+\includegraphics[width=\linewidth]{../img/eer_database}
+\caption{ER diagram návrhu databáze}
+\label{obr:EER}
+\end{figure}
 
 \subsection{Plnění databáze}
 
@@ -301,13 +274,7 @@ Pokud se vyskytne jízda, která postrádá některou z požadovaných informac�
 \bigbreak
 
 
-Databázové transakce v obecném smyslu fungují tak, že můžeme měnit data v databázi (i více záznamů) a tyto změny se zapíší do samotné databáze až po potvrzení, že všechny změny byly provedeny správně. Pokud během provádění změn nastane chyba nebo zjistíme, že nám podstatné informace chybí, můžeme v jakékoli fázi provádění změn všechny dosud provedené změny zahodit a vrátit se do původního stavu databáze před započetím transakce.  Tedy pokud nejsou poskytnuta data ve formátu, který skript akceptuje, nebo nějaké povinné atributy chybí. Vložení celé jízdy nebude provedeno.
-
-
-\bigbreak
-
-
-Nejčastěji chybějící atribut je zpoždění v poslední zastávce, to je nutné vědět pro počítání zpoždění mezi referenčními body (zastávkami). Absence této informace může být způsobena tím, že vozidlo vůbec nevysílá data potřebná k jejímu dopočtení, pak nemá smysl jej do databáze zahrnovat. Nebo vozidlo již data vysílá, ale ještě nezahájilo jízdu, tedy nemá žádnou poslední projetou zastávku, v takovém případě budou data ignorována, až do doby příchodu první relevantní informace.
+Databázové transakce v obecném smyslu fungují tak, že můžeme měnit data v databázi (i více záznamů) a tyto změny se zapíší do samotné databáze až po potvrzení, že všechny změny byly provedeny správně. Pokud během provádění změn nastane chyba nebo zjistíme, že nám podstatné informace chybí, můžeme v jakékoli fázi provádění změn všechny dosud provedené změny zahodit a vrátit se do původního stavu databáze před započetím transakce.  Tedy pokud nejsou poskytnuta data ve formátu, který skript akceptuje, nebo nějaké povinné atributy chybí. Vložení celé jízdy nebude provedeno. Nejčastěji chybějící atribut je zpoždění v poslední zastávce.
 
 
 \bigbreak
@@ -319,7 +286,7 @@ Mimo popsanou databázi se do určeného adresáře ukládají trasy jednotlivý
 \section{Algoritmus odhadu zpoždění}
 
 
-Z formulování problému vyplývá, že se má odhadovat zpoždění mezi dvěma referenčními body a jediné takové jsou zastávky na trase daného spoje. Cíl algoritmu může být tedy formulován, jako vytvoření popisu průběhu trasy mezi každou dvojicí zastávek, kterou alespoň jeden spoj obsluhuje a jsou bezprostředně sousedící ve sledu zastávek ve směru jízdy tohoto spoje. Nechť všechny dvojice zastávek a spoje je obsluhující splňující předcházející předpoklad označují jako $AB$ a $S$. Jedna dvojice zastávek pak bude $(a, b)$ a spoje je obsluhující se označují jako $S_{ab}$. První zastávku tedy označíme $a$ a druhou $b$.
+Z formulování problému vyplývá, že se má odhadovat zpoždění mezi dvěma referenčními body a jediné takové jsou zastávky na trase daného spoje. Cíl algoritmu může být tedy formulován, jako vytvoření popisu průběhu trasy mezi každou dvojicí zastávek, kterou alespoň jeden spoj obsluhuje a jsou bezprostředně sousedící ve sledu zastávek ve směru jízdy tohoto spoje. Nechť všechny dvojice zastávek a spoje je obsluhující splňující předcházející předpoklad označují jako $AB$ a $S$. Jedna dvojice zastávek pak bude $(a, b)$ a spoje je obsluhující se označují jako $S_{ab}$. První zastávku libovolné dvojce zastávek z $AB$ označíme $a$ a následující zastávku $b$.
 
 
 \bigbreak
@@ -509,8 +476,15 @@ Nevyhovující průběh trasy se dvěma kritickými body $x$ a $y$ na trase odpo
 
 \bigbreak
 
+Ilustrujme výše popsané na modelovém příkladu na grafu \ref{fig:concave_hull}. Uvažujeme vozidlo jedoucí na trase mezi dvojicí zastávek, které jsou ve vzdálenosti 10 km. Pravidelný čas jízdy je 720 s. Na trase jsou 2 kritické body ve vzdálenosti 1.5 až 2 km a 8 až 8.5 km, ty si můžeme představit jako pomalu pojíždějící kolonu. Na tomto grafu máme vyobrazené 4 možné průjezdy této trasy: vozidlo projede bez zdržení, zdrží se pouze v bodě $x$, zdrží se pouze v bodě $y$ a zdrží se v obou bodech $x$ i $y$. O předjetí vozdila, které projede zcela bez zdržení, můžeme rozhodnout až po projetí bodu $y$. Stejně tak o zpoždění vozidla, které se zdrží v obou bodech, můžeme rozhodnout až v okamžiku zaseknutí se v bodě $y$. Všechny vzorky vozidel, které by se promítly do prostoru vyznačeného oranžovou barvou, mají z našeho pohledu nezměněné zpoždění.
 
-TODO obrazek modelu
+
+\begin{figure}
+\centering
+  \includegraphics[width=\linewidth]{../img/concave_hull}
+  \caption{Úsek s nepravidelným zpožděním}
+  \label{fig:concave_hull}
+\end{figure}
 
 
 \bigbreak
@@ -662,42 +636,6 @@ Na závěr, pokud i přes počítání polynomiálního modelu zjistíme, že ta
  Aplikace vizualizace dat bude postavena z částí server a klient. Tedy serverová strana se postará o přístup k otevřeným datům z databáze na základě požadavků klienta.
 
 
-\subsection{Funkční požadavky}
-
-
-Funkční požadavky vyplývají z rozboru existujících řešení v kapitole \ref{subsection:soucasna_reseni_front_end}. Konkrétně z jejich uživatelské přívětivosti a užitečnosti zobrazovaných informací.
-
-
-\begin{itemize}
-
-
-\item Aplikace vykreslí interaktivní mapu Prahy, Středočeského kraje a širšího okolí obsluhovaného \gls{pid}em do webového rozhraní, kterou bude možné posouvat či zoomovat.
-
-
-\item V této mapě budou zobrazeny vozidla na aktuálních pozicích a budou se automaticky posouvat po mapě tak, jak se pohybují ve skutečnosti.
-
-
-\item Po kliknutí na vozidlo se zobrazí jeho celá trasa včetně zastávek, časů průjezdů a jeho dopočítaného zpoždění.
-
-
-\item Po kliknutí na zastávku se zobrazí seznam spojů, které budou projíždět vybranou zastávkou a jejich trasy se vykreslí do mapy.
-
-
-\end{itemize}
-
-
-\subsection{Kvalitativní požadavky}
-
-
-Front-end aplikace musí být schopný zobrazit v mapě řádově tisíce vozidel. Nebo je v případě velké hustoty vozidel na malém prostoru skrýt tak, aby nedošlo k matení uživatele.
-
-
-\bigbreak
-
-
-Serverová část včetně databáze bude schopná obsloužit desítky dotazů za sekundu, a to pouze pro demonstrační účely. Účelem práce tedy není budování robustního back-endového řešení schopného produkčního nasazení.
-
-
 \subsection{Návrh grafiky a UI}
 
 
@@ -736,37 +674,3 @@ Pro zvolené vozidlo se vykreslí celá jeho trasa včetně všech zastávek. Tr
 
 
 Další informace o spoji, nebo zastávce se zobrazí v tabulce, která z části překryje mapu. Tato tabulka bude obsahovat informace o zvoleném vozidle, konkrétní konečnou stanici, jeho zpoždění a celý jízdní řád. Respektive informace o zvolené zastávce – název zastávky a všechny spoje, které zvolenou zastávkou budou projíždět včetně jejich pravidelného odjezdu a aktuálního zpoždění. Po kliknutí na zastávku se tedy zobrazí její odjezdová tabule.
-
-
-\section{Architektura}
-
-
-Schéma návrhu celé aplikace a komunikační mapa jednotlivých komponentů je ilustrována na diagramu \ref{fig:design_diagram}.
-
-
-\begin{figure}
-\centering
-  \includegraphics[width=\linewidth]{../img/design_diagram}
-  \caption{UML diagram návrhu aplikace}
-  \label{fig:design_diagram}
-\end{figure}
-
-
-\bigbreak
-
-
-Návrh architektury vychází z popsaných funkčních požadavků a analýzy dat.
-
-
-\bigbreak
-
-
-Moduly Data Preprocessing a Client App Backend musí být odděleny, protože přistupují do databáze nezávisle. Z logiky věci: Stahování dat databázi plní a back-end klientské aplikace data z databáze čte.
-
-
-\bigbreak
-
-
-Modul starající se o modely je také oddělen od zbytku systému, protože bude volán zcela nezávisle na stahování dat i back-endu klientské aplikace. Konstrukce modelů bude číst data z databáze a vytvořené modely ukládat na disk počítače. Program plnící databázi pak bude pouze číst tyto vytvořené modely a pomocí nich odhadovat zpoždění.
-
- 

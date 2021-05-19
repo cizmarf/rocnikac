@@ -55,3 +55,8 @@ def get_args_demo():
 	args = get_args()
 	args.static_demo = True
 	return args
+
+def get_args_live_demo():
+	args = get_args()
+	args.static_data = False
+	return args

@@ -242,3 +242,68 @@ class TestEstimation(unittest.TestCase):
 		# plt.hist(stops_variances[:, 1], density=False)
 		# plt.show()
 
+	def test_get_linear_vs_poly(self):
+
+		## y should be polynomial function
+		## for this example tangent looks better and it is easier to visualize
+		## it is described as a polynomial function to prevent confusing the reader
+		x = np.linspace(-1, 1, 100)
+		y = np.tan(x)
+
+		x = (x + 1) * 5
+		y = (y + np.tan(1)) * ( 720 / (np.tan(1) * 2))
+
+		x1 = np.linspace(-0.9, -0.7, 100)
+		y1 = np.tan(x1)
+
+		x1 = (x1 + 1) * 5
+		y1 = (y1 + np.tan(1)) * (720 / (np.tan(1) * 2))
+
+		x2 = np.linspace(-0.1, 0.1, 100)
+		y2 = np.tan(x2)
+
+		x2 = (x2 + 1) * 5
+		y2 = (y2 + np.tan(1)) * (720 / (np.tan(1) * 2))
+
+		plt.plot([0, 10], [0, 720], label="lineární profil jízdy")
+		plt.plot(x, y, label="polynomiální profil jízdy")
+
+		# plt.fill_between(x1, y1)
+		# plt.fill_between(x2, y2)
+
+		plt.fill([0, 0, x2[-1], x2[-1], x2[0], x2[0]], [y2[0], y2[-1], y2[-1], 0, 0, y2[0]], 'C3', alpha=0.2, label='4,5.' + u'\u2013' + '5,5. km, 46 s')
+		plt.fill([0, 0, x1[-1], x1[-1], x1[0], x1[0]], [y1[0], y1[-1], y1[-1], 0, 0, y1[0]], 'C2', alpha=0.2, label='0,5.' + u'\u2013' + '1,5. km, 97 s')
+
+		# plt.plot([0, x1[0]], [y1[0], y1[0]])
+		# plt.plot([0, x1[-1]], [y1[-1], y1[-1]])
+		#
+		# plt.plot([0, x2[0]], [y2[0], y2[0]])
+		# plt.plot([0, x2[-1]], [y2[-1], y2[-1]])
+
+		print(y1[-1] - y1[0])
+		print(y2[-1] - y2[0])
+
+		# plt.plot([0, x1[-1]], [120,120])
+		plt.xlabel('ujetá vzdálenost [km]')
+		plt.ylabel('uplynulý čas jízdy [s]')
+		plt.legend(loc='best')
+		plt.savefig('lin_vs_poly.pdf')
+		plt.show()
+
+	def test_get_concave_hull(self):
+
+		plt.plot([0, 8, 8.5, 10], np.array([0, 300, 656, 720]) + 20, label='zdržení v prvním kritickém bodě')
+		plt.plot([0, 1.5, 2, 10], np.array([0, 64, 420, 720]) + 40, label='zdržení v druhém kritickém bodě')
+		plt.plot([0, 10], np.array([0, 375]) + 0, label='průjezd trasy bez zdržení')
+		plt.plot([0, 1.5, 2, 8, 8.5, 10], np.array([0, 64, 420, 645,  1001, 1057]) + 60, label='zdržení v obou kritických bodech')
+		print( np.concatenate((np.array([0, 300, 656, 720]) + 20, np.array([720, 420, 64, 0]) + 40)))
+		plt.fill([0, 8, 8.5, 10, 10, 2, 1.5, 0], np.concatenate((np.array([0, 300, 656, 720]) + 20, np.array([720, 420, 64, 0]) + 40)), 'C1', alpha=0.2, label='prostor s neměnícím se odhadem zpoždění')
+
+		plt.annotate('1. kritický bod (x)', xy=(1.5, 0))
+		plt.annotate('2. kritický bod (y)', xy=(7.7, 0))  # should be 8
+
+		plt.xlabel('ujetá vzdálenost [km]')
+		plt.ylabel('uplynulý čas jízdy [s]')
+		plt.legend(loc='best')
+		plt.savefig('concave_hull.pdf')
+		plt.show()

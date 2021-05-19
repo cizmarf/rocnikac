@@ -2,7 +2,7 @@
 
 \chapter{Analýza}
 
-V této kapitole je detailně popsán řešený problém a způsoby navrženého a současného řešení. Dále je popsán zdroj dat, se kterým budeme v této práci pracovat. 
+V této kapitole je detailně popsán řešený problém a způsoby navrženého a současného řešení. Dále je popsán zdroj dat, se kterým budeme v této práci pracovat.
 
 \section{Úvod}
 
@@ -11,6 +11,8 @@ Spoje, které zajišťují hromadnou dopravu, jezdí podle jízdních řádů, k
 \bigbreak
 
 Délka trasy mezi dvěma referenčními body nezřídka dosahuje i několika desítek kilometrů\footnote{Podle dat pro spoje jedoucí v 20. 2. 2020 je medián vzdáleností mezi zastávkami, mezi kterými projede alespoň jeden spoj denně 943 m. Průjezdů mezi zastávkami ve vzdálenosti více než 10 kilometrů je 784, přičemž průjezdů mezi zastávkami ve vzdálenosti alespoň 2 km je přibližně 15 000.}. Na těchto úsecích mohou vznikat mimořádné události, které se dají predikovat jen s těží. Nicméně ve většině případů je průběh jízdy ovlivněn pouze obvyklým provozem v dané denní době.
+
+\bigbreak
 
 Detailní rozbor počtu průjezdů mezi zastávkami v daných vzdálenostech je vidět na grafu \ref{fig:stop_distances_result}. Kde průjezdem se myslí každý jednotlivý průjezd vozidla mezi danou dvojcí zastávek v daný den. Data jsou platná pro spoje jedoucí 20. 2. 2020.
 
@@ -98,12 +100,18 @@ Nicméně tento algoritmus nijak nezohledňuje variabilitu profilu trasy. Totiž
 
 \bigbreak
 
-TODO obrazek linearniho modelu
+Proto je potřeba tento odhad zpřesnit, což je cílem naší práce. K tomuto cíli jsme byli nasměrováni v rámci schůzky s pracovníky společnosti OICT, kde bylo řečeno, že toto problém není řešen v současném řešení.
 
 \bigbreak
 
-Proto je potřeba tento odhad zpřesnit, což je cílem naší práce. K tomuto cíli jsme byli nasměrováni v rámci schůzky s pracovníky společnosti OICT, kde bylo řečeno, že toto problém není řešen v současném řešení.
+Současné řešení ve srovnání s navrhovaným řešením je zobrazeno na grafu \ref{fig:lin_vs_poly}. Zde je zobrazen modelový příklad trasy vozidla jedoucí trasu dlouhou 10 km za 720 s. Při použití současného řešení se na vozidlo nahlíží, jakože jede rychlostí 50 km/h po celou trasu. Zatímco navrhované řešení modeluje obvyklé výkyvy rychlosti, a tedy zohledňuje při odhadu zpoždění čas jízdy jednotlivých úseků celé trasy. Konkrétně v tomto modelovém příkladě uvažované vozidlo na začátku své trasy projelo úsek mezi 0,5. km a 1,5 km za 96 s (37,5 km/h), což odpovídá např. výjezdu z města. Úsek mezi 4,5. km a 5,5. km vozidlo ujelo za 46 s (78 km/h), což může být jízda mezi městy. Pokud tedy vozidlo pojede podle modelu jízdy tak, jak je na grafu zobrazeno oranžovou křivkou, budeme mu po celou dobu jízdy předpovídat konstantní zpoždění. Naopak podle současného lineárního modelu se odhad zpoždění v průběhu trasy může pohybovat v rozmezí několika desítek sekund.
 
+\begin{figure}
+	\centering
+  \includegraphics[width=\linewidth]{../img/lin_vs_poly}
+  \caption{Srovnání současného řešení s navrhovaným, modelový příklad}
+  \label{fig:lin_vs_poly}
+\end{figure}
 
 \section{Analýza zdroje dat} \label{chapter:analyza_zdroje}
 
@@ -143,11 +151,11 @@ Oficiální uživatelská dokumentace datové platformy\footnote{Golemio: https:
 
 \bigbreak
 
-Každá datová sada je exportována ve formátu \gls{geojson}, pokud se jedná o geografická data, nebo jinak ve formátu \gls{json}. Přistupuje se k nim přes jednotné webové rozhraní pomocí \gls{http} požadavku daného \gls{url} adresou a jeho hlavičkou.
+Každá datová sada je exportována ve formátu \gls{geojson}, pokud se jedná o geografická data, nebo jinak ve formátu \gls{json}. Přistupuje se k nim přes jednotné webové rozhraní pomocí \gls{http} get požadavku daného \gls{url} adresou, parametry a jeho hlavičkou. Upozorněme, že pro úspěšný přístup k datům je potřeba se na Datové platformě zaregistrovat a do hlavičky požadavku vždy umístit i vygenerovaný token.
 
 \bigbreak
 
-Ačkoli se dokumentace tváří tak, že data jsou exportována ve formátech \gls{json} nebo \gls{geojson}, v průběhu práce s daty jsme se setkali s tím, že formát dat nebyl vždy přesně podle specifikace těchto formátů. Například může být uveden atribut \verb"wheelchair_accessible", který je typu \verb"bool" a je nastaven na hodnotu \verb"True", nicméně podle specifikace se tyto hodnoty píší s malým písmenem\footnote{V průběhu tvorby této práce byla chyba opravena.}. Pro tuto práci to sice nepředstavuje komplikaci, jelikož tento atribut není potřeba, ale mohlo by se stát, že některé parsery formátu \gls{json} vyhodnotí řetězec jako nevalidní a skončí chybou.
+Ačkoli se dokumentace tváří tak, že data jsou exportována ve formátech \gls{json} nebo \gls{geojson}, v průběhu práce s daty jsme se setkali s tím, že formát dat nebyl vždy přesně podle specifikace těchto formátů. Například může být uveden atribut \verb"wheelchair_accessible", který je typu \verb"boolean" a je nastaven na hodnotu \verb"True", nicméně podle specifikace se tyto hodnoty píší s malým písmenem\footnote{V průběhu tvorby této práce byla chyba opravena.}. Pro tuto práci to sice nepředstavuje komplikaci, jelikož tento atribut není potřeba, ale mohlo by se stát, že některé parsery formátu \gls{json} vyhodnotí řetězec jako nevalidní a skončí chybou.
 
 \bigbreak
 
@@ -159,12 +167,30 @@ Data důležitá pro tuto práci jsou ve zdroji dat rozdělená do několika sou
 
 \bigbreak
 
-Pro tuto práci budeme využívat výhradně soubor aktuálních poloh vozidel, který má název All Vehicle Positions. Informace o spojích v tomto souboru si pak vyžádáme ze souboru jménem \gls{gtfs} Trips, který obsahuje jízdní řád spoje i jeho cestu.
+Pro tuto práci budeme využívat výhradně soubor aktuálních poloh vozidel, který má název All Vehicle Positions.
 
+\bigbreak
+
+Informace o nově nalezených spojích v souboru s polohy vozidel si pak vyžádáme jednotlivě pro každý spoj ze souboru jménem \gls{gtfs} Trip, který obsahuje jízdní řád spoje i jeho cestu.
+
+\bigbreak
+
+Dále je možné využít soubor zastávek se jménem \gls{gtfs} Stops, který by měl obsahovat všechny vyskytující se zastávky. Tento soubor je vhodné zpracovat na začátku běhu aplikace. Musíme však být připraveni na možný výskyt nové zastávky, která nebyla nalezena v tomto souboru zastávek, ale je nalezena v jízdním řádu spoje a být schopni vložit takovou zastávku do databáze. Proto pro nás nebude tento soubor příliš důležitý.  Datový formát reprezentace zastávek je však stejný v souboru zastávek i souboru jízdního řádu spoje.
+
+\bigbreak
+
+Diagram zobrazující strukturu dat v Datové platformě je zobrazen na obrázku \ref{}. Uvádíme zde pouze datové sady potřebné pro tuto práci, to jsou výše popsané soubory. Stejně tak popisujeme asociace mezi daty tak, jak je využíváme v této práci, např.: každé vozidlo může být na vyžádání dolněno o jízdní řád, tuto relaci však nevyužíváme.
+
+\begin{figure}
+	\centering
+  \includegraphics[width=\linewidth]{../img/relace_vstupnich_dat}
+  \caption{Struktura vstupních dat a relace mezi nimi}
+  \label{fig:relace_vstupnich_dat}
+\end{figure}
 
 \subsubsection{Pozice vozidel}
 
-Ze zveřejněných dat na této platformě patří mezi nejdůležitější data pro tuto práci polohy vozidel, jelikož chceme vozidla zobrazovat na mapě. A také budou především sloužit pro trénování statistických modelů, pomocí kterých budeme následně odhadovat zpoždění. Jelikož se jedná o real-time data, tato data rychle zastarávají. Proto je nutné je velmi často (20 sekund) aktualizovat tak, aby vizualizace reálné situace ještě dávala smysl. A také aby nám neunikly žádné vzorky poloh vozidel. Mohlo by se totiž stát, že budou přepsány novějším vzorkem.
+Ze zveřejněných dat na této platformě patří mezi nejdůležitější data pro tuto práci polohy vozidel, jelikož chceme vozidla zobrazovat na mapě. Tato data budou také sloužit pro trénování statistických modelů, pomocí kterých budeme následně odhadovat zpoždění. Jelikož se jedná o real-time data, tato data rychle zastarávají. Proto je nutné je velmi často (každých 20 sekund) stahovat tak, aby vizualizace reálné situace ještě dávala smysl. A také aby nám neunikly žádné vzorky poloh vozidel. Mohlo by se totiž stát, že poslední zaznamenaný vzorek polohy bude přepsán novějším vzorkem.
 
 \bigbreak
 
@@ -314,6 +340,10 @@ Sběr dat probíhal ve dnech 20. 2. 2020 -- 23. 2. 2020 z Datové platformy Gole
 
 \bigbreak
 
+Pro stahování těchto souborů byl využit script napsaný v jazyce Bash, který po dobu 4 dnů periodicky každých 20 sekund stahoval aktuální obraz poloh vozidel. Tento stažený dokument pak uložil v komprimovaném formátu a označil časem stažení. Tento script běžel na počítači, který pro účely této práce zapůjčil k využití pan profesor Jakub Klímek, jemuž tímto děkuji.
+
+\bigbreak
+
 Data byla přebírána pouze z datových souborů o každém jednotlivém spoji a aktuálních polohách vozidel stahovaných každých 20 sekund. Tedy pokud určitou zastávkou žádný spoj neprojel, nebo se uložení spoje z důvodu neúplných dat nezdařilo, může nějaká zastávka v databázi chybět. Stejně tak mohou chybět i nějaké spoje. Nejčastěji chybějící požadovaná data jsou informace o zpoždění spoje v poslední zastávce a zcela nenalezený spoj ve zdroji dat (tedy chybějící jízdní řád). Nicméně jedná se o zanedbatelné množství spojů. Práce totiž nemůže počítat s poškozenými daty a není jejím úkolem držet všechny zastávky, ale pouze ty, kterými nějaký spoj projíždí. To z důvodu přehlednosti zastávek při jejich vizualizaci, kde ukazovat nepoužívané zastávky nemá smysl. A také není smysluplné počítat odhady zpoždění pro tyto neobsluhované zastávky.
 
 \subsubsection{Zastávky} \label{subsubsection:zastavky}
@@ -331,10 +361,6 @@ Pro testovací účely bylo celkem pořízeno 15 794 obrazů dopravní situace z
 \bigbreak
 
 Protože zpracování všech vozidel v jednom souboru stojí netriviální množství času, analýza dat v těchto souborech je důležitá. Poslouží nám k definici technických požadavků aplikace a později pro její testování.
-
-\bigbreak
-
-Pro stahování těchto souborů byl využit script napsaný v jazyce Bash, který po dobu 4 dnů periodicky každých 20 sekund stahoval aktuální obraz poloh vozidel. Tento stažený dokument pak uložil v komprimovaném formátu a označil časem stažení. Tento script běžel na počítači, který pro účely této práce zapůjčil k využití pan profesor Jakub Klímek, jemuž tímto děkuji.
 
 \bigbreak
 
@@ -366,8 +392,69 @@ Avšak ne všechna vozidla v každém souboru jsou nová nebo dostala změny opr
 
 Další rozbor dat na grafu \ref{fig:stop_distances_result} a v kapitole \ref{section:stats}.
 
+\subsection{Funkční a kvalitativní požadavky}
 
 
+Nejprve specifikujme požadavky na systém, na kterém se pak bude zakládat
+konkrétní návrh řešení jádra celé aplikace. Funkční a kvalitativní požadavky vycházejí z analýzy problému a jeho řešení a jsou založeny na analýze vstupních souborů v kapitole \ref{subsubsection:vstupni_soubory}.
+
+\bigbreak
+
+V této sekci jsou specifikovány pouze moduly stahování dat a výpočtu modelů. Front-endová aplikace a část serveru, která komunikuje s touto aplikací jsou popsány níže v kapitole \ref{section:navrh_vizualizace}.
+
+
+\subsubsection{Funkční požadavky}
+
+
+\begin{itemize}
+\item
+Popsaný odhad změny zpoždění na trase mezi dvěma referenčními body je nutné počítat v co nejkratším čase tak, aby cestující byli dobře informování o stavu jejich spoje a mohli tyto informace využít např. při dobíhání spoje. A proto je potřeba zpracovávat data okamžitě po jejich vydání, spočítat odhad zpoždění a vystavit tato data veřejně. Vzhledem k tomu, že tato data velmi rychle zastarávají, je nutné provádět tento proces co možná nejrychleji\footnote{Průměrná doba jízdy spoje mezi zastávkami je cca 5 min. Rozložení počtu úseků mezi zastávkami k délce jízdy mezi nimi je závislé a podobné rozložení vůči vzdálenosti ilustrované na grafu\ref{fig:stop_distances_result}.}.
+
+
+\item
+
+
+Data o polohách vozidel \gls{vhd} v Datové platformě jsou aktualizována nejpozději každých 20 sekund, více v kapitole \ref{chapter:analyza_zdroje}. Tedy pro minimalizaci rychlosti zastarávání dat a získání všech existujících vzorků dat o polohách je nutné, data stahovat alespoň každých 20 sekund.
+
+
+\item
+
+
+Odhad zpoždění se bude provádět na základě historických dat z posledních vyšších jednotek dnů\footnote{Pro demonstrativní účely této práce jsou využívány historická data pouze ze 4 dnů (2 pracovní a 2 víkendové).}. Tím se sníží dopad mimořádné události na předpovědní model, která může na trase vzniknout. Zároveň by však neměla být započítávána data starší několik týdnů, protože dopravní situace se mění v závislosti na ročním období, nebo také pokud se na trase vyskytne delší omezení dopravy. Pak je požadováno, aby se takové omezení projevilo v modelu profilu jízdy co možná nejdříve. Navíc se bude rozlišovat mezi daty z pracovních dnů a nepracovních dnů, jelikož samotné jízdní řády se mohou lišit\footnote{Ve dnech pracovního volna se v některých případech liší doba jízdy mezi zastávkami pro stejnou dvojici zastávek. A to je porušení základního předpokladu z kapitoly \ref{section:zakladni_predpoklady} Základní předpoklady.} a také se do velké míry liší hustota dopravy, která má velký vliv na profil jízdy.
+
+
+\item
+
+
+Zpracování historických dat bude probíhat vždy jednou za den. To umožní provádět náročnější výpočty, které by za normálního provozu neúměrně přetížily systém. Navíc vzhledem k povaze cíle práce ani není žádoucí zpracování historických dat provádět častěji než jednou denně, protože se nepokoušíme okamžitě reagovat na změnu dopravní situace, ale modelovat profil jízdy vždy až pro celý den.
+
+
+\item
+
+
+Uložená historická data budou strukturovaná tak, aby nad nimi mohly být prováděny statistické výpočty minimálně o frekvencích jízd spojů, vzdálenostech tras a zpoždění spojů.
+\end{itemize}
+
+
+\subsubsection{Kvalitativní požadavky} \label{subsubsection:kvalitativni_pozadavky}
+
+
+\begin{itemize}
+
+
+\item
+Řešení bude schopno při jedné aktualizaci zpracovat alespoň 1000\footnote{20. 2. 2020 mezi 7:00 a 7:10 bylo na trase přes 600 vozidel} vzorků poloh vozidel, z čehož 10 \% vzorků může být o dosud neznámých jízdách. V tomto případě je potřeba stáhnout jízdní řád konkrétní jízdy a její jízdní profil, což představuje navíc dotaz na Datovou platformu jakožto zdroje dat pro tuto práci.
+
+
+\item
+Vypočítané modely profilů jízd budou počítat odhad zpoždění lépe (až na výjimku popsanou níže), než je lineární odhad. To znamená, že zpoždění vypočítaná pro každý přijatý vzorek polohy vozidla mezi dvěma referenčními body na trase, bude mít menší rozptyl než lineární odhad zpoždění.
+
+
+\item
+V případě, že spočítaný odhad zpoždění vozidla by zastaral natolik rychle, že v okamžiku zveřejnění by již nebyl platný, nedává smysl zpoždění odhadovat pokročilejší metodou.
+
+
+\end{itemize}
 
 \section{Analýza vizualizačních nástrojů}
 
@@ -433,3 +520,38 @@ Tato aplikace je po vizuální i funkční stránce dobrou inspirací pro tvorbu
   \caption{Mapa z mapa.idsjmk.cz.}
   \label{fig:idsjmk_result}
 \end{figure}
+
+\subsection{Funkční požadavky}
+
+
+Funkční požadavky vyplývají z rozboru existujících řešení. Konkrétně z jejich uživatelské přívětivosti a užitečnosti zobrazovaných informací.
+
+
+\begin{itemize}
+
+
+\item Aplikace vykreslí interaktivní mapu Prahy, Středočeského kraje a širšího okolí obsluhovaného \gls{pid}em do webového rozhraní, kterou bude možné posouvat či zoomovat.
+
+
+\item V této mapě budou zobrazeny vozidla na aktuálních pozicích a budou se automaticky posouvat po mapě tak, jak se pohybují ve skutečnosti.
+
+
+\item Po kliknutí na vozidlo se zobrazí jeho celá trasa včetně zastávek, časů průjezdů a jeho dopočítaného zpoždění.
+
+
+\item Po kliknutí na zastávku se zobrazí seznam spojů, které budou projíždět vybranou zastávkou a jejich trasy se vykreslí do mapy.
+
+
+\end{itemize}
+
+
+\subsection{Kvalitativní požadavky}
+
+
+Front-end aplikace musí být schopný zobrazit v mapě řádově tisíce vozidel. Nebo je v případě velké hustoty vozidel na malém prostoru skrýt tak, aby nedošlo k matení uživatele.
+
+
+\bigbreak
+
+
+Serverová část včetně databáze bude schopná obsloužit desítky dotazů za sekundu, a to pouze pro demonstrační účely. Účelem práce tedy není budování robustního back-endového řešení schopného produkčního nasazení.

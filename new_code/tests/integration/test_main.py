@@ -29,6 +29,21 @@ class TestMainDemo(unittest.TestCase):
 
 		File_system.static_vehicle_positions = old_path
 
+	def test_live_demo(self):
+		lib_tests.drop_all_tables()
+
+		database_connection = Database("vehicle_positions_test_database")
+		# old_path = File_system.static_vehicle_positions
+		# File_system.static_vehicle_positions = File_system.cwd / Path("tests/input_data/raw_vehicle_positions_simple/")
+
+		args = lib_tests.get_args_live_demo()
+
+		req_start = time.time()
+		main(database_connection, args)
+		req_end = time.time()
+		print('seconds ' + str(req_end - req_start))
+
+		# File_system.static_vehicle_positions = old_path
 
 if __name__ == '__main__':
 	unittest.main()

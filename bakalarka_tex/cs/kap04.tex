@@ -12,7 +12,7 @@ V této kapitole popisujeme, jak je celá aplikace otestována. Dále pak porovn
 Kód práce popsaný v kapitole \ref{chapter:implementace} je otestován unit testy. Propojení tohoto softwaru s databází i zdrojem vstupních dat je testováno integračními testy.
 
 
-\subsection{Unit testy} 
+\subsection{Unit testy}
 
 
 Unit testy testují správnou funkčnost jednotlivých metod všech softwarových komponentů této práce.
@@ -20,11 +20,20 @@ Unit testy testují správnou funkčnost jednotlivých metod všech softwarovýc
 
 Pro ověření správné funkčnosti některých metod jsou vygenerována vstupní či výstupní data. To je z důvodu, že tyto metody pracují s komplexní datovou strukturou nebo s velkým objemem dat, který není možno zadat jako vstup přímo v kódu testu, resp. je potřeba porovnat výstup testované metody a ze stejných důvodů není možné uvádět výstupní hodnoty pro porovnání přímo v kódu testu. Typickým příkladem takové vstupní struktury je model profilu jízdy, protože je potřeba otestovat funkce, které s takovým modelem pracují.
 
+Unit testy jsou k nalezení v příloze ve složce tests/unit.
+
 
 \subsection{Integrační testy}
 
+Integrační testy testují propojení jednotlivých modulů. Dále také testujeme správnou funkčnost databáze a její funkce.
 
-TODO Popisovat co testují testy? Není v tom žádná složitá logika. Dále otázka k celému textu jak odkazovat na jednotlivé soubory s kódem?
+\bigbreak
+
+Dále se testuje i kompletní běh aplikace, kde se využívají stažená data.
+
+\bigbreak
+
+Integrční testy jsou dostupné v příloze ve složce tests/integration
 
 
 \subsection{Testy kvality}

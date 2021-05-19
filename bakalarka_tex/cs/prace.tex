@@ -168,7 +168,17 @@ description={Web Server Gateway Interface}%
 
 \newglossaryentry{gtfs}{%
 name={GTFS},%
-description={Web Server Gateway Interface}%
+description={General Transit Feed Specification}%
+}
+
+\newglossaryentry{eer}{%
+name={EER},%
+description={Extended entity–relationship model}%
+}
+
+\newglossaryentry{er}{%
+name={ER},%
+description={Entity–relationship model}%
 }
 
 %TODO je nutne tady zkratkovat kazdy jazyk?
@@ -232,7 +242,7 @@ description={Web Server Gateway Interface}%
 % Nepovinné poděkování (vedoucímu práce, konzultantovi, tomu, kdo
 % zapůjčil software, literaturu apod.)
 \def\Podekovani{%
-Především děkuji svému vedoucímu práce Martinu Nečaskému, který mi pomohl najít zajímavé zaměření mé práce, umožnil přístup k otevřeným datům a pomohl při vypracování.
+Především děkuji svému vedoucímu práce doc. Mgr. Martinu Nečaskému, Ph.D., který mi pomohl najít zajímavé zaměření mé práce, umožnil přístup k otevřeným datům a pomohl při vypracování.
 
 \bigbreak
 
@@ -240,17 +250,16 @@ Stejně tak děkuji i pánům Janu Vlasatému a Benediku Kotmelovi, kteří mi p
 
 \bigbreak
 
-Dále děkuji panu profesoru Jakubu Klímkovi za zapůjčení počítače za účelem získání testovacích dat.
+Dále děkuji panu Jakubu Klímkovi, RNDr., Ph.D. za zapůjčení počítače za účelem získání testovacích dat pro tuto prácij.
 
 }
 
 % Abstrakt (doporučený rozsah cca 80-200 slov; nejedná se o zadání práce)
 \def\Abstrakt{%
-Tato práce se zaměřuje na analýzu dostupných otevřených real-time dat z vozidel hromadné dopravy v Praze a okolí. Jejím cílem je poskytnout základní statistické informace a na základě historických dat zlepšit odhad zpoždění spoje na trase mezi dvěma referenčními body. Jako vedlejší produkt vytvoří aplikaci pro webové rozhraní, kde zobrazí aktuální polohy spojů do mapového podkladu a rozšiřující infmace o nich. Aplikace bude aktivně interagovat s uživatelem.
+Tato práce se zaměřuje na analýzu dostupných otevřených real-time dat z vozidel hromadné dopravy v Praze a okolí. Jejím cílem je poskytnout základní statistické informace a na základě historických dat zlepšit odhad zpoždění spoje na trase mezi dvěma referenčními body. Takto spočítaná data se využijí v aplikaci, která vznikne pro webové rozhraní, kde zobrazí aktuální polohy spojů a rozšiřující informace o nich do mapového podkladu. Aplikace bude aktivně interagovat s uživatelem. Všechny kompenenty byly otestovány. A bylo ukázáno, že otevřená data lze využít k dosažení vetších cílů.
 }
 \def\AbstraktEN{%
-Abstract.
-Tato práce se zaměřuje na analýzu dostupných otevřených real-time dat z vozidel hromadné dopravy v Praze a okolí. Jejím cílem je poskytnout základní statistické informace a na základě historických dat zlepšit odhad zpoždění spoje na trase mezi dvěma referenčními body. Jako vedlejší produkt vytvoří aplikaci pro webové rozhraní, kde zobrazí aktuální polohy spojů do mapového podkladu a rozšiřující infmace o nich. Aplikace bude aktivně interagovat s uživatelem.
+This thesis deals with analysis of real-time data of public transport vehicles over open data in Prague. Its main purpose is to create statistics and improve estimation, based on historical data, of a vehicle delay on its route between reference points. For demonstration of the computed data a front-end web app is created. This interactive app is able to show current vehicles locations over a map and other useful information. All components were tested. Open data from Prague public transport company were used to demonstrate that open data can be used for achieving complex goals.
 }
 
 % 3 až 5 klíčových slov (doporučeno), každé uzavřeno ve složených závorkách
