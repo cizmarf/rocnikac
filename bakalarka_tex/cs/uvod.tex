@@ -9,16 +9,16 @@ Každého cestujícího v přepravě jistě někdy trápilo zpoždění svého s
 
 \bigbreak
 
-Ve vymezené oblasti operuje spousta soukromých i městských dopravců. Ti, kteří spadají do naší zájmové oblasti, zastřešuje organizace \gls{ropid}, která objednává jednotlivé spoje. Pro naši práci je důležité, že organizace \gls{ropid} zadala jednotlivým dopravcům vysílat aktuální polohy jejich vozů. Tato data o polohách jsou přes zprostředkovatele zveřejňována na pražské datové platformě zvané Golemio\footnote{www.golemio.cz}, jež je ve správě společností Operátor ICT, a. s., která je ve vlastnictví hlavního města Praha. Takových spojů, o kterých máme všechna požadovaná data, je v pracovní den vypraveno necelých deset tisíc.\footnote{ze dne 20. 2. 2020 podle testovacích dat}
+Ve vymezené oblasti operuje spousta soukromých i městských dopravců. Ti, kteří spadají do naší zájmové oblasti, zastřešují organizace \gls{ropid} a \gls{idsk}, které objednávají jednotlivé spoje. Pro naši práci je důležité, že tyto organizace zadaly jednotlivým dopravcům vysílat aktuální polohy jejich vozů. Tato data o polohách jsou přes zprostředkovatele zveřejňována na pražské datové platformě zvané Golemio\footnote{www.golemio.cz}, jež je ve správě společností Operátor ICT, a. s., která je ve vlastnictví hlavního města Praha. Takových spojů, o kterých máme všechna požadovaná data, je v pracovní den vypraveno necelých deset tisíc.\footnote{ze dne 20. 2. 2020 podle testovacích dat}
 
 \section*{Definice problému}
 
-Cílem této práce je zpřesnit odhad zpoždění vozidel \gls{vhd}, zejména autobusů, na trase mezi dvěma sousedícími zastávkami. Dále pak tyto výsledky vizualizovat v mapových podkladech.
+Cílem této práce je zpřesnit odhad zpoždění vozidel veřejné hromadné dopravy (dále jen \gls{vhd}), zejména autobusů, na trase mezi dvěma sousedícími zastávkami. Dále pak tyto výsledky vizualizovat v mapových podkladech.
 
 
 \bigbreak
 
-V době návrhu práce, kvůli právním komplikacím a složitosti informačního systému\footnote{\url{www.irozhlas.cz/zpravy-domov/data-o-poloze-vozidel-dpp-mhd-tramvaje-autobusy-praha-hrib-soud-informace_1904290600_kno}}, nebyly k dispozici real-time data od majoritního dopravce na území Prahy \gls{dpp}. Jelikož je práce zaměřena na odhad zpoždění spoje mezi dvěma sousedícími zastávkami na trase, má tedy větší význam odhadovat zpoždění mezi zastávkami, mezi kterými je větší vzdálenost. A to jsou převážně spoje jednoucí mimo Prahu. Proto tato data z \gls{dpp} nenabývají takové důležitosti, jako data od dopravců operujících mimo Prahu. Vzhledem k tomu, že zbylí dopravci využívají převážně autobusy k přepravě cestujících, bude práce vypracována pouze s ohledem na autobusovou dopravu.
+V době návrhu práce, kvůli právním komplikacím a složitosti informačního systému \citet{Gurycova19}, nebyly k dispozici real-time data od majoritního dopravce na území Prahy \gls{dpp}. Jelikož je práce zaměřena na odhad zpoždění spoje mezi dvěma sousedícími zastávkami na trase, má tedy větší význam odhadovat zpoždění mezi zastávkami, mezi kterými je větší vzdálenost. A to jsou převážně spoje jednoucí mimo Prahu. Proto tato data z \gls{dpp} nenabývají takové důležitosti, jako data od dopravců operujících mimo Prahu. Vzhledem k tomu, že zbylí dopravci využívají převážně autobusy k přepravě cestujících, bude práce vypracována pouze s ohledem na autobusovou dopravu.
 
 \bigbreak
 

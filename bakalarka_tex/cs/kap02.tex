@@ -496,7 +496,7 @@ Jinými slovy na grafu času jízdy a vzdálenosti od vyjetí ze zastávky vznik
 \bigbreak
 
 
-Nejprve k samotnému konkávnímu obalu je potřeba říct, že na množině bodů není definován jednoznačně, jak je vidět na obrázku \ref{fig:konkavni_obal_nejednoznacny}\footnote{Zdroj: Alpha-Concave Hull, a Generalization of Convex Hull, Saeed Asaeedi, Farzad Didehvar, and Ali Mohades, Department of Mathematics and Computer Science, Amirkabir University of Technology, https://arxiv.org/pdf/1309.7829.pdf}. Pro účely této práce je zapotřebí, spočítat obal ve třídimenzionálním prostoru, což je velmi komplikovaný úkol a není ani snadné nalézt knihovny, které by konkávní obal ve 3D spočítaly. Proto je potřeba přijít se zjednodušením úlohy. Tedy počítat obal pouze pro dvoudimenzionální prostor. Toho se nedá dosáhnou jinak, než diskretizací úlohy a počítání obalu pro každou hodinu zvlášť, tedy ze všech bodů, které byly zaznamenány v průběhu jedné hodiny.
+Nejprve k samotnému konkávnímu obalu je potřeba říct, že na množině bodů není definován jednoznačně, jak je vidět na obrázku \ref{fig:konkavni_obal_nejednoznacny} \citet{Asaeedi}. Pro účely této práce je zapotřebí, spočítat obal ve třídimenzionálním prostoru, což je velmi komplikovaný úkol a není ani snadné nalézt knihovny, které by konkávní obal ve 3D spočítaly. Proto je potřeba přijít se zjednodušením úlohy. Tedy počítat obal pouze pro dvoudimenzionální prostor. Toho se nedá dosáhnou jinak, než diskretizací úlohy a počítání obalu pro každou hodinu zvlášť, tedy ze všech bodů, které byly zaznamenány v průběhu jedné hodiny.
 
 
 \begin{figure}
@@ -645,7 +645,7 @@ Z výše popsaných funkčních požadavků budou vycházet grafické návrh už
 \bigbreak
 
 
-Externí mapové podklady mohou být zobrazeny v několika barevných variacích, umožňují zobrazení ortofoto a také zobrazení s důrazem na různé mapové vrstvy. Pro nás je nejvíce žádoucí zobrazit vrstvu ulic a cest a dále pak určité orientační body jako jsou budovy, vodní plochy, lesy atp. Z palety barev je pak dobrou volbou neutrální béžová barva. Příklad takové mapy je na obrázku \ref{mapbox_mapa}.
+Externí mapové podklady mohou být zobrazeny v několika barevných variacích, umožňují zobrazení ortofoto a také zobrazení s důrazem na různé mapové vrstvy. Pro nás je nejvíce žádoucí zobrazit vrstvu ulic a cest a dále pak určité orientační body jako jsou budovy, vodní plochy, lesy atp. Z palety barev je pak dobrou volbou neutrální béžová barva. Příklad takové mapy je na obrázku \ref{fig:mapbox_mapa}.
 
 
 \begin{figure}
@@ -656,13 +656,13 @@ Externí mapové podklady mohou být zobrazeny v několika barevných variacích
 \end{figure}
 
 
-Zobrazení jednotlivých spojů bude pomocí bodů v mapě, a to konkrétně barevným kruhem s číslem linky. Vybrané vozidla se rozliší jinou barvou a velikostí kruhu. Návrh reprezentace vozidel v mapě je zobrazen na obrázku \ref{dve_vozidla}.
+Zobrazení jednotlivých spojů bude pomocí bodů v mapě, a to konkrétně barevným kruhem s číslem linky. Vybrané vozidla se rozliší jinou barvou a velikostí kruhu. Návrh reprezentace vozidel v mapě je zobrazen na obrázku \ref{fig:dve_vozidla}.
 
 
 \bigbreak
 
 
-Pro zvolené vozidlo se vykreslí celá jeho trasa včetně všech zastávek. Trasa je reprezentována lomenou čarou a zastávky jako špendlíky v mapě, po přejetí symbolu zastávky se zobrazí i její název. Za zvoleným vozidlem je zobrazena i historie jeho jízdy za uplynulých několik minut, to pomocí barevné lomené čáry, tvořící ocas zvoleného vozidla. Rovněž k povšimnutí na obrázku \ref{dve_vozidla}.
+Pro zvolené vozidlo se vykreslí celá jeho trasa včetně všech zastávek. Trasa je reprezentována lomenou čarou a zastávky jako špendlíky v mapě, po přejetí symbolu zastávky se zobrazí i její název. Za zvoleným vozidlem je zobrazena i historie jeho jízdy za uplynulých několik minut, to pomocí barevné lomené čáry, tvořící ocas zvoleného vozidla. Rovněž k povšimnutí na obrázku \ref{fig:dve_vozidla}.
 
 
 \begin{figure}
