@@ -40,7 +40,7 @@ Veškerý software bude naimplementován s ohledem na paradigma \gls{oop}. Tedy 
 \section{Zpracování dat} \label{section:zpracovani_dat}
 
 
-Základní myšlenka zpracování dat, pocházejících ze zdroje dat popsaném v kapitole \ref{section:analyza_zdroje} je taková, že data se budou periodicky stahovat a ukládat do \gls{sql} databáze, tento postup je popsán v kapitole \ref{section:zpracovani_vstupnich_dat}.
+Základní myšlenka zpracování dat, pocházejících ze zdroje dat popsaném v kapitole \ref{chapter:analyza_zdroje} je taková, že data se budou periodicky stahovat a ukládat do \gls{sql} databáze, tento postup je popsán v kapitole \ref{section:zpracovani_vstupnich_dat}.
 
 
 \bigbreak
@@ -211,12 +211,22 @@ self.model = make_pipeline(PolynomialFeatures(best_degree), Ridge())
 self.model.fit(input_data, output_data)
 \end{code}
 
+\bigbreak
 
-Samotné nalezení správného modelu se nyní může zdát jednoduché, nicméně nejsložitější prací pro jakoukoli úlohu z oblasti umělé inteligence a strojového učení je příprava dat a v naší práci tomu není jinak. Ať už se jedná o samotná zpracování dat popsané výše v kapitole \ref{section:zpracovani_dat}, tak také je potřeba tyto zpracovaná data dále transformovat z formátu v jakém jsou uloženy v databázi do formátu jaký je vhodný pro počítání lineární regrese. Dále je pak potřeba data vyčistit od zcela nesmyslných vzorků poloh vozidel, kterých je ve vstupních datech spousta a mohly by negativně ovlivnit správnost odhadů nalezených modelů.
+V kódu funkce je možné si povšimnout, že model trénujeme na trénovacích datech a testujeme na testovacích datech. Do těchto podmnožin jsme rozdělili vstupní data ještě před zavoláním této funkce. Toto rozdělení nám slouží k nalezení nejlepšího stupně polynomu, tedy hyper parametru modelu \citep[viz][Strana 365, validation set a training set]{Ripley96}. a provede se následující funkcí v balíčtu sklearn.
+
+\begin{code}[frame=none]
+X_train, X_test, y_train, y_test =
+  train_test_split(input_data,
+  output_data, test_size=0.33, random_state=42)
+\end{code}
 
 
 \subsection{Čtení dat} \label{subsection:cteni_dat}
 
+Samotné nalezení správného modelu se nyní může zdát jednoduché, nicméně nejsložitější prací pro jakoukoli úlohu z oblasti umělé inteligence a strojového učení je příprava dat a v naší práci tomu není jinak. Ať už se jedná o samotná zpracování dat popsané výše v kapitole \ref{section:zpracovani_dat}, tak také je potřeba tyto zpracovaná data dále transformovat z formátu v jakém jsou uloženy v databázi do formátu jaký je vhodný pro počítání lineární regrese. Dále je pak potřeba data vyčistit od zcela nesmyslných vzorků poloh vozidel, kterých je ve vstupních datech spousta a mohly by negativně ovlivnit správnost odhadů nalezených modelů.
+
+\bigbreak
 
 Pro zkonstruování modelů popisujících profily jízd mezi všemi dvojicemi zastávek je nejprve potřeba zjistit všechny dvojice zastávek, mezi kterými jede alespoň jeden spoj. To se dá zjistit pomocí jízdních řádů, které reprezentujeme v tabulce \verb-rides- v naší databázi popsané v kapitole \ref{subsection:databaze}
 
@@ -733,6 +743,3 @@ return stops_geojson
 
 
 %f
-
-
- 

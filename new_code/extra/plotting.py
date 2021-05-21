@@ -20,7 +20,7 @@ from file_system import File_system
 
 from two_stops_model import Two_stops_model, Norm_data
 
-database_connection = Database(database="vehicle_positions_statistic_database")
+database_connection = Database(database="vehicle_positions_database")
 
 
 def timediff_to_sec(timed):
@@ -113,8 +113,8 @@ def create_model(dep_stop, arr_stop):
 
 def get_plot(model, samples, dep_stop, arr_stop):
 
-	if model.model.get_name() == 'Hull' or model.model.get_name() == 'Linear':
-		return
+	# if model.model.get_name() == 'Hull' or model.model.get_name() == 'Linear':
+	# 	return
 
 	dep_stop_name = database_connection.execute_fetchall("""
 			SELECT stop_name 
@@ -151,9 +151,9 @@ def get_plot(model, samples, dep_stop, arr_stop):
 
 	fig = plt.figure()
 	ax = fig.add_subplot(111, projection='3d')
-	# Z = None
+	# Z = None ## disable draw model
 	if Z is not None:
-		ax.plot_wireframe(xx2, xx1, Z,)  # grid model
+		ax.plot_wireframe(xx2, xx1, Z,alpha=0.6)  # grid model
 
 	# if model.get_name() == "Hull":
 	# 	print("is hull")
@@ -163,18 +163,19 @@ def get_plot(model, samples, dep_stop, arr_stop):
 	# 	points = np.array(model.points_of_concave_hull).transpose()
 	# 	ax.scatter(points[0], points[2], points[1])
 
-	ax.scatter(model.norm_data.get_day_times(), model.norm_data.get_shapes(), model.norm_data.get_coor_times(), c='#ff7f0e', alpha=0.3)  # known data
+	ax.scatter(model.norm_data.get_day_times(), model.norm_data.get_shapes(), model.norm_data.get_coor_times(), c='#ff7f0e', alpha=0.4, s=25)  # known data
 	# X_train = X_train.transpose()
 	# ax.scatter(X_train[1], X_train[0], y_train)
 	# ax.scatter(arr_t_d, arr_shape, arr_t_c, c='r')  # arrivals
 
-	ax.set_ylabel('distance [m * 100]')
-	ax.set_zlabel('travel time [s]')
-	ax.set_xlabel('day time [s * 100]')
+	ax.set_ylabel('ujetá vzdálenost [m ' + u'\u00D7' + ' 1' + u'\u2009' + '000]')
+	ax.set_zlabel('uplynulý čas [s ' + u'\u00D7' + ' 100]')
+	ax.set_xlabel('denní doba [s ' + u'\u00D7' + ' 10' + u'\u2009' + '000]')
 
 	plt.title(dep_stop_name + ' ' + u'\u2192' + ' ' + lead_stop_name)
-	plt.gca().xaxis.set_major_formatter(ticker.FuncFormatter(lambda x, pos: '{0:g}'.format(x/1e2)))
-	plt.gca().yaxis.set_major_formatter(ticker.FuncFormatter(lambda x, pos: '{0:g}'.format(x / 1e2)))
+	plt.gca().xaxis.set_major_formatter(ticker.FuncFormatter(lambda x, pos: '{0:g}'.format(x/1e4)))
+	plt.gca().yaxis.set_major_formatter(ticker.FuncFormatter(lambda x, pos: '{0:g}'.format(x / 1e3)))
+	plt.gca().zaxis.set_major_formatter(ticker.FuncFormatter(lambda x, pos: '{0:g}'.format(x / 1e2)))
 
 	plt.show()
 	# plt.savefig(dep_stop + '_to_' + arr_stop + '.pdf')
@@ -184,7 +185,7 @@ def get_plot(model, samples, dep_stop, arr_stop):
 
 
 if __name__ == '__main__':
-	dep_stop = 808  # e[0].split()[0]
+	dep_stop = 808  # e[0].split()[0] 808
 	arr_stop = 809  # e[0].split()[1]
 
 	# num = get_all_pairs()

@@ -377,7 +377,7 @@ K tomuto dochází například v případech, kdy spoj zastavuje ve městě a v 
 
 \begin{figure}
 \centering
-  \includegraphics[width=\linewidth]{../img/dojezd_ve_fazich_dne.png}
+  \includegraphics[width=\linewidth]{../img/dojezd_ve_fazich_dne}
   \caption{Variabilita délky jízdy v průběhu dne}
   \label{fig:dojezd_ve_fazich_dne}
 \end{figure}
@@ -388,13 +388,13 @@ Stejně tak po analýze profilu jízdy v závislosti na ujeté vzdálenosti je n
 
 \begin{figure}
 \centering
-  \includegraphics[width=\linewidth]{../img/dojezd_podle_vzdalenosti.png}
+  \includegraphics[width=\linewidth]{../img/dojezd_podle_vzdalenosti}
   \caption{Variabilita času jízdy v závislosti na ujeté vzdálenosti}
   \label{fig:dojezd_podle_vzdalenosti}
 \end{figure}
 
 
-Jak pozorujeme na grafech výše, je patrné, že vzorky poloh vytváří jisté vlny. Takové vlny se dají dobře popsat modely získané pomocí lineární regrese, resp. polynomiální regrese. Ve strojovém učení se k výpočtu polynomiální regrese využívá algoritmus lineární regrese s upravenými vstupními daty.
+Jak pozorujeme na grafech výše, je patrné, že vzorky poloh vytváří jisté vlny. Takové vlny se dají dobře popsat modely získané pomocí lineární regrese, resp. polynomiální regrese. Ve strojovém učení se k výpočtu polynomiální regrese využívá algoritmus lineární regrese s upravenými vstupními daty \citep[viz][Strany 265--268]{Gareth13}.
 
 
 \bigbreak
@@ -426,7 +426,7 @@ Na grafu \ref{fig:cerny_most_chvaly} je patrné, že vzorky poloh vozidel profil
 
 \begin{figure}
 \centering
-  \includegraphics[width=\linewidth]{../img/cerny_most_chvaly.png}
+  \includegraphics[width=\linewidth]{../img/4383_2712}
   \caption{Úsek s nepravidelnostmi}
   \label{fig:cerny_most_chvaly}
 \end{figure}
@@ -437,19 +437,21 @@ Pro velmi krátké trasy se zobrazené vzorky dat mohou jevit jako zcela nepravi
 
 \begin{figure}
 \centering
-  \includegraphics[width=\linewidth]{../img/divoka_sarka_veleslavin.png}
+  \includegraphics[width=\linewidth]{../img/164_165}
   \caption{Úsek s nepravidelnostmi 2}
   \label{fig:divoka_sarka_veleslavin}
 \end{figure}
 
+\bigbreak
 
-Na ukázku uveďme ještě příklad grafu \ref{fig:delayed_trip}, kde jedna jízda dosáhla výrazného zpoždění oproti ostatním jízdám.
+
+Na ukázku uveďme ještě příklad grafu \ref{fig:delayed_trip}, kde jedna jízda dosáhla výrazného zpoždění oproti ostatním jízdám. Současně zde můžeme vidět poměrně častou chybu ve vstupních datech, kdy jedné jízdě přísluší vzorky poloh zcela mimo škálu grafu. Po bližším přezkoumání se jízda jeví, jakoby jela opačným směrem. V naší práci, ale nebudeme zkoumat zdroj chyby, ani se snažit data nějak opravit a rovnou tyto vzorky voloučíme.
 
 
 \begin{figure}
 \centering
-  \includegraphics[width=\linewidth]{../img/delayed_trip.png}
-  \caption{Výrazné zpoždění jedné jízdy}
+  \includegraphics[width=\linewidth]{../img/16_17}
+  \caption{Výrazné zpoždění jedné jízdy a chybný směr jízdy}
   \label{fig:delayed_trip}
 \end{figure}
 
@@ -462,7 +464,7 @@ Na dalším grafu \ref{fig:nepredvidatelne_zdrzeni} je zobrazen příklad, kdy n
 
 \begin{figure}
 \centering
-  \includegraphics[width=\linewidth]{../img/nepredvidatelne_zdrzeni.png}
+  \includegraphics[width=\linewidth]{../img/1128_1129}
   \caption{Úsek s nepravidelným zpožděním}
   \label{fig:nepredvidatelne_zdrzeni}
 \end{figure}
@@ -482,7 +484,7 @@ Ilustrujme výše popsané na modelovém příkladu na grafu \ref{fig:concave_hu
 \begin{figure}
 \centering
   \includegraphics[width=\linewidth]{../img/concave_hull}
-  \caption{Úsek s nepravidelným zpožděním}
+  \caption{Modelový příklad profilu trasy dobře popsatelného konkávním obalem}
   \label{fig:concave_hull}
 \end{figure}
 
@@ -539,8 +541,8 @@ Případ, kdy by model podle konkávního obalu přinesl zlepšení, je na grafu
 
 \begin{figure}
 \centering
-  \includegraphics[width=1\linewidth]{../img/good_to_concave_hull}
-  \caption{Nejednoznačnost konkávního obalu}
+  \includegraphics[width=\linewidth]{../img/8_9}
+  \caption{Chyba polynomálního modelu}
   \label{fig:good_to_concave_hull}
 \end{figure}
 
@@ -673,4 +675,4 @@ Pro zvolené vozidlo se vykreslí celá jeho trasa včetně všech zastávek. Tr
 \end{figure}
 
 
-Další informace o spoji, nebo zastávce se zobrazí v tabulce, která z části překryje mapu. Tato tabulka bude obsahovat informace o zvoleném vozidle, konkrétní konečnou stanici, jeho zpoždění a celý jízdní řád. Respektive informace o zvolené zastávce – název zastávky a všechny spoje, které zvolenou zastávkou budou projíždět včetně jejich pravidelného odjezdu a aktuálního zpoždění. Po kliknutí na zastávku se tedy zobrazí její odjezdová tabule.
+Další informace o spoji, nebo zastávce se zobrazí v tabulce, která z části překryje mapu. Tato tabulka bude obsahovat informace o zvoleném vozidle, konkrétní konečnou stanici, jeho zpoždění a celý jízdní řád. Respektive informace o zvolené zastávce – název zastávky a všechny spoje, které zvolenou zastávkou budou projíždět včetně jejich pravidelného odjezdu a aktuálního zpoždění. Po kliknutí na zastávku\footnote{V tomto případě myslíme opravdu celou zastávku se všemi jejími nástupišti a nikoli pouze příslušné nástupiště. Protože se nemůžeme spolehnout na vytvořené relace označující všechny rodičovské nástupiště ve zdrojových datech, budeme za nástupiště příslušné jedné zastávce považovat nástupiště se stejným názvem.} se tedy zobrazí její odjezdová tabule.

@@ -185,7 +185,6 @@ class Two_stops_model:
 			best_degree = 1
 			best_error = float('inf')  # maxint
 
-			# TODO delate with
 			with warnings.catch_warnings():
 				warnings.simplefilter("ignore")
 

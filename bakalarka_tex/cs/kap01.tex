@@ -18,8 +18,8 @@ Detailní rozbor počtu průjezdů mezi zastávkami v daných vzdálenostech je 
 
 \begin{figure}
 	\centering
-  \includegraphics[width=0.6\linewidth]{../img/stop_distances_plot_2020-02-20.png}
-  \caption{Graf počtu úseků mezi následujícími zastávkami a vzdálenotí mezi nimi.}
+  \includegraphics[width=\linewidth]{../img/stop_distances_result}
+  \caption{Počet úseků mezi bezprostředně následujícími zastávkami a vzdálenost mezi nimi. Každý průjezd úsekem je započítán zvlášť.}
   \label{fig:stop_distances_result}
 \end{figure}
 
@@ -61,8 +61,8 @@ Na tomto grafu stojí za povšimnutí viditelné zpomalení průjezdů v raní �
 Tento příklad dále podrobněji analyzován v kapitole \ref{subsubsection:analyza_dat}.
 
 \begin{figure}
-  \includegraphics[width=\linewidth]{../img/k_letisti_to_zlicin_3d.png}
-  \caption{Modrá plocha značí vymodelovaný profil trasy. Oranžové body jsou jednotlivé vzorky poloh vozidel. Data pro graf jsou ze dnů 20.--21. 2. 2020}
+  \includegraphics[width=\linewidth]{../img/534_421}
+  \caption{Vzorky poloh a model profilu jízdy mezi zastávkami K Letišti a Zličín. Data jsou ze dnů 20.--21. 2. 2020}
   \label{fig:k_letisti_to_zlicin_3d}
 \end{figure}
 
@@ -123,7 +123,7 @@ Vozidla vysílají data o své poloze při různých událostech. Zejména pak p
 
 \bigbreak
 
-Taková data pak přímo putují k provozovateli systému na monitorování vozidel, kterým je společnost Chaps spol. s r. o.\footnote{https://pid.cz/dopravci-a-partneri/chaps-spol-s-r-o/} jakožto partner \gls{ropid}u. Ten však tato data zpracovává a posílá ke zveřejnění na platformě Golemio. Bohužel při tomto procesu zpracování se vytratí informace o události, v jaké byla data pořízena. Tedy informace o příjezdu nebo odjezdu ze zastávky je zjistitelná pouze z \gls{gps} souřadnic a následném odhadu pozice vozidla na trase dané linky.
+Taková data pak přímo putují k provozovateli systému na monitorování vozidel, kterým je společnost Chaps spol. s\,r.\,o.\footnote{https://pid.cz/dopravci-a-partneri/chaps-spol-s-r-o/} jakožto partner \gls{ropid}u. Ten však tato data zpracovává a posílá ke zveřejnění na platformě Golemio. Bohužel při tomto procesu zpracování se vytratí informace o události, v jaké byla data pořízena. Tedy informace o příjezdu nebo odjezdu ze zastávky je zjistitelná pouze z \gls{gps} souřadnic a následném odhadu pozice vozidla na trase dané linky.
 
 \bigbreak
 
@@ -139,7 +139,7 @@ Real-time data o polohách, která jsou již neplatná (zastaralá), se neposíl
 
 \subsubsection{Dokumentace}
 
-Na úvod je nutné poznamenat, že datová platforma je stále ve vývoji a formát dat se může měnit. S tím mohou přicházet určité výpadky a problémy. K jednomu takovému výpadku došlu i při vývoji této práce, kdy po dobu 14 dnů platforma vůbec neodpovídala na dotazy, nebo vracela prázdné datasety.
+Na úvod je nutné poznamenat, že Datová platforma je stále ve vývoji a formát dat se může měnit. S tím mohou přicházet určité výpadky a problémy. K jednomu takovému výpadku došlu i při vývoji této práce, kdy po dobu 14 dnů platforma vůbec neodpovídala na dotazy, nebo vracela prázdné datasety.
 
 \bigbreak
 
@@ -147,7 +147,7 @@ Současně s využívanou verzí \gls{api}, je nasazená i pokročilejší \gls{
 
 \bigbreak
 
-Oficiální uživatelská dokumentace datové platformy\footnote{Golemio: https://golemioapi.docs.apiary.io} je sama o sobě poměrně zastaralá. Její aktuální sada parametrů neodpovídá dokumentaci a neobsahuje žádné popisy nebo vysvětlení atributů. Proto vysvětlení jednotlivých atributů se zakládá na intuitivním pochopení, nebo vyplynulo z jednání se správci platformy. V následujících kapitolách bude popsán formát dat tak, jak přichází ze zdroje. Ten se může od oficiálně vystavené dokumentace lišit. A také budou popsány pouze atributy využívané v této práci nebo zajímavé pro její budoucí rozvoj.
+Oficiální uživatelská dokumentace Datové platformy\footnote{Golemio: https://golemioapi.docs.apiary.io} je sama o sobě poměrně zastaralá. Její aktuální sada parametrů neodpovídá dokumentaci a neobsahuje žádné popisy nebo vysvětlení atributů. Proto vysvětlení jednotlivých atributů se zakládá na intuitivním pochopení, nebo vyplynulo z jednání se správci platformy. V následujících kapitolách bude popsán formát dat tak, jak přichází ze zdroje. Ten se může od oficiálně vystavené dokumentace lišit. A také budou popsány pouze atributy využívané v této práci nebo zajímavé pro její budoucí rozvoj.
 
 \bigbreak
 
@@ -159,7 +159,7 @@ Ačkoli se dokumentace tváří tak, že data jsou exportována ve formátech \g
 
 \bigbreak
 
-Celá datová platforma Golemio je pojatá jako Open Source projekt\footnote{Programátorská dokumentace je dostupná na https://operator-ict.gitlab.io/golemio/documentation/}. Tedy je možné její zdrojový kód vylepšit či opravit, nebo také čtením kódu detailně porozumět, jak zde popisované zpracování dat funguje. Avšak takový rozbor zdrojového kódu je mimo rozsah této práce.
+Celá Datová platforma Golemio je pojatá jako Open Source projekt\footnote{Programátorská dokumentace je dostupná na https://operator-ict.gitlab.io/golemio/documentation/}. Tedy je možné její zdrojový kód vylepšit či opravit, nebo také čtením kódu detailně porozumět, jak zde popisované zpracování dat funguje. Avšak takový rozbor zdrojového kódu je mimo rozsah této práce.
 
 \subsection{Obsah dat}
 
@@ -175,7 +175,7 @@ Informace o nově nalezených spojích v souboru s polohy vozidel si pak vyžád
 
 \bigbreak
 
-Dále je možné využít soubor zastávek se jménem \gls{gtfs} Stops, který by měl obsahovat všechny vyskytující se zastávky. Tento soubor je vhodné zpracovat na začátku běhu aplikace. Musíme však být připraveni na možný výskyt nové zastávky, která nebyla nalezena v tomto souboru zastávek, ale je nalezena v jízdním řádu spoje a být schopni vložit takovou zastávku do databáze. Proto pro nás nebude tento soubor příliš důležitý.  Datový formát reprezentace zastávek je však stejný v souboru zastávek i souboru jízdního řádu spoje.
+Dále je možné využít soubor zastávek se jménem \gls{gtfs} Stops, který by měl obsahovat všechny vyskytující se zastávky. Tento soubor je vhodné zpracovat na začátku běhu aplikace. Musíme však být připraveni na možný výskyt nové zastávky, která nebyla nalezena v tomto souboru zastávek, ale je nalezena v jízdním řádu spoje a být schopni vložit takovou zastávku do databáze. Proto pro nás nebude tento soubor příliš důležitý. Datový formát reprezentace zastávek je však stejný v souboru zastávek i souboru jízdního řádu spoje.
 
 \bigbreak
 
@@ -368,7 +368,7 @@ Z celkového počtu nalezených spojů vyplývá, že počet nově nalezených s
 
 \begin{figure}
 	\centering
-  \includegraphics[width=0.7\linewidth]{../img/vehicle_pos_x_new_trips}
+  \includegraphics[width=\linewidth]{../img/new_trips}
   \caption{Počet souborů s početem nově nalezených spojů v nich.}
   \label{fig:vehicle_pos_x_new_trips}
 \end{figure}
@@ -377,16 +377,16 @@ Z celkového počtu nalezených spojů vyplývá, že počet nově nalezených s
 
 Maximální počet vozidel obsažených v jednom souboru je méně něž 800. Kompletní histogram počtu souborů s počtem vozidel celkem v jednom souboru je na grafu \ref{fig:vehicle_pos_x_all_trips}. Z tohoto grafu vyplývá, že velká většina vstupních souborů z celkového počtu 15793 obsahuje do 200 vozidel v každém souboru.
 
+\begin{figure}
+	\centering
+  \includegraphics[width=\linewidth]{../img/all_trips}
+  \caption{Počet souborů s celkovým početem vozidel v nich.}
+  \label{fig:vehicle_pos_x_all_trips}
+\end{figure}
+
 \bigbreak
 
 Avšak ne všechna vozidla v každém souboru jsou nová nebo dostala změny oproti předešlému záznamu. To z důvodu, že je zdroj dat nastaven tak, aby vysílal polohu vozidla jako aktuální, i když už je zastaralá několik minut. V takovém případě se zpracovává vzorek polohy vozidla opakovaně.
-
-\begin{figure}
-	\centering
-  \includegraphics[width=0.7\linewidth]{../img/vehicle_pos_x_all_trips}
-  \caption{Počet souborů s početem nově nalezených spojů v nich.}
-  \label{fig:vehicle_pos_x_all_trips}
-\end{figure}
 
 \bigbreak
 

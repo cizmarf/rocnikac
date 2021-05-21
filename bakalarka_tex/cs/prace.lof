@@ -1,49 +1,49 @@
 \babel@toc {czech}{}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {1.1}{\ignorespaces Graf po\IeC {\v c}tu \IeC {\'u}sek\IeC {\r u} mezi n\IeC {\'a}sleduj\IeC {\'\i }c\IeC {\'\i }mi zast\IeC {\'a}vkami a vzd\IeC {\'a}lenot\IeC {\'\i } mezi nimi.}}{7}{figure.1.1}% 
-\contentsline {figure}{\numberline {1.2}{\ignorespaces Modr\IeC {\'a} plocha zna\IeC {\v c}\IeC {\'\i } vymodelovan\IeC {\'y} profil trasy. Oran\IeC {\v z}ov\IeC {\'e} body jsou jednotliv\IeC {\'e} vzorky poloh vozidel. Data pro graf jsou ze dn\IeC {\r u} 20.--21. 2. 2020}}{8}{figure.1.2}% 
+\contentsline {figure}{\numberline {1.1}{\ignorespaces Po\IeC {\v c}et \IeC {\'u}sek\IeC {\r u} mezi bezprost\IeC {\v r}edn\IeC {\v e} n\IeC {\'a}sleduj\IeC {\'\i }c\IeC {\'\i }mi zast\IeC {\'a}vkami a vzd\IeC {\'a}lenost mezi nimi. Ka\IeC {\v z}d\IeC {\'y} pr\IeC {\r u}jezd \IeC {\'u}sekem je zapo\IeC {\v c}\IeC {\'\i }t\IeC {\'a}n zvl\IeC {\'a}\IeC {\v s}\IeC {\v t}.}}{7}{figure.1.1}% 
+\contentsline {figure}{\numberline {1.2}{\ignorespaces Vzorky poloh a model profilu j\IeC {\'\i }zdy mezi zast\IeC {\'a}vkami K Leti\IeC {\v s}ti a Zli\IeC {\v c}\IeC {\'\i }n. Data jsou ze dn\IeC {\r u} 20.--21. 2. 2020}}{8}{figure.1.2}% 
 \contentsline {figure}{\numberline {1.3}{\ignorespaces Trasa mezi zast\IeC {\'a}vkama K Leti\IeC {\v s}ti a Zli\IeC {\v c}\IeC {\'\i }n. Zdroj: mapy.cz}}{9}{figure.1.3}% 
 \contentsline {figure}{\numberline {1.4}{\ignorespaces Srovn\IeC {\'a}n\IeC {\'\i } sou\IeC {\v c}asn\IeC {\'e}ho \IeC {\v r}e\IeC {\v s}en\IeC {\'\i } s navrhovan\IeC {\'y}m, modelov\IeC {\'y} p\IeC {\v r}\IeC {\'\i }klad}}{10}{figure.1.4}% 
 \contentsline {figure}{\numberline {1.5}{\ignorespaces Struktura vstupn\IeC {\'\i }ch dat a relace mezi nimi}}{13}{figure.1.5}% 
-\contentsline {figure}{\numberline {1.6}{\ignorespaces Po\IeC {\v c}et soubor\IeC {\r u} s po\IeC {\v c}etem nov\IeC {\v e} nalezen\IeC {\'y}ch spoj\IeC {\r u} v nich.}}{17}{figure.1.6}% 
-\contentsline {figure}{\numberline {1.7}{\ignorespaces Po\IeC {\v c}et soubor\IeC {\r u} s po\IeC {\v c}etem nov\IeC {\v e} nalezen\IeC {\'y}ch spoj\IeC {\r u} v nich.}}{18}{figure.1.7}% 
-\contentsline {figure}{\numberline {1.8}{\ignorespaces Mapa z golemio.cz.}}{20}{figure.1.8}% 
-\contentsline {figure}{\numberline {1.9}{\ignorespaces Mapa z www.tram-bus.cz.}}{21}{figure.1.9}% 
-\contentsline {figure}{\numberline {1.10}{\ignorespaces Mapa z mapa.idsjmk.cz.}}{21}{figure.1.10}% 
+\contentsline {figure}{\numberline {1.6}{\ignorespaces Po\IeC {\v c}et soubor\IeC {\r u} s po\IeC {\v c}etem nov\IeC {\v e} nalezen\IeC {\'y}ch spoj\IeC {\r u} v nich.}}{18}{figure.1.6}% 
+\contentsline {figure}{\numberline {1.7}{\ignorespaces Po\IeC {\v c}et soubor\IeC {\r u} s celkov\IeC {\'y}m po\IeC {\v c}etem vozidel v nich.}}{19}{figure.1.7}% 
+\contentsline {figure}{\numberline {1.8}{\ignorespaces Mapa z golemio.cz.}}{22}{figure.1.8}% 
+\contentsline {figure}{\numberline {1.9}{\ignorespaces Mapa z www.tram-bus.cz.}}{22}{figure.1.9}% 
+\contentsline {figure}{\numberline {1.10}{\ignorespaces Mapa z mapa.idsjmk.cz.}}{23}{figure.1.10}% 
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces UML diagram n\IeC {\'a}vrhu aplikace}}{24}{figure.2.1}% 
-\contentsline {figure}{\numberline {2.2}{\ignorespaces ER diagram n\IeC {\'a}vrhu datab\IeC {\'a}ze}}{35}{figure.2.2}% 
-\contentsline {figure}{\numberline {2.3}{\ignorespaces ER diagram n\IeC {\'a}vrhu datab\IeC {\'a}ze}}{36}{figure.2.3}% 
-\contentsline {figure}{\numberline {2.4}{\ignorespaces Variabilita d\IeC {\'e}lky j\IeC {\'\i }zdy v pr\IeC {\r u}b\IeC {\v e}hu dne}}{37}{figure.2.4}% 
-\contentsline {figure}{\numberline {2.5}{\ignorespaces Variabilita \IeC {\v c}asu j\IeC {\'\i }zdy v z\IeC {\'a}vislosti na ujet\IeC {\'e} vzd\IeC {\'a}lenosti}}{37}{figure.2.5}% 
-\contentsline {figure}{\numberline {2.6}{\ignorespaces \IeC {\'U}sek s nepravidelnostmi}}{38}{figure.2.6}% 
-\contentsline {figure}{\numberline {2.7}{\ignorespaces \IeC {\'U}sek s nepravidelnostmi 2}}{38}{figure.2.7}% 
-\contentsline {figure}{\numberline {2.8}{\ignorespaces V\IeC {\'y}razn\IeC {\'e} zpo\IeC {\v z}d\IeC {\v e}n\IeC {\'\i } jedn\IeC {\'e} j\IeC {\'\i }zdy}}{39}{figure.2.8}% 
-\contentsline {figure}{\numberline {2.9}{\ignorespaces \IeC {\'U}sek s nepravideln\IeC {\'y}m zpo\IeC {\v z}d\IeC {\v e}n\IeC {\'\i }m}}{39}{figure.2.9}% 
-\contentsline {figure}{\numberline {2.10}{\ignorespaces \IeC {\'U}sek s nepravideln\IeC {\'y}m zpo\IeC {\v z}d\IeC {\v e}n\IeC {\'\i }m}}{40}{figure.2.10}% 
-\contentsline {figure}{\numberline {2.11}{\ignorespaces Nejednozna\IeC {\v c}nost konk\IeC {\'a}vn\IeC {\'\i }ho obalu}}{40}{figure.2.11}% 
-\contentsline {figure}{\numberline {2.12}{\ignorespaces Nejednozna\IeC {\v c}nost konk\IeC {\'a}vn\IeC {\'\i }ho obalu}}{41}{figure.2.12}% 
-\contentsline {figure}{\numberline {2.13}{\ignorespaces Mapbox Mapa, pou\IeC {\v z}it\IeC {\'y} styl mapy: streets-v11}}{41}{figure.2.13}% 
-\contentsline {figure}{\numberline {2.14}{\ignorespaces Design zobrazen\IeC {\'\i } element\IeC {\r u} v map\IeC {\v e}, linka je 348 je vybr\IeC {\'a}na}}{41}{figure.2.14}% 
+\contentsline {figure}{\numberline {2.1}{\ignorespaces UML diagram n\IeC {\'a}vrhu aplikace}}{25}{figure.2.1}% 
+\contentsline {figure}{\numberline {2.2}{\ignorespaces ER diagram n\IeC {\'a}vrhu datab\IeC {\'a}ze}}{36}{figure.2.2}% 
+\contentsline {figure}{\numberline {2.3}{\ignorespaces ER diagram n\IeC {\'a}vrhu datab\IeC {\'a}ze}}{37}{figure.2.3}% 
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Variabilita d\IeC {\'e}lky j\IeC {\'\i }zdy v pr\IeC {\r u}b\IeC {\v e}hu dne}}{38}{figure.2.4}% 
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Variabilita \IeC {\v c}asu j\IeC {\'\i }zdy v z\IeC {\'a}vislosti na ujet\IeC {\'e} vzd\IeC {\'a}lenosti}}{38}{figure.2.5}% 
+\contentsline {figure}{\numberline {2.6}{\ignorespaces \IeC {\'U}sek s nepravidelnostmi}}{39}{figure.2.6}% 
+\contentsline {figure}{\numberline {2.7}{\ignorespaces \IeC {\'U}sek s nepravidelnostmi 2}}{39}{figure.2.7}% 
+\contentsline {figure}{\numberline {2.8}{\ignorespaces V\IeC {\'y}razn\IeC {\'e} zpo\IeC {\v z}d\IeC {\v e}n\IeC {\'\i } jedn\IeC {\'e} j\IeC {\'\i }zdy a chybn\IeC {\'y} sm\IeC {\v e}r j\IeC {\'\i }zdy}}{40}{figure.2.8}% 
+\contentsline {figure}{\numberline {2.9}{\ignorespaces \IeC {\'U}sek s nepravideln\IeC {\'y}m zpo\IeC {\v z}d\IeC {\v e}n\IeC {\'\i }m}}{40}{figure.2.9}% 
+\contentsline {figure}{\numberline {2.10}{\ignorespaces Modelov\IeC {\'y} p\IeC {\v r}\IeC {\'\i }klad profilu trasy dob\IeC {\v r}e popsateln\IeC {\'e}ho konk\IeC {\'a}vn\IeC {\'\i }m obalem}}{41}{figure.2.10}% 
+\contentsline {figure}{\numberline {2.11}{\ignorespaces Nejednozna\IeC {\v c}nost konk\IeC {\'a}vn\IeC {\'\i }ho obalu}}{41}{figure.2.11}% 
+\contentsline {figure}{\numberline {2.12}{\ignorespaces Chyba polynom\IeC {\'a}ln\IeC {\'\i }ho modelu}}{42}{figure.2.12}% 
+\contentsline {figure}{\numberline {2.13}{\ignorespaces Mapbox Mapa, pou\IeC {\v z}it\IeC {\'y} styl mapy: streets-v11}}{42}{figure.2.13}% 
+\contentsline {figure}{\numberline {2.14}{\ignorespaces Design zobrazen\IeC {\'\i } element\IeC {\r u} v map\IeC {\v e}, linka je 348 je vybr\IeC {\'a}na}}{42}{figure.2.14}% 
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Pr\IeC {\r u}m\IeC {\v e}rn\IeC {\'y} \IeC {\v c}as zpracov\IeC {\'a}v\IeC {\'a}n\IeC {\'\i } dan\IeC {\'e}ho po\IeC {\v c}tu vozidel ze v\IeC {\v s}ech soubor\IeC {\r u} se statick\IeC {\'y}mi daty. Sv\IeC {\v e}tle modr\IeC {\'a} barva ohrani\IeC {\v c}uje 95 \% interval spolehlivosti. Po\IeC {\v c}ty vozidel jsou v\IeC {\v z}dy zaokrouhleny dol\IeC {\r u} na cel\IeC {\'e} des\IeC {\'\i }tky.}}{57}{figure.4.1}% 
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Doba odpov\IeC {\v e}di serveru na 100 paraleln\IeC {\'\i }ch dotaz\IeC {\r u} (1000 vzork\IeC {\r u})}}{59}{figure.4.2}% 
-\contentsline {figure}{\numberline {4.3}{\ignorespaces Mapa Prahy a okol\IeC {\'\i } s polohy vozidel zaznamen\IeC {\'a}ny 23. 2. 2020}}{60}{figure.4.3}% 
-\contentsline {figure}{\numberline {4.4}{\ignorespaces Shluk vozidel}}{60}{figure.4.4}% 
-\contentsline {figure}{\numberline {4.5}{\ignorespaces Vyzna\IeC {\v c}en\IeC {\'a} trasa j\IeC {\'\i }zdy}}{60}{figure.4.5}% 
-\contentsline {figure}{\numberline {4.6}{\ignorespaces Vyzna\IeC {\v c}en\IeC {\'a} trasa j\IeC {\'\i }zdy s j\IeC {\'\i }zdn\IeC {\'\i }m \IeC {\v r}\IeC {\'a}dem}}{61}{figure.4.6}% 
-\contentsline {figure}{\numberline {4.7}{\ignorespaces Vozidla proj\IeC {\'\i }\IeC {\v z}d\IeC {\v e}j\IeC {\'\i }c\IeC {\'\i } vybranou zast\IeC {\'a}vkou}}{61}{figure.4.7}% 
-\contentsline {figure}{\numberline {4.8}{\ignorespaces Odjezdov\IeC {\'a} tabule}}{62}{figure.4.8}% 
-\contentsline {figure}{\numberline {4.9}{\ignorespaces Modelov\IeC {\'a}n\IeC {\'\i } profilu j\IeC {\'\i }zdy s chybn\IeC {\'y}mi vstupn\IeC {\'\i }mi daty}}{62}{figure.4.9}% 
-\contentsline {figure}{\numberline {4.10}{\ignorespaces Histogram \gls {rmse}}}{62}{figure.4.10}% 
-\contentsline {figure}{\numberline {4.11}{\ignorespaces Histogram \gls {rmse}}}{63}{figure.4.11}% 
-\contentsline {figure}{\numberline {4.12}{\ignorespaces Histogram \gls {rmse}}}{64}{figure.4.12}% 
-\contentsline {figure}{\numberline {4.13}{\ignorespaces Histogram rozptylu zpo\IeC {\v z}d\IeC {\v e}n\IeC {\'\i } podle line\IeC {\'a}rn\IeC {\'\i }ho modelu, posledn\IeC {\'\i } sloupec zna\IeC {\v c}\IeC {\'\i } hodnoty 80 a v\IeC {\'\i }ce}}{66}{figure.4.13}% 
-\contentsline {figure}{\numberline {4.14}{\ignorespaces Histogram rozptylu zpo\IeC {\v z}d\IeC {\v e}n\IeC {\'\i } podle line\IeC {\'a}rn\IeC {\'\i }ho modelu, posledn\IeC {\'\i } sloupec zna\IeC {\v c}\IeC {\'\i } hodnoty 80 a v\IeC {\'\i }ce}}{67}{figure.4.14}% 
-\contentsline {figure}{\numberline {4.15}{\ignorespaces Histogram rozptylu zpo\IeC {\v z}d\IeC {\v e}n\IeC {\'\i } podle line\IeC {\'a}rn\IeC {\'\i }ho modelu, posledn\IeC {\'\i } sloupec zna\IeC {\v c}\IeC {\'\i } hodnoty 80 a v\IeC {\'\i }ce}}{68}{figure.4.15}% 
-\contentsline {figure}{\numberline {4.16}{\ignorespaces Histogram rozptylu zpo\IeC {\v z}d\IeC {\v e}n\IeC {\'\i } podle line\IeC {\'a}rn\IeC {\'\i }ho modelu, posledn\IeC {\'\i } sloupec zna\IeC {\v c}\IeC {\'\i } hodnoty 80 a v\IeC {\'\i }ce}}{69}{figure.4.16}% 
-\contentsline {figure}{\numberline {4.17}{\ignorespaces Porovn\IeC {\'a}n\IeC {\'\i } pr\IeC {\r u}b\IeC {\v e}hu odhadnut\IeC {\'y}ch zpo\IeC {\v z}d\IeC {\v e}n\IeC {\'\i } line\IeC {\'a}rn\IeC {\'\i }m modelem (modr\IeC {\'a}) a polynomi\IeC {\'a}ln\IeC {\'\i }m modelem (oran\IeC {\v z}ov\IeC {\'a}) mezi zast\IeC {\'a}vkami K Leti\IeC {\v s}ti a Zli\IeC {\v c}\IeC {\'\i }n}}{70}{figure.4.17}% 
-\contentsline {figure}{\numberline {4.18}{\ignorespaces Histogram d\IeC {\'e}lek tras spoj\IeC {\r u}.}}{70}{figure.4.18}% 
-\contentsline {figure}{\numberline {4.19}{\ignorespaces Zpo\IeC {\v z}d\IeC {\v e}n\IeC {\'\i } v posledn\IeC {\'\i } zast\IeC {\'a}vce j\IeC {\'\i }zdy v\IeC {\r u}\IeC {\v c}i d\IeC {\'e}lce cel\IeC {\'e} trasy j\IeC {\'\i }zdy, Pr\IeC {\r u}m\IeC {\v e}r vyzna\IeC {\v c}en mod\IeC {\v r}e a rozptyl \IeC {\v s}ed\IeC {\v e}}}{71}{figure.4.19}% 
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Pr\IeC {\r u}m\IeC {\v e}rn\IeC {\'y} \IeC {\v c}as zpracov\IeC {\'a}v\IeC {\'a}n\IeC {\'\i } dan\IeC {\'e}ho po\IeC {\v c}tu vozidel ze v\IeC {\v s}ech soubor\IeC {\r u} se statick\IeC {\'y}mi daty s 95 \% intervalem spolehlivosti. Po\IeC {\v c}ty vozidel jsou v\IeC {\v z}dy zaokrouhleny dol\IeC {\r u} na cel\IeC {\'e} des\IeC {\'\i }tky.}}{59}{figure.4.1}% 
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Doba odpov\IeC {\v e}di serveru na 100 paraleln\IeC {\'\i }ch dotaz\IeC {\r u} (1000 vzork\IeC {\r u})}}{61}{figure.4.2}% 
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Mapa Prahy a okol\IeC {\'\i } s polohy vozidel zaznamen\IeC {\'a}ny 23. 2. 2020}}{61}{figure.4.3}% 
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Shluk vozidel}}{62}{figure.4.4}% 
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Vyzna\IeC {\v c}en\IeC {\'a} trasa j\IeC {\'\i }zdy}}{62}{figure.4.5}% 
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Vyzna\IeC {\v c}en\IeC {\'a} trasa j\IeC {\'\i }zdy s j\IeC {\'\i }zdn\IeC {\'\i }m \IeC {\v r}\IeC {\'a}dem}}{62}{figure.4.6}% 
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Vozidla proj\IeC {\'\i }\IeC {\v z}d\IeC {\v e}j\IeC {\'\i }c\IeC {\'\i } vybranou zast\IeC {\'a}vkou}}{63}{figure.4.7}% 
+\contentsline {figure}{\numberline {4.8}{\ignorespaces Odjezdov\IeC {\'a} tabule}}{63}{figure.4.8}% 
+\contentsline {figure}{\numberline {4.9}{\ignorespaces Modelov\IeC {\'a}n\IeC {\'\i } profilu j\IeC {\'\i }zdy s chybn\IeC {\'y}mi vstupn\IeC {\'\i }mi daty}}{64}{figure.4.9}% 
+\contentsline {figure}{\numberline {4.10}{\ignorespaces Histogram \gls {rmse} v\IeC {\v s}ech model\IeC {\r u}}}{65}{figure.4.10}% 
+\contentsline {figure}{\numberline {4.11}{\ignorespaces Vizualizace modelu druh\IeC {\'e}ho stupn\IeC {\v e}}}{65}{figure.4.11}% 
+\contentsline {figure}{\numberline {4.12}{\ignorespaces Vizualizace modelu t\IeC {\v r}et\IeC {\'\i }ho stupn\IeC {\v e}}}{66}{figure.4.12}% 
+\contentsline {figure}{\numberline {4.13}{\ignorespaces Histogram rozptylu zpo\IeC {\v z}d\IeC {\v e}n\IeC {\'\i } podle line\IeC {\'a}rn\IeC {\'\i }ho modelu, posledn\IeC {\'\i } sloupec zna\IeC {\v c}\IeC {\'\i } hodnoty 80 a v\IeC {\'\i }ce}}{68}{figure.4.13}% 
+\contentsline {figure}{\numberline {4.14}{\ignorespaces Histogram rozptylu zpo\IeC {\v z}d\IeC {\v e}n\IeC {\'\i } podle line\IeC {\'a}rn\IeC {\'\i }ho modelu, posledn\IeC {\'\i } sloupec zna\IeC {\v c}\IeC {\'\i } hodnoty 80 a v\IeC {\'\i }ce}}{69}{figure.4.14}% 
+\contentsline {figure}{\numberline {4.15}{\ignorespaces Histogram rozd\IeC {\'\i }lu rozptylu zpo\IeC {\v z}d\IeC {\v e}n\IeC {\'\i } podle line\IeC {\'a}rn\IeC {\'\i }ho modelu a polynomi\IeC {\'a}ln\IeC {\'\i }ho modelu}}{70}{figure.4.15}% 
+\contentsline {figure}{\numberline {4.16}{\ignorespaces Zhor\IeC {\v s}en\IeC {\'\i } odhadu zpo\IeC {\v z}d\IeC {\v e}n\IeC {\'\i } vlivem \IeC {\v s}patn\IeC {\'y}ch vstupn\IeC {\'\i }ch dat}}{70}{figure.4.16}% 
+\contentsline {figure}{\numberline {4.17}{\ignorespaces Porovn\IeC {\'a}n\IeC {\'\i } pr\IeC {\r u}b\IeC {\v e}hu odhadnut\IeC {\'y}ch zpo\IeC {\v z}d\IeC {\v e}n\IeC {\'\i } line\IeC {\'a}rn\IeC {\'\i }m modelem (modr\IeC {\'a}) a polynomi\IeC {\'a}ln\IeC {\'\i }m modelem (oran\IeC {\v z}ov\IeC {\'a}) mezi zast\IeC {\'a}vkami K Leti\IeC {\v s}ti a Zli\IeC {\v c}\IeC {\'\i }n}}{71}{figure.4.17}% 
+\contentsline {figure}{\numberline {4.18}{\ignorespaces Histogram d\IeC {\'e}lek tras spoj\IeC {\r u}.}}{73}{figure.4.18}% 
+\contentsline {figure}{\numberline {4.19}{\ignorespaces Zpo\IeC {\v z}d\IeC {\v e}n\IeC {\'\i } v posledn\IeC {\'\i } zast\IeC {\'a}vce j\IeC {\'\i }zdy v\IeC {\r u}\IeC {\v c}i d\IeC {\'e}lce cel\IeC {\'e} trasy j\IeC {\'\i }zdy, Pr\IeC {\r u}m\IeC {\v e}r vyzna\IeC {\v c}en mod\IeC {\v r}e a rozptyl \IeC {\v s}ed\IeC {\v e}}}{73}{figure.4.19}% 
 \addvspace {10\p@ }

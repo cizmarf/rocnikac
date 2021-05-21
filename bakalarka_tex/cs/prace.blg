@@ -12,46 +12,44 @@ A level-1 auxiliary file: zaver.aux
 A level-1 auxiliary file: literatura.aux
 The style file: czplainnat.bst
 Database file #1: literatura.bib
-Warning--empty year in Asaeedi
-You've used 2 entries,
+You've used 4 entries,
             2828 wiz_defined-function locations,
-            629 strings with 5524 characters,
-and the built_in function-call counts, 661 in all, are:
-= -- 58
-> -- 20
-< -- 2
-+ -- 8
-- -- 6
-* -- 40
-:= -- 113
-add.period$ -- 8
-call.type$ -- 2
-change.case$ -- 8
-chr.to.int$ -- 2
-cite$ -- 5
-duplicate$ -- 38
-empty$ -- 61
-format.name$ -- 8
-if$ -- 131
+            646 strings with 5861 characters,
+and the built_in function-call counts, 1433 in all, are:
+= -- 130
+> -- 62
+< -- 4
++ -- 22
+- -- 18
+* -- 100
+:= -- 242
+add.period$ -- 18
+call.type$ -- 4
+change.case$ -- 16
+chr.to.int$ -- 4
+cite$ -- 8
+duplicate$ -- 76
+empty$ -- 123
+format.name$ -- 26
+if$ -- 295
 int.to.chr$ -- 1
 int.to.str$ -- 1
-missing$ -- 2
-newline$ -- 20
-num.names$ -- 8
-pop$ -- 20
+missing$ -- 6
+newline$ -- 32
+num.names$ -- 16
+pop$ -- 36
 preamble$ -- 1
-purify$ -- 6
+purify$ -- 14
 quote$ -- 0
-skip$ -- 21
+skip$ -- 49
 stack$ -- 0
-substring$ -- 4
-swap$ -- 4
+substring$ -- 8
+swap$ -- 8
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 22
-warning$ -- 1
-while$ -- 6
+type$ -- 34
+warning$ -- 0
+while$ -- 12
 width$ -- 0
-write$ -- 34
-(There was 1 warning)
+write$ -- 67

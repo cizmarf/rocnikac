@@ -162,13 +162,13 @@ class TestData(unittest.TestCase):
 		print(names)
 		print(no_of_stops_in_distances)
 
-		plt.figure(figsize=(10, 8))
+		plt.figure(figsize=(12, 8))
 		plt.subplot()
 		plt.bar(names, no_of_stops_in_distances)
-		plt.title('Počet úseků mezi bezprostředně následujícími zastávkami a vzdálenost mezi nimi. \n Každý průjezd úsekem je započítán zvlášť.')
 		plt.xlabel('Vzdálenost v km')
 		plt.ylabel('Počet úseků')
 		plt.yscale('log')
+		plt.savefig('stop_distances_result.pdf')
 		plt.show()
 
 	def test_mean_stop_travel_time(self):
@@ -316,11 +316,10 @@ class TestDatabaseClass(unittest.TestCase):
 			plt.bar([k[0] for k in sorted_map], [v[1] for v in sorted_map])
 
 			self.assertEqual(sum([v[1] for v in sorted_map]), 15793)
-			plt.title('Počet souborů s polohy vozidel s počtem nově objevených spojů.')
 			plt.xlabel('Počet nových spojů')
 			plt.ylabel('Počet souborů')
 			plt.yscale('log')
-			# plt.savefig('books_read.pdf')
+			plt.savefig('new_trips.pdf')
 			plt.show()
 
 	def test_trips_processing_time(self):
@@ -342,15 +341,16 @@ class TestDatabaseClass(unittest.TestCase):
 			sorted_map = sorted(map)
 			ci = np.array([1.96 * np.std(np.array(map[k])) / math.sqrt(len(map[k])) for k in sorted_map])
 			y = np.array([np.mean(np.array(map[k])) for k in sorted_map])
-			plt.plot(sorted_map, y)
-			plt.fill_between(sorted_map, (y - ci), (y + ci), color='b', alpha=.1)
+			plt.plot(sorted_map, y, label='Průměr')
+			plt.fill_between(sorted_map, (y - ci), (y + ci), color='b', alpha=.1, label='95% interval spolehlivosti')
 
 			# self.assertEqual(sum([v[1] for v in sorted_map]), 15793)
-			plt.title('Průměrný čas zpracování daného počtu vozidel s 95 % intervalem spolehlivosti.')
+			# plt.title('Průměrný čas zpracování daného počtu vozidel s 95 % intervalem spolehlivosti.')
 			plt.xlabel('Počet vozidel')
 			plt.ylabel('Čas [s]')
 			# plt.yscale('log')
-			plt.savefig('books_read.pdf')
+			plt.legend(loc='upper left')
+			plt.savefig('file_process_time.pdf')
 			plt.show()
 
 	def test_histogram_of_all_trips(self):
@@ -372,11 +372,11 @@ class TestDatabaseClass(unittest.TestCase):
 		plt.subplot()
 		sorted_map = [(k, map[k]) for k in sorted(map, key=map.get, reverse=True)]
 		plt.bar([k[0] for k in sorted_map], [v[1] for v in sorted_map], width=8)
-		plt.title('Počet souborů s polohy vozidel s počtem spojů. Agregováno po desítkách.')
-		plt.xlabel('Počet spojů')
+		# plt.title('Počet souborů s polohy vozidel s počtem spojů. Agregováno po desítkách.')
+		plt.xlabel('Počet vozidel')
 		plt.ylabel('Počet souborů')
 		plt.yscale('log')
-		# plt.savefig('books_read.pdf')
+		plt.savefig('all_trips.pdf')
 		plt.show()
 
 	def test_size_of_all_samples(self):
@@ -524,9 +524,12 @@ class TestDatabaseClass(unittest.TestCase):
 			#
 			# # mu = np.mean(rmse_bss)
 			# # sigma = np.std(rmse_bss)
-			plt.hist(degrees, 10, density=False)
+			plt.hist(np.append(rmse_bss, rmse_hol), 40, density=False)
+			plt.xlabel('RMSE [s]')
+			plt.ylabel('Počet modelů')
+
 			# plt.plot(bins)#, 1 / (sigma * np.sqrt(2 * np.pi)) * np.exp(- (bins - mu) ** 2 / (2 * sigma ** 2)), linewidth=2, color='r')
-			# plt.savefig('books_read.pdf')
+			plt.savefig('rmse.pdf')
 			plt.show()
 
 			# plt.figure(figsize=(10, 8))

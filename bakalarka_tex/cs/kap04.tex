@@ -89,8 +89,8 @@ Jak je ale vidět na grafu \ref{fig:file_process_time} i pro nejvyšší množst
 
 \begin{figure}
    \centering
- \includegraphics[width=0.7\linewidth]{../img/file_process_time}
- \caption{Průměrný čas zpracovávání daného počtu vozidel ze všech souborů se statickými daty. Světle modrá barva ohraničuje 95 \% interval spolehlivosti. Počty vozidel jsou vždy zaokrouhleny dolů na celé desítky.}
+ \includegraphics[width=\linewidth]{../img/file_process_time}
+ \caption{Průměrný čas zpracovávání daného počtu vozidel ze všech souborů se statickými daty s 95 \% intervalem spolehlivosti. Počty vozidel jsou vždy zaokrouhleny dolů na celé desítky.}
  \label{fig:file_process_time}
 \end{figure}
 
@@ -139,12 +139,12 @@ Server odpovídá na všechny typy požadovaných dotazů.
 \bigbreak
 
 
-Server je schopný odbavit přinejmenším 100 dotazů za sekundu. Na grafu \ref{fig:server_response_time} je zobrazeno jako dlouho trvalo serveru odpovědět na 100 paralelních dotazů, celkem v 1 000 případech. Průměrná odpověď trvala mírně přes půlsekundu a jen v jednom případě jsme na odpověď čekali rovnou sekundu, což je nejzazší přípustná hodnota.
+Server je schopný odbavit přinejmenším 100 dotazů za sekundu. Na grafu \ref{fig:server_response_time} je zobrazeno jako dlouho trvalo serveru odpovědět na 100 paralelních dotazů, celkem v 1\,000 případech. Průměrná odpověď trvala třetinu sekundy a jen v jednom případě jsme na odpověď čekali 0.8 sekundy, tedy stále ještě pod jednu sekundu.
 
 
 \begin{figure}
    \centering
- \includegraphics[width=0.7\linewidth]{../img/server_response_time}
+ \includegraphics[width=\linewidth]{../img/server_response_time}
  \caption{Doba odpovědi serveru na 100 paralelních dotazů (1000 vzorků)}
  \label{fig:server_response_time}
 \end{figure}
@@ -248,12 +248,12 @@ Z 2142 dvojic zastávek se alespoň pro jeden typ dne (pracovní, víkendový) v
 \bigbreak
 
 
-Chceme-li zjistit, jak přesně jsou profily jízdy odhadnuty pomocí vytvořených modelů, zaměříme se na \gls{rmse} u každého modelu. Tato chyba nám říká, o kolik sekund se v průměrném případě náš odhad plete od skutečnosti na testovacích datech\footnote{Jedná se o testovací data, podle kterých se určil nejlepší stupeň polynomu. Kdy vstupní data pro funkci trénování modelu byla rozdělena na trénovací a testovací. Testovací data, podle kterých posuzujeme vlastnosti nově odhadnutých zpoždění v kapitole \ref{subsection:odhady_zpozdeni}, jsou zcela jiná množina dat.}. Pro pracovní dny je průměrná \gls{rmse} necelých 20 sekund. Nejvyšší \gls{rmse} byla zaznamenána 200 sekund. Tak vysoké odchylky jsou, po prozkoumání jednotlivých případů způsobeny chybami ve vstupních datech, které se automaticky odstraňují jen velmi obtížně. Příklad je zobrazen na grafu \ref{fig:chyba_zpozdeni_v_posledni_zastavce}. V tomto konkrétním případě jsou chybně uvedena zpoždění v poslední projeté zastávce. Histogram všech \gls{rmse} modelů z pracovních dnů je zobrazen na grafu \ref{fig:rmse}. Zde je patrné, že nejčastěji je chyba do 30 sekund a zcela výjimečně překročí 60 sekund. Takto nízké chyby jsou nad očekávání dobré, protože průměrných 20 sekund je pro cestujícího čekající na autobus takřka nepostřehnutelnými.
+Chceme-li zjistit, jak přesně jsou profily jízdy odhadnuty pomocí vytvořených modelů, zaměříme se na \gls{rmse} u každého modelu. Tato chyba nám říká, o kolik sekund se v průměrném případě náš odhad plete od skutečnosti na testovacích datech\footnote{Jedná se o testovací data, podle kterých se určil nejlepší stupeň polynomu. Kdy vstupní data pro funkci trénování modelu byla rozdělena na trénovací a testovací. Testovací data, podle kterých posuzujeme vlastnosti nově odhadnutých zpoždění v kapitole \ref{subsection:odhady_zpozdeni}, jsou zcela jiná množina dat \citep[viz][Strana 365, validation set a test set]{Ripley96}.}. Pro pracovní dny je průměrná \gls{rmse} necelých 20 sekund. Nejvyšší \gls{rmse} byla zaznamenána 200 sekund. Tak vysoké odchylky jsou, po prozkoumání jednotlivých případů způsobeny chybami ve vstupních datech, které se automaticky odstraňují jen velmi obtížně. Příklad je zobrazen na grafu \ref{fig:chyba_zpozdeni_v_posledni_zastavce}. V tomto konkrétním případě jsou chybně uvedena zpoždění v poslední projeté zastávce. Histogram všech \gls{rmse} modelů z pracovních dnů je zobrazen na grafu \ref{fig:rmse}. Zde je patrné, že nejčastěji je chyba do 30 sekund a zcela výjimečně překročí 60 sekund. Takto nízké chyby jsou nad očekávání dobré, protože průměrných 20 sekund je pro cestujícího čekající na autobus takřka nepostřehnutelnými.
 
 
 \begin{figure}
    \centering
- \includegraphics[width=0.4\linewidth]{../img/chyba_zpozdeni_v_posledni_zastavce.png}
+ \includegraphics[width=\linewidth]{../img/134_135}
  \caption{Modelování profilu jízdy s chybnými vstupními daty}
  \label{fig:chyba_zpozdeni_v_posledni_zastavce}
 \end{figure}
@@ -261,8 +261,8 @@ Chceme-li zjistit, jak přesně jsou profily jízdy odhadnuty pomocí vytvořen�
 
 \begin{figure}
    \centering
- \includegraphics[width=0.4\linewidth]{../img/rmse}
- \caption{Histogram \gls{rmse}}
+ \includegraphics[width=\linewidth]{../img/rmse}
+ \caption{Histogram \gls{rmse} všech modelů}
  \label{fig:rmse}
 \end{figure}
 
@@ -277,8 +277,8 @@ Co se týče stupňů polynomiálních regresí, které využíváme při konstr
 
 \begin{figure}
    \centering
- \includegraphics[width=1\linewidth]{../img/second_degree}
- \caption{Histogram \gls{rmse}}
+ \includegraphics[width=\linewidth]{../img/23_24}
+ \caption{Vizualizace modelu druhého stupně}
  \label{fig:second_degree}
 \end{figure}
 
@@ -287,8 +287,8 @@ Co se týče stupňů polynomiálních regresí, které využíváme při konstr
 
 \begin{figure}
    \centering
- \includegraphics[width=1\linewidth]{../img/thrd_degree}
- \caption{Histogram \gls{rmse}}
+ \includegraphics[width=\linewidth]{../img/thrd_degree}
+ \caption{Vizualizace modelu třetího stupně}
  \label{fig:thrd_degree}
 \end{figure}
 
@@ -310,7 +310,8 @@ Podívejme se tedy na porovnání odhadů zpoždění novými modely profilů j�
 \bigbreak
 
 
-Evaluaci výsledků budeme provádět s daty sesbíranými 20. 2. 2020, které použijeme jako trénovací data a s daty sesbíranými 21. 2. 2020, které použijeme jako testovací data. Toto je standardní postup pro hodnocení úspěšnosti predikcí modelů ve světě strojového učení. Modely nemohou být testovány na stejných datech, jako na kterých byly trénovány, protože kdyby se trénovalo i testovalo na stejných datech, model by nemusel nic predikovat, ale stačilo by, aby si jen "zapamatoval" hodnotu z množiny trénovacích dat.
+Evaluaci výsledků budeme provádět s daty sesbíranými 20. 2. 2020, které použijeme jako trénovací data a s daty sesbíranými 21. 2. 2020, které použijeme jako testovací data. Toto je standardní postup pro hodnocení úspěšnosti predikcí modelů ve světě strojového učení. Modely nemohou být testovány na stejných datech, jako na kterých byly trénovány, protože kdyby se trénovalo i testovalo na stejných datech, model by nemusel nic predikovat, ale stačilo by, aby si jen \uv{zapamatoval} hodnotu z množiny trénovacích dat \citep[viz][Strana 30]{Gareth13}.
+
 
 
 \bigbreak
@@ -372,7 +373,7 @@ Nyní se podívejme už na samotné srovnání rozptylů zpoždění, které jed
 
 \begin{figure}
    \centering
- \includegraphics[width=1\linewidth]{../img/rozptyl_old}
+ \includegraphics[width=\linewidth]{../img/rozptyl_old}
  \caption{Histogram rozptylu zpoždění podle lineárního modelu, poslední sloupec značí hodnoty 80 a více}
  \label{fig:rozptyl_old}
 \end{figure}
@@ -380,7 +381,7 @@ Nyní se podívejme už na samotné srovnání rozptylů zpoždění, které jed
 
 \begin{figure}
    \centering
- \includegraphics[width=1\linewidth]{../img/rozptyl_new}
+ \includegraphics[width=\linewidth]{../img/rozptyl_new}
  \caption{Histogram rozptylu zpoždění podle lineárního modelu, poslední sloupec značí hodnoty 80 a více}
  \label{fig:rozptyl_new}
 \end{figure}
@@ -395,7 +396,7 @@ Tyto grafy nám ukazují, že v průměru došlo ke zlepšení odhadu, ale podí
 \begin{figure}
    \centering
  \includegraphics[width=1\linewidth]{../img/rozptyl_diff}
- \caption{Histogram rozptylu zpoždění podle lineárního modelu, poslední sloupec značí hodnoty 80 a více}
+ \caption{Histogram rozdílu rozptylu zpoždění podle lineárního modelu a polynomiálního modelu}
  \label{fig:rozptyl_diff}
 \end{figure}
 
@@ -411,13 +412,13 @@ Dále také na grafu \ref{fig:rozptyl_diff} vidíme, že u 26 dvojic došlo ke z
 \bigbreak
 
 
-N grafu \ref{fig:chyba} je vizualizován vygenerovaný model pro dvojici zastávek, kde došlo k největšímu zhoršení oproti odhadu zpoždění lineárním modelem. Na první pohled se zdá, že takto má vypadat ideální model. Při bližším ohledání ale zjistíme, že dokonalá vlna vznikla z chybných vstupních dat. Konkrétně si povšimneme, že vzorky se seskupily do dvou clusterů, první ve vzdálenosti 0 až 3000 metrů od vyjetí a druhý dále.
+Na grafu \ref{fig:chyba} je vizualizován vygenerovaný model pro dvojici zastávek, kde došlo k největšímu zhoršení oproti odhadu zpoždění lineárním modelem. Na první pohled se zdá, že takto má vypadat ideální model. Při bližším ohledání ale zjistíme, že dokonalá vlna vznikla z chybných vstupních dat. Konkrétně si povšimneme, že vzorky se seskupily do dvou clusterů, první ve vzdálenosti 0 až 3000 metrů od vyjetí a druhý dále.
 
 
 \begin{figure}
    \centering
- \includegraphics[width=1\linewidth]{../img/chyba}
- \caption{Histogram rozptylu zpoždění podle lineárního modelu, poslední sloupec značí hodnoty 80 a více}
+ \includegraphics[width=1\linewidth]{../img/808_809}
+ \caption{Zhoršení odhadu zpoždění vlivem špatných vstupních dat}
  \label{fig:chyba}
 \end{figure}
 

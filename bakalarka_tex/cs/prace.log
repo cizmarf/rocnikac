@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  20 MAY 2021 12:24
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  21 MAY 2021 19:23
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -931,7 +931,7 @@ LaTeX Info: Redefining \nameref on input line 288.
 
  (./titulka.tex
 Package hyperref Info: Option `pageanchor' set `false' on input line 6.
-<../img/logo-cs.pdf, id=236, 506.4591pt x 156.49065pt>
+<../img/logo-cs.pdf, id=232, 506.4591pt x 156.49065pt>
 File: ../img/logo-cs.pdf Graphic file (type pdf)
 <use ../img/logo-cs.pdf>
 Package pdftex.def Info: ../img/logo-cs.pdf  used on input line 10.
@@ -1017,32 +1017,30 @@ File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 
  (./kap01.tex
 Kapitola 1.
-<../img/stop_distances_plot_2020-02-20.png, id=391, 1003.75pt x 803.0pt>
-File: ../img/stop_distances_plot_2020-02-20.png Graphic file (type png)
-<use ../img/stop_distances_plot_2020-02-20.png>
-Package pdftex.def Info: ../img/stop_distances_plot_2020-02-20.png  used on inp
-ut line 21.
-(pdftex.def)             Requested size: 247.54149pt x 198.02939pt.
+<../img/stop_distances_result.pdf, id=386, 867.24pt x 578.16pt>
+File: ../img/stop_distances_result.pdf Graphic file (type pdf)
+<use ../img/stop_distances_result.pdf>
+Package pdftex.def Info: ../img/stop_distances_result.pdf  used on input line 2
+1.
+(pdftex.def)             Requested size: 412.56496pt x 275.04349pt.
 [6
 
 
 
-] [7 <../img/stop_distances_plot_2020-02-20.png (PNG copy)>]
-<../img/k_letisti_to_zlicin_3d.png, id=408, 1214.136pt x 732.8178pt>
-File: ../img/k_letisti_to_zlicin_3d.png Graphic file (type png)
-<use ../img/k_letisti_to_zlicin_3d.png>
-Package pdftex.def Info: ../img/k_letisti_to_zlicin_3d.png  used on input line 
-64.
-(pdftex.def)             Requested size: 412.56496pt x 249.00938pt.
-<../img/k_letisti_to_zlicin_map.png, id=411, 351.3125pt x 656.4525pt>
+] [7 <../img/stop_distances_result.pdf>]
+<../img/534_421.pdf, id=437, 462.52798pt x 346.89601pt>
+File: ../img/534_421.pdf Graphic file (type pdf)
+<use ../img/534_421.pdf>
+Package pdftex.def Info: ../img/534_421.pdf  used on input line 64.
+(pdftex.def)             Requested size: 412.56496pt x 309.44046pt.
+<../img/k_letisti_to_zlicin_map.png, id=439, 351.3125pt x 656.4525pt>
 File: ../img/k_letisti_to_zlicin_map.png Graphic file (type png)
 <use ../img/k_letisti_to_zlicin_map.png>
 Package pdftex.def Info: ../img/k_letisti_to_zlicin_map.png  used on input line
  75.
 (pdftex.def)             Requested size: 123.77074pt x 231.27432pt.
- [8 <../img/k_letisti_to_zlicin_3d.png>] [9 <../img/k_letisti_to_zlicin_map.png
->]
-<../img/lin_vs_poly.pdf, id=432, 462.52798pt x 346.89601pt>
+ [8 <../img/534_421.pdf>] [9 <../img/k_letisti_to_zlicin_map.png>]
+<../img/lin_vs_poly.pdf, id=507, 462.52798pt x 346.89601pt>
 File: ../img/lin_vs_poly.pdf Graphic file (type pdf)
 <use ../img/lin_vs_poly.pdf>
 Package pdftex.def Info: ../img/lin_vs_poly.pdf  used on input line 111.
@@ -1050,57 +1048,53 @@ Package pdftex.def Info: ../img/lin_vs_poly.pdf  used on input line 111.
  [10 <../img/lin_vs_poly.pdf>]
 LaTeX Font Info:    Try loading font information for T1+lmtt on input line 158.
 
- (/usr/local/texlive/2019/texmf-dist/tex/latex/lm/t1lmtt.fd
+
+(/usr/local/texlive/2019/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
+) [11]
 Underfull \hbox (badness 10000) in paragraph at lines 162--162
 [][][]\T1/lmr/m/n/10 Programátorská do-ku-men-tace je do-stupná na https://oper
 ator-
  []
 
-[11]
 
 LaTeX Warning: Reference `' on page 12 undefined on input line 182.
 
-<../img/relace_vstupnich_dat.pdf, id=518, 598.15468pt x 421.575pt>
+<../img/relace_vstupnich_dat.pdf, id=591, 598.15468pt x 421.575pt>
 File: ../img/relace_vstupnich_dat.pdf Graphic file (type pdf)
 <use ../img/relace_vstupnich_dat.pdf>
 Package pdftex.def Info: ../img/relace_vstupnich_dat.pdf  used on input line 18
 6.
 (pdftex.def)             Requested size: 412.56496pt x 290.78413pt.
 [12] [13 <../img/relace_vstupnich_dat.pdf>] [14] [15] [16]
-<../img/vehicle_pos_x_new_trips.pdf, id=574, 722.7pt x 578.16pt>
-File: ../img/vehicle_pos_x_new_trips.pdf Graphic file (type pdf)
-<use ../img/vehicle_pos_x_new_trips.pdf>
-Package pdftex.def Info: ../img/vehicle_pos_x_new_trips.pdf  used on input line
- 371.
-(pdftex.def)             Requested size: 288.7942pt x 231.03053pt.
-<../img/vehicle_pos_x_all_trips.pdf, id=576, 722.7pt x 578.16pt>
-File: ../img/vehicle_pos_x_all_trips.pdf Graphic file (type pdf)
-<use ../img/vehicle_pos_x_all_trips.pdf>
-Package pdftex.def Info: ../img/vehicle_pos_x_all_trips.pdf  used on input line
- 386.
-(pdftex.def)             Requested size: 288.7942pt x 231.03053pt.
- [17 <../img/vehicle_pos_x_new_trips.pdf>] [18 <../img/vehicle_pos_x_all_trips.
-pdf>] [19]
-<../img/golemio_mapa.png, id=701, 1063.975pt x 723.70375pt>
+<../img/new_trips.pdf, id=648, 722.7pt x 578.16pt>
+File: ../img/new_trips.pdf Graphic file (type pdf)
+<use ../img/new_trips.pdf>
+Package pdftex.def Info: ../img/new_trips.pdf  used on input line 371.
+(pdftex.def)             Requested size: 412.56496pt x 330.04865pt.
+<../img/all_trips.pdf, id=650, 722.7pt x 578.16pt>
+File: ../img/all_trips.pdf Graphic file (type pdf)
+<use ../img/all_trips.pdf>
+Package pdftex.def Info: ../img/all_trips.pdf  used on input line 382.
+(pdftex.def)             Requested size: 412.56496pt x 330.04865pt.
+ [17] [18 <../img/new_trips.pdf>] [19 <../img/all_trips.pdf>] [20] [21]
+<../img/golemio_mapa.png, id=767, 1063.975pt x 723.70375pt>
 File: ../img/golemio_mapa.png Graphic file (type png)
 <use ../img/golemio_mapa.png>
 Package pdftex.def Info: ../img/golemio_mapa.png  used on input line 493.
 (pdftex.def)             Requested size: 206.28247pt x 140.31001pt.
- [20 <../img/golemio_mapa.png>]
-<../img/tram-bus_mapa.png, id=714, 928.46875pt x 783.92876pt>
+<../img/tram-bus_mapa.png, id=770, 928.46875pt x 783.92876pt>
 File: ../img/tram-bus_mapa.png Graphic file (type png)
 <use ../img/tram-bus_mapa.png>
 Package pdftex.def Info: ../img/tram-bus_mapa.png  used on input line 504.
 (pdftex.def)             Requested size: 206.28247pt x 174.16342pt.
-<../img/idsjmk_mapa.png, id=718, 1179.40625pt x 932.48375pt>
+ [22 <../img/golemio_mapa.png> <../img/tram-bus_mapa.png>]
+<../img/idsjmk_mapa.png, id=788, 1179.40625pt x 932.48375pt>
 File: ../img/idsjmk_mapa.png Graphic file (type png)
 <use ../img/idsjmk_mapa.png>
 Package pdftex.def Info: ../img/idsjmk_mapa.png  used on input line 519.
 (pdftex.def)             Requested size: 206.28247pt x 163.0875pt.
- [21 <../img/tram-bus_mapa.png> <../img/idsjmk_mapa.png>])
-[22]
+) [23 <../img/idsjmk_mapa.png>]
 \openout2 = `kap01,5.aux'.
 
 
@@ -1113,139 +1107,137 @@ Kapitola 2.
 
 pdfTeX warning: pdflatex (file ../img/design_diagram.pdf): PDF inclusion: found
  PDF version <1.7>, but at most version <1.5> allowed
-<../img/design_diagram.pdf, id=739, 598.15468pt x 421.575pt>
+<../img/design_diagram.pdf, id=797, 598.15468pt x 421.575pt>
 File: ../img/design_diagram.pdf Graphic file (type pdf)
 <use ../img/design_diagram.pdf>
 Package pdftex.def Info: ../img/design_diagram.pdf  used on input line 34.
 (pdftex.def)             Requested size: 412.56496pt x 290.78413pt.
-[23
+[24
 
 
 
 
 
 ]
-<../img/er_diagram.pdf, id=750, 598.15468pt x 421.575pt>
+<../img/er_diagram.pdf, id=808, 598.15468pt x 421.575pt>
 File: ../img/er_diagram.pdf Graphic file (type pdf)
 <use ../img/er_diagram.pdf>
 Package pdftex.def Info: ../img/er_diagram.pdf  used on input line 80.
 (pdftex.def)             Requested size: 412.56496pt x 290.78413pt.
- [24 <../img/design_diagram.pdf>]
+ [25 <../img/design_diagram.pdf>]
 Overfull \hbox (4.52454pt too wide) in paragraph at lines 174--175
 \T1/lmr/m/n/12 ur-£eno £a-sem p°í-jezdu, resp. od-jezdu nebo atri-bu-tem [][]\T
 1/lmtt/m/n/12 shape_dist_traveled[]\T1/lmr/m/n/12 .|
  []
 
-[25]
+[26]
 Overfull \hbox (17.83531pt too wide) in paragraph at lines 233--234
 \T1/lmr/m/n/12 dvo-jici re-fe-ren£-ních bod·. K tomu se zejména vy-u-ºívá atri-
 but [][]\T1/lmtt/m/n/12 shape_dist_traveled[]\T1/lmr/m/n/12 ,|
  []
 
 
-LaTeX Warning: Reference `fig:EER' on page 26 undefined on input line 237.
+LaTeX Warning: Reference `fig:EER' on page 27 undefined on input line 237.
 
-<../img/eer_database.pdf, id=781, 560.96056pt x 785.65768pt>
+<../img/eer_database.pdf, id=839, 560.96056pt x 785.65768pt>
 File: ../img/eer_database.pdf Graphic file (type pdf)
 <use ../img/eer_database.pdf>
 Package pdftex.def Info: ../img/eer_database.pdf  used on input line 240.
 (pdftex.def)             Requested size: 412.56496pt x 577.84108pt.
-[26] [27] [28]
-<../img/dojezd_ve_fazich_dne.png, id=808, 1042.8561pt x 682.2288pt>
-File: ../img/dojezd_ve_fazich_dne.png Graphic file (type png)
-<use ../img/dojezd_ve_fazich_dne.png>
-Package pdftex.def Info: ../img/dojezd_ve_fazich_dne.png  used on input line 38
+[27] [28] [29]
+<../img/dojezd_ve_fazich_dne.pdf, id=867, 462.52798pt x 346.89601pt>
+File: ../img/dojezd_ve_fazich_dne.pdf Graphic file (type pdf)
+<use ../img/dojezd_ve_fazich_dne.pdf>
+Package pdftex.def Info: ../img/dojezd_ve_fazich_dne.pdf  used on input line 38
 0.
-(pdftex.def)             Requested size: 412.56496pt x 269.89902pt.
-<../img/dojezd_podle_vzdalenosti.png, id=810, 975.645pt x 702.4644pt>
-File: ../img/dojezd_podle_vzdalenosti.png Graphic file (type png)
-<use ../img/dojezd_podle_vzdalenosti.png>
-Package pdftex.def Info: ../img/dojezd_podle_vzdalenosti.png  used on input lin
+(pdftex.def)             Requested size: 412.56496pt x 309.44046pt.
+<../img/dojezd_podle_vzdalenosti.pdf, id=869, 462.52798pt x 346.89601pt>
+File: ../img/dojezd_podle_vzdalenosti.pdf Graphic file (type pdf)
+<use ../img/dojezd_podle_vzdalenosti.pdf>
+Package pdftex.def Info: ../img/dojezd_podle_vzdalenosti.pdf  used on input lin
 e 391.
-(pdftex.def)             Requested size: 412.56496pt x 297.04816pt.
-<../img/cerny_most_chvaly.png, id=813, 890.3664pt x 628.0263pt>
-File: ../img/cerny_most_chvaly.png Graphic file (type png)
-<use ../img/cerny_most_chvaly.png>
-Package pdftex.def Info: ../img/cerny_most_chvaly.png  used on input line 429.
-(pdftex.def)             Requested size: 412.56496pt x 291.00385pt.
-<../img/divoka_sarka_veleslavin.png, id=815, 997.326pt x 643.9257pt>
-File: ../img/divoka_sarka_veleslavin.png Graphic file (type png)
-<use ../img/divoka_sarka_veleslavin.png>
-Package pdftex.def Info: ../img/divoka_sarka_veleslavin.png  used on input line
- 440.
-(pdftex.def)             Requested size: 412.56496pt x 266.36937pt.
-<../img/delayed_trip.png, id=817, 956.8548pt x 608.5134pt>
-File: ../img/delayed_trip.png Graphic file (type png)
-<use ../img/delayed_trip.png>
-Package pdftex.def Info: ../img/delayed_trip.png  used on input line 451.
-(pdftex.def)             Requested size: 412.56496pt x 262.37062pt.
- [29]
-<../img/nepredvidatelne_zdrzeni.png, id=832, 913.4928pt x 608.5134pt>
-File: ../img/nepredvidatelne_zdrzeni.png Graphic file (type png)
-<use ../img/nepredvidatelne_zdrzeni.png>
-Package pdftex.def Info: ../img/nepredvidatelne_zdrzeni.png  used on input line
- 465.
-(pdftex.def)             Requested size: 412.56496pt x 274.8313pt.
-<../img/concave_hull.pdf, id=835, 462.52798pt x 346.89601pt>
+(pdftex.def)             Requested size: 412.56496pt x 309.44046pt.
+<../img/4383_2712.pdf, id=874, 462.52798pt x 346.89601pt>
+File: ../img/4383_2712.pdf Graphic file (type pdf)
+<use ../img/4383_2712.pdf>
+Package pdftex.def Info: ../img/4383_2712.pdf  used on input line 429.
+(pdftex.def)             Requested size: 412.56496pt x 309.44046pt.
+<../img/164_165.pdf, id=876, 462.52798pt x 346.89601pt>
+File: ../img/164_165.pdf Graphic file (type pdf)
+<use ../img/164_165.pdf>
+Package pdftex.def Info: ../img/164_165.pdf  used on input line 440.
+(pdftex.def)             Requested size: 412.56496pt x 309.44046pt.
+ [30]
+<../img/16_17.pdf, id=891, 462.52798pt x 346.89601pt>
+File: ../img/16_17.pdf Graphic file (type pdf)
+<use ../img/16_17.pdf>
+Package pdftex.def Info: ../img/16_17.pdf  used on input line 453.
+(pdftex.def)             Requested size: 412.56496pt x 309.44046pt.
+<../img/1128_1129.pdf, id=893, 462.52798pt x 346.89601pt>
+File: ../img/1128_1129.pdf Graphic file (type pdf)
+<use ../img/1128_1129.pdf>
+Package pdftex.def Info: ../img/1128_1129.pdf  used on input line 467.
+(pdftex.def)             Requested size: 412.56496pt x 309.44046pt.
+<../img/concave_hull.pdf, id=896, 462.52798pt x 346.89601pt>
 File: ../img/concave_hull.pdf Graphic file (type pdf)
 <use ../img/concave_hull.pdf>
-Package pdftex.def Info: ../img/concave_hull.pdf  used on input line 484.
+Package pdftex.def Info: ../img/concave_hull.pdf  used on input line 486.
 (pdftex.def)             Requested size: 412.56496pt x 309.44046pt.
-<../img/konkavni_obal_nejednoznacny.png, id=838, 696.6025pt x 531.9875pt>
+ [31]
+<../img/konkavni_obal_nejednoznacny.png, id=911, 696.6025pt x 531.9875pt>
 File: ../img/konkavni_obal_nejednoznacny.png Graphic file (type png)
 <use ../img/konkavni_obal_nejednoznacny.png>
 Package pdftex.def Info: ../img/konkavni_obal_nejednoznacny.png  used on input 
-line 504.
+line 506.
 (pdftex.def)             Requested size: 330.05322pt x 252.0554pt.
- [30] [31]
-<../img/good_to_concave_hull.pdf, id=858, 555.03362pt x 378.6948pt>
-File: ../img/good_to_concave_hull.pdf Graphic file (type pdf)
-<use ../img/good_to_concave_hull.pdf>
-Package pdftex.def Info: ../img/good_to_concave_hull.pdf  used on input line 54
-2.
-(pdftex.def)             Requested size: 412.56496pt x 281.48944pt.
+ [32]
+<../img/8_9.pdf, id=920, 462.52798pt x 346.89601pt>
+File: ../img/8_9.pdf Graphic file (type pdf)
+<use ../img/8_9.pdf>
+Package pdftex.def Info: ../img/8_9.pdf  used on input line 544.
+(pdftex.def)             Requested size: 412.56496pt x 309.44046pt.
 
-Overfull \hbox (5.01776pt too wide) in paragraph at lines 551--552
+Overfull \hbox (5.01776pt too wide) in paragraph at lines 553--554
 []\T1/lmr/m/n/12 Návrh al-go-ritmu pra-cu-jí-cím s kon-káv-ním oba-lem je ná-sl
 e-du-jící. Nej-prve ukaºme|
  []
 
 
-Overfull \hbox (67.6935pt too wide) in paragraph at lines 580--581
+Overfull \hbox (67.6935pt too wide) in paragraph at lines 582--583
 []\T1/lmr/m/n/12 Dále od-had zpoº-d¥ní z kon-káv-ního obalu. Pro funkci [][]\T1
 /lmtt/m/n/12 vzdálenost bodu od hranice obalu|
  []
 
-[32]
-
-LaTeX Warning: Reference `mapbox_mapa' on page 33 undefined on input line 648.
-
-<../img/mapa_mapbox.png, id=863, 660.4675pt x 487.8225pt>
+[33] [34]
+<../img/mapa_mapbox.png, id=932, 660.4675pt x 487.8225pt>
 File: ../img/mapa_mapbox.png Graphic file (type png)
 <use ../img/mapa_mapbox.png>
-Package pdftex.def Info: ../img/mapa_mapbox.png  used on input line 653.
+Package pdftex.def Info: ../img/mapa_mapbox.png  used on input line 655.
 (pdftex.def)             Requested size: 206.28247pt x 152.36227pt.
-
-LaTeX Warning: Reference `dve_vozidla' on page 33 undefined on input line 659.
-
-
-LaTeX Warning: Reference `dve_vozidla' on page 33 undefined on input line 665.
-
-[33]
-<../img/dve_vozidla.png, id=869, 634.37pt x 280.04625pt>
+<../img/dve_vozidla.png, id=935, 634.37pt x 280.04625pt>
 File: ../img/dve_vozidla.png Graphic file (type png)
 <use ../img/dve_vozidla.png>
-Package pdftex.def Info: ../img/dve_vozidla.png  used on input line 670.
+Package pdftex.def Info: ../img/dve_vozidla.png  used on input line 672.
 (pdftex.def)             Requested size: 206.28247pt x 91.06522pt.
-) [34] [35 <../img/er_diagram.pdf>] [36 <../img/eer_database.pdf>] [37 <../img/
-dojezd_ve_fazich_dne.png> <../img/dojezd_podle_vzdalenosti.png>] [38 <../img/ce
-rny_most_chvaly.png> <../img/divoka_sarka_veleslavin.png>] [39 <../img/delayed_
-trip.png> <../img/nepredvidatelne_zdrzeni.png>] [40 <../img/concave_hull.pdf> <
-../img/konkavni_obal_nejednoznacny.png>] [41 <../img/good_to_concave_hull.pdf> 
-<../img/mapa_mapbox.png> <../img/dve_vozidla.png>]
+) [35] [36 <../img/er_diagram.pdf>] [37 <../img/eer_database.pdf>]
+[38 <../img/dojezd_ve_fazich_dne.pdf> <../img/dojezd_podle_vzdalenosti.pdf
+
+pdfTeX warning: pdflatex (file ../img/dojezd_podle_vzdalenosti.pdf): PDF inclus
+ion: multiple pdfs with page group included in a single page
+>] [39 <../img/4383_2712.pdf> <../img/164_165.pdf
+
+pdfTeX warning: pdflatex (file ../img/164_165.pdf): PDF inclusion: multiple pdf
+s with page group included in a single page
+>] [40 <../img/16_17.pdf> <../img/1128_1129.pdf
+
+pdfTeX warning: pdflatex (file ../img/1128_1129.pdf): PDF inclusion: multiple p
+dfs with page group included in a single page
+>] [41 <../img/concave_hull.pdf> <../img/konkavni_obal_nejednoznacny.png>]
+[42 <../img/8_9.pdf> <../img/mapa_mapbox.png> <../img/dve_vozidla.png>]
 \openout2 = `kap03.aux'.
 
- (./kap03.tex
+
+(./kap03.tex
 Kapitola 3.
 
 Overfull \hbox (15.70422pt too wide) in paragraph at lines 31--32
@@ -1253,22 +1245,17 @@ Overfull \hbox (15.70422pt too wide) in paragraph at lines 31--32
 1/lmtt/m/n/12 download_and_process.py[]\T1/lmr/m/n/12 .|
  []
 
-[42
+[43
 
 
 
-]
-
-LaTeX Warning: Reference `section:analyza_zdroje' on page 43 undefined on input
- line 43.
-
-[43] [44] [45] [46] [47] [48] [49] [50]
-Overfull \hbox (11.81572pt too wide) in paragraph at lines 499--500
+] [44] [45] [46] [47] [48] [49] [50] [51] [52]
+Overfull \hbox (11.81572pt too wide) in paragraph at lines 509--510
 []\T1/lmr/m/n/12 Se ser-ve-ro-vou £ástí se ko-mu-ni-kuje po-mocí [][]\T1/lmtt/m
 /n/12 GET []\T1/lmr/m/n/12 request· a ser-ver vrací [][]JSON[]onové|
  []
 
-[51] [52] [53] [54]) [55]
+[53] [54] [55]) [56]
 \openout2 = `kap04.aux'.
 
  (./kap04.tex
@@ -1279,158 +1266,159 @@ Underfull \hbox (badness 10000) in paragraph at lines 60--60
 3-macbook-pro-has-a-
  []
 
-[56
+[57
 
 
 
 ]
-<../img/file_process_time.pdf, id=1191, 722.7pt x 578.16pt>
+<../img/file_process_time.pdf, id=1553, 722.7pt x 578.16pt>
 File: ../img/file_process_time.pdf Graphic file (type pdf)
 <use ../img/file_process_time.pdf>
 Package pdftex.def Info: ../img/file_process_time.pdf  used on input line 92.
-(pdftex.def)             Requested size: 288.7942pt x 231.03053pt.
- [57 <../img/file_process_time.pdf>]
-<../img/server_response_time.pdf, id=1254, 462.52798pt x 346.89601pt>
+(pdftex.def)             Requested size: 412.56496pt x 330.04865pt.
+ [58] [59 <../img/file_process_time.pdf>]
+<../img/server_response_time.pdf, id=1616, 462.52798pt x 346.89601pt>
 File: ../img/server_response_time.pdf Graphic file (type pdf)
 <use ../img/server_response_time.pdf>
 Package pdftex.def Info: ../img/server_response_time.pdf  used on input line 14
 7.
-(pdftex.def)             Requested size: 288.7942pt x 216.60303pt.
- [58]
-<../img/big_picture.png, id=1268, 817.0525pt x 732.7375pt>
+(pdftex.def)             Requested size: 412.56496pt x 309.44046pt.
+<../img/big_picture.png, id=1620, 817.0525pt x 732.7375pt>
 File: ../img/big_picture.png Graphic file (type png)
 <use ../img/big_picture.png>
 Package pdftex.def Info: ../img/big_picture.png  used on input line 173.
 (pdftex.def)             Requested size: 288.7942pt x 258.9888pt.
-<../img/cluster.png, id=1269, 270.00874pt x 211.79124pt>
+<../img/cluster.png, id=1621, 270.00874pt x 211.79124pt>
 File: ../img/cluster.png Graphic file (type png)
 <use ../img/cluster.png>
 Package pdftex.def Info: ../img/cluster.png  used on input line 181.
 (pdftex.def)             Requested size: 123.77074pt x 97.0826pt.
-<../img/trip_path.png, id=1272, 571.13374pt x 322.20375pt>
+ [60] [61 <../img/server_response_time.pdf> <../img/big_picture.png>]
+<../img/trip_path.png, id=1682, 571.13374pt x 322.20375pt>
 File: ../img/trip_path.png Graphic file (type png)
 <use ../img/trip_path.png>
 Package pdftex.def Info: ../img/trip_path.png  used on input line 197.
 (pdftex.def)             Requested size: 288.7942pt x 162.92055pt.
-<../img/kladno_aut_322.png, id=1273, 909.3975pt x 512.91624pt>
+<../img/kladno_aut_322.png, id=1683, 909.3975pt x 512.91624pt>
 File: ../img/kladno_aut_322.png Graphic file (type png)
 <use ../img/kladno_aut_322.png>
 Package pdftex.def Info: ../img/kladno_aut_322.png  used on input line 205.
 (pdftex.def)             Requested size: 288.7942pt x 162.88431pt.
-<../img/more_trips.png, id=1277, 778.91pt x 595.22375pt>
+<../img/more_trips.png, id=1687, 778.91pt x 595.22375pt>
 File: ../img/more_trips.png Graphic file (type png)
 <use ../img/more_trips.png>
 Package pdftex.def Info: ../img/more_trips.png  used on input line 219.
 (pdftex.def)             Requested size: 288.7942pt x 220.68346pt.
- [59 <../img/server_response_time.pdf>] [60 <../img/big_picture.png> <../img/cl
-uster.png> <../img/trip_path.png>]
-<../img/stredokluky_table.png, id=1312, 503.8825pt x 253.94875pt>
+ [62 <../img/cluster.png> <../img/trip_path.png> <../img/kladno_aut_322.png>]
+<../img/stredokluky_table.png, id=1698, 503.8825pt x 253.94875pt>
 File: ../img/stredokluky_table.png Graphic file (type png)
 <use ../img/stredokluky_table.png>
 Package pdftex.def Info: ../img/stredokluky_table.png  used on input line 227.
 (pdftex.def)             Requested size: 165.02345pt x 83.16785pt.
-[61 <../img/kladno_aut_322.png> <../img/more_trips.png>]
-<../img/chyba_zpozdeni_v_posledni_zastavce.png, id=1329, 1023.3432pt x 634.8919
-5pt>
-File: ../img/chyba_zpozdeni_v_posledni_zastavce.png Graphic file (type png)
-<use ../img/chyba_zpozdeni_v_posledni_zastavce.png>
-Package pdftex.def Info: ../img/chyba_zpozdeni_v_posledni_zastavce.png  used on
- input line 256.
-(pdftex.def)             Requested size: 165.02345pt x 102.37917pt.
-<../img/rmse.pdf, id=1330, 462.52798pt x 346.89601pt>
+ [63 <../img/more_trips.png> <../img/stredokluky_table.png>]
+<../img/134_135.pdf, id=1720, 462.52798pt x 346.89601pt>
+File: ../img/134_135.pdf Graphic file (type pdf)
+<use ../img/134_135.pdf>
+Package pdftex.def Info: ../img/134_135.pdf  used on input line 256.
+(pdftex.def)             Requested size: 412.56496pt x 309.44046pt.
+<../img/rmse.pdf, id=1721, 462.52798pt x 346.89601pt>
 File: ../img/rmse.pdf Graphic file (type pdf)
 <use ../img/rmse.pdf>
 Package pdftex.def Info: ../img/rmse.pdf  used on input line 264.
-(pdftex.def)             Requested size: 165.02345pt x 123.7656pt.
- [62 <../img/stredokluky_table.png> <../img/chyba_zpozdeni_v_posledni_zastavce.
-png> <../img/rmse.pdf>]
-<../img/second_degree.pdf, id=1359, 1076.10025pt x 655.48888pt>
-File: ../img/second_degree.pdf Graphic file (type pdf)
-<use ../img/second_degree.pdf>
-Package pdftex.def Info: ../img/second_degree.pdf  used on input line 280.
-(pdftex.def)             Requested size: 412.56496pt x 251.29878pt.
-<../img/thrd_degree.pdf, id=1361, 555.03362pt x 378.6948pt>
+(pdftex.def)             Requested size: 412.56496pt x 309.44046pt.
+<../img/23_24.pdf, id=1726, 462.52798pt x 346.89601pt>
+File: ../img/23_24.pdf Graphic file (type pdf)
+<use ../img/23_24.pdf>
+Package pdftex.def Info: ../img/23_24.pdf  used on input line 280.
+(pdftex.def)             Requested size: 412.56496pt x 309.44046pt.
+<../img/thrd_degree.pdf, id=1727, 462.52798pt x 346.89601pt>
 File: ../img/thrd_degree.pdf Graphic file (type pdf)
 <use ../img/thrd_degree.pdf>
 Package pdftex.def Info: ../img/thrd_degree.pdf  used on input line 290.
-(pdftex.def)             Requested size: 412.56496pt x 281.48944pt.
-[63 <../img/second_degree.pdf>]
+(pdftex.def)             Requested size: 412.56496pt x 309.44046pt.
+ [64 <../img/134_135.pdf>] [65 <../img/rmse.pdf> <../img/23_24.pdf
 
-LaTeX Warning: Reference `table:9270_ride' on page 64 undefined on input line 3
-31.
+pdfTeX warning: pdflatex (file ../img/23_24.pdf): PDF inclusion: multiple pdfs 
+with page group included in a single page
+>] [66 <../img/thrd_degree.pdf>]
 
-[64 <../img/thrd_degree.pdf>]
-<../img/rozptyl_old.pdf, id=1473, 462.52798pt x 346.89601pt>
+LaTeX Warning: Reference `table:9270_ride' on page 67 undefined on input line 3
+32.
+
+<../img/rozptyl_old.pdf, id=1934, 462.52798pt x 346.89601pt>
 File: ../img/rozptyl_old.pdf Graphic file (type pdf)
 <use ../img/rozptyl_old.pdf>
-Package pdftex.def Info: ../img/rozptyl_old.pdf  used on input line 375.
+Package pdftex.def Info: ../img/rozptyl_old.pdf  used on input line 376.
 (pdftex.def)             Requested size: 412.56496pt x 309.44046pt.
-<../img/rozptyl_new.pdf, id=1474, 462.52798pt x 346.89601pt>
+<../img/rozptyl_new.pdf, id=1935, 462.52798pt x 346.89601pt>
 File: ../img/rozptyl_new.pdf Graphic file (type pdf)
 <use ../img/rozptyl_new.pdf>
-Package pdftex.def Info: ../img/rozptyl_new.pdf  used on input line 383.
+Package pdftex.def Info: ../img/rozptyl_new.pdf  used on input line 384.
 (pdftex.def)             Requested size: 412.56496pt x 309.44046pt.
-<../img/rozptyl_diff.pdf, id=1478, 462.52798pt x 346.89601pt>
+<../img/rozptyl_diff.pdf, id=1939, 462.52798pt x 346.89601pt>
 File: ../img/rozptyl_diff.pdf Graphic file (type pdf)
 <use ../img/rozptyl_diff.pdf>
-Package pdftex.def Info: ../img/rozptyl_diff.pdf  used on input line 397.
+Package pdftex.def Info: ../img/rozptyl_diff.pdf  used on input line 398.
 (pdftex.def)             Requested size: 412.56496pt x 309.44046pt.
-<../img/chyba.pdf, id=1481, 445.18318pt x 353.40028pt>
-File: ../img/chyba.pdf Graphic file (type pdf)
-<use ../img/chyba.pdf>
-Package pdftex.def Info: ../img/chyba.pdf  used on input line 419.
-(pdftex.def)             Requested size: 412.56496pt x 327.52104pt.
- [65] [66 <../img/rozptyl_old.pdf>]
-<../img/compare_534_421.pdf, id=1539, 462.52798pt x 346.89601pt>
+[67]
+<../img/808_809.pdf, id=1951, 462.52798pt x 346.89601pt>
+File: ../img/808_809.pdf Graphic file (type pdf)
+<use ../img/808_809.pdf>
+Package pdftex.def Info: ../img/808_809.pdf  used on input line 420.
+(pdftex.def)             Requested size: 412.56496pt x 309.44046pt.
+ [68 <../img/rozptyl_old.pdf>]
+<../img/compare_534_421.pdf, id=2000, 462.52798pt x 346.89601pt>
 File: ../img/compare_534_421.pdf Graphic file (type pdf)
 <use ../img/compare_534_421.pdf>
-Package pdftex.def Info: ../img/compare_534_421.pdf  used on input line 483.
+Package pdftex.def Info: ../img/compare_534_421.pdf  used on input line 484.
 (pdftex.def)             Requested size: 412.56496pt x 309.44046pt.
- [67 <../img/rozptyl_new.pdf>]
-<../img/trips_len.pdf, id=1588, 462.52798pt x 346.89601pt>
+ [69 <../img/rozptyl_new.pdf>] [70 <../img/rozptyl_diff.pdf> <../img/808_809.pd
+f
+
+pdfTeX warning: pdflatex (file ../img/808_809.pdf): PDF inclusion: multiple pdf
+s with page group included in a single page
+>] [71 <../img/compare_534_421.pdf>]
+<../img/trips_len.pdf, id=2192, 462.52798pt x 346.89601pt>
 File: ../img/trips_len.pdf Graphic file (type pdf)
 <use ../img/trips_len.pdf>
-Package pdftex.def Info: ../img/trips_len.pdf  used on input line 509.
+Package pdftex.def Info: ../img/trips_len.pdf  used on input line 510.
 (pdftex.def)             Requested size: 412.56496pt x 309.44046pt.
- [68 <../img/rozptyl_diff.pdf>] [69 <../img/chyba.pdf>] [70 <../img/compare_534
-_421.pdf> <../img/trips_len.pdf
-
-pdfTeX warning: pdflatex (file ../img/trips_len.pdf): PDF inclusion: multiple p
-dfs with page group included in a single page
->]
-<../img/trips_total_delay.pdf, id=1738, 462.52798pt x 346.89601pt>
+<../img/trips_total_delay.pdf, id=2197, 462.52798pt x 346.89601pt>
 File: ../img/trips_total_delay.pdf Graphic file (type pdf)
 <use ../img/trips_total_delay.pdf>
-Package pdftex.def Info: ../img/trips_total_delay.pdf  used on input line 529.
+Package pdftex.def Info: ../img/trips_total_delay.pdf  used on input line 530.
 (pdftex.def)             Requested size: 412.56496pt x 309.44046pt.
-) [71 <../img/trips_total_delay.pdf>]
+) [72] [73 <../img/trips_len.pdf> <../img/trips_total_delay.pdf
+
+pdfTeX warning: pdflatex (file ../img/trips_total_delay.pdf): PDF inclusion: mu
+ltiple pdfs with page group included in a single page
+>]
 \openout2 = `zaver.aux'.
 
- (./zaver.tex [72
+ (./zaver.tex [74
 
 
 
-]) [73]
+]) [75]
 \openout2 = `literatura.aux'.
 
-
-(./literatura.tex (./prace.bbl
-Underfull \hbox (badness 1509) in paragraph at lines 9--15
+ (./literatura.tex (./prace.bbl
+Underfull \hbox (badness 1509) in paragraph at lines 16--22
 []\T1/lmr/m/sc/12 Gury£ová, K. \T1/lmr/m/n/12 (2019).  Praº-ský do-pravní pod-n
 ik dál tají data o po-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 9--15
+Underfull \hbox (badness 10000) in paragraph at lines 16--22
 []$\T1/lmtt/m/n/12 https : / / www . irozhlas . cz / zpravy -[] domov / data -[
 ] o -[] poloze -[] vozidel -[] dpp -[]
  []
 
-)) [74
+)) [76
 
 
 
-] (./prace.lof [75
+] (./prace.lof [77
 
 
 ]
@@ -1443,15 +1431,13 @@ Overfull \hbox (19.60674pt too wide) in paragraph at lines 46--46
 \tf@lof=\write7
 \openout7 = `prace.lof'.
 
- [76] (./prace.lot)
+ [78] (./prace.lot)
 \tf@lot=\write8
 \openout8 = `prace.lot'.
 
- [77
 
-]
 Using TeX to sort glossary entries---this may take a while
-[78
+[79
 
 ]
 Overfull \hbox (11.3606pt too wide) in paragraph at lines 319--319
@@ -1459,12 +1445,12 @@ Overfull \hbox (11.3606pt too wide) in paragraph at lines 319--319
 .org/html/rfc8259.|
  []
 
-[79
+[80
 
 
-] [80]
+] [81]
 P\v {r}\'{\i }loha A.
-[81
+[82
 
 ]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 337.
@@ -1474,7 +1460,7 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 337.
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 337.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 337.
 Package rerunfilecheck Info: File `prace.out' has not changed.
-(rerunfilecheck)             Checksum: 181D384111DA0B4E083286619965CACA;8374.
+(rerunfilecheck)             Checksum: 560D4F7911FA1124CD79A5D56AD45B51;8196.
 
 
 LaTeX Warning: There were undefined references.
@@ -1482,9 +1468,9 @@ LaTeX Warning: There were undefined references.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 337.
  ) 
 Here is how much of TeX's memory you used:
- 23066 strings out of 492616
- 352646 string characters out of 6129482
- 465015 words of memory out of 5000000
+ 23069 strings out of 492616
+ 352168 string characters out of 6129482
+ 465016 words of memory out of 5000000
  26175 multiletter control sequences out of 15000+600000
  100650 words of font info for 84 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1507,10 +1493,10 @@ ocal/texlive/2019/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/local/texlive
 f-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local/texlive/2019/texmf-dist/fon
 ts/type1/public/lm/lmtt10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/p
 ublic/lm/lmtt12.pfb>
-Output written on prace.pdf (85 pages, 17732950 bytes).
+Output written on prace.pdf (86 pages, 14443605 bytes).
 PDF statistics:
- 2119 PDF objects out of 2487 (max. 8388607)
- 1349 compressed objects within 14 object streams
- 298 named destinations out of 1000 (max. 500000)
- 689 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 2615 PDF objects out of 2984 (max. 8388607)
+ 1411 compressed objects within 15 object streams
+ 301 named destinations out of 1000 (max. 500000)
+ 681 words of extra memory for PDF output out of 10000 (max. 10000000)
 
