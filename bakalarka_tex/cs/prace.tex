@@ -1,7 +1,7 @@
-%%% Hlavní soubor. Zde se definují základní parametry a odkazuje se na ostatní části. %%%
+%%% Hlavní soubor. Zde se definují základní parametry a~odkazuje se na ostatní části. %%%
 
 %% Verze pro jednostranný tisk:
-% Okraje: levý 40mm, pravý 25mm, horní a dolní 25mm
+% Okraje: levý 40mm, pravý 25mm, horní a~dolní 25mm
 % (ale pozor, LaTeX si sám přidává 1in)
 \PassOptionsToPackage{hyphens}{url}
 \documentclass[12pt,a4paper]{report}
@@ -29,7 +29,7 @@
 %% Vytváříme PDF/A-2u
 \usepackage[a-2u]{pdfx}
 
-%% Přepneme na českou sazbu a fonty Latin Modern
+%% Přepneme na českou sazbu a~fonty Latin Modern
 \usepackage[czech]{babel}
 \usepackage{lmodern}
 \usepackage[T1]{fontenc}
@@ -194,7 +194,7 @@ description={Integrovaná doprava Středočeského kraje}%
 \usepackage{amsmath}        % rozšíření pro sazbu matematiky
 \usepackage{amsfonts}       % matematické fonty
 \usepackage{amsthm}         % sazba vět, definic apod.
-\usepackage{bbding}         % balíček s nejrůznějšími symboly
+\usepackage{bbding}         % balíček s~nejrůznějšími symboly
 			    % (čtverečky, hvězdičky, tužtičky, nůžtičky, ...)
 \usepackage{bm}             % tučné symboly (příkaz \bm)
 \usepackage{graphicx}       % vkládání obrázků
@@ -203,55 +203,55 @@ description={Integrovaná doprava Středočeského kraje}%
 \usepackage{natbib}         % zajištuje možnost odkazovat na literaturu
 			    % stylem AUTOR (ROK), resp. AUTOR [ČÍSLO]
 \usepackage[nottoc]{tocbibind} % zajistí přidání seznamu literatury,
-                            % obrázků a tabulek do obsahu
-\usepackage{icomma}         % inteligetní čárka v matematickém módu
-\usepackage{dcolumn}        % lepší zarovnání sloupců v tabulkách
-\usepackage{booktabs}       % lepší vodorovné linky v tabulkách
-\usepackage{paralist}       % lepší enumerate a itemize
+                            % obrázků a~tabulek do obsahu
+\usepackage{icomma}         % inteligetní čárka v~matematickém módu
+\usepackage{dcolumn}        % lepší zarovnání sloupců v~tabulkách
+\usepackage{booktabs}       % lepší vodorovné linky v~tabulkách
+\usepackage{paralist}       % lepší enumerate a~itemize
 \usepackage{xcolor}         % barevná sazba
 
-%%% Údaje o práci
+%%% Údaje o~práci
 
-% Název práce v jazyce práce (přesně podle zadání)
+% Název práce v~jazyce práce (přesně podle zadání)
 \def\NazevPrace{Analýza real-time dat vozidel městské hromadné dopravy}
 
-% Název práce v angličtině
+% Název práce v~angličtině
 \def\NazevPraceEN{Analysis of real-time data of public transport vehicles}
 
 % Jméno autora
 \def\AutorPrace{Filip Čižmář}
 
 % Rok odevzdání
-\def\RokOdevzdani{2020}
+\def\RokOdevzdani{2021}
 
 % Název katedry nebo ústavu, kde byla práce oficiálně zadána
 % (dle Organizační struktury MFF UK, případně plný název pracoviště mimo MFF)
 \def\Katedra{Katedra softwarového inženýrství}
 \def\KatedraEN{Department of Software Engineering}
 
-% Jedná se o katedru (department) nebo o ústav (institute)?
+% Jedná se o~katedru (department) nebo o~ústav (institute)?
 \def\TypPracoviste{Katedra}
 \def\TypPracovisteEN{Department}
 
-% Vedoucí práce: Jméno a příjmení s~tituly
+% Vedoucí práce: Jméno a~příjmení s~tituly
 \def\Vedouci{doc. Mgr. Martin Nečaský, Ph.D.}
 
 % Pracoviště vedoucího (opět dle Organizační struktury MFF)
-\def\KatedraVedouciho{Department of Software Engineering}
-\def\KatedraVedoucihoEN{Katedra softwarového inženýrství}
+\def\KatedraVedouciho{Katedra softwarového inženýrství}
+\def\KatedraVedoucihoEN{Department of Software Engineering}
 
-% Studijní program a obor
+% Studijní program a~obor
 \def\StudijniProgram{Informatika}
-\def\StudijniObor{SW a datové inženýrství}
+\def\StudijniObor{SW a~datové inženýrství}
 
 % Nepovinné poděkování (vedoucímu práce, konzultantovi, tomu, kdo
 % zapůjčil software, literaturu apod.)
 \def\Podekovani{%
-Především děkuji svému vedoucímu práce doc. Mgr. Martinu Nečaskému, Ph.D., který mi pomohl najít zajímavé zaměření mé práce, umožnil přístup k otevřeným datům a pomohl při vypracování.
+Především děkuji svému vedoucímu práce doc. Mgr. Martinu Nečaskému, Ph.D., který mi pomohl najít zajímavé zaměření mé práce, umožnil přístup k~otevřeným datům a~pomohl při vypracování.
 
 \bigbreak
 
-Stejně tak děkuji i pánům Janu Vlasatému a Benediku Kotmelovi, kteří mi poskytli odbornou pomoc při získávání dat z datové platformy Golemio a inspiraci pro obsah mé práce.
+Stejně tak děkuji i~pánům Janu Vlasatému a~Benediku Kotmelovi, kteří mi poskytli odbornou pomoc při získávání dat z~datové platformy Golemio a~inspiraci pro obsah mé práce.
 
 \bigbreak
 
@@ -259,12 +259,12 @@ Dále děkuji panu Jakubu Klímkovi, RNDr., Ph.D. za zapůjčení počítače za
 
 }
 
-% Abstrakt (doporučený rozsah cca 80-200 slov; nejedná se o zadání práce)
+% Abstrakt (doporučený rozsah cca 80-200 slov; nejedná se o~zadání práce)
 \def\Abstrakt{%
-Tato práce se zaměřuje na analýzu dostupných otevřených real-time dat z vozidel hromadné dopravy v Praze a okolí. Jejím cílem je poskytnout základní statistické informace a na základě historických dat zlepšit odhad zpoždění spoje na trase mezi dvěma referenčními body. Takto spočítaná data se využijí v aplikaci, která vznikne pro webové rozhraní, kde zobrazí aktuální polohy spojů a rozšiřující informace o nich do mapového podkladu. Aplikace bude aktivně interagovat s uživatelem. Všechny kompenenty byly otestovány. A bylo ukázáno, že otevřená data lze využít k dosažení vetších cílů.
+Tato práce se zaměřuje na analýzu dostupných otevřených real-time dat z~vozidel hromadné dopravy v~Praze a~okolí. Jejím cílem je poskytnout základní statistické informace a~na základě historických dat zlepšit odhad zpoždění spoje na trase mezi dvěma referenčními body. Takto spočítaná data se využijí v~aplikaci, která vznikne pro webové rozhraní, kde zobrazí aktuální polohy spojů a~rozšiřující informace o~nich do mapového podkladu. Aplikace bude aktivně interagovat s~uživatelem. Všechny kompenenty byly otestovány. A~bylo ukázáno, že otevřená data lze využít k~dosažení větších cílů.
 }
 \def\AbstraktEN{%
-This thesis deals with analysis of real-time data of public transport vehicles over open data in Prague. Its main purpose is to create statistics and improve estimation, based on historical data, of a vehicle delay on its route between reference points. For demonstration of the computed data a front-end web app is created. This interactive app is able to show current vehicles locations over a map and other useful information. All components were tested. Open data from Prague public transport company were used to demonstrate that open data can be used for achieving complex goals.
+This thesis deals with analysis of real-time data of public transport vehicles over open data in Prague. Its main purpose is to create statistics and improve estimation, based on historical data, of a~vehicle delay on its route between reference points. For demonstration of the computed data a~front-end web app is created. This interactive app is able to show current vehicles locations over a~map and other useful information. All components were tested. Open data from Prague public transport company were used to demonstrate that open data can be used for achieving high goals.
 }
 
 % 3 až 5 klíčových slov (doporučeno), každé uzavřeno ve složených závorkách
@@ -275,8 +275,8 @@ This thesis deals with analysis of real-time data of public transport vehicles o
 {delay} {open data} {public transport}
 }
 
-%% Balíček hyperref, kterým jdou vyrábět klikací odkazy v PDF,
-%% ale hlavně ho používáme k uložení metadat do PDF (včetně obsahu).
+%% Balíček hyperref, kterým jdou vyrábět klikací odkazy v~PDF,
+%% ale hlavně ho používáme k~uložení metadat do PDF (včetně obsahu).
 %% Většinu nastavítek přednastaví balíček pdfx.
 \hypersetup{unicode}
 \hypersetup{breaklinks=true}
@@ -284,15 +284,15 @@ This thesis deals with analysis of real-time data of public transport vehicles o
 %% Definice různých užitečných maker (viz popis uvnitř souboru)
 \include{makra}
 
-%% Titulní strana a různé povinné informační strany
+%% Titulní strana a~různé povinné informační strany
 \begin{document}
 \include{titulka}
 
-%%% Strana s automaticky generovaným obsahem bakalářské práce
+%%% Strana s~automaticky generovaným obsahem bakalářské práce
 
 \tableofcontents
 
-%%% Jednotlivé kapitoly práce jsou pro přehlednost uloženy v samostatných souborech
+%%% Jednotlivé kapitoly práce jsou pro přehlednost uloženy v~samostatných souborech
 \include{uvod}
 \include{kap01}
 \include{kap01,5}
@@ -305,27 +305,27 @@ This thesis deals with analysis of real-time data of public transport vehicles o
 %%% Seznam použité literatury
 \include{literatura}
 
-%%% Obrázky v bakalářské práci
+%%% Obrázky v~bakalářské práci
 %%% (pokud jich je malé množství, obvykle není třeba seznam uvádět)
 \listoffigures
 
-%%% Tabulky v bakalářské práci (opět nemusí být nutné uvádět)
-%%% U matematických prací může být lepší přemístit seznam tabulek na začátek práce.
+%%% Tabulky v~bakalářské práci (opět nemusí být nutné uvádět)
+%%% U~matematických prací může být lepší přemístit seznam tabulek na začátek práce.
 \listoftables
 
-%%% Použité zkratky v bakalářské práci (opět nemusí být nutné uvádět)
-%%% U matematických prací může být lepší přemístit seznam zkratek na začátek práce.
+%%% Použité zkratky v~bakalářské práci (opět nemusí být nutné uvádět)
+%%% U~matematických prací může být lepší přemístit seznam zkratek na začátek práce.
 % \chapwithtoc{Seznam použitých zkratek}
 \printnoidxglossaries
 
-%%% Přílohy k bakalářské práci, existují-li. Každá příloha musí být alespoň jednou
-%%% odkazována z vlastního textu práce. Přílohy se číslují.
+%%% Přílohy k~bakalářské práci, existují-li. Každá příloha musí být alespoň jednou
+%%% odkazována z~vlastního textu práce. Přílohy se číslují.
 %%%
-%%% Do tištěné verze se spíše hodí přílohy, které lze číst a prohlížet (dodatečné
-%%% tabulky a grafy, různé textové doplňky, ukázky výstupů z počítačových programů,
+%%% Do tištěné verze se spíše hodí přílohy, které lze číst a~prohlížet (dodatečné
+%%% tabulky a~grafy, různé textové doplňky, ukázky výstupů z~počítačových programů,
 %%% apod.). Do elektronické verze se hodí přílohy, které budou spíše používány
-%%% v elektronické podobě než čteny (zdrojové kódy programů, datové soubory,
-%%% interaktivní grafy apod.). Elektronické přílohy se nahrávají do SISu a lze
+%%% v~elektronické podobě než čteny (zdrojové kódy programů, datové soubory,
+%%% interaktivní grafy apod.). Elektronické přílohy se nahrávají do SISu a~lze
 %%% je také do práce vložit na CD/DVD. Povolené formáty souborů specifikuje
 %%% opatření rektora č. 72/2017.
 \appendix
