@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8' />
+	<title>PID vehicles</title>
+	<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+	<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.4.0/mapbox-gl.js'></script>
+	<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.4.0/mapbox-gl.css' rel='stylesheet' />
+	<link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
+	<style>
+		body { margin:0; padding:0; }
+		#map { position:absolute; top:0; bottom:0; width:100%; }
+	</style>
+</head>
+<style id="style">
+:root {
+	--pin_color: rgba(238, 109, 82, 1)
+}
+	.marker {
+		--size_of_marker: 24px;
+		width: 			var(--size_of_marker);
+		height:			var(--size_of_marker);
+		line-height:	var(--size_of_marker);
+		border: 1px solid #edf6ff;
+		border-radius: 50%;
+		cursor: pointer;
+		padding: 0;
+		text-align: center;
+		display: block;
+		vertical-align: middle;
+		background-color: #54a9ff;
+		font-family: 'Poppins', sans-serif;
+		color: #2c2c2c;
+		--transition_time: 0.1s;
+		transition:
+				line-height			var(--transition_time) ease,
+				height 				var(--transition_time) ease,
+				width 				var(--transition_time) ease,
+				background-color	var(--transition_time) ease,
+				border				var(--transition_time) ease;
+	}
+
+    .marker:hover {
+        z-index: 1;
+    }
+
+	.extra_marker {
+		--size_of_extra_marker: 30px;
+		width: 			var(--size_of_extra_marker);
+		height:			var(--size_of_extra_marker);
+		line-height:	var(--size_of_extra_marker);
+		border: 2px solid #edf6ff;
+		background-color: #e570ff;
+		z-index: 1;
+	}
+
+
+	.stop_pin {
+		position: absolute;
+		margin-top: -20px;
+		border-radius: 50%;
+		border: 4px solid var(--pin_color);
+	    width: 7px;
+	    height: 7px;
+		z-index: 0;
+	}
+
+	.stop_pin::after {
+	  position: absolute;
+	  content: '';
+	  width: 0px;
+	  height: 0px;
+	  bottom: -24px;
+	  left: -1px;
+	  border: 5px solid transparent;
+	  border-top: 17px solid var(--pin_color);
+	  z-index: 0;
+	}
+
+	.stop_pin_sign{
+		margin-top: -35px;
+		/* z-index: 30; */
+		text-align: center;
+		line-height: 0.9;
+		/* position: absolute; */
+  		/* bottom: 5px; */
+		/* left: -50px; */
+		/* width: 100px; */
+		font-size: 12px;
+		color: rgba(53, 53, 53, 1);
+		--shadow_color: rgba(242, 242, 242, 0.9);
+    	text-shadow: -2px 0 var(--shadow_color), 0 2px var(--shadow_color), 2px 0 var(--shadow_color), 0 -2px var(--shadow_color);
+		/* text-shadow: 3px 2px green; */
+		/* height: 100px; */
+	}
+    #features {
+        /*position: absolute;*/
+        top: 20px;
+        right: 20px;
+        bottom: 0;
+        width: 25em;
+        height: 10em;
+        padding: 15px;
+        overflow: auto;
+        background: rgba(240, 240, 240, 1.0);
+
+        border: #235620 4px solid;
+    }
+
+</style>
+<body>
+
+<div id='map'></div>
+
+<pre id="features"></pre>
+
+<script>
+
+    class Active_trip{
+        constructor(id, el, delay, headsign){
+            this.trip_source_id = id;
+            this.element = el;
+            this.delay = delay;
+            this.headsign = headsign;
+
+            var all_trip_data = JSON.parse(this.getFileByAJAXreq(
+            	"trip." + this.trip_source_id));
+
+            this.shape = all_trip_data[0];
+            this.tail = all_trip_data[1];
+            this.stops = all_trip_data[2];
+            this.stops_shown = new Set();
+        }
+
+        show_on_map(){
+            this.element.classList.add('extra_marker');
+            this.draw_shape();
+            this.draw_tail();
+            this.draw_stops();
+        }
+
+        remove_from_map(){
+            console.log("mazu" + this.element.innerText);
+            this.element.classList.remove('extra_marker');
+            console.log(this.element);
+            console.log("smazano");
+            this.remove_shape();
+            this.remove_tail();
+            this.remove_stops();
+
+        }
+
+        update_tail(){
+            this.remove_tail();
+            this.tail = JSON.parse(this.getFileByAJAXreq("tail." + this.trip_source_id));
+            this.draw_tail();
+        }
+
+        draw_shape(){
+            var geojson = this.shape;
+            if (map.getLayer(this.trip_source_id + '.shape'))
+            	map.removeLayer(this.trip_source_id + '.shape');
+            if (map.getSource(this.trip_source_id + '.shape'))
+            	map.removeSource(this.trip_source_id + '.shape');
+            map.addLayer({
+                "id": this.trip_source_id + '.shape',
+                "type": "line",
+                "source": {
+                    "type": "geojson",
+                    "data": geojson
+                },
+                "layout": {
+                    "line-join": "round",
+                    "line-cap": "round"
+                },
+                "paint": {
+                    "line-color": "#BF93E4",
+                    "line-width": 5
+                }
+            });
+        }
+
+        draw_tail(){
+            if (map.getLayer(this.trip_source_id + '.tail'))
+            	map.removeLayer(this.trip_source_id + '.tail');
+            if (map.getSource(this.trip_source_id + '.tail'))
+            	map.removeSource(this.trip_source_id + '.tail');
+            var geojson = this.tail;
+            console.log("printing tail");
+            // console.log(geojson);
+            map.addLayer({
+                type: 'line',
+                source: {
+                    "type": 'geojson',
+                    "lineMetrics": true,
+                    "data": geojson
+                },
+                id: this.trip_source_id + ".tail",
+                paint: {
+                    'line-color': 'red',
+                    'line-width': 14,
+                    'line-gradient': [
+                        'interpolate',
+                        ['linear'],
+                        ['line-progress'],
+                        0, "blue",
+                        0.1, "royalblue",
+                        0.3, "cyan",
+                        0.5, "lime",
+                        0.7, "yellow",
+                        1, "red"
+                    ]
+                },
+                layout: {
+                    'line-cap': 'round',
+                    'line-join': 'round'
+                }
+            });
+            console.log("tail printed")
+        }
+
+        draw_stops(){
+
+            console.log("stops_geo:" + this.stops);
+            var stops_geojson = this.stops;
+            stops_geojson.features.forEach(function(marker) {
+                console.log("stop in process");
+                var el_p = document.createElement('div');
+                var el_c = document.createElement('div');
+                el_p.appendChild(el_c);
+                el_c.className = 'stop_pin';
+
+                // zobrazí všechny spoje projíždějící zastávkou
+                el_c.addEventListener('click', function() {
+                    no_stop_chosen = false;
+                    show_trips_by_stop(getFileByAJAXreqNoCallback(
+                    	"trips_by_stop." + marker.name
+                    ), marker.name);
+                });
+
+				// přidá do mapy název zastávky po najetí myší
+                el_c.addEventListener("mouseover", function(){
+                    var el_s = document.createElement('div');
+                    el_s.innerText = marker.name;
+                    el_s.setAttribute("class", "stop_pin_sign");
+                    new mapboxgl.Marker(el_s)
+                            .setLngLat(marker.geometry.coordinates)
+                            .addTo(map);
+                });
+
+				// odebere všechny názevy zastávek z mapy po vyjetí myši
+                el_c.addEventListener("mouseout", function(){
+                    var signs = document.getElementsByClassName('stop_pin_sign');
+                    while(signs[0]) {
+                        signs[0].parentNode.removeChild(signs[0]);
+                    }
+                });
+
+                var elem = new mapboxgl.Marker(el_c)
+                        .setLngLat(marker.geometry.coordinates)
+                        .addTo(map);
+
+                this.stops_shown.add(elem);
+                console.log("stop:" + elem);
+            }, this);
+        }
+
+        remove_shape(){
+            if (map.getLayer(this.trip_source_id + '.shape'))
+            	map.removeLayer(this.trip_source_id + '.shape');
+            if (map.getSource(this.trip_source_id + '.shape'))
+            	map.removeSource(this.trip_source_id + '.shape');
+        }
+
+        remove_tail(){
+            if (map.getLayer(this.trip_source_id + '.tail'))
+            	map.removeLayer(this.trip_source_id + '.tail');
+            if (map.getSource(this.trip_source_id + '.tail'))
+            	map.removeSource(this.trip_source_id + '.tail');
+        }
+
+        remove_stops(){
+            this.stops_shown.forEach(function(elem) {
+                elem.remove();
+                this.stops_shown.delete(elem);
+            }, this);
+        }
+
+        show_info(){
+            document.getElementById('features').innerHTML =
+	            "<div><h2>" + this.headsign + "</h2>" +
+	            "</br>Zpoždění: " + this.delay + " s</br>" +
+	            "GTFS id: " + this.trip_source_id + "</div>";
+            document.getElementById('features').append(this.show_time_table());
+            document.getElementById('features').style.position = "absolute";
+        }
+
+        update_realtime_data(delay){
+            this.delay = delay;
+        }
+
+        show_time_table(){
+            var main_element = document.createElement("div");
+            main_element.id = "time_table";
+            var table = document.createElement("table");
+            var tbody = document.createElement("tbody");
+
+            this.stops["features"].forEach(function (stop) {
+                var tr = document.createElement("tr");
+                var td_stop_name = document.createElement("td");
+                var td_departure_time = document.createElement("td");
+
+                td_stop_name.innerHTML = stop["name"];
+                console.log("tisknu departur " + stop["departure_time"]);
+                td_departure_time.innerHTML = toHHMMSS(stop["departure_time"]);
+
+                tr.append(td_stop_name);
+                tr.append(td_departure_time);
+
+                tbody.append(tr);
+
+            }, this);
+
+            table.append(tbody);
+            main_element.append(table);
+
+            return main_element;
+
+        }
+
+        getFileByAJAXreq(str_request) {
+            try{
+                var request = new XMLHttpRequest();
+            }
+            catch (e){
+                alert("Your browser does not support AJAX!");
+                return false;
+            }
+
+            request.onerror = function(){
+                throw Error("Network error")
+            };
+            request.open('GET', "http://localhost:8080/" + str_request + "&preventCache="+new Date(), false);
+            request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded; charset=utf-8');
+            request.send();
+            if (request.readyState === 4) {
+				console.log('Prijato: ', request.responseText);
+				return request.responseText;
+			}
+        }
+
+    }
+
+    function toHHMMSS (sec_num) {
+        var sec_num = parseInt(sec_num, 10); // don't forget the second param
+        var hours   = Math.floor(sec_num / 3600);
+        var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+        var seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+        if (hours   < 10) {hours   = "0"+hours;}
+        if (minutes < 10) {minutes = "0"+minutes;}
+        if (seconds < 10) {seconds = "0"+seconds;}
+        return hours+':'+minutes;//+':'+seconds;
+    }
+
+    function show_trips_passing_stop(trips){
+        var main_element = document.createElement("div");
+        main_element.id = "time_table";
+        var table = document.createElement("table");
+        var tbody = document.createElement("tbody");
+        var thead = document.createElement("thead")
+
+	    thead.innerHTML = `
+	        <td>Linka</td>
+	        <td>Cílová stanice</td>
+	        <td>Odjezd</td>
+	        <td>Zpoždění</td>`;
+	    table.appendChild(thead);
+
+        trips.forEach(function (trip) {
+            var tr = document.createElement("tr");
+            var td_trip_no = document.createElement("td");
+            var td_trip_headsign = document.createElement("td");
+            var td_trip_departure = document.createElement("td");
+            var td_trip_delay = document.createElement("td");
+
+            td_trip_no.innerHTML = trip["trip_no"];
+            td_trip_delay.innerHTML = trip["delay"];
+            td_trip_headsign.innerHTML = trip["headsign"];
+
+            console.log("tisknu departur " + trip["departure_time"]);
+            td_trip_departure.innerHTML = toHHMMSS(trip["departure_time"]);
+
+            tr.append(td_trip_no);
+            tr.append(td_trip_headsign);
+            tr.append(td_trip_departure);
+            tr.append(td_trip_delay);
+
+            tbody.append(tr);
+
+        });
+
+        table.append(tbody);
+        main_element.append(table);
+        return main_element;
+
+    }
+
+    function show_trips_by_stop(trips, name){
+        trips = JSON.parse(trips);
+
+        for (var trip in active_trips){
+            active_trips[trip].remove_from_map();
+            // el.classList.remove('extra_marker');
+            delete active_trips[trip];
+        }
+
+        // delete_info();
+        document.getElementById('features').innerHTML = "<div><h2>" + name + "</h2></div>";
+        document.getElementById('features').append(this.show_trips_passing_stop(trips));
+        document.getElementById('features').style.position = "absolute";
+        trips.forEach(function (trip) {
+
+
+            if (trip["id"] in vehicles_elements) {
+                var bus = new Active_trip(
+                	trip["id"],
+	                vehicles_elements[trip["id"]], trip["delay"], trip["headsign"]);
+                bus.show_on_map();
+                active_trips[trip["id"]] = bus;
+            }
+        });
+    }
+
+    function delete_info(){
+        document.getElementById('features').style.position = "static";
+    }
+
+	/**
+	 * @param	file input file
+	 * @desc	read given file, reading local file needs to be allowed in browser
+	 */
+	function getFileByAJAXreq(str_request, callback) {
+		try{
+			var request = new XMLHttpRequest();
+		}
+		catch (e){
+			alert("Your browser does not support AJAX!");
+	        return false;
+		}
+
+		request.onreadystatechange = function () {
+			if (this.readyState === 4) {
+				console.log('Prijato: ', request.responseText);
+				callback(request.responseText);
+			}
+		};
+
+		request.onerror = function(){
+			throw Error("Network error")
+		};
+
+		request.open('GET', "http://localhost:8080/" + str_request + "&preventCache="+new Date(), false);
+		request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded; charset=utf-8');
+		request.send();
+	}
+
+	function getFileByAJAXreqNoCallback(str_request) {
+		try{
+			var request = new XMLHttpRequest();
+		}
+		catch (e){
+			alert("Your browser does not support AJAX!");
+	        return false;
+		}
+
+		request.onerror = function(){
+			throw Error("Network error")
+		};
+
+		request.open('GET', "http://localhost:8080/" + str_request + "&preventCache="+new Date(), false);
+		request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded; charset=utf-8');
+            request.send();
+            if (request.readyState === 4) {
+				console.log('Prijato: ', request.responseText);
+				return request.responseText;
+			}
+	}
+
+	function showBusesOnMap(veh_pos_geojson) {
+		vehicles.forEach(function(elem) {
+			elem.remove();
+			vehicles.delete(elem);
+		});
+		vehicles_elements = {};
+
+		veh_pos_geojson = JSON.parse(veh_pos_geojson);
+		veh_pos_geojson.features.forEach(function(marker) {
+
+			// create a DOM element for the marker
+			var el = document.createElement('div');
+			el.className = 'marker';
+
+			if (marker.properties.gtfs_trip_id in active_trips) {
+                el.classList.add('extra_marker');
+                active_trips[marker.properties.gtfs_trip_id].update_realtime_data(
+                	marker.properties.delay);
+                if (Object.keys(active_trips).length === 1 && no_stop_chosen){
+                    active_trips[marker.properties.gtfs_trip_id].show_info();
+                }
+            }
+
+			el.innerText = marker.properties.gtfs_route_short_name;
+
+			el.addEventListener('click', function() {
+
+			    if (marker.properties.gtfs_trip_id in active_trips) {
+
+			        no_stop_chosen = true;
+
+                    var bus = active_trips[marker.properties.gtfs_trip_id];
+                    delete active_trips[marker.properties.gtfs_trip_id];
+
+                    bus.remove_from_map();
+                    delete_info();
+                    // el.classList.remove('extra_marker');
+                    delete bus;
+
+                }else {
+					delete_info();
+					no_stop_chosen = true;
+					var bus = new Active_trip(
+						marker.properties.gtfs_trip_id,
+						el,
+						marker.properties.delay,
+						marker.properties.headsign);
+					bus.show_on_map();
+					bus.show_info();
+
+					for (var trip in active_trips) {
+						active_trips[trip].remove_from_map();
+						// el.classList.remove('extra_marker');
+						delete active_trips[trip];
+					}
+
+					active_trips[marker.properties.gtfs_trip_id] = bus;
+				}
+			});
+			// add marker to map
+
+            if (marker.properties.gtfs_trip_id in active_trips) {
+                active_trips[marker.properties.gtfs_trip_id].element = el;
+            }
+
+			var elem = new mapboxgl.Marker(el)
+					.setLngLat(marker.geometry.coordinates)
+					.addTo(map);
+			vehicles.add(elem);
+			vehicles_elements[marker.properties.gtfs_trip_id] = el;
+		});
+	}
+
+
+	try{
+		// Get your own token here https://www.mapbox.com
+		mapboxgl.accessToken = 'pk.eyJ1IjoiZmlsaXBjaXptYXIiLCJhIjoiY2sxaHp3eHlzMGlmODNkanl2c2tqdTZscSJ9.rujrBlG1rSLuHpFaxxYX9w';
+		// lineStringLayerID = "";
+		// oldLineStringLayerID = "";
+		trip_folder_path = '../data/trips/';
+		var map = new mapboxgl.Map({
+			container: 'map', // container id
+			style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
+			center: [14.42, 50.08], // starting position [lng, lat]
+			zoom: 10 // starting zoom
+		});
+
+		var vehicles = new Set(); // elementy vozidel v mape
+		var active_trips = {}; // vybraná vozidla
+		var vehicles_elements = {}; // html elementy vozidel
+		var no_stop_chosen = true; // indikátor vybraní zastávky
+
+		getFileByAJAXreq("vehicles_positions", showBusesOnMap);
+
+		window.setInterval(function(){
+
+			getFileByAJAXreq("vehicles_positions", showBusesOnMap);
+
+			for (var trip in active_trips){
+			    active_trips[trip].update_tail();
+            }
+		}, 10000);
+	}
+	catch(e){
+		alert("Something went wrong.", e)
+	}
+</script>
+
+</body>
+</html>

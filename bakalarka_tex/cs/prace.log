@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  22 MAY 2021 23:21
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  23 MAY 2021 14:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1211,12 +1211,6 @@ dfs with page group included in a single page
 
 (./kap03.tex
 Kapitola 3.
-
-Overfull \hbox (15.76154pt too wide) in paragraph at lines 31--32
-[]\T1/lmr/m/n/12 Celý sys-tém je ovlá-daný p°es hlavní skript v sou-boru \T1/lm
-tt/m/n/12 download_and_process.py\T1/lmr/m/n/12 .|
- []
-
 [43
 
 
@@ -1287,54 +1281,57 @@ _trips.png> <../img/stredokluky_table.png>]
 <../img/134_135.pdf, id=1718, 462.52798pt x 346.89601pt>
 File: ../img/134_135.pdf Graphic file (type pdf)
 <use ../img/134_135.pdf>
-Package pdftex.def Info: ../img/134_135.pdf  used on input line 230.
+Package pdftex.def Info: ../img/134_135.pdf  used on input line 233.
 (pdftex.def)             Requested size: 412.56496pt x 309.44046pt.
 <../img/rmse.pdf, id=1719, 462.52798pt x 346.89601pt>
 File: ../img/rmse.pdf Graphic file (type pdf)
 <use ../img/rmse.pdf>
-Package pdftex.def Info: ../img/rmse.pdf  used on input line 238.
+Package pdftex.def Info: ../img/rmse.pdf  used on input line 241.
 (pdftex.def)             Requested size: 412.56496pt x 309.44046pt.
- [64 <../img/134_135.pdf>]
-<../img/23_24.pdf, id=1781, 462.52798pt x 346.89601pt>
+<../img/23_24.pdf, id=1724, 462.52798pt x 346.89601pt>
 File: ../img/23_24.pdf Graphic file (type pdf)
 <use ../img/23_24.pdf>
-Package pdftex.def Info: ../img/23_24.pdf  used on input line 251.
+Package pdftex.def Info: ../img/23_24.pdf  used on input line 254.
 (pdftex.def)             Requested size: 412.56496pt x 309.44046pt.
-<../img/thrd_degree.pdf, id=1782, 462.52798pt x 346.89601pt>
+<../img/thrd_degree.pdf, id=1725, 462.52798pt x 346.89601pt>
 File: ../img/thrd_degree.pdf Graphic file (type pdf)
 <use ../img/thrd_degree.pdf>
-Package pdftex.def Info: ../img/thrd_degree.pdf  used on input line 258.
+Package pdftex.def Info: ../img/thrd_degree.pdf  used on input line 261.
 (pdftex.def)             Requested size: 412.56496pt x 309.44046pt.
- [65 <../img/rmse.pdf>] [66 <../img/23_24.pdf> <../img/thrd_degree.pdf
+ [64] [65 <../img/134_135.pdf> <../img/rmse.pdf
+
+pdfTeX warning: pdflatex (file ../img/rmse.pdf): PDF inclusion: multiple pdfs w
+ith page group included in a single page
+>] [66 <../img/23_24.pdf> <../img/thrd_degree.pdf
 
 pdfTeX warning: pdflatex (file ../img/thrd_degree.pdf): PDF inclusion: multiple
  pdfs with page group included in a single page
 >]
 
 LaTeX Warning: Reference `table:9270_ride' on page 67 undefined on input line 2
-89.
+92.
 
-[67]
-<../img/rozptyl_old.pdf, id=1940, 462.52798pt x 346.89601pt>
+<../img/rozptyl_old.pdf, id=1933, 462.52798pt x 346.89601pt>
 File: ../img/rozptyl_old.pdf Graphic file (type pdf)
 <use ../img/rozptyl_old.pdf>
-Package pdftex.def Info: ../img/rozptyl_old.pdf  used on input line 332.
+Package pdftex.def Info: ../img/rozptyl_old.pdf  used on input line 335.
 (pdftex.def)             Requested size: 412.56496pt x 309.44046pt.
-<../img/rozptyl_new.pdf, id=1941, 462.52798pt x 346.89601pt>
+[67]
+<../img/rozptyl_new.pdf, id=1940, 462.52798pt x 346.89601pt>
 File: ../img/rozptyl_new.pdf Graphic file (type pdf)
 <use ../img/rozptyl_new.pdf>
-Package pdftex.def Info: ../img/rozptyl_new.pdf  used on input line 340.
+Package pdftex.def Info: ../img/rozptyl_new.pdf  used on input line 343.
 (pdftex.def)             Requested size: 412.56496pt x 309.44046pt.
-<../img/rozptyl_diff.pdf, id=1945, 462.52798pt x 346.89601pt>
+<../img/rozptyl_diff.pdf, id=1944, 462.52798pt x 346.89601pt>
 File: ../img/rozptyl_diff.pdf Graphic file (type pdf)
 <use ../img/rozptyl_diff.pdf>
-Package pdftex.def Info: ../img/rozptyl_diff.pdf  used on input line 353.
+Package pdftex.def Info: ../img/rozptyl_diff.pdf  used on input line 356.
 (pdftex.def)             Requested size: 412.56496pt x 309.44046pt.
  [68 <../img/rozptyl_old.pdf>]
-<../img/808_809.pdf, id=1995, 462.52798pt x 346.89601pt>
+<../img/808_809.pdf, id=1993, 462.52798pt x 346.89601pt>
 File: ../img/808_809.pdf Graphic file (type pdf)
 <use ../img/808_809.pdf>
-Package pdftex.def Info: ../img/808_809.pdf  used on input line 371.
+Package pdftex.def Info: ../img/808_809.pdf  used on input line 374.
 (pdftex.def)             Requested size: 412.56496pt x 309.44046pt.
  [69 <../img/rozptyl_new.pdf>] [70 <../img/rozptyl_diff.pdf> <../img/808_809.pd
 f
@@ -1342,25 +1339,29 @@ f
 pdfTeX warning: pdflatex (file ../img/808_809.pdf): PDF inclusion: multiple pdf
 s with page group included in a single page
 >]
-<../img/compare_534_421.pdf, id=2143, 462.52798pt x 346.89601pt>
+<../img/compare_534_421.pdf, id=2142, 462.52798pt x 346.89601pt>
 File: ../img/compare_534_421.pdf Graphic file (type pdf)
 <use ../img/compare_534_421.pdf>
-Package pdftex.def Info: ../img/compare_534_421.pdf  used on input line 432.
+Package pdftex.def Info: ../img/compare_534_421.pdf  used on input line 435.
 (pdftex.def)             Requested size: 412.56496pt x 309.44046pt.
-<../img/trips_len.pdf, id=2145, 462.52798pt x 346.89601pt>
+
+
+pdfTeX warning: pdflatex (file ../img/trips_len.pdf): PDF inclusion: found PDF 
+version <1.7>, but at most version <1.5> allowed
+<../img/trips_len.pdf, id=2144, 462.52798pt x 346.89601pt>
 File: ../img/trips_len.pdf Graphic file (type pdf)
 <use ../img/trips_len.pdf>
-Package pdftex.def Info: ../img/trips_len.pdf  used on input line 453.
+Package pdftex.def Info: ../img/trips_len.pdf  used on input line 456.
 (pdftex.def)             Requested size: 412.56496pt x 309.44046pt.
- [71] [72 <../img/compare_534_421.pdf> <../img/trips_len.pdf
+[71] [72 <../img/compare_534_421.pdf> <../img/trips_len.pdf
 
 pdfTeX warning: pdflatex (file ../img/trips_len.pdf): PDF inclusion: multiple p
 dfs with page group included in a single page
 >]
-<../img/trips_total_delay.pdf, id=2235, 462.52798pt x 346.89601pt>
+<../img/trips_total_delay.pdf, id=2224, 462.52798pt x 346.89601pt>
 File: ../img/trips_total_delay.pdf Graphic file (type pdf)
 <use ../img/trips_total_delay.pdf>
-Package pdftex.def Info: ../img/trips_total_delay.pdf  used on input line 472.
+Package pdftex.def Info: ../img/trips_total_delay.pdf  used on input line 475.
 (pdftex.def)             Requested size: 412.56496pt x 309.44046pt.
 ) [73 <../img/trips_total_delay.pdf>]
 \openout2 = `zaver.aux'.
@@ -1393,9 +1394,9 @@ Underfull \hbox (badness 10000) in paragraph at lines 16--22
 
 
 ]
-Overfull \hbox (19.60674pt too wide) in paragraph at lines 46--46
+Overfull \hbox (2.63446pt too wide) in paragraph at lines 46--46
  [][] [][]\T1/lmr/m/n/12 Porovnání pr·-b¥hu od-had-nu-tých zpoº-d¥ní li-ne-ár-n
-ím mo-de-lem (modrá) |
+ím mo-de-lem a po- |
  []
 
 )
@@ -1410,13 +1411,7 @@ Overfull \hbox (19.60674pt too wide) in paragraph at lines 46--46
 Using TeX to sort glossary entries---this may take a while
 [79
 
-]
-Overfull \hbox (11.3606pt too wide) in paragraph at lines 319--319
-[]\T1/lmr/m/n/12 JavaScript Ob-ject No-tation, spe-ci-fakce: https://tools.ietf
-.org/html/rfc8259.|
- []
-
-[80
+] [80
 
 
 ] [81]
@@ -1441,7 +1436,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 337.
 Here is how much of TeX's memory you used:
  23060 strings out of 492616
  352072 string characters out of 6129482
- 466046 words of memory out of 5000000
+ 465988 words of memory out of 5000000
  26167 multiletter control sequences out of 15000+600000
  100969 words of font info for 85 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1462,10 +1457,10 @@ fb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/loc
 al/texlive/2019/texmf-dist/fonts/type1/public/lm/lmri12.pfb></usr/local/texlive
 /2019/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/local/texlive/2019/texm
 f-dist/fonts/type1/public/lm/lmtt12.pfb>
-Output written on prace.pdf (86 pages, 14432753 bytes).
+Output written on prace.pdf (86 pages, 14449699 bytes).
 PDF statistics:
- 2605 PDF objects out of 2984 (max. 8388607)
- 1404 compressed objects within 15 object streams
+ 2596 PDF objects out of 2984 (max. 8388607)
+ 1405 compressed objects within 15 object streams
  300 named destinations out of 1000 (max. 500000)
  681 words of extra memory for PDF output out of 10000 (max. 10000000)
 

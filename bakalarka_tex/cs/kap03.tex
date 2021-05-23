@@ -28,7 +28,7 @@ Pro naši databázi jsme již vybrali MySQL\footnote{https://www.mysql.com} impl
 \bigbreak
 
 
-Celý systém je ovládaný přes hlavní skript v~souboru \texttt{download\_and\allowbreak\_process.py}. Tento skript slouží jak ke spuštění produkčního běhu aplikace, tak i~k údržbě dat. Správným nastavení parametrů se vybere zdroj dat -- vybrat si můžeme mezi demonstračními daty, vývojovými daty nebo real-time daty. Dále je možné spuštěním skriptu vytvořit model profilů jízd a~také odstranit historická data z~databáze podle jejich data vložení.
+Celá aplikace je ovládaná přes hlavní skript, který je v~souboru \texttt{download\_and\allowbreak\_process.py}. Tento skript slouží jak ke spuštění produkčního běhu aplikace, tak i~k údržbě dat. Správným nastavení parametrů se vybere zdroj dat -- vybrat si můžeme mezi demonstračními daty, vývojovými daty nebo real-time daty. Dále je možné spuštěním skriptu vytvořit model profilů jízd a~také odstranit historická data z~databáze podle jejich data vložení.
 
 
 \bigbreak
@@ -259,9 +259,9 @@ JOIN trip_coordinates
 ON trip_coordinates.id_trip = schedule.id_trip AND
   schedule.lead_stop_shape_dist_traveled -
     schedule.shape_dist_traveled > 1500 AND
-  trip_coordinates.shape_dist_traveled
+  trip_coordinates.shape_dist_traveled + 99
     BETWEEN schedule.shape_dist_traveled AND
-  schedule.lead_stop_shape_dist_traveled
+  schedule.lead_stop_shape_dist_traveled - 99
 ORDER BY id_stop, lead_stop, shifted_shape_trav
 \end{code}
 
@@ -291,38 +291,56 @@ Přečtená data z~databáze se dále třídí podle dne v~týdnu, ve kterém by
 Dále následuje čištění dat od chyb a~jejich odstranění. Čištění funguje tak, že pokud nějaký vzorek dat je výrazně mimo cluster všech ostatních, tak není odstraněn pouze tento jeden vzorek, ale rovnou všechny vzorky dané jízdy. To proto, že s~vysokou pravděpodobností jsou ovlivněny chybou i~ostatní vzorky, ale nesplňují poměrně volná kritéria na odstranění. Hledání chyb pak probíhá tak, že se spočítá poměr čas jízdy ku vzdálenosti všech vzorků a~za chybné se označí ty příliš vzdálené od průměru. Popsaný algoritmus je implementován takto.
 
 
-TODO upravit kod podle aktualni verze
 \begin{code}[frame=none]
 trips_to_remove = set()
 trip_times_to_remove = dict()
 coor_times = self.norm_data.get_coor_times()
+
+# vydělí každý prvek pole,
+# abych nepracovali s příliš malými čísli v následujícím kroku
 norm_shapes = np.divide(self.norm_data.get_shapes(), 100)
 
+# vydělí dvě pole podle vzorce r[i] = a[i]/b[i]
+# a tím zkískáme poměr času a vzdálenosti pro každý vzorek
+rate = np.divide(coor_times, norm_shapes, where=norm_shapes!=0,)
 
-rate = np.divide(coor_times, norm_shapes, where=norm_shapes!=0,) != np.array(None)
+# ošetření krajních případů
+for i in range(len(rate)):
+  if rate[i] == np.inf:
+    rate[i] = 0.0
+  if rate[i] is None:
+    rate[i] = 0.0
 
+# normalizace prvků v rate podle vzdálenosti
+if max(norm_shapes) > 1:
+  tmp = []
+  for i in range(len(rate)):
+    tmp.append(rate[i] * (1 - ((max(norm_shapes) -
+	  norm_shapes[i]) / max(norm_shapes))))
 
+  rate = np.array(tmp)
+
+# výběr indexů prvků pole výrazně převyšující rozptyl
 high_variance = np.where((
-    abs(rate - rate.mean()) > rate.std() * Two_stops_model.REDUCE_VARIANCE_RATE
+  abs(rate - np.median(np.array(rate))) >
+    rate.std() * 4 + (np.median(np.array(rate)))
   ).astype(int) == 1)[0]
 
-
-# for all indicated indices get trip ids
-# and create dictionary of trip ids of all corrupted samples
+# zjistí id spojů s vysokým rozptylem,
+# vybere všechny vzorky daného spoje
 for hv in high_variance:
   trip_id = self.norm_data.get_ids_trip()[hv]
   trips_to_remove.add(trip_id)
 
-
   if trip_id in trip_times_to_remove:
-    trip_times_to_remove[trip_id].append(self.norm_data.get_timestamps()[hv])
-
-
+    trip_times_to_remove[trip_id].append(
+	  self.norm_data.get_timestamps()[hv])
   else:
-    trip_times_to_remove[trip_id] = [self.norm_data.get_timestamps()[hv]]
+    trip_times_to_remove[trip_id] =
+	  [self.norm_data.get_timestamps()[hv]]
 
-
-self.norm_data.remove_items_by_id_trip(trips_to_remove, trip_times_to_remove)
+self.norm_data.remove_items_by_id_trip(
+  trips_to_remove, trip_times_to_remove)
 \end{code}
 
 

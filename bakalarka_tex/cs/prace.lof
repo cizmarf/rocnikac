@@ -35,15 +35,15 @@
 \contentsline {figure}{\numberline {4.6}{\ignorespaces Vyzna\IeC {\v c}en\IeC {\'a} trasa j\IeC {\'\i }zdy s~j\IeC {\'\i }zdn\IeC {\'\i }m \IeC {\v r}\IeC {\'a}dem}}{63}{figure.4.6}% 
 \contentsline {figure}{\numberline {4.7}{\ignorespaces Vozidla proj\IeC {\'\i }\IeC {\v z}d\IeC {\v e}j\IeC {\'\i }c\IeC {\'\i } vybranou zast\IeC {\'a}vkou}}{63}{figure.4.7}% 
 \contentsline {figure}{\numberline {4.8}{\ignorespaces Odjezdov\IeC {\'a} tabule}}{63}{figure.4.8}% 
-\contentsline {figure}{\numberline {4.9}{\ignorespaces Modelov\IeC {\'a}n\IeC {\'\i } profilu j\IeC {\'\i }zdy s~chybn\IeC {\'y}mi vstupn\IeC {\'\i }mi daty}}{64}{figure.4.9}% 
+\contentsline {figure}{\numberline {4.9}{\ignorespaces Modelov\IeC {\'a}n\IeC {\'\i } profilu j\IeC {\'\i }zdy s~chybn\IeC {\'y}mi vstupn\IeC {\'\i }mi daty}}{65}{figure.4.9}% 
 \contentsline {figure}{\numberline {4.10}{\ignorespaces Histogram \gls {rmse} v\IeC {\v s}ech model\IeC {\r u}}}{65}{figure.4.10}% 
 \contentsline {figure}{\numberline {4.11}{\ignorespaces Vizualizace modelu druh\IeC {\'e}ho stupn\IeC {\v e}}}{66}{figure.4.11}% 
 \contentsline {figure}{\numberline {4.12}{\ignorespaces Vizualizace modelu t\IeC {\v r}et\IeC {\'\i }ho stupn\IeC {\v e}}}{66}{figure.4.12}% 
 \contentsline {figure}{\numberline {4.13}{\ignorespaces Histogram rozptylu zpo\IeC {\v z}d\IeC {\v e}n\IeC {\'\i } podle line\IeC {\'a}rn\IeC {\'\i }ho modelu, posledn\IeC {\'\i } sloupec zna\IeC {\v c}\IeC {\'\i } hodnoty 80 a~v\IeC {\'\i }ce}}{68}{figure.4.13}% 
-\contentsline {figure}{\numberline {4.14}{\ignorespaces Histogram rozptylu zpo\IeC {\v z}d\IeC {\v e}n\IeC {\'\i } podle line\IeC {\'a}rn\IeC {\'\i }ho modelu, posledn\IeC {\'\i } sloupec zna\IeC {\v c}\IeC {\'\i } hodnoty 80 a~v\IeC {\'\i }ce}}{69}{figure.4.14}% 
+\contentsline {figure}{\numberline {4.14}{\ignorespaces Histogram rozptylu zpo\IeC {\v z}d\IeC {\v e}n\IeC {\'\i } podle polynomi\IeC {\'a}ln\IeC {\'\i }ho modelu, posledn\IeC {\'\i } sloupec zna\IeC {\v c}\IeC {\'\i } hodnoty 80 a~v\IeC {\'\i }ce}}{69}{figure.4.14}% 
 \contentsline {figure}{\numberline {4.15}{\ignorespaces Histogram rozd\IeC {\'\i }lu rozptylu zpo\IeC {\v z}d\IeC {\v e}n\IeC {\'\i } podle line\IeC {\'a}rn\IeC {\'\i }ho modelu a~polynomi\IeC {\'a}ln\IeC {\'\i }ho modelu}}{70}{figure.4.15}% 
 \contentsline {figure}{\numberline {4.16}{\ignorespaces Zhor\IeC {\v s}en\IeC {\'\i } odhadu zpo\IeC {\v z}d\IeC {\v e}n\IeC {\'\i } vlivem \IeC {\v s}patn\IeC {\'y}ch vstupn\IeC {\'\i }ch dat}}{70}{figure.4.16}% 
-\contentsline {figure}{\numberline {4.17}{\ignorespaces Porovn\IeC {\'a}n\IeC {\'\i } pr\IeC {\r u}b\IeC {\v e}hu odhadnut\IeC {\'y}ch zpo\IeC {\v z}d\IeC {\v e}n\IeC {\'\i } line\IeC {\'a}rn\IeC {\'\i }m modelem (modr\IeC {\'a}) a~polynomi\IeC {\'a}ln\IeC {\'\i }m modelem (oran\IeC {\v z}ov\IeC {\'a}) mezi zast\IeC {\'a}vkami K~Leti\IeC {\v s}ti a~Zli\IeC {\v c}\IeC {\'\i }n}}{72}{figure.4.17}% 
+\contentsline {figure}{\numberline {4.17}{\ignorespaces Porovn\IeC {\'a}n\IeC {\'\i } pr\IeC {\r u}b\IeC {\v e}hu odhadnut\IeC {\'y}ch zpo\IeC {\v z}d\IeC {\v e}n\IeC {\'\i } line\IeC {\'a}rn\IeC {\'\i }m modelem a~polynomi\IeC {\'a}ln\IeC {\'\i }m modelem mezi zast\IeC {\'a}vkami K~Leti\IeC {\v s}ti a~Zli\IeC {\v c}\IeC {\'\i }n}}{72}{figure.4.17}% 
 \contentsline {figure}{\numberline {4.18}{\ignorespaces Histogram d\IeC {\'e}lek tras spoj\IeC {\r u}.}}{72}{figure.4.18}% 
 \contentsline {figure}{\numberline {4.19}{\ignorespaces Zpo\IeC {\v z}d\IeC {\v e}n\IeC {\'\i } v~posledn\IeC {\'\i } zast\IeC {\'a}vce j\IeC {\'\i }zdy v\IeC {\r u}\IeC {\v c}i d\IeC {\'e}lce cel\IeC {\'e} trasy j\IeC {\'\i }zdy, Pr\IeC {\r u}m\IeC {\v e}r vyzna\IeC {\v c}en mod\IeC {\v r}e a~rozptyl \IeC {\v s}ed\IeC {\v e}}}{73}{figure.4.19}% 
 \addvspace {10\p@ }
