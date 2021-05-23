@@ -7,7 +7,7 @@ V této kapitole popisujeme, jak je celá aplikace otestována. Dále pak porovn
 
 \bigbreak
 
-Dosažené výsledky demonstrujeme v řadě případů na grafech. Tyto grafy byly vytvořeny pomocí knihovny jazyka Python 3 matplotlib a zdrojový kód je napsán ve složce TODO.
+Dosažené výsledky demonstrujeme v řadě případů na grafech. Tyto grafy byly vytvořeny pomocí knihovny jazyka Python 3 matplotlib a zdrojový kód je napsán ve složce source/tests/stats, resp. v souboru source/tests/integration/test_estimation.py.
 
 \section{Testování softwarového řešení}
 
@@ -96,15 +96,6 @@ Jediné delší prodlení může nastat ve chvíli, kdy je potřeba stáhnout ve
 
 
 \subsubsection{Konstrukce modelů}
-
-Po využití testovacích dat vzorků poloh vozidel zaznamenaných ve dnech 20.--24.\,2.\,2020 bylo podle kritérií, kterými jsou zejména vzdálenost zastávek a~počet vzorků mezi nimi, sestrojeno celkem 1\,106 polynomiálních modelů. Z~toho je 847 modelů pro pracovní dny, které jsou nejdůležitější. Přičemž celkový počet párů zastávek je 7\,230, ale zastávek ve vzdálenosti 1\,500 metrů\footnote{zvolená minimální vzdálenost mezi zastávkami, mezi kterými má ještě smysl odhadovat zpoždění} je pouze 2\,142. Z~toho vychází, že u~40\,\% dvojic zastávek je dostatek dat, aby dával výpočet modelu smysl.
-
-\bigbreak
-
-U zbylých dvojic zastávek se využívá lineární model.
-
-
-\bigbreak
 
 Čtení dat potřebných pro trénování modelů z~databáze, kde jsou data ze 4 dnů, trvá přibližně 110 sekund. Čtení se totiž provádí komplikovaným \gls{sql} dotazem uvedeným v~kapitole \ref{subsection:cteni_dat}, ovšem na rychlost provedení tohoto dotazu i~konstrukce modelů celkem neklademe žádné časové nároky, protože přepočítávání modelů je plánováno na čas nejmenšího zatížení systému, což bývá typicky v~noci.
 
@@ -214,14 +205,13 @@ Pokud byla vybrána zastávka, zobrazila se odjezdová tabule a~všechny spoje, 
 
 Zde popsaná data vychází z~trénování modelů na datech sbíraných ve dnech 20.\,2.\,2020 -- 23.\,2.\,2020, tedy ze 4~dnů (2~pracovních, 2~víkendových).
 
+\bigbreak
+
+Po využití testovacích dat vzorků poloh vozidel zaznamenaných ve dnech 20.--23.\,2.\,2020 bylo podle kritérií, kterými jsou zejména vzdálenost zastávek a~počet vzorků mezi nimi, sestrojeno celkem 1\,106 polynomiálních modelů. Z~toho je 848 modelů pro pracovní dny, které jsou nejdůležitější. Pro oba typy dnů se polynomiální model vytvořil ve 222 případech. Ve 190 případech se vytvořil model pouze pro pracovní dny, protože mezi danou dvojicí zastávek nejel žádný spoj ve víkendový den. Přičemž celkový počet párů zastávek je 7\,230, ale zastávek ve vzdálenosti 1\,500 metrů\footnote{zvolená minimální vzdálenost mezi zastávkami, mezi kterými má ještě smysl odhadovat zpoždění} je pouze 2\,142. Z~toho vychází, že u~40\,\% dvojic zastávek je dostatek dat, aby dával výpočet modelu smysl. U zbylých dvojic zastávek se využívá lineární model.
 
 \bigbreak
 
-Z 2\,142 dvojic zastávek se alespoň pro jeden typ dne (pracovní, víkendový) vytvořil polynomiální model popisující profil jízdy mezi nimi pro 1\,108 dvojic zastávek. Pro oba typy dnů se polynomiální model vytvořil ve 222 případech. Ve 190 případech se vytvořil model pouze pro pracovní dny, protože mezi danou dvojicí zastávek nejel žádný spoj ve víkendový den.
-
-\bigbreak
-
-Tyto vytvořené polynomiální modely jsou součástí přílohy práce a jsou uložené ve složce TODO.
+Tyto vygenerované modely jsou přiloženy v příloze v archivu data/all_models.zip.
 
 \bigbreak
 
@@ -280,7 +270,7 @@ Evaluaci výsledků budeme provádět s~daty sesbíranými 20.\,2.\,2020, které
 
 \bigbreak
 
-Z dat sesbíraných 20.\,2.\,2020 se vytvořilo 284 modelů popisující průběh trasy. Tyto vytvořené polynomiální modely jsou součástí přílohy práce a jsou uložené ve složce TODO.
+Z dat sesbíraných 20.\,2.\,2020 se vytvořilo 284 modelů popisující průběh trasy. Tyto vytvořené polynomiální modely jsou součástí přílohy práce a jsou uložené v archivu data/thu_models.zip.
 
 
 \bigbreak
