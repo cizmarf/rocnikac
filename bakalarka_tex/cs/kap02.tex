@@ -21,7 +21,7 @@ Běh celé aplikace bude rozdělen do dvou částí.
 \end{itemize}
 
 
-Protože obě části jsou na sobě závislé v~iniciálním běhu bude prováděna první část sběru dat bez odhadu zpoždění, nebo pomocí již existujícího triviálního lineárního odhadu.
+Protože obě části jsou na sobě závislé, v~iniciálním běhu bude prováděna první část sběru dat bez odhadu zpoždění, nebo pomocí již existujícího triviálního lineárního odhadu.
 
 \section{Architektura}
 
@@ -253,10 +253,10 @@ dokud skript běží
   načti aktuální polohy vozidel
   pro každé nalezené vozidlo
     pokud jízda vozidla je známá
-      aktualizuj data o~jízdě
+      aktualizuj data o jízdě
     jinak
-      stáhni informace o~jízdě
-    zpracuj a~vlož jízdu do databáze
+      stáhni informace o jízdě
+    zpracuj a vlož jízdu do databáze
 \end{code}
 
 
@@ -317,17 +317,9 @@ Během jízdy mohou nastat mimořádné události, které porušují výše uved
 
 \subsection{Návrh modelování} \label{subsubsection:analyza_dat}
 
-Na úvod uveďme, že ve všech grafech a~následně i~pro počítání modelů, byly všechny zobrazené vzorky poloh vozidel v~grafech zarovnány tak, aby jejich jízda ze zastávky $a$ vždy začínala se zpožděním 0~sekund. To podle nahlášeného zpoždění v~zastávce $a$.
 
 
-\bigbreak
-
-Z~dat je však patrné, že ne vždy se zarovnání do nuly podařilo. Takové případy jsou pak způsobeny chybami v~datech vysílaných z~vozidel nebo špatně určeným zpožděním v~poslední projeté stanici na straně poskytovatele dat. Takové chyby však vznikají spíše výjimečně, a~proto ovlivňují statistické výpočty jen málo. Pro eliminaci těchto chyb je pak implementován modul, který se pokouší očividně chybné vzorky najít a~smazat. To také z~důvodu vizualizace vzorků v~grafech, kde jeden vzorek, zcela mimo škálu jiných vzorků, rozhodí celý graf, který se tak stává nepřehledným.
-
-
-\bigbreak
-
-Dále si uvedeme druhy profilů jízd a~způsoby jejich modelování.
+Dále si uvedeme způsoby modelování profilů jízd.
 
 
 \subsubsection{Lineární model}
@@ -342,34 +334,7 @@ Ačkoli je snaha tento model nahradit lepším, v~některých situacích může 
 
 \subsubsection{Polynomiální profil jízdy}
 
-Po analýze dat poloh vozidel a~možných vlivů ovlivňující profil jízdy je patrné, že v~průběhu jednoho dne dochází na trase nejvýše k~několika výkyvům rychlosti jízdy. Viditelné jako vlny v~průběhu dne na grafu \ref{fig:dojezd_ve_fazich_dne}), v~8:30 hod\footnote{časy jsou uvedeny v~UTC}. Jízda trvala téměř 10 minut, naopak ve večerních hodinách jízda trvá kolem 7 minut.
-
-
-\bigbreak
-
-K tomuto dochází například v~případech, kdy spoj zastavuje ve městě a~v~následujících několika málo kilometrech jede pomaleji, poté zrychlí a~dále opět vjede do města. Takový model se hodí spíše na delší trasy s~plynulou jízdou.
-
-
-\begin{figure}
-\centering
-  \includegraphics[width=\linewidth]{../img/dojezd_ve_fazich_dne}
-  \caption{Variabilita délky jízdy v~průběhu dne}
-  \label{fig:dojezd_ve_fazich_dne}
-\end{figure}
-
-
-Stejně tak po analýze profilu jízdy v~závislosti na ujeté vzdálenosti je na grafu \ref{fig:dojezd_podle_vzdalenosti} vidět, že čas jízdy narůstá také v~jistých vlnách.
-
-
-\begin{figure}
-\centering
-  \includegraphics[width=\linewidth]{../img/dojezd_podle_vzdalenosti}
-  \caption{Variabilita času jízdy v~závislosti na ujeté vzdálenosti}
-  \label{fig:dojezd_podle_vzdalenosti}
-\end{figure}
-
-
-Jak pozorujeme na grafech výše, je patrné, že vzorky poloh vytváří jisté vlny. Takové vlny se dají dobře popsat modely získané pomocí lineární regrese, resp. polynomiální regrese. Ve strojovém učení se k~výpočtu polynomiální regrese využívá algoritmus lineární regrese s~upravenými vstupními daty \citep[viz][Strany 265--268]{Gareth13}.
+Po analýze dat poloh vozidel a~možných vlivů ovlivňující profil jízdy v kapitole \ref{subsubsection:vlny} pozorujeme na grafech, že vzorky poloh vytváří jisté vlny. Takové vlny se dají dobře popsat modely získané pomocí lineární regrese, resp. polynomiální regrese. Ve strojovém učení se k~výpočtu polynomiální regrese využívá algoritmus lineární regrese s~upravenými vstupními daty \citep[viz][Strany 265--268]{Gareth13}.
 
 
 \bigbreak
@@ -387,63 +352,14 @@ Polynomiální model se tedy hodí pro situace, kdy je průběh trasy nějak ovl
 Polynomiální model je pro představu vykreslen v~grafu v~úvodním příkladu v~kapitole \ref{subsection:priklad_nelinearni_trasa}.
 
 
-\subsubsection{Nepravidelné profily jízdy}
-
-
-Výše popsaný příklad však ilustruje téměř ideální případ, kde je pravidelnost jízdy velmi dobře viditelná. Rozeberme si proto nyní i~jiné druhy profilů jízd.
-
-
-\bigbreak
-
-Na grafu \ref{fig:cerny_most_chvaly} je patrné, že vzorky poloh vozidel profilu jízdy stále vytváří vlny. Ovšem už nejsou tak jednoznačně vidět jak v~předchozím příkladě, a~především se v~celém grafu objevuje pár vzorků, které zcela vybočují mimo největší shluky vzorků. V~těchto případech se zřejmě jedná o~případy vozidel, které potkala nějaká anomálie při výjezdu ze stanice, a~proto nabraly zpoždění hned na začátku.
-
-
-\begin{figure}
-\centering
-  \includegraphics[width=\linewidth]{../img/4383_2712}
-  \caption{Úsek s~nepravidelnostmi}
-  \label{fig:cerny_most_chvaly}
-\end{figure}
-
-\bigbreak
-
-
-Pro velmi krátké trasy se zobrazené vzorky dat mohou jevit jako zcela nepravidelné. Příklad uveden na grafu \ref{fig:divoka_sarka_veleslavin}. To je způsobeno tím, že doba jízdy trasy je natolik krátká, že jeden spoj trasu projede za minutu, ale druhý spoj, který se zdrží o~zanedbatelný čas (z pohledu problému řešeného v~této práci) přijede do následující stanice až za dvojnásobnou dobu. Dále je vysoký rozptyl vzorků způsoben nepřesnostmi při měření polohy vozidel a~dalšími možnými problémy. Jelikož se ale jedná o~velmi krátké trasy, nemá smysl jejich specifika vůbec řešit, protože spočítaná data by zastarala ještě před zveřejněním.
-
-
-\begin{figure}
-\centering
-  \includegraphics[width=\linewidth]{../img/164_165}
-  \caption{Úsek s~nepravidelnostmi 2}
-  \label{fig:divoka_sarka_veleslavin}
-\end{figure}
-
-\bigbreak
-
-
-Na ukázku uveďme ještě příklad grafu \ref{fig:delayed_trip}, kde jedna jízda dosáhla výrazného zpoždění oproti ostatním jízdám. Současně zde můžeme vidět poměrně častou chybu ve vstupních datech, kdy jedné jízdě přísluší vzorky poloh zcela mimo škálu grafu. Po bližším přezkoumání se jízda jeví, jakoby jela opačným směrem. V~naší práci, ale nebudeme zkoumat zdroj chyby, ani se snažit data nějak opravit a~rovnou tyto vzorky voloučíme.
-
-
-\begin{figure}
-\centering
-  \includegraphics[width=\linewidth]{../img/16_17}
-  \caption{Výrazné zpoždění jedné jízdy a~chybný směr jízdy}
-  \label{fig:delayed_trip}
-\end{figure}
-
 
 \subsubsection{Model konkávním obalem}
 
+Řešíme případ popsaný v kapitole \ref{subsubsection:nepr_zpozd}.
 
-Na dalším grafu \ref{fig:nepredvidatelne_zdrzeni} je zobrazen příklad, kdy na trase existuje bod, který určité procento projíždějících spojů zdrží o~netriviální dobu. Něco takového nastane, pokud spoje projíždí světelnou křižovatkou nebo místem kde se náhodně tvoří kolona vozidel. Zde dochází ke skokové změně průběhu bodové funkce. Spojité modely, jakým je polynomiální model, by s~okolím tohoto kritického místa měly problém. Pro případy, kdy je na trase jen jeden takový bod by použití polynomiálních modelů vyhovovalo, byť by v~bodě skoku odhad nebyl úplně přesný. Ale předpokládejme, že nalezená polynomiální funkce by tento skok zohlednila, ale teoreticky je potřeba algoritmus, který umí pracovat s~více kritickými body na trase.
+\bigbreak
 
-
-\begin{figure}
-\centering
-  \includegraphics[width=\linewidth]{../img/1128_1129}
-  \caption{Úsek s~nepravidelným zpožděním}
-  \label{fig:nepredvidatelne_zdrzeni}
-\end{figure}
+Spojité modely, jakým je polynomiální model, by s~okolím tohoto kritického místa měly problém. Protože zde by docházelo ke skokové změně průběhu bodové funkce. Pro případy, kdy je na trase jen jeden takový bod by použití polynomiálních modelů vyhovovalo, byť by v~bodě skoku odhad nebyl úplně přesný. Ale předpokládejme, že nalezená polynomiální funkce by tento skok zohlednila, nicméně teoreticky je potřeba algoritmus, který umí pracovat s~více kritickými body na trase.
 
 
 \bigbreak
@@ -530,7 +446,7 @@ spoje_včas = prázdné pole spojů;
 
 pro každou hodinu h:
   spoje_včas += vyber spoje, které přijely nejblíže
-    odhadu v~hodině h;
+    odhadu v hodině h;
 
 
 konkávní_obal = prázdné pole
@@ -546,11 +462,11 @@ Vrací: konkávní_obal;
 \end{code}
 
 
-Dále odhad zpoždění z~konkávního obalu. Pro funkci \texttt{vzdálenost bodu od hranice obalu} se vždy myslí vzdálenost po kolmici na osu ujeté vzdálenosti a~osu času dne.
+Dále odhad zpoždění z konkávního obalu. Pro funkci \texttt{vzdálenost bodu od hranice obalu} se vždy myslí vzdálenost po kolmici na osu ujeté vzdálenosti a~osu času dne.
 
 
 \begin{code}[frame=none]
-Vstup: bod v~prostoru vzdálenosti, průběhu dne
+Vstup: bod v prostoru vzdálenosti, průběhu dne
   a času na trase (vzorek polohy vozidla)
 
 
@@ -596,7 +512,7 @@ Lineární model zvolíme také v~případě, že nemáme dostatek dat pro výpo
 \bigbreak
 
 
-Na závěr, pokud i~přes počítání polynomiálního modelu zjistíme, že takový model má horší výsledky než model lineární, nemá smysl využívat polynomiální model.
+Na závěr, pokud i~přes počítání polynomiálního modelu zjistíme, že takový model libovolného stupně má horší výsledky než model lineární, nemá smysl využívat polynomiální model.
 
 
 \section{Vizualizace dat} \label{section:navrh_vizualizace}

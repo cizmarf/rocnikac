@@ -6,11 +6,13 @@
 
 V této kapitole je detailně popsána implementace a~volba technologií použití k~implementaci navrženého díla.
 
+\bigbreak
+
+Zdrové kódy jsou přiloženy v příloze ve složce source. Která také obsahuje dokument read.me, kde je popsáno jak celou aplikaci nainstalovat a spustit. Celý projekt je také dostupný ke stažení z repozitáře na platformě GitHub\footnote{\url{https://github.com/cizmarf/Analysis-of-real-time-data-of-public-transport-vehicles}}.
 
 \section{Úvod}
 
-
-Nejdůležitější částí celého systému je modul výpočtu a~používání pravděpodobnostních modelů odhadu zpoždění vozidel. To vytváří požadavek na využití technologií, které poskytují prostředí pro pohodlnou tvorbu těchto modelů. V~současnosti jsou nejpokročilejší nástroje pro takový účel součástí balíčkové sady jazyka Python 3, konkrétně se jedná o~knihovnu scikit-learn\footnote{https://scikit-learn.org/stable/} a~další nástroje pro práci s~velkými daty jako je knihovna NumPy\footnote{https://numpy.org}. Tyto knihovny implementují dobře známé algoritmy umělé inteligence, včetně optimalizací a~pomocných funkcí zjednodušujících hledání nejlepšího modelu, dále pak i~užitečné funkce pro počítání statistik. Navíc jsou tyto knihovny naimplementovány s~ohledem na vysokou výkonost\footnote{https://scikit-learn.org/stable/developers/performance.html} a~využití grafických karet\footnote{Záleží na konkrétním hardwaru}. Proto nedává smysl jejich služeb nevyužít. Využití jazyka Python 3 je tedy pro jádro naší práce jasnou volbou.
+Nejdůležitější částí celého systému je modul výpočtu a~používání pravděpodobnostních modelů odhadu zpoždění vozidel. To vytváří požadavek na využití technologií, které poskytují prostředí pro pohodlnou tvorbu těchto modelů. V~současnosti jsou nejpokročilejší nástroje pro takový účel součástí balíčkové sady jazyka Python 3, konkrétně se jedná o~knihovnu scikit-learn\footnote{\url{https://scikit-learn.org/stable/}} a~další nástroje pro práci s~velkými daty jako je knihovna NumPy\footnote{\url{https://numpy.org}}. Tyto knihovny implementují dobře známé algoritmy umělé inteligence a strojového učení, včetně optimalizací a~pomocných funkcí zjednodušujících hledání nejlepšího modelu, dále pak i~užitečné funkce pro počítání statistik. Navíc jsou tyto knihovny naimplementovány s~ohledem na vysokou výkonnost\footnote{\url{https://scikit-learn.org/stable/developers/performance.html}} a~využití grafických karet\footnote{Záleží na konkrétním hardwaru}. Proto nedává smysl jejich služeb nevyužít. Využití jazyka Python 3 je tedy pro jádro naší práce jasnou volbou.
 
 
 \bigbreak
@@ -22,7 +24,7 @@ Pro samotné zpracování dat žádné speciální požadavky nevyvstávají a~j
 \bigbreak
 
 
-Pro naši databázi jsme již vybrali MySQL\footnote{https://www.mysql.com} implementaci. To zejména z~důvodů, že se jedná o~open source projekt a~tato implementace je velmi často vyžívaná v~celé řadě jiných projektů s~velkou komunitou. Konkrétně pro Python 3 existuje knihovna MySQL Connector\footnote{https://dev.mysql.com/doc/connector-python/en/} přes kterou je možné \gls{sql} databázi pohodlně obsluhovat.
+Pro naši databázi jsme již vybrali MySQL\footnote{\url{https://www.mysql.com}} implementaci. To zejména z~důvodů, že se jedná o~open source projekt a~tato implementace je velmi často vyžívaná v~celé řadě jiných projektů s~velkou komunitou. Konkrétně pro Python 3 existuje knihovna MySQL Connector\footnote{https://dev.mysql.com/doc/connector-python/en/} přes kterou je možné \gls{sql} databázi pohodlně obsluhovat.
 
 
 \bigbreak
@@ -219,7 +221,7 @@ X_train, X_test, y_train, y_test =
 
 \subsection{Čtení dat} \label{subsection:cteni_dat}
 
-Samotné nalezení správného modelu se nyní může zdát jednoduché, nicméně nejsložitější prací pro jakoukoli úlohu z~oblasti umělé inteligence a~strojového učení je příprava dat a~v~naší práci tomu není jinak. Ať už se jedná o~samotná zpracování dat popsané výše v~kapitole \ref{section:zpracovani_dat}, tak také je potřeba tyto zpracovaná data dále transformovat z~formátu v~jakém jsou uloženy v~databázi do formátu jaký je vhodný pro počítání lineární regrese. Dále je pak potřeba data vyčistit od zcela nesmyslných vzorků poloh vozidel, kterých je ve vstupních datech spousta a~mohly by negativně ovlivnit správnost odhadů nalezených modelů.
+Samotné nalezení správného modelu se nyní může zdát jednoduché, nicméně nejsložitější prací se ukazuje příprava dat, ze který se bude učit tento model. Ať už se jedná o~samotné zpracování dat popsané výše v~kapitole \ref{section:zpracovani_dat}, tak také je potřeba tyto zpracovaná data dále transformovat z~formátu v~jakém jsou uloženy v~databázi do formátu jaký je vhodný pro počítání lineární regrese. Dále je pak potřeba data vyčistit od zcela nesmyslných vzorků poloh vozidel, kterých je ve vstupních datech spousta a~mohly by negativně ovlivnit správnost odhadů nalezených modelů.
 
 \bigbreak
 
@@ -397,7 +399,7 @@ Pro eliminaci chyby odhadu zpoždění polynomiálním modelem z~důvodu, že mo
 \section{Vizualizace dat}
 
 
-Data budou zobrazovány pomocí webové aplikace (klientská část) a~ta bude stahovat data ze serverové části. Komunikační mapa ilustrující propojení těchto částí je zobrazena na diagramu \ref{fig:design_diagram}.
+Data budou zobrazována pomocí webové aplikace (klientská část) a~ta bude stahovat data ze serverové části. Komunikační mapa ilustrující propojení těchto částí je zobrazena na diagramu \ref{fig:design_diagram}.
 
 
 \subsection{Klientská část}
@@ -526,7 +528,7 @@ Po inicializaci prostředí Mapboxu popsanou výše následuje inicializace naš
 
 
 \begin{code}[frame=none]
-var vehicles = new Set(); // elementy vozidel v~mapě
+var vehicles = new Set(); // elementy vozidel v mapě
 var active_trips = {}; // vybraná vozidla
 var vehicles_elements = {}; // html elementy vozidel
 var no_stop_chosen = true; // indikátor vybrání zastávky
@@ -549,7 +551,7 @@ for (var trip in active_trips){
 \end{code}
 
 
-Po načtení poloh vozidel probíhá jejich vykreslování do mapy. Nejprve se odstraní z~mapy všechny stará vozidla a~pro každé nové vozidlo se konstruuje nový \gls{html} element. Každý tento element reprezentující vozidlo poslouchá na kliknutí.
+Po načtení poloh vozidel probíhá jejich vykreslování do mapy. Nejprve se odstraní z~mapy všechna stará vozidla a~pro každé nové vozidlo se konstruuje nový \gls{html} element. Každý tento element reprezentující vozidlo poslouchá na kliknutí.
 
 
 \bigbreak
@@ -591,7 +593,7 @@ el_c.addEventListener("mouseover", function(){
 });
 
 
-// odebere všechny názvy zastávek z~mapy po vyjetí myši
+// odebere všechny názvy zastávek z mapy po vyjetí myši
 el_c.addEventListener("mouseout", function(){
   var signs = document.getElementsByClassName('stop_pin_sige);
   while(signs[0]) {
@@ -647,7 +649,7 @@ Server je naprogramován pomocí Pythoní knihovny \verb-simple_server-, která 
 \bigbreak
 
 
-Vytvoření serveru pomocí této knihovny se v~jazyce Python3 udělá následovně.
+Vytvoření serveru pomocí této knihovny se v~jazyce Python 3 udělá následovně.
 
 
 \begin{code}[frame=none]

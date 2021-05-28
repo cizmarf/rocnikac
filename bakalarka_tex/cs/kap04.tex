@@ -3,11 +3,15 @@
 \chapter{Testování a~evaluace}
 
 
-V této kapitole popisujeme, jak je celá aplikace otestována. Dále pak porovnání odhadů zpoždění se stávajícím řešení.
+V této kapitole popisujeme, jak je celá aplikace otestována. Dále pak porovnáváme odhady zpoždění se stávajícím řešením.
 
 \bigbreak
 
-Dosažené výsledky demonstrujeme v řadě případů na grafech. Tyto grafy byly vytvořeny pomocí knihovny jazyka Python 3 matplotlib a zdrojový kód je napsán ve složce source/tests/stats, resp. v souboru source/tests/integration/test_estimation.py.
+Dosažené výsledky demonstrujeme v řadě případů na grafech. Tyto grafy byly vytvořeny pomocí knihovny jazyka Python 3 matplotlib a zdrojový kód je napsán ve složce source/tests/stats, resp. v souboru source/tests/\-integration/\-test\_estimation.py.
+
+\bigbreak
+
+Data na kterých provádíme veškeré testování jsou přiloženy v~příloze této práce. Konkrétně se jedná o záznamy poloh všech vozidel ze 4 dnů 20.\,2.\,2020 až 23.\,2.\,2020 v~archivu vehicle\_positions.zip a detailní informace o~všech nalezených spojích v~archivu trips.zip.
 
 \section{Testování softwarového řešení}
 
@@ -43,7 +47,7 @@ Integrční testy jsou dostupné v~příloze ve složce tests/integration
 \subsection{Testy kvality}
 
 
-Všechny následující výkonnostní testy jsou prováděny na osobním notebooku s~technickými parametry uvedenými v~tabulce \ref{table:hw}\footnote{https://9to5mac.com/2016/11/01/the-late-2016-entry-level-13-macbook-pro-has-a-ridiculously-fast-ssd/}.
+Všechny následující výkonnostní testy jsou prováděny na osobním notebooku s~technickými parametry uvedenými v~tabulce \ref{table:hw}\footnote{\url{https://9to5mac.com/2016/11/01/the-late-2016-entry-level-13-macbook-pro-has-a-ridiculously-fast-ssd/}}.
 
 
 \begin{center}
@@ -75,7 +79,7 @@ Testování stejně jako funkční a~kvalitativní požadavky na práci vycház�
 
 \subsubsection{Zpracování dat}
 
-Zpracování dat probíhá přečtením souboru s~polohy vozidel a~dále zpracovává každé vozidlo zvlášť. Přičemž pokud je vozidlo již nalezeno a~jeho poloha se od poslední aktualizace změnila, provedou se pouze dvě čtení z~databáze. Jeden záznam se aktualizuje a~vloží se jeden nový záznam\footnote{ověření existence spoje v~tabulce trips, načtení jízdního řádu z~tabulky rides, aktualizace dat spoje v~tabulce trips a~vložení aktuální polohy vozidla do tabulky skladující historická data \texttt{trip\_coordinates}}. Pokud je vozidlo již nalezeno a~jeho poloha se od poslední aktualizace nezměnila, provede se pouze jedno čtení z~databáze. Pokud ovšem je vozidlo obsluhující spoj nenalezeno, musí se číst soubor s~detailem daného spoje a~všechna data se vkládají do databáze (jízdní řád včetně zastávek), navíc geografická lomená čára popisující jízdu se ukládá jako soubor.
+Zpracování dat probíhá přečtením souboru s~polohy vozidel a~dále se zpracovává každé vozidlo zvlášť. Přičemž pokud je vozidlo již nalezeno a~jeho poloha se od poslední aktualizace změnila, provedou se pouze dvě čtení z~databáze. Jeden záznam se aktualizuje a~vloží se jeden nový záznam\footnote{ověření existence spoje v~tabulce trips, načtení jízdního řádu z~tabulky rides, aktualizace dat spoje v~tabulce trips a~vložení aktuální polohy vozidla do tabulky skladující historická data \texttt{trip\_coordinates}}. Pokud je vozidlo již nalezeno a~jeho poloha se od poslední aktualizace nezměnila, provede se pouze jedno čtení z~databáze. Pokud ovšem je vozidlo obsluhující spoj nenalezeno, musí se číst soubor s~detailem daného spoje a~všechna data se vkládají do databáze (jízdní řád včetně zastávek), navíc geografická lomená čára popisující jízdu se ukládá jako soubor.
 
 
 \bigbreak
@@ -101,7 +105,7 @@ Jediné delší prodlení může nastat ve chvíli, kdy je potřeba stáhnout ve
 
 \bigbreak
 
-Dále ověřme, že výsledek dotazu nezahltí paměť počítače. Dotaz sice umožňuje čtení dat po stránkách, ale v~implementaci se tato vlastnost nevyužívá. Určení velikosti objektu jazyka Python 3 v~paměti počítače není úplně triviální úloha, protože v~paměti není objekt uložen na jednom místě, na části objektu se totiž ukazuje pointery\footnote{https://docs.python.org/3/reference/datamodel.html\#objects-values-and-types}. Dobrý odhad nám, ale poskytne uložit objekt na disk pomocí knihovny \verb-pickle-\footnote{https://docs.python.org/3/library/pickle.html}. Takto uložený objekt zabírá necelých 10\,MB prostoru na disku.
+Dále ověřme, že výsledek dotazu nezahltí paměť počítače. Dotaz sice umožňuje čtení dat po stránkách, ale v~implementaci se tato vlastnost nevyužívá. Určení velikosti objektu jazyka Python 3 v~paměti počítače není úplně triviální úloha, protože v~paměti není objekt uložen na jednom místě, na části objektu se totiž ukazuje pointery\footnote{\url{https://docs.python.org/3/reference/datamodel.html\#objects-values-and-types}}. Dobrý odhad nám, ale poskytne uložit objekt na disk pomocí knihovny \verb-pickle-\footnote{\url{https://docs.python.org/3/library/pickle.html}}. Takto uložený objekt zabírá necelých 10\,MB prostoru na disku.
 
 
 \bigbreak
@@ -120,7 +124,7 @@ Server je schopný odbavit přinejmenším 100 dotazů za sekundu. Na grafu \ref
 \begin{figure}
    \centering
  \includegraphics[width=\linewidth]{../img/server_response_time}
- \caption{Doba odpovědi serveru na 100 paralelních dotazů (1000 vzorků)}
+ \caption{Doba odpovědi serveru na 100 paralelních dotazů (1\,000 vzorků)}
  \label{fig:server_response_time}
 \end{figure}
 
@@ -207,15 +211,15 @@ Zde popsaná data vychází z~trénování modelů na datech sbíraných ve dnec
 
 \bigbreak
 
-Po využití testovacích dat vzorků poloh vozidel zaznamenaných ve dnech 20.--23.\,2.\,2020 bylo podle kritérií, kterými jsou zejména vzdálenost zastávek a~počet vzorků mezi nimi, sestrojeno celkem 1\,106 polynomiálních modelů. Z~toho je 848 modelů pro pracovní dny, které jsou nejdůležitější. Pro oba typy dnů se polynomiální model vytvořil ve 222 případech. Ve 190 případech se vytvořil model pouze pro pracovní dny, protože mezi danou dvojicí zastávek nejel žádný spoj ve víkendový den. Přičemž celkový počet párů zastávek je 7\,230, ale zastávek ve vzdálenosti 1\,500 metrů\footnote{zvolená minimální vzdálenost mezi zastávkami, mezi kterými má ještě smysl odhadovat zpoždění} je pouze 2\,142. Z~toho vychází, že u~40\,\% dvojic zastávek je dostatek dat, aby dával výpočet modelu smysl. U zbylých dvojic zastávek se využívá lineární model.
+Podle kritérií kterými jsou zejména vzdálenost zastávek a~počet vzorků mezi nimi, bylo sestrojeno celkem 1\,106 polynomiálních modelů. Z~toho je 848 modelů pro pracovní dny, které jsou nejdůležitější. Pro oba typy dnů se polynomiální model vytvořil ve 222 případech. Ve 190 případech se vytvořil model pouze pro pracovní dny, protože mezi danou dvojicí zastávek nejel žádný spoj ve víkendový den. Přičemž celkový počet párů zastávek je 7\,230, ale zastávek ve vzdálenosti 1\,500 metrů\footnote{zvolená minimální vzdálenost mezi zastávkami, mezi kterými má ještě smysl odhadovat zpoždění} je pouze 2\,142. Z~toho vychází, že u~40\,\% dvojic zastávek je dostatek dat, aby dával výpočet modelu smysl. U zbylých dvojic zastávek se využívá lineární model.
 
 \bigbreak
 
-Tyto vygenerované modely jsou přiloženy v příloze v archivu data/all_models.zip.
+Tyto vygenerované modely jsou přiloženy v~příloze v~archivu data/all\allowbreak\_models\allowbreak.zip.
 
 \bigbreak
 
-Chceme-li zjistit, jak přesně jsou profily jízdy odhadnuty pomocí vytvořených modelů, zaměříme se na \gls{rmse} u~každého modelu. Tato chyba nám říká, o~kolik sekund se v~průměrném případě náš odhad plete od skutečnosti na testovacích datech\footnote{Jedná se o~testovací data, podle kterých se určil nejlepší stupeň polynomu. Kdy vstupní data pro funkci trénování modelu byla rozdělena na trénovací a~testovací. Testovací data, podle kterých posuzujeme vlastnosti nově odhadnutých zpoždění v~kapitole \ref{subsection:odhady_zpozdeni}, jsou zcela jiná množina dat \citep[viz][Strana 365, validation set a~test set]{Ripley96}.}. Pro pracovní dny je průměrná \gls{rmse} necelých 20 sekund. Nejvyšší \gls{rmse} byla zaznamenána 200 sekund. Tak vysoké odchylky jsou, po prozkoumání jednotlivých případů způsobeny chybami ve vstupních datech, které se automaticky odstraňují jen velmi obtížně. Příklad je zobrazen na grafu \ref{fig:chyba_zpozdeni_v_posledni_zastavce}. V~tomto konkrétním případě jsou chybně uvedena zpoždění v~poslední projeté zastávce. Histogram všech \gls{rmse} modelů z~pracovních dnů je zobrazen na grafu \ref{fig:rmse}. Zde je patrné, že nejčastěji je chyba do 30 sekund a~zcela výjimečně překročí 60 sekund. Takto nízké chyby jsou nad očekávání dobré, protože průměrných 20 sekund je pro cestujícího čekající na autobus takřka nepostřehnutelnými.
+Chceme-li zjistit, jak přesně jsou profily jízdy odhadnuty pomocí vytvořených modelů, zaměříme se na \gls{rmse} u~každého modelu. Tato chyba nám říká, o~kolik sekund se v~průměrném případě náš odhad plete od skutečnosti na testovacích datech\footnote{Jedná se o~testovací data, podle kterých se určil nejlepší stupeň polynomu. Kdy vstupní data pro funkci trénování modelu byla rozdělena na trénovací a~testovací. Testovací data, podle kterých posuzujeme vlastnosti nově odhadnutých zpoždění v~kapitole \ref{subsection:odhady_zpozdeni}, jsou zcela jiná množina dat \citep[viz][Strana 365, validation set a~test set]{Ripley96}.}. Pro pracovní dny je průměrná \gls{rmse} necelých 20 sekund. Nejvyšší \gls{rmse} byla zaznamenána 200 sekund. Tak vysoké odchylky jsou, po prozkoumání jednotlivých případů způsobeny chybami ve vstupních datech, které se automaticky odstraňují jen velmi obtížně. Příklad je zobrazen na grafu \ref{fig:chyba_zpozdeni_v_posledni_zastavce}. V~tomto konkrétním případě jsou chybně uvedena zpoždění v~poslední projeté zastávce. Histogram všech \gls{rmse} modelů z~pracovních dnů je zobrazen na grafu \ref{fig:rmse}. Zde je patrné, že nejčastěji je chyba do 30 sekund a~zcela výjimečně překročí 60 sekund. Takto nízké chyby jsou nad očekávání dobré, protože průměrných 20 sekund je pro cestujícího čekající na autobus takřka nepostřehnutelných.
 
 
 \begin{figure}
@@ -270,54 +274,16 @@ Evaluaci výsledků budeme provádět s~daty sesbíranými 20.\,2.\,2020, které
 
 \bigbreak
 
-Z dat sesbíraných 20.\,2.\,2020 se vytvořilo 284 modelů popisující průběh trasy. Tyto vytvořené polynomiální modely jsou součástí přílohy práce a jsou uložené v archivu data/thu_models.zip.
+Z dat sesbíraných 20.\,2.\,2020 se vytvořilo 284 modelů popisující průběh trasy. Tyto vytvořené polynomiální modely jsou součástí přílohy práce a~jsou uložené v~archivu data/thu\_models.zip.
 
 
 \bigbreak
 
-Budeme porovnávat zaznamenaná odhadnutá zpoždění mezi odhadem podle lineárního modelu a~polynomiálního modelu. Pro lepší výsledky vyloučíme z~porovnání vzorky poloh vozidel, které byly zaznamenány bezprostředně po vyjetí z~první zastávky nebo před přijetím do druhé zastávky. Takové vzorky poloh vozidel obsahují často chybná data, která negativně ovlivňují výpočet modelů (data jsou vyloučena i~při výpočtu) i~porovnání jejich výsledků. Tyto chyby jsou převážně způsobeny zaokrouhlováním atributu ujeté vzdálenosti ve vzorku dat na celé stovky.
+Budeme porovnávat zaznamenaná odhadnutá zpoždění mezi odhadem podle lineárního modelu a~polynomiálního modelu.
 
 \bigbreak
 
-Ilustrujme si tento problém na příkladu z~reálných dat. V~tabulce \ref{table:9270_samples} jsou zaznamenány vybrané polohy vozidla, které jelo podle jízdního řádu, jehož první dvě zastávky jsou uvedené v~tabulce \ref{table:9270_ride}. Ačkoli je druhá zastávka spoje ve vzdálenosti 4\,840 metrů o~výchozí zastávky, podle vzorku polohy vozidla pořízeném ve vzdálenosti 4\,800 metrů se změnilo zpoždění v~poslední zastávce, což značí, že vozidlo již stojí v~druhé zastávce. Avšak kdybychom brali všechny vzorky dat pořízené před projetím bodu 4\,840 metrů (druhá zastávka), zahrneme tento bod do výpočtu modelu, resp. evaluace výsledků a~negativně nám ovlivní výsledky. Dále vidíme, že po vyjetí ze zastávky má vozidlo konstantní zpoždění v~poslední projeté zastávce, tedy vozidlo opustilo zastávku a~je na trase.
-
-\begin{center}
-   \begin{table}[ht]
-\centering
-\begin{tabular}{|c|c|c|}
-\hline
-ID spoje & ujetá vzdálenost & zpoždění v~poslední zastávce \\ \hline \hline
-336\_89\_181210 & 4400 & 61 \\ \hline
-336\_89\_181210 & 4700 & 61 \\ \hline
-336\_89\_181210 & 4800 & 84 \\ \hline
-336\_89\_181210 & 4900 & 92 \\ \hline
-336\_89\_181210 & 5300 & 92 \\ \hline
-\end{tabular}
-\label{table:9270_samples}
-\caption{Záznamy poloh spoje 336\_89\_181210.}
-\end{table}
-\end{center}
-
-
-\begin{center}
-   \begin{table}[ht]
-\centering
-\begin{tabular}{|c|c|}
-\hline
-ID spoje & vzdálenost zastávky na trase \\ \hline \hline
-336\_89\_181210 & 0 \\ \hline
-336\_89\_181210 & 4840 \\ \hline
-\end{tabular}
-\label{table:9270_ride}
-\caption{Výtah z~jízdního řádu spoje 336\_89\_181210.}
-\end{table}
-\end{center}
-
-
-\bigbreak
-
-
-Nyní se podívejme už na samotné srovnání rozptylů zpoždění, které jednotlivé modely odhadovaly na trasách mezi danými dvojicemi zastávek. Histogram rozptylů ke dvojicím zastávek podle lineárního modelu je vidět na grafu \ref{fig:rozptyl_old}. Histogram rozptylů zpoždění podle polynomiálního modelu je zobrazen na grafu \ref{fig:rozptyl_new}. Z~porovnání těchto grafů je jasně viditelné, že došlo k~výraznému zmenšení rozptylu. Průměr rozptylů se snížil z~19 sekund na~12.
+Podívejme se na samotné srovnání rozptylů zpoždění, které jednotlivé modely odhadovaly na trasách mezi danými dvojicemi zastávek. Histogram rozptylů ke dvojicím zastávek podle lineárního modelu je vidět na grafu \ref{fig:rozptyl_old}. Histogram rozptylů zpoždění podle polynomiálního modelu je zobrazen na grafu \ref{fig:rozptyl_new}. Z~porovnání těchto grafů je jasně viditelné, že došlo k~výraznému zmenšení rozptylu. Průměr rozptylů se snížil z~19 sekund na~12.
 
 
 \begin{figure}
@@ -338,7 +304,7 @@ Nyní se podívejme už na samotné srovnání rozptylů zpoždění, které jed
 
 \bigbreak
 
-Tyto grafy nám ukazují, že v~průměru došlo ke zlepšení odhadu, ale podívejme se ještě na porovnání rozptylů zpoždění mezi dvojicemi zastávek jednotlivě. Na histogramu \ref{fig:rozptyl_diff} je patrné, že u~největšího počtu dvojic zastávek došlo ke snížení rozptylu o~0 až 10 sekund, nezanedbatelného počtu dvojic o~10 až 20 sekund a~k významnému snížení došlo u~necelých 25 dvojic. Toto pozorování lze vyvodit i~z grafů \ref{fig:rozptyl_old} a~\ref{fig:rozptyl_new}, ze kterých vychází, že k~nejvýznamějšímu poklesu rozptylů došlo z~10--20 sekund na 10--20 sekund.
+Tyto grafy nám ukazují, že v~průměru došlo ke zlepšení odhadu, ale podívejme se ještě na porovnání rozptylů zpoždění mezi dvojicemi zastávek jednotlivě. Na histogramu \ref{fig:rozptyl_diff} je patrné, že u~největšího počtu dvojic zastávek došlo ke snížení rozptylu o~0 až 10 sekund, nezanedbatelného počtu dvojic o~10 až 20 sekund a~k významnému snížení došlo u~necelých 25 dvojic. Toto pozorování lze vyvodit i~z grafů \ref{fig:rozptyl_old} a~\ref{fig:rozptyl_new}, ze kterých vychází, že k~nejvýznamějšímu poklesu rozptylů došlo z~10--20 sekund na 0--10 sekund.
 
 
 \begin{figure}
@@ -366,9 +332,10 @@ Na grafu \ref{fig:chyba} je vizualizován vygenerovaný model pro dvojici zastá
  \label{fig:chyba}
 \end{figure}
 
+\bigbreak
+
 
 Chybná vstupní data, ze kterých vypočítaný model vychází, uvedeme ještě v~tabulce \ref{table:825_samples} a~část jízdního řádu dotčeného spoje v~tabulce \ref{tab:825_ride}. V~první tabulce si můžeme povšimnout, že zhruba ve dvou třetinách jízdy mezi zastávkami došlo ke změně zpoždění v~poslední zastávce. Což je z~našeho pohledu nevysvětlitelné. Tento skok ve zpoždění o~více než 220 sekund je u~všech jízd projíždějících mezi touto dvojicí zastávek.
-
 
 \begin{center}
    \begin{table}[ht]
@@ -389,7 +356,6 @@ ID spoje & ujetá vzdálenost & zpoždění v~poslední zastávce \\ \hline \hli
 \end{table}
 \end{center}
 
-
 \begin{center}
    \begin{table}[ht]
 \centering
@@ -403,9 +369,6 @@ ID spoje & vzdálenost zastávky na trase \\ \hline \hline
 \caption{Výtah z~jízdního řádu spoje 630\_177\_200210.}
 \end{table}
 \end{center}
-
-
-\bigbreak
 
 Avšak tento skok by se měl projevit i~u odhadu zpoždění lineárním modelem. Jak je tedy možné, že u~lineárního modelu vyšel rozptyl velmi malý a~u polynomiálního modelu v~řádu vysokých desítek? K~pochopení nám napomůže podívat se na záznamy tohoto spoje v~den 21.\,2.\,2020, tedy na záznamy, které slouží pro evaluaci úspěšnosti. V~tento den se totiž pořídily pouze 3~záznamy ve vzdálenosti 2\,km od sebe. Tedy lineární model předpověděl všem téměř stejná zpoždění, ale polynomiální model vlivem natrénování se na špatných datech, odhadoval zpoždění zcela mimo realitu.
 

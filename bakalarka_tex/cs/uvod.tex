@@ -9,7 +9,7 @@ Každého cestujícího v~přepravě jistě někdy trápilo zpoždění svého s
 
 \bigbreak
 
-Ve vymezené oblasti operuje spousta soukromých i~městských dopravců. Ti, kteří spadají do naší zájmové oblasti, zastřešují organizace \gls{ropid} a~\gls{idsk}, které objednávají jednotlivé spoje. Pro naši práci je důležité, že tyto organizace zadaly jednotlivým dopravcům vysílat aktuální polohy jejich vozů. Tato data o~polohách jsou přes zprostředkovatele zveřejňována na pražské datové platformě zvané Golemio\footnote{www.golemio.cz}, jež je ve správě společnosti Operátor ICT, a.\,s., která je ve vlastnictví hlavního města Praha. Takových spojů, o~kterých máme všechna požadovaná data, je v~pracovní den vypraveno necelých deset tisíc.\footnote{ze dne 20.\,2.\,2020 podle testovacích dat}
+Ve vymezené oblasti operuje spousta soukromých i~městských dopravců. Ti, kteří spadají do naší zájmové oblasti, zastřešují organizace \gls{ropid} a~\gls{idsk}, které objednávají jednotlivé spoje. Pro naši práci je důležité, že tyto organizace zadaly jednotlivým dopravcům vysílat aktuální polohy jejich vozů. Tato data o~polohách jsou přes zprostředkovatele zveřejňována na pražské datové platformě zvané Golemio\footnote{\url{www.golemio.cz}}, jež je ve správě společnosti Operátor ICT, a.\,s., která je ve vlastnictví hlavního města Praha. Takových spojů, o~kterých máme všechna požadovaná data, je v~pracovní den vypraveno necelých deset tisíc\footnote{ze dne 20.\,2.\,2020 podle testovacích dat}.
 
 \section*{Definice problému}
 
@@ -18,11 +18,11 @@ Cílem této práce je zpřesnit odhad zpoždění vozidel veřejné hromadné d
 
 \bigbreak
 
-V době návrhu práce, kvůli právním komplikacím a~složitosti informačního systému (\citet{Gurycova19}), nebyla k~dispozici real-time data od majoritního dopravce na území Prahy \gls{dpp}. Jelikož je práce zaměřena na odhad zpoždění spoje mezi dvěma sousedícími zastávkami na trase, má tedy větší význam odhadovat zpoždění mezi zastávkami, mezi kterými je větší vzdálenost. A~to jsou převážně spoje jedoucí mimo Prahu. Proto tato data z~\gls{dpp} nenabývají takové důležitosti, jako data od dopravců operujících mimo Prahu. Vzhledem k~tomu, že zbylí dopravci využívají k~přepravě cestujících převážně autobusy, bude práce vypracována pouze s~ohledem na autobusovou dopravu.
+V době návrhu práce, kvůli právním komplikacím a~složitosti informačního systému, nebyla k~dispozici real-time data od majoritního dopravce na území Prahy \gls{dpp}  (\citet{Gurycova19}). Jelikož je práce zaměřena na odhad zpoždění spoje mezi dvěma sousedícími zastávkami na trase, má tedy větší význam odhadovat zpoždění mezi zastávkami, mezi kterými je větší vzdálenost. A~to jsou převážně spoje jedoucí mimo Prahu. Proto tato data z~\gls{dpp} nenabývají takové důležitosti, jako data od dopravců operujících mimo Prahu. Vzhledem k~tomu, že zbylí dopravci využívají k~přepravě cestujících převážně autobusy, bude práce vypracována pouze s~ohledem na autobusovou dopravu.
 
 \bigbreak
 
-V práci se tedy pokusíme využít dostupná otevřená real-time data k~získání informací o~zpoždění spojů na trase a~využít je k~lepším odhadům zpoždění. Řešení ovšem není založeno pouze na real-time datech, ale využívá také statická data o~jízdních řádech nebo zastávkách hromadné dopravy, jejichž zdrojem je přímo \gls{ropid}\footnote{pid.cz/o-systemu/opendata/} a~také mapové podklady. Ty jsou potřeba zejména pro vizualizaci zastávek a~jízdních řádů a~vykreslení trasy spoje přímo do mapy. Avšak i~tato statická data jsou dostupná přímo z~Datové platformy pomocí stejného rozhraní jako data real-timová.
+V práci se tedy pokusíme využít dostupná otevřená real-time data k~získání informací o~zpoždění spojů na trase a~využít je k~lepším odhadům zpoždění. Řešení ovšem není založeno pouze na real-time datech, ale využívá také statická data o~jízdních řádech nebo zastávkách hromadné dopravy, jejichž zdrojem je přímo \gls{ropid}\footnote{\url{pid.cz/o-systemu/opendata/}} a~také mapové podklady. Ty jsou potřeba zejména pro vizualizaci zastávek a~jízdních řádů a~vykreslení trasy spoje přímo do mapy. Avšak i~tato statická data jsou dostupná přímo z~Datové platformy pomocí stejného rozhraní jako data real-timová.
 
 \bigbreak
 
@@ -34,11 +34,11 @@ Klientská aplikace bude vytvořená pro webovou platformu, kód bude napsán ve
 
 \bigbreak
 
-Celá serverová část je napsána v~jazyce Python3. Server bude sloužit pro stahování a~ukládání dat do \gls{sql} databáze, konkrétně implementace MySQL. Další část back-endu bude zpřístupňovat data z~databáze, určené pro klienstkou aplikaci.
+Celá serverová část je napsána v~jazyce Python\,3. Server bude sloužit pro stahování a~ukládání dat do \gls{sql} databáze, konkrétně implementace MySQL. Další část back-endu bude zpřístupňovat data z~databáze, určené pro klienstkou aplikaci.
 
 \bigbreak
 
-Jádro celé práce tvoří modul odhadu zpoždění. Zde používáme knihovny jakyka Python\,3~pro strojové učení scikit-learn a~pro práci s~velkými objemy dat NumPy. Zpoždění spojů budeme odhadovat pomocí pravděpodobnostních modelů natrénovaných na historických datech.
+Jádro celé práce tvoří modul odhadu zpoždění. Zde používáme knihovny jazyka Python\,3~pro strojové učení scikit-learn a~pro práci s~velkými objemy dat NumPy. Zpoždění spojů budeme odhadovat pomocí pravděpodobnostních modelů natrénovaných na historických datech.
 
 \bigbreak
 
@@ -50,11 +50,11 @@ Tento dokument je rozdělen do 4 hlavních kapitol.
 
 \subsection*{Analýza}
 
-V této kapitole se zaměříme na detailní definici a~popis řešeného problému. Analyzujeme vstupní data a~jejich zdroj. Dále si ukážeme příklady již funkčních nástrojů vizualizující polohy vozidel a~jiná data.
+V této kapitole se zaměříme na detailní definici a~popis řešeného problému. Analyzujeme vstupní data a~jejich zdroj. Dále si ukážeme příklady již funkčních nástrojů vizualizující polohy vozidel a~jiná data a definujeme funkční požadavky na dílo.
 
 \subsection*{Návrh řešení}
 
-V této kapitole definujeme funkční požadavky na dílo. Navrhneme databázi, do které budeme ukládat data, včetně algoritmu plnícího databázi. Poté navrhneme algoritmus, kterým budeme odhadovat zpoždění. A~na závěr kapitoly definujeme front-endovou aplikaci včetně serverové části.
+V této kapitole navrhneme databázi, do které budeme ukládat data, včetně algoritmu plnícího databázi. Poté navrhneme algoritmus, kterým budeme odhadovat zpoždění. A~na závěr kapitoly definujeme front-endovou aplikaci včetně serverové části.
 
 \subsection*{Implementace}
 
@@ -70,9 +70,9 @@ Tato práce zabíhá do velkého detailu problematiky \gls{vhd}. Protože je z~h
 
 \begin{itemize}
 
-	\item Nástupiště -- Nástupiště je nejmenší bod, který jsme schopni rozlišit. Od něj odjíždějí konkrétní vozidla.
+	\item Nástupiště -- Nástupiště je nejmenší bod v dopravní síti, který jsme schopni rozlišit. Od něj odjíždějí konkrétní vozidla.
 
-	\item Zastávka / Stanice / -- Rozdíl mezi zastávkou a~stanicí není jasně definován. Obecně se chápe, že stanice je většího rozsahu, tedy že má více nástupišť nebo je obsluhována více druhy dopravních prostředků. Stanicím a~zastávkám pak přísluší i~pojmenování.
+	\item Zastávka / Stanice -- Rozdíl mezi zastávkou a~stanicí není jasně definován. Obecně se chápe, že stanice je většího rozsahu, tedy že má více nástupišť nebo je obsluhována více druhy dopravních prostředků. Stanicím a~zastávkám pak přísluší i~pojmenování.
 
 	\item Jízdní řád -- Je definován posloupností zastávek, kterým náleží časy příjezdu a~odjezdu. Čas projetí zastávky je počítán vždy od půlnoci, tedy není vázán na konkrétní den.
 

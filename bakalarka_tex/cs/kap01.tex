@@ -2,7 +2,7 @@
 
 \chapter{Analýza}
 
-V této kapitole je detailně popsán řešený problém a~způsoby navrženého a~současného řešení. Dále je popsán zdroj dat, se kterým budeme v~této práci pracovat.
+V této kapitole je detailně popsán řešený problém a~způsoby současného řešení. Dále je popsán zdroj dat, se kterým budeme v~této práci pracovat. A rozebrány příklady vstupních dat.
 
 \section{Úvod}
 
@@ -104,11 +104,11 @@ Nicméně tento algoritmus nijak nezohledňuje variabilitu profilu trasy. Totiž
 
 \bigbreak
 
-Proto je potřeba tento odhad zpřesnit, což je cílem naší práce. K~tomuto cíli jsme byli nasměrováni v~rámci schůzky s~pracovníky společnosti OICT, kde bylo řečeno, že tento problém není řešen v~současném řešení.
+Proto je potřeba tento odhad zpřesnit, což je cílem naší práce. K~tomuto cíli jsme byli nasměrováni v~rámci schůzky s~pracovníky společnosti Operátor ICT, kde bylo řečeno, že tento problém není řešen v~současném řešení.
 
 \bigbreak
 
-Současné řešení ve srovnání s~navrhovaným řešením je zobrazeno na grafu \ref{fig:lin_vs_poly}. Zde je zobrazen modelový příklad trasy vozidla jedoucí trasu dlouhou 10\,km za 720\,s. Při použití současného řešení se na vozidlo nahlíží, jakože jede rychlostí 50\,km/h po celou trasu. Zatímco navrhované řešení modeluje obvyklé výkyvy rychlosti, a~tedy zohledňuje při odhadu zpoždění čas jízdy jednotlivých úseků celé trasy. Konkrétně v~tomto modelovém příkladě uvažované vozidlo na začátku své trasy projelo úsek mezi 0,5.\,km a~1,5\,km za 96\,s~(37,5\,km/h), což odpovídá např. výjezdu z~města. Úsek mezi 4,5.\,km a~5,5.\,km vozidlo ujelo za 46\,s~(78 km/h), což může být jízda mezi městy. Pokud tedy vozidlo pojede podle modelu jízdy tak, jak je na grafu zobrazeno oranžovou křivkou, budeme mu po celou dobu jízdy předpovídat konstantní zpoždění. Naopak podle současného lineárního modelu se odhad zpoždění v~průběhu trasy může pohybovat v~rozmezí několika desítek sekund.
+Problém současného řešení ve srovnání s~navrhovaným řešením je zobrazeno na grafu \ref{fig:lin_vs_poly}. Zde je zobrazen modelový příklad trasy vozidla jedoucí trasu dlouhou 10\,km za 720\,s. Při použití současného řešení se na vozidlo nahlíží, jakože jede rychlostí 50\,km/h po celou trasu. Zatímco navrhované řešení modeluje obvyklé výkyvy rychlosti, a~tedy zohledňuje při odhadu zpoždění čas jízdy jednotlivých úseků celé trasy. Konkrétně v~tomto modelovém příkladě uvažované vozidlo na začátku své trasy projelo úsek mezi 0,5.\,km a~1,5.\,km za 96\,s~(37,5\,km/h), což odpovídá např. výjezdu z~města. Úsek mezi 4,5.\,km a~5,5.\,km vozidlo ujelo za 46\,s~(78\,km/h), což může být jízda mezi městy. Pokud tedy vozidlo pojede podle modelu jízdy tak, jak je na grafu zobrazeno oranžovou křivkou, budeme mu po celou dobu jízdy předpovídat konstantní zpoždění. Naopak podle současného lineárního modelu se odhad zpoždění v~průběhu trasy může pohybovat v~rozmezí několika desítek sekund.
 
 \begin{figure}
 	\centering
@@ -123,11 +123,11 @@ V této sekci je popsán zdroj real-timových dat o~polohách vozidel využívan
 
 \subsection{Přístup k~datům}
 
-Vozidla vysílají data o~své poloze při různých událostech. Zejména pak při brždění, rozjezdu, vyhlášení zastávky, nebo jinak každých 20 sekund\footnote{Řečeno zaměstnancem OICT na schůzce 4.\,5.\,2019}.
+Vozidla vysílají data o~své poloze při různých událostech. Zejména pak při brždění, rozjezdu, vyhlášení zastávky, nebo jinak každých 20 sekund\footnote{Řečeno zaměstnancem Operátor ICT na schůzce 4.\,5.\,2019}.
 
 \bigbreak
 
-Taková data pak přímo putují k~provozovateli systému na monitorování vozidel, kterým je společnost Chaps spol. s\,r.\,o.\footnote{https://pid.cz/dopravci-a-partneri/chaps-spol-s-r-o/} jakožto partner \gls{ropid}u. Ten však tato data zpracovává a~posílá ke zveřejnění na platformě Golemio. Bohužel při tomto procesu zpracování se vytratí informace o~události, v~jaké byla data pořízena. Tedy informace o~příjezdu nebo odjezdu ze zastávky je zjistitelná pouze z~\gls{gps} souřadnic a~následném odhadu pozice vozidla na trase daného spoje.
+Taková data pak přímo putují k~provozovateli systému na monitorování vozidel, kterým je společnost Chaps spol. s\,r.\,o.\footnote{\url{https://pid.cz/dopravci-a-partneri/chaps-spol-s-r-o/}} jakožto partner \gls{ropid}u. Ten však tato data zpracovává a~posílá ke zveřejnění na platformě Golemio. Bohužel při tomto procesu zpracování se vytratí informace o~události, v~jaké byla data pořízena. Tedy informace o~příjezdu nebo odjezdu ze zastávky je zjistitelná pouze z~\gls{gps} souřadnic a~následném odhadu pozice vozidla na trase daného spoje.
 
 \bigbreak
 
@@ -151,7 +151,7 @@ Současně s~využívanou verzí \gls{api}, je nasazená i~pokročilejší \gls{
 
 \bigbreak
 
-Oficiální uživatelská dokumentace Datové platformy\footnote{Golemio: https://golemioapi.docs.apiary.io} je sama o~sobě poměrně zastaralá. Její aktuální sada parametrů neodpovídá dokumentaci a~neobsahuje žádné popisy nebo vysvětlení atributů. Proto vysvětlení jednotlivých atributů se zakládá na intuitivním pochopení, nebo vyplynulo z~jednání se správci platformy. V~následujících kapitolách bude popsán formát dat tak, jak přichází ze zdroje. Ten se může od oficiálně vystavené dokumentace lišit. A~také budou popsány pouze atributy využívané v~této práci nebo zajímavé pro její budoucí rozvoj.
+Oficiální uživatelská dokumentace Datové platformy Golemio\footnote{\url{https://golemioapi.docs.apiary.io}} je sama o~sobě poměrně zastaralá. Její aktuální sada parametrů neodpovídá dokumentaci a~neobsahuje žádné popisy nebo vysvětlení atributů. Proto vysvětlení jednotlivých atributů se zakládá na intuitivním pochopení, nebo vyplynulo z~jednání se správci platformy. V~následujících kapitolách bude popsán formát dat tak, jak přichází ze zdroje. Ten se může od oficiálně vystavené dokumentace lišit. A~také budou popsány pouze atributy využívané v~této práci nebo zajímavé pro její budoucí rozvoj.
 
 \bigbreak
 
@@ -163,7 +163,7 @@ Ačkoli se dokumentace tváří tak, že data jsou exportována ve formátech \g
 
 \bigbreak
 
-Celá Datová platforma Golemio je pojatá jako Open Source projekt\footnote{Programátorská dokumentace je dostupná na https://operator-ict.gitlab.io/golemio/documentation/}. Tedy je možné její zdrojový kód vylepšit či opravit, nebo také čtením kódu detailně porozumět, jak zde popisované zpracování dat funguje. Avšak takový rozbor zdrojového kódu je mimo rozsah této práce.
+Celá Datová platforma Golemio je pojatá jako Open Source projekt\footnote{Programátorská dokumentace je dostupná na \url{https://operator-ict.gitlab.io/golemio/documentation/}}. Tedy je možné její zdrojový kód vylepšit či opravit, nebo také čtením kódu detailně porozumět, jak zde popisované zpracování dat funguje. Avšak takový rozbor zdrojového kódu je mimo rozsah této práce.
 
 \subsection{Obsah dat}
 
@@ -179,11 +179,11 @@ Informace o~nově nalezených spojích v~souboru s~polohy vozidel si pak vyžád
 
 \bigbreak
 
-Dále je možné využít soubor zastávek se jménem \gls{gtfs} Stops, který by měl obsahovat všechny vyskytující se zastávky. Tento soubor je vhodné zpracovat na začátku běhu aplikace. Musíme však být připraveni na možný výskyt nové zastávky, která nebyla nalezena v~tomto souboru zastávek, ale je nalezena v~jízdním řádu spoje a~být schopni vložit takovou zastávku do databáze. Proto pro nás nebude tento soubor příliš důležitý. Datový formát reprezentace zastávek je však stejný v~souboru zastávek i~souboru jízdního řádu spoje.
+Dále je možné využít soubor zastávek se jménem \gls{gtfs} Stops, který by měl obsahovat všechny vyskytující se zastávky. Tento soubor je vhodné zpracovat na začátku běhu aplikace. Musíme však být připraveni na možný výskyt nové zastávky, která nebyla nalezena v~tomto souboru zastávek, ale je nalezena v~jízdním řádu spoje a~musíme být schopni vložit takovou zastávku do databáze. Proto pro nás nebude tento soubor příliš důležitý. Datový formát reprezentace zastávek je však stejný v~souboru zastávek i~souboru jízdního řádu spoje.
 
 \bigbreak
 
-Diagram zobrazující strukturu dat v~Datové platformě je zobrazen na obrázku \ref{fig:relace_vstupnich_dat}. Uvádíme zde pouze datové sady potřebné pro tuto práci, to jsou výše popsané soubory. Stejně tak popisujeme asociace mezi daty tak, jak je využíváme v~této práci, např.: každé vozidlo může být na vyžádání dolněno o~jízdní řád, tuto relaci však nevyužíváme.
+Diagram zobrazující strukturu dat v~Datové platformě je zobrazen na obrázku \ref{fig:relace_vstupnich_dat}. Uvádíme zde pouze datové sady potřebné pro tuto práci, to jsou výše popsané soubory. Stejně tak popisujeme asociace mezi daty tak, jak je využíváme v~této práci, např.: každé vozidlo může být na vyžádání doplněno o~jízdní řád, tuto relaci však nevyužíváme.
 
 \begin{figure}
 	\centering
@@ -340,7 +340,7 @@ Příklad dat popisujících jednu jízdu včetně zastávek je uveden níže. S
 
 \subsection{Analýza statických dat}
 
-Sběr dat probíhal ve dnech 20.\,2.\,2020 -- 23.\,2.\,2020 z~Datové platformy Golemio. Data byla stahována po souborech tak, jak jsou popsána výše.
+Sběr dat probíhal ve dnech 20.\,2.\,2020 -- 23.\,2.\,2020 z~Datové platformy Golemio. Data byla stahována po souborech tak, jak jsou popsána výše. Tato data jsou dostupná v příloze práce.
 
 \bigbreak
 
@@ -395,6 +395,149 @@ Avšak ne všechna vozidla v~každém souboru jsou nová nebo dostala změny opr
 \bigbreak
 
 Další rozbor dat na grafu \ref{fig:stop_distances_result} a~v~kapitole \ref{section:stats}.
+
+
+\subsection{Analýza vzorků poloh vozidel a profilů jízd}
+
+Rozeberme si typy profilů jízd.
+
+\bigbreak
+
+Na úvod uveďme, že ve všech grafech a~následně i~pro počítání modelů, byly všechny zobrazené vzorky poloh vozidel v~grafech zarovnány tak, aby jejich jízda ze zastávky první vždy začínala se zpožděním 0~sekund. To podle nahlášeného zpoždění v~zastávce.
+
+
+\bigbreak
+
+Z~dat je však patrné, že ne vždy se zarovnání do nuly podařilo. Takové případy jsou pak způsobeny chybami v~datech vysílaných z~vozidel nebo špatně určeným zpožděním v~poslední projeté stanici na straně poskytovatele dat. Takové chyby však vznikají spíše výjimečně, a~proto ovlivňují statistické výpočty jen málo. Pro eliminaci těchto chyb je pak implementován modul, který se pokouší očividně chybné vzorky najít a~smazat. To také z~důvodu vizualizace vzorků v~grafech, kde jeden vzorek, zcela mimo škálu jiných vzorků, rozhodí celý graf, který se tak stává nepřehledným.
+
+
+\subsubsection{Vlnové profily jízdy} \label{subsubsection:vlny}
+
+
+Z této analýzy dat poloh vozidel a~možných vlivů ovlivňující profil jízdy je patrné, že v~průběhu jednoho dne dochází na trase nejvýše k~několika výkyvům rychlosti jízdy. Viditelné jako vlny v~průběhu dne na grafu \ref{fig:dojezd_ve_fazich_dne}), v~8:30 hod\footnote{časy jsou uvedeny v~UTC}. Jízda trvala téměř 10 minut, naopak ve večerních hodinách jízda trvá kolem 7~minut.
+
+
+\begin{figure}
+\centering
+  \includegraphics[width=\linewidth]{../img/dojezd_ve_fazich_dne}
+  \caption{Variabilita délky jízdy v~průběhu dne}
+  \label{fig:dojezd_ve_fazich_dne}
+\end{figure}
+
+\bigbreak
+
+Stejně tak po analýze profilu jízdy v~závislosti na ujeté vzdálenosti je na grafu \ref{fig:dojezd_podle_vzdalenosti} vidět, že čas jízdy narůstá také v~jistých vlnách.
+
+\bigbreak
+
+K tomuto dochází například v~případech, kdy spoj zastavuje ve městě a~v~následujících několika málo kilometrech jede pomaleji, poté zrychlí a~dále opět vjede do města. Takový model se hodí spíše na delší trasy s~plynulou jízdou.
+
+
+\begin{figure}
+\centering
+  \includegraphics[width=\linewidth]{../img/dojezd_podle_vzdalenosti}
+  \caption{Variabilita času jízdy v~závislosti na ujeté vzdálenosti}
+  \label{fig:dojezd_podle_vzdalenosti}
+\end{figure}
+
+\subsubsection{Chyby a nepravidelnosti}
+
+Výše popsaný příklad však ilustruje téměř ideální případ, kde je pravidelnost jízdy velmi dobře viditelná. Rozeberme si proto nyní i~jiné druhy profilů jízd.
+
+
+\bigbreak
+
+Na grafu \ref{fig:cerny_most_chvaly} je patrné, že vzorky poloh vozidel profilu jízdy stále vytváří vlny. Ovšem už nejsou tak jednoznačně vidět jako v~předchozím příkladě, a~především se v~celém grafu objevuje pár vzorků, které zcela vybočují mimo největší shluky vzorků. V~těchto případech se zřejmě jedná o~případy vozidel, které potkala nějaká anomálie při výjezdu ze stanice, a~proto nabraly zpoždění hned na začátku.
+
+
+\begin{figure}
+\centering
+  \includegraphics[width=\linewidth]{../img/4383_2712}
+  \caption{Úsek s~nepravidelnostmi}
+  \label{fig:cerny_most_chvaly}
+\end{figure}
+
+\bigbreak
+
+
+Pro velmi krátké trasy se zobrazené vzorky dat mohou jevit jako zcela nepravidelné. Příklad uveden na grafu \ref{fig:divoka_sarka_veleslavin}. To je způsobeno tím, že doba jízdy trasy je natolik krátká, že jeden spoj trasu projede za minutu, ale druhý spoj, který se zdrží o~zanedbatelný čas (z pohledu problému řešeného v~této práci) přijede do následující stanice až za dvojnásobnou dobu. Dále je vysoký rozptyl vzorků způsoben nepřesnostmi při měření polohy vozidel a~dalšími možnými problémy. Jelikož se ale jedná o~velmi krátké trasy, nemá smysl jejich specifika vůbec řešit, protože spočítaná data by zastarala ještě před zveřejněním.
+
+
+\begin{figure}
+\centering
+  \includegraphics[width=\linewidth]{../img/164_165}
+  \caption{Úsek s~nepravidelnostmi 2}
+  \label{fig:divoka_sarka_veleslavin}
+\end{figure}
+
+\bigbreak
+
+
+Na ukázku uveďme ještě příklad grafu \ref{fig:delayed_trip}, kde jedna jízda dosáhla výrazného zpoždění oproti ostatním jízdám. Současně zde můžeme vidět chybu ve vstupních datech, kdy jedné jízdě přísluší vzorky poloh zcela mimo škálu grafu. Po bližším přezkoumání se jízda jeví, jakoby jela opačným směrem. V~naší práci, ale nebudeme zkoumat zdroj chyby, ani se snažit data nějak opravit a~rovnou tyto vzorky vyloučíme.
+
+
+\begin{figure}
+\centering
+  \includegraphics[width=\linewidth]{../img/16_17}
+  \caption{Výrazné zpoždění jedné jízdy a~chybný směr jízdy}
+  \label{fig:delayed_trip}
+\end{figure}
+
+\bigbreak
+
+Další nepřesnost ve vstupních datech představují vzorky poloh vozidel, které byly zaznamenány bezprostředně po vyjetí z~první zastávky, nebo před přijetím do druhé zastávky. Pro lepší výsledky je vyloučíme. Takové vzorky poloh vozidel obsahují často chybná data, která negativně ovlivňují výpočet modelů i~porovnání jejich výsledků. Tyto chyby jsou převážně způsobeny zaokrouhlováním atributu ujeté vzdálenosti ve vzorku dat na celé stovky.
+
+\bigbreak
+
+Ilustrujme si tento problém na příkladu z~reálných dat. V~tabulce \ref{table:9270_samples} jsou zaznamenány vybrané polohy vozidla, které jelo podle jízdního řádu, jehož první dvě zastávky jsou uvedené v~tabulce \ref{table:9270_ride}. Ačkoli je druhá zastávka spoje ve vzdálenosti 4\,840 metrů od výchozí zastávky, podle vzorku polohy vozidla pořízeném ve vzdálenosti 4\,800 metrů se změnilo zpoždění v~poslední zastávce, což značí, že vozidlo již stojí v~druhé zastávce. Avšak kdybychom brali všechny vzorky dat pořízené před projetím bodu 4\,840 metrů (druhá zastávka), zahrneme tento bod do výpočtu modelu, resp. evaluace výsledků a~negativně nám ovlivní výsledky. Dále vidíme, že po vyjetí ze zastávky má vozidlo konstantní zpoždění v~poslední projeté zastávce, tedy vozidlo opustilo zastávku a~je na trase.
+
+\begin{center}
+   \begin{table}[ht]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+ID spoje & ujetá vzdálenost & zpoždění v~poslední zastávce \\ \hline \hline
+336\_89\_181210 & 4400 & 61 \\ \hline
+336\_89\_181210 & 4700 & 61 \\ \hline
+336\_89\_181210 & 4800 & 84 \\ \hline
+336\_89\_181210 & 4900 & 92 \\ \hline
+336\_89\_181210 & 5300 & 92 \\ \hline
+\end{tabular}
+\label{table:9270_samples}
+\caption{Záznamy poloh spoje 336\_89\_181210.}
+\end{table}
+\end{center}
+
+
+\begin{center}
+   \begin{table}[ht]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+ID spoje & vzdálenost zastávky na trase \\ \hline \hline
+336\_89\_181210 & 0 \\ \hline
+336\_89\_181210 & 4840 \\ \hline
+\end{tabular}
+\label{table:9270_ride}
+\caption{Výtah z~jízdního řádu spoje 336\_89\_181210.}
+\end{table}
+\end{center}
+
+
+\subsubsection{Profil jízdy s nepředvídatelným zdržením} \label{subsubsection:nepr_zpozd}
+
+
+Na dalším grafu \ref{fig:nepredvidatelne_zdrzeni} je zobrazen příklad, kdy na trase existuje bod, který určité procento projíždějících spojů zdrží o~netriviální dobu. Něco takového nastane, pokud spoje projíždí světelnou křižovatkou nebo místem, kde se náhodně tvoří kolona vozidel.
+
+
+\begin{figure}
+\centering
+  \includegraphics[width=\linewidth]{../img/1128_1129}
+  \caption{Úsek s~nepravidelným zpožděním}
+  \label{fig:nepredvidatelne_zdrzeni}
+\end{figure}
+
+
 
 \subsection{Funkční a~kvalitativní požadavky}
 
@@ -454,19 +597,19 @@ Jak bylo řečeno v~úvodu, součástí práce je i~vizualizace spočítaných d
 
 \bigbreak
 
-To bude provedeno formou front-endové aplikace, která zobrazuje mapu a~do ní zanáší data o~vozidlech \gls{vhd}. Funkční požadavky této aplikace jsou inspirované již existujícími řešeními tohoto problému.
+To bude provedeno formou front-endové aplikace, která zobrazuje mapu a~do ní zanáší data o~vozidlech \gls{vhd}.
 
 \subsection{Mapové podklady}
 
-Jak vyplývá z~funkčních požadavků data budou zobrazována v~mapě. Mapu si samozřejmě nebudeme kreslit sami, ale využijeme jedno z~již existujících řešení, které umožňuje zobrazení mapy s~vlastními daty. Takové služby mohou být provozovatelem zpoplatněny, ale pro naše demonstrační účely, kdy budeme využívat tuto službu velmi málo, bývá od poplatků většinou upuštěno.
+Jak vyplývá z~definice problému data budou zobrazována v~mapě. Mapu si samozřejmě nebudeme kreslit sami, ale využijeme jedno z~již existujících řešení, které umožňuje zobrazení mapy s~vlastními daty. Takové služby mohou být provozovatelem zpoplatněny, ale pro naše demonstrační účely, kdy budeme využívat tuto službu velmi málo, bývá od poplatků většinou upuštěno.
 
 \bigbreak
 
-Jedním z~těchto poskytovatelů je společnost Google, která má propracované mapové podklady a~prostřednictvím služby Google Maps poskytuje pro tuto práci požadovanou službu nazývanou Google My Maps\footnote{https://www.google.com/maps/about/mymaps/}.
+Jedním z~těchto poskytovatelů je společnost Google, která má propracované mapové podklady a~prostřednictvím služby Google Maps poskytuje pro tuto práci požadovanou službu nazývanou Google My Maps\footnote{\url{https://www.google.com/maps/about/mymaps/}}.
 
 \bigbreak
 
-Další platforma je Mapbox\footnote{https://www.mapbox.com}, která poskytuje s~využitím dalších knihoven velmi podobné služby jako Google My Maps. Nicméně narozdíl od Googlu využívá jako mapový podklad \gls{osm} (otevřená geografické data).
+Další platforma je Mapbox\footnote{\url{https://www.mapbox.com}}, která poskytuje s~využitím dalších knihoven velmi podobné služby jako Google My Maps. Nicméně narozdíl od Googlu využívá jako mapový podklad \gls{osm} (otevřená geografická data).
 
 \bigbreak
 

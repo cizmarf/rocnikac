@@ -11,7 +11,7 @@ Dále jsme analyzovali jiné nástroje v~České republice vizualizující poloh
 
 \bigbreak
 
-Navrhli jsme procesy zpracování vstupních dat a~jejich následné využití k~pravděpodobnostnímu odhadu zpoždění. Také jsme navrhli algoritmus, který se používá v~této práci pro odhad zpoždění a~algoritmu, který řeší komplikovanější situace, než s~jakými jsme se setkali v~pražské dopravní síti. Ačkoli tento návrh algoritmu neimplementujeme, může sloužit jako základní kámen pro další výzkum a~obdobné aplikace. Součástí návrhu je design front-endu aplikace a~databázové struktury.
+Navrhli jsme procesy zpracování vstupních dat a~jejich následné využití k~pravděpodobnostnímu odhadu zpoždění. Také jsme navrhli algoritmus, který se používá v~této práci pro odhad zpoždění a~algoritmus, který řeší komplikovanější situace, než s~jakými jsme se setkali v~pražské dopravní síti. Ačkoli tento návrhovaný algoritmus neimplementujeme, může sloužit jako základní kámen pro další výzkum a~obdobné aplikace. Součástí návrhu je design front-endu aplikace a~databázové struktury.
 
 
 \bigbreak
@@ -21,7 +21,7 @@ Zdrojový kód aplikace jsme zdokumentovali jako součást kódu a~logiku běhu 
 
 \bigbreak
 
-Na závěr jsme celou aplikaci otestovali, a~to od jednotlivých funkčních tříd až po aplikaci jako celek. Testování funkcí jsme provedli pomocí unit testů. Složitější celky včetně správné funkčnosti databáze jsme otestovali pomocí integračních testů. Server byl podroben zátěžovým testům, kdy jsme jej dotazovali velkým množstvím paralelních dotazů. Rychlost zpracování dat byla měřena v~bodě maximálního vytížení.
+Na závěr jsme celou aplikaci otestovali, a~to od jednotlivých funkcí tříd až po aplikaci jako celek. Testování funkcí jsme provedli pomocí unit testů. Složitější celky včetně správné funkčnosti databáze jsme otestovali pomocí integračních testů. Server byl podroben zátěžovým testům, kdy jsme jej dotazovali velkým množstvím paralelních dotazů. Rychlost zpracování dat byla měřena v~bodě maximálního vytížení.
 
 
 \bigbreak
@@ -40,7 +40,7 @@ Protože jsme při návrhu aplikace rozhodli rozdělit vstupní data pro výpoč
 \bigbreak
 
 
-Vzhledem k~tomu, že v~této práci pracujeme s~geografickými daty, bylo by vhodnější použít jinou \gls{sql} databázi, protože MySQL databáze není příliš uzpůsobená pro ukládání tohoto typu dat. Vhodnější implementace databáze se nabízí PostgreSQL\footnote{https://www.postgresql.org} s~rozšířením PostGIS\footnote{https://postgis.net}.
+Vzhledem k~tomu, že v~této práci pracujeme s~geografickými daty, bylo by vhodnější použít jinou \gls{sql} databázi, protože MySQL databáze není příliš uzpůsobená pro ukládání tohoto typu dat. Vhodnější implementace databáze se nabízí PostgreSQL\footnote{\url{https://www.postgresql.org}} s~rozšířením PostGIS\footnote{\url{https://postgis.net}}.
 
 \bigbreak
 
